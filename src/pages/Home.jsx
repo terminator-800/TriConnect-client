@@ -1,12 +1,12 @@
-import { Link } from "react-router-dom";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
-import icons from "../assets/svg/Icons";
+import { Link } from 'react-router-dom';
+import Navbar from './Navbar';
+import Footer from './Footer';
+import icons from '../assets/svg/Icons';
 
 const Home = () => {
   return (
     <div className="">
-      <Navbar userType={"guest"} />
+      <Navbar userType={'guest'} />
 
       <section className="text-center">
         <div
@@ -21,9 +21,9 @@ const Home = () => {
           </h1>
 
           <p className="mt-5 text-gray-600 mb-10 text-base sm:text-lg md:text-xl max-w-2xl mx-auto px-2">
-            An all-in-one job-matching platform that connects job seekers,
-            employers, and manpower providers — designed to simplify your job
-            search and hiring process with a clean, easy-to-use experience.
+            An all-in-one job-matching platform that connects job seekers, employers, and manpower
+            providers — designed to simplify your job search and hiring process with a clean,
+            easy-to-use experience.
           </p>
 
           <Link
@@ -58,27 +58,24 @@ const Home = () => {
           </h1>
         </div>
         <p className="mt-15 text-[#666666]">
-          <span className="text-[#003479] font-bold">TriConnect</span> is built
-          on the mission of bridging the gap between job seekers, employers, and
-          manpower agencies. <br />
-          Whether you're looking to hire, find work, or expand your recruitment
-          reach, TriConnect provides a streamlined platform tailored to your
-          needs.
+          <span className="text-[#003479] font-bold">TriConnect</span> is built on the mission of
+          bridging the gap between job seekers, employers, and manpower agencies. <br />
+          Whether you're looking to hire, find work, or expand your recruitment reach, TriConnect
+          provides a streamlined platform tailored to your needs.
         </p>
         <p className="mt-5 text-[#666666]">
-          From posting jobs to finding the right match — we make the process
-          efficient, reliable, and user-friendly.
+          From posting jobs to finding the right match — we make the process efficient, reliable,
+          and user-friendly.
         </p>
       </section>
 
       {/* WHY CHOOSE TRICONNECT */}
       <section id="how_it_works" className="mt-30">
         <h1 className="text-3xl font-bold text-center">
-          WHY CHOOSE <span className="text-[#003479]">TriConnect</span>{" "}
+          WHY CHOOSE <span className="text-[#003479]">TriConnect</span>{' '}
         </h1>
         <p className="text-lg text-gray-600 mt-5 text-center">
-          Our platform offers a comprehensive suite of features designed to
-          streamline <br />
+          Our platform offers a comprehensive suite of features designed to streamline <br />
           the hiring process and improve access to job opportunities for all.
         </p>
 
@@ -96,9 +93,9 @@ const Home = () => {
                 <div>
                   <h1 className="text-lg font-semibold">All-in-One Platform</h1>
                   <p className="text-gray-700 mt-2">
-                    TriConnect connects job seekers, employers, and manpower
-                    agencies in one seamless system — making the hiring and
-                    job-finding process faster and more convenient.
+                    TriConnect connects job seekers, employers, and manpower agencies in one
+                    seamless system — making the hiring and job-finding process faster and more
+                    convenient.
                   </p>
                 </div>
               </div>
@@ -115,9 +112,8 @@ const Home = () => {
                 <div>
                   <h1 className="text-lg font-semibold">All-in-One Platform</h1>
                   <p className="text-gray-700 mt-2">
-                    Designed with simplicity in mind, TriConnect makes it easy
-                    for anyone to post jobs, apply, and connect — even for
-                    first-time users.
+                    Designed with simplicity in mind, TriConnect makes it easy for anyone to post
+                    jobs, apply, and connect — even for first-time users.
                   </p>
                 </div>
               </div>
@@ -137,8 +133,8 @@ const Home = () => {
                 <div>
                   <h1 className="text-lg font-semibold">All-in-One Platform</h1>
                   <p className="text-gray-700 mt-2">
-                    All users undergo a verification process to ensure safety
-                    and trust within the platform.
+                    All users undergo a verification process to ensure safety and trust within the
+                    platform.
                   </p>
                 </div>
               </div>
@@ -155,8 +151,8 @@ const Home = () => {
                 <div>
                   <h1 className="text-lg font-semibold">All-in-One Platform</h1>
                   <p className="text-gray-700 mt-2">
-                    All users undergo a verification process to ensure safety
-                    and trust within the platform.
+                    All users undergo a verification process to ensure safety and trust within the
+                    platform.
                   </p>
                 </div>
               </div>
@@ -260,9 +256,7 @@ const Home = () => {
 
       {/* How It Works */}
       <section className="bg-cyan-100 py-16 px-8 md:px-20">
-        <h1 className="text-2xl md:text-3xl font-bold mb-10 text-gray-800">
-          HOW IT WORKS
-        </h1>
+        <h1 className="text-2xl md:text-3xl font-bold mb-10 text-gray-800">HOW IT WORKS</h1>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 text-center">
           {/* Step 1 */}
@@ -270,12 +264,9 @@ const Home = () => {
             <div className="bg-white w-14 h-14 rounded-xl flex justify-center items-center shadow-md">
               <h1 className="text-[#003479] font-bold text-lg">1</h1>
             </div>
-            <h2 className="text-lg font-semibold text-gray-800">
-              Register & Verify
-            </h2>
+            <h2 className="text-lg font-semibold text-gray-800">Register & Verify</h2>
             <p className="text-[#666666] text-sm leading-relaxed max-w-[220px]">
-              Create an account as a job seeker, employer, or agency and wait
-              for the verification.
+              Create an account as a job seeker, employer, or agency and wait for the verification.
             </p>
           </div>
 
@@ -284,12 +275,9 @@ const Home = () => {
             <div className="bg-white w-14 h-14 rounded-xl flex justify-center items-center shadow-md">
               <h1 className="text-[#003479] font-bold text-lg">2</h1>
             </div>
-            <h2 className="text-lg font-semibold text-gray-800">
-              Create Profile
-            </h2>
+            <h2 className="text-lg font-semibold text-gray-800">Create Profile</h2>
             <p className="text-[#666666] text-sm leading-relaxed max-w-[220px]">
-              Build your profile with relevant information, skills, job needs,
-              or agency services.
+              Build your profile with relevant information, skills, job needs, or agency services.
             </p>
           </div>
 
@@ -300,8 +288,8 @@ const Home = () => {
             </div>
             <h2 className="text-lg font-semibold text-gray-800">Connect</h2>
             <p className="text-[#666666] text-sm leading-relaxed max-w-[220px]">
-              Browse jobs, post opportunities, or facilitate connections between
-              employers and job seekers.
+              Browse jobs, post opportunities, or facilitate connections between employers and job
+              seekers.
             </p>
           </div>
 
@@ -312,8 +300,7 @@ const Home = () => {
             </div>
             <h2 className="text-lg font-semibold text-gray-800">Communicate</h2>
             <p className="text-[#666666] text-sm leading-relaxed max-w-[220px]">
-              Use our secure messaging system to discuss details and finalize
-              arrangements.
+              Use our secure messaging system to discuss details and finalize arrangements.
             </p>
           </div>
         </div>
@@ -327,8 +314,7 @@ const Home = () => {
             What Our Users Say
           </h1>
           <p className="text-lg text-[#666666]">
-            Hear from our users about how TriConnect has helped them find jobs
-            and talent.
+            Hear from our users about how TriConnect has helped them find jobs and talent.
           </p>
         </div>
 
@@ -343,9 +329,8 @@ const Home = () => {
               <p className="text-gray-600">Jobseeker</p>
             </div>
             <p className="text-gray-600 italic mt-3 max-w-md text-left underline">
-              "As a freelancer looking for short-term construction jobs,
-              TriConnect has been a game-changer. I no longer have to rely on
-              word-of-mouth to find work opportunities."
+              "As a freelancer looking for short-term construction jobs, TriConnect has been a
+              game-changer. I no longer have to rely on word-of-mouth to find work opportunities."
             </p>
             <h1 className="font-bold mt-2 text-[#003479]">Lanlyn Mongado</h1>
           </div>
@@ -359,9 +344,9 @@ const Home = () => {
               <p className="text-gray-600">Employer</p>
             </div>
             <p className="text-gray-600 italic mt-3 max-w-md text-left underline">
-              "Finding qualified workers for our small business used to be a
-              challenge. With TriConnect, we can quickly post jobs and connect
-              with potential candidates or agencies."
+              "Finding qualified workers for our small business used to be a challenge. With
+              TriConnect, we can quickly post jobs and connect with potential candidates or
+              agencies."
             </p>
             <h1 className="font-bold mt-2 text-[#003479]">Samantha Ferrer</h1>
           </div>
@@ -375,13 +360,11 @@ const Home = () => {
               <p className="text-gray-600">Manpower Provider</p>
             </div>
             <p className="text-gray-600 italic mt-3 max-w-md text-left underline">
-              "Our manpower agency has expanded our client base significantly
-              since joining TriConnect. The platform makes it easy to connect
-              job seekers with employers efficiently."
+              "Our manpower agency has expanded our client base significantly since joining
+              TriConnect. The platform makes it easy to connect job seekers with employers
+              efficiently."
             </p>
-            <h1 className="font-bold mt-2 text-[#003479]">
-              Dennese Keith Membrano
-            </h1>
+            <h1 className="font-bold mt-2 text-[#003479]">Dennese Keith Membrano</h1>
           </div>
         </div>
       </section>

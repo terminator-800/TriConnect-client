@@ -1,12 +1,11 @@
 import { useReportedUsers } from '../../../../../hooks/REPORT';
-import { getInitials } from './helper'
+import { getInitials } from './helper';
 import { useState } from 'react';
 import { ROLE } from '../../../../../utils/role';
 import ReportUser from '../../../../components/ReportUser/ReportUser';
 import icons from '../../../../assets/svg/Icons';
 
 const ChatHeader = ({ selectedUser }) => {
-  
   const [showReportModal, setShowReportModal] = useState(false);
 
   const { data: reportedUsers = [] } = useReportedUsers(ROLE.INDIVIDUAL_EMPLOYER);
@@ -23,7 +22,7 @@ const ChatHeader = ({ selectedUser }) => {
             {selectedUser.authorized_profile ? (
               <img
                 src={selectedUser.authorized_profile}
-                alt={authorizedPerson || "User"}
+                alt={authorizedPerson || 'User'}
                 className="w-10 h-10 rounded-full object-cover"
               />
             ) : (
@@ -33,9 +32,7 @@ const ChatHeader = ({ selectedUser }) => {
             )}
 
             <div className="text-sm text-gray-700">
-              <span className="font-medium">
-                Sent  by: {authorizedPerson}
-              </span>
+              <span className="font-medium">Sent by: {authorizedPerson}</span>
 
               <div className="text-xs text-gray-500">
                 {selectedUser.sent_at && `Last message: ${selectedUser.sent_at}`}
@@ -52,7 +49,6 @@ const ChatHeader = ({ selectedUser }) => {
             </button>
           )}
         </>
-
       ) : (
         <div className="text-gray-400 text-center">Select a user to start chatting</div>
       )}
@@ -65,7 +61,6 @@ const ChatHeader = ({ selectedUser }) => {
           role={ROLE.INDIVIDUAL_EMPLOYER}
         />
       )}
-
     </div>
   );
 };

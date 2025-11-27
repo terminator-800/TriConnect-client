@@ -1,6 +1,6 @@
-import icons from "../assets/svg/Icons";
-import { useLocation } from "react-router-dom";
-import Navbar from "../pages/Navbar";
+import icons from '../assets/svg/Icons';
+import { useLocation } from 'react-router-dom';
+import Navbar from '../pages/Navbar';
 
 function VerifyAccount() {
   const location = useLocation();
@@ -8,7 +8,7 @@ function VerifyAccount() {
 
   return (
     <>
-      <Navbar userType={"verify"} />
+      <Navbar userType={'verify'} />
       <div className="flex justify-center items-center h-screen bg-linear-to-b from-white to-cyan-400">
         <div className="flex flex-col items-center">
           {/* Verification Box */}
@@ -20,15 +20,12 @@ function VerifyAccount() {
               className="w-16 h-16 mb-6 mx-auto"
             />
 
-            <p className="text-gray-800 font-semibold mb-2">
-              We’ve sent a verification email to:
-            </p>
+            <p className="text-gray-800 font-semibold mb-2">We’ve sent a verification email to:</p>
             <p className="text-blue-600 font-medium mb-4 underline">
-              {email || "No email provided"}
+              {email || 'No email provided'}
             </p>
             <p className="text-gray-600 text-sm">
-              Please check your email and click the verification link to verify
-              your account.
+              Please check your email and click the verification link to verify your account.
             </p>
           </div>
         </div>

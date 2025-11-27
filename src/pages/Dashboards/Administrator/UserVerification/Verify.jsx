@@ -27,11 +27,8 @@ const Verify = ({ onClose, user }) => {
   return (
     <div className="fixed inset-0 bg-opacity-50 z-50 flex items-center justify-center ml-55">
       <div className=" p-8 shadow-lg max-w-3xl w-full relative backdrop-blur-2xl">
-        
         {/* Confirmation Message */}
-        <h2 className="text-xl font-bold mb-4 text-center text-blue-900">
-          Confirm Verification
-        </h2>
+        <h2 className="text-xl font-bold mb-4 text-center text-blue-900">Confirm Verification</h2>
         <p className="text-gray-700 text-center mb-4">
           Are you sure you want to verify this user? This action cannot be undone.
         </p>
@@ -50,7 +47,7 @@ const Verify = ({ onClose, user }) => {
           </p>
         </div>
 
-          {/* Action Buttons */}
+        {/* Action Buttons */}
         <div className="flex justify-center gap-4">
           <button
             onClick={handleVerify}
@@ -60,7 +57,7 @@ const Verify = ({ onClose, user }) => {
               ${isPending ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-900 hover:bg-blue-700 cursor-pointer'}
             `}
           >
-            {isPending ? 'Verifying...' : 'Verify'} 
+            {isPending ? 'Verifying...' : 'Verify'}
           </button>
 
           <button
@@ -68,15 +65,13 @@ const Verify = ({ onClose, user }) => {
             disabled={isPending}
             className={`px-10 py-1 text-black ${
               isPending
-                ? 'bg-gray-300 cursor-not-allowed' 
-                : 'bg-gray-300 hover:bg-gray-400 cursor-pointer' 
+                ? 'bg-gray-300 cursor-not-allowed'
+                : 'bg-gray-300 hover:bg-gray-400 cursor-pointer'
             }`}
           >
             Cancel
           </button>
-
         </div>
-
       </div>
     </div>
   );

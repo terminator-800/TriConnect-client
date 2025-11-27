@@ -1,32 +1,29 @@
-import { useCreateHiringJobPost } from "../../../hooks/useCreateJobPost";
-import { useEffect } from "react";
-import { useState } from "react";
-import ConfirmJobPost from "./ConfirmJobPost";
+import { useCreateHiringJobPost } from '../../../hooks/useCreateJobPost';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import ConfirmJobPost from './ConfirmJobPost';
 
 const JobPostForm = ({ onClose, role }) => {
-  const [job_title, setJobTitle] = useState("");
-  const [job_type, setJobType] = useState("");
-  const [salary_range, setSalaryRange] = useState("");
-  const [location, setLocation] = useState("");
-  const [required_skill, setRequiredSkill] = useState("");
-  const [job_description, setJobDescription] = useState("");
+  const [job_title, setJobTitle] = useState('');
+  const [job_type, setJobType] = useState('');
+  const [salary_range, setSalaryRange] = useState('');
+  const [location, setLocation] = useState('');
+  const [required_skill, setRequiredSkill] = useState('');
+  const [job_description, setJobDescription] = useState('');
   const [agreeToReview, setAgreeToReview] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const onSuccessCallback = () => {
-    setJobTitle("");
-    setJobType("");
-    setSalaryRange("");
-    setLocation("");
-    setRequiredSkill("");
-    setJobDescription("");
+    setJobTitle('');
+    setJobType('');
+    setSalaryRange('');
+    setLocation('');
+    setRequiredSkill('');
+    setJobDescription('');
     setAgreeToReview(false);
   };
 
-  const { mutate, isPending, isSuccess } = useCreateHiringJobPost(
-    role,
-    onSuccessCallback
-  );
+  const { mutate, isPending, isSuccess } = useCreateHiringJobPost(role, onSuccessCallback);
 
   const isLoading = isPending;
 
@@ -48,17 +45,11 @@ const JobPostForm = ({ onClose, role }) => {
     <>
       <div className="fixed inset-0 z-50 flex items-center justify-center  p-4 ml-60">
         <div className="relative w-full max-w-7xl shadow-lg py-6 overflow-y-auto max-h-[90vh] backdrop-blur-2xl mt-25 px-10">
-
           <button
             onClick={onClose}
             className="absolute top-4 right-4 w-6 h-6 flex items-center justify-center rounded-full bg-red-500 text-white font-bold cursor-pointer"
           >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -67,7 +58,7 @@ const JobPostForm = ({ onClose, role }) => {
               />
             </svg>
           </button>
-       
+
           <div className="w-full">
             <form
               onSubmit={(e) => {
@@ -83,10 +74,7 @@ const JobPostForm = ({ onClose, role }) => {
               }}
             >
               <div className="mb-5">
-                <label
-                  htmlFor="job_title"
-                  className="block font-medium"
-                >
+                <label htmlFor="job_title" className="block font-medium">
                   Job Title
                 </label>
                 <input
@@ -183,46 +171,45 @@ const JobPostForm = ({ onClose, role }) => {
                   onChange={(e) => setAgreeToReview(e.target.checked)}
                 />
                 <p>
-                  By selecting <strong>Confirm</strong>, you agree that this job
-                  post will be reviewed by the system administrator. You will be
-                  notified once the job post is verified.
+                  By selecting <strong>Confirm</strong>, you agree that this job post will be
+                  reviewed by the system administrator. You will be notified once the job post is
+                  verified.
                 </p>
               </div>
 
-             <div className="flex justify-center">
-                 {/* Confirm Button */}
-                  <button
-                    type="submit"
-                    disabled={isLoading || !agreeToReview}
-                    className={`
+              <div className="flex justify-center">
+                {/* Confirm Button */}
+                <button
+                  type="submit"
+                  disabled={isLoading || !agreeToReview}
+                  className={`
                       px-10 py-1 text-white shadow-md
                       ${
                         !agreeToReview || isLoading
-                          ? "bg-blue-400 cursor-not-allowed"
-                          : "bg-[#2563EB] hover:bg-blue-700 cursor-pointer"
+                          ? 'bg-blue-400 cursor-not-allowed'
+                          : 'bg-[#2563EB] hover:bg-blue-700 cursor-pointer'
                       }
                     `}
-                  >
-                    {isLoading ? "Submitting..." : "Confirm"}
-                  </button>
-             </div>
+                >
+                  {isLoading ? 'Submitting...' : 'Confirm'}
+                </button>
+              </div>
             </form>
           </div>
         </div>
       </div>
-      
+
       {/* Modal appears on top */}
       {showSuccessModal && (
         <ConfirmJobPost
           onClose={() => {
             setShowSuccessModal(false);
-            onClose(); 
+            onClose();
           }}
           closeModal={() => setShowSuccessModal(false)}
           role={role}
         />
       )}
-
     </>
   );
 };

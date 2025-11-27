@@ -1,8 +1,8 @@
-import PendingJobPosts from "./PendingJobPost";
-import { useState } from "react";
-import ApprovedJobPost from "./ApprovedJobPost";
-import RejectJobPost from "./RejectJobPost";
-import JobpostDetails from "../JobpostDetails";
+import PendingJobPosts from './PendingJobPost';
+import { useState } from 'react';
+import ApprovedJobPost from './ApprovedJobPost';
+import RejectJobPost from './RejectJobPost';
+import JobpostDetails from '../JobpostDetails';
 
 export default function JobPostVerificationWrapper({ data }) {
   const [showApproveModal, setShowApproveModal] = useState(false);
@@ -29,41 +29,31 @@ export default function JobPostVerificationWrapper({ data }) {
     <>
       <div className="min-h-screen flex flex-col justify-between bg-linear-to-b from-white to-cyan-400 pl-70 pr-10 pt-30">
         <div className="bg-white shadow-md py-6 px-10 mb-8">
-        <div className="flex flex-col">
+          <div className="flex flex-col">
             <h1 className="text-2xl font-bold text-blue-900">Job Post Verification</h1>
             <p>Review and verify job posts to allow platform publication</p>
-        </div>
-        </div>
-
-      <PendingJobPosts
-        data={data}
-        onApprove={handleApprove}
-        onReject={handleReject}
-        onViewDetails={handleViewDetails}
-      />
-
-      {showApproveModal && selectedPost && (
-        <ApprovedJobPost
-          jobPost={selectedPost}
-          onClose={() => setShowApproveModal(false)}
-        />
-      )}
-
-      {showRejectModal && selectedPost && (
-        <RejectJobPost
-          jobPost={selectedPost}
-          onClose={() => setShowRejectModal(false)}
-        />
-      )}
-
-      {showDetailsModal && selectedPost && (
-        <JobpostDetails
-          jobPost={selectedPost}
-          onClose={() => setShowDetailsModal(false)}
-        />
-      )}
           </div>
+        </div>
 
+        <PendingJobPosts
+          data={data}
+          onApprove={handleApprove}
+          onReject={handleReject}
+          onViewDetails={handleViewDetails}
+        />
+
+        {showApproveModal && selectedPost && (
+          <ApprovedJobPost jobPost={selectedPost} onClose={() => setShowApproveModal(false)} />
+        )}
+
+        {showRejectModal && selectedPost && (
+          <RejectJobPost jobPost={selectedPost} onClose={() => setShowRejectModal(false)} />
+        )}
+
+        {showDetailsModal && selectedPost && (
+          <JobpostDetails jobPost={selectedPost} onClose={() => setShowDetailsModal(false)} />
+        )}
+      </div>
     </>
   );
 }

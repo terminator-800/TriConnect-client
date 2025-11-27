@@ -12,8 +12,7 @@ export const useSocket = (userId, role) => {
     socket.emit('register', userId);
     isConnected.current = true;
 
-    socket.on('connect', () => {
-    });
+    socket.on('connect', () => {});
 
     socket.on('disconnect', () => {
       isConnected.current = false;

@@ -1,5 +1,5 @@
-import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
+import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
 
 export const useResendVerification = () => {
   return useMutation({
@@ -9,6 +9,6 @@ export const useResendVerification = () => {
         role,
       });
       return response.data;
-    }
+    },
   });
 };

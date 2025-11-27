@@ -1,7 +1,6 @@
 import icons from '../../../../assets/svg/Icons';
 
 const VerificationStatus = ({ profileData, openForm }) => {
-  
   if (profileData.is_rejected) {
     return (
       <div className="flex items-center justify-between w-full">
@@ -9,10 +8,12 @@ const VerificationStatus = ({ profileData, openForm }) => {
           <div className="flex gap-4 items-center">
             <img src={icons.not_verified} alt="Not Verified" className="w-11" />
             <div>
-              <h1 className="font-bold text-2xl text-yellow-900">Submitted Requirements Rejected</h1>
+              <h1 className="font-bold text-2xl text-yellow-900">
+                Submitted Requirements Rejected
+              </h1>
               <p className="text-yellow-900 max-w-3xl">
-                Your verification details were rejected due to inaccurate information or invalid documents.
-                Please review and resubmit the correct details and files.
+                Your verification details were rejected due to inaccurate information or invalid
+                documents. Please review and resubmit the correct details and files.
               </p>
             </div>
           </div>

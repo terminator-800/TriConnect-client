@@ -1,24 +1,23 @@
-import React, { useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
-import { ROLE } from "../../../../../utils/role";
-import socket from "../../../../../utils/socket";
+import React, { useState } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import axios from 'axios';
+import { ROLE } from '../../../../../utils/role';
+import socket from '../../../../../utils/socket';
 
 const RequestIndividualModal = ({ isOpen, onClose, worker }) => {
   const queryClient = useQueryClient();
-    console.log(worker);
-    
-  const [formData, setFormData] = useState({
-    employerName: "",
-    companyName: "",
-    phoneNumber: "",
-    emailAddress: "",
-    projectLocation: "",
-    startDate: "",
-    projectDescription: "",
-    individual_job_post_id: worker.individual_job_post_id || "",
-  });
+  console.log(worker);
 
+  const [formData, setFormData] = useState({
+    employerName: '',
+    companyName: '',
+    phoneNumber: '',
+    emailAddress: '',
+    projectLocation: '',
+    startDate: '',
+    projectDescription: '',
+    individual_job_post_id: worker.individual_job_post_id || '',
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,61 +28,59 @@ const RequestIndividualModal = ({ isOpen, onClose, worker }) => {
   };
 
   // Mutation for sending request
- const mutation = useMutation({
-  mutationFn: async () => {
-    const multipartData = new FormData();
-    multipartData.append("receiver_id", worker.user_id);
-    multipartData.append("employer_name", formData.employerName);
-    multipartData.append("company_name", formData.companyName);
-    multipartData.append("phone_number", formData.phoneNumber);
-    multipartData.append("email_address", formData.emailAddress);
-    multipartData.append("project_location", formData.projectLocation);
-    multipartData.append("start_date", formData.startDate);
-    multipartData.append("project_description", formData.projectDescription);
-    multipartData.append("job_post_id", formData.individual_job_post_id);
+  const mutation = useMutation({
+    mutationFn: async () => {
+      const multipartData = new FormData();
+      multipartData.append('receiver_id', worker.user_id);
+      multipartData.append('employer_name', formData.employerName);
+      multipartData.append('company_name', formData.companyName);
+      multipartData.append('phone_number', formData.phoneNumber);
+      multipartData.append('email_address', formData.emailAddress);
+      multipartData.append('project_location', formData.projectLocation);
+      multipartData.append('start_date', formData.startDate);
+      multipartData.append('project_description', formData.projectDescription);
+      multipartData.append('job_post_id', formData.individual_job_post_id);
 
-    // Log all data
-    const logObj = {};
-    multipartData.forEach((value, key) => {
-      logObj[key] = value;
-    });
-    console.log("Sending request data:", logObj);
+      // Log all data
+      const logObj = {};
+      multipartData.forEach((value, key) => {
+        logObj[key] = value;
+      });
+      console.log('Sending request data:', logObj);
 
-    const res = await axios.post(
+      const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/${ROLE.BUSINESS_EMPLOYER}/requests`,
         {
-            receiver_id: worker.user_id,
-            employer_name: formData.employerName,
-            company_name: formData.companyName,
-            phone_number: formData.phoneNumber,
-            email_address: formData.emailAddress,
-            project_location: formData.projectLocation,
-            start_date: formData.startDate,
-            project_description: formData.projectDescription,
-            job_post_id: worker.individual_job_post_id, // ✅ use the correct API field
-
+          receiver_id: worker.user_id,
+          employer_name: formData.employerName,
+          company_name: formData.companyName,
+          phone_number: formData.phoneNumber,
+          email_address: formData.emailAddress,
+          project_location: formData.projectLocation,
+          start_date: formData.startDate,
+          project_description: formData.projectDescription,
+          job_post_id: worker.individual_job_post_id, // ✅ use the correct API field
         },
         { withCredentials: true }
-        );
+      );
 
-    return res.data;
-  },
-  onSuccess: (data) => {
-    socket.emit("sendMessage", {
-      receiver_id: worker.user_id,
-      message_text: formData.projectDescription,
-      message_type: "request",
-    });
-    queryClient.invalidateQueries(["manpowerPosts"]);
-    onClose();
-  },
-  onError: (error) => console.error("Failed to send request:", error),
-});
+      return res.data;
+    },
+    onSuccess: (data) => {
+      socket.emit('sendMessage', {
+        receiver_id: worker.user_id,
+        message_text: formData.projectDescription,
+        message_type: 'request',
+      });
+      queryClient.invalidateQueries(['manpowerPosts']);
+      onClose();
+    },
+    onError: (error) => console.error('Failed to send request:', error),
+  });
 
-      if (!isOpen) return null;
+  if (!isOpen) return null;
 
   const handleSubmit = () => {
-    
     mutation.mutate();
   };
 
@@ -100,21 +97,15 @@ const RequestIndividualModal = ({ isOpen, onClose, worker }) => {
 
         {/* Header */}
         <div className="p-6">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">
-            Request Manpower
-          </h2>
-          <p className="text-sm text-gray-600">
-            Please provide your contact information
-          </p>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Request Manpower</h2>
+          <p className="text-sm text-gray-600">Please provide your contact information</p>
         </div>
 
         {/* Form Fields */}
         <div className="px-6 pb-6 space-y-4">
           {/* Employer Name */}
           <div>
-            <label className="block text-sm font-medium text-gray-900 mb-2">
-              Employer Name *
-            </label>
+            <label className="block text-sm font-medium text-gray-900 mb-2">Employer Name *</label>
             <input
               type="text"
               name="employerName"
@@ -141,9 +132,7 @@ const RequestIndividualModal = ({ isOpen, onClose, worker }) => {
           {/* Phone Number and Email Address */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-2">
-                Phone Number *
-              </label>
+              <label className="block text-sm font-medium text-gray-900 mb-2">Phone Number *</label>
               <input
                 type="tel"
                 name="phoneNumber"
@@ -181,9 +170,7 @@ const RequestIndividualModal = ({ isOpen, onClose, worker }) => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-2">
-                Start Date *
-              </label>
+              <label className="block text-sm font-medium text-gray-900 mb-2">Start Date *</label>
               <input
                 type="date"
                 name="startDate"

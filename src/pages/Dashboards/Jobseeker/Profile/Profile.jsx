@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useUserProfile } from "../../../../../hooks/useUserProfiles";
+import { useUserProfile } from '../../../../../hooks/useUserProfiles';
 import { ROLE } from '../../../../../utils/role';
 import Sidebar from '../Sidebar';
 import icons from '../../../../assets/svg/Icons';
@@ -28,7 +28,7 @@ const JobseekerProfile = () => {
     isError,
     refetch,
   } = useUserProfile(ROLE.JOBSEEKER);
-  
+
   useEffect(() => {
     if (profileData) {
       setFormData({
@@ -43,7 +43,7 @@ const JobseekerProfile = () => {
   const openForm = () => setShowForm(true);
 
   const handleInputChange = (field, value) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   if (loading) return <div>Loading...</div>;
@@ -52,23 +52,24 @@ const JobseekerProfile = () => {
   return (
     <>
       <Sidebar />
-      
+
       <div className="relative min-h-screen bg-linear-to-b from-white to-cyan-400 pl-70 pr-10 pt-30">
         <div className="bg-white shadow-md p-6 w-full border border-gray-300 px-20">
           {profileData.is_verified ? (
             <>
               <div className="flex items-center pt-20 justify-between w-full">
                 <div>
-                  <h1 className='font-bold text-4xl'>{profileData.full_name}</h1>
+                  <h1 className="font-bold text-4xl">{profileData.full_name}</h1>
                   <div className="bg-white p-3 shadow-md flex justify-between items-center w-full border border-gray-300 mt-5">
                     <div className="flex gap-4 items-center">
                       <div>
-                        <div className='flex'>
+                        <div className="flex">
                           <h1 className="font-bold text-2xl text-yellow-900">Account Verified</h1>
                           <img src={icons.verified} alt="" />
                         </div>
                         <p className="text-yellow-900 max-w-4xl">
-                          Your account has been successfully verified and all submitted requirements have been approved.
+                          Your account has been successfully verified and all submitted requirements
+                          have been approved.
                         </p>
                       </div>
                     </div>
@@ -77,9 +78,8 @@ const JobseekerProfile = () => {
 
                 {/* Change Profile */}
                 <div className="ml-6">
-                  <ChangeProfile profileData={profileData}/>
+                  <ChangeProfile profileData={profileData} />
                 </div>
-                
               </div>
 
               {/* Tabs */}

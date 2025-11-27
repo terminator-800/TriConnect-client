@@ -7,7 +7,7 @@
 //   const [isOpen, setIsOpen] = useState(false);
 //   const { data: profileData } = useUserProfile(role);
 //   const userId = profileData?.user_id;
-  
+
 //   const {
 //     notifications,
 //     unreadCounts,
@@ -99,7 +99,7 @@
 //                         </span>
 //                       </div>
 //                     </div>
-                    
+
 //                     <div className="flex-1 min-w-0">
 //                       <div className="flex justify-between items-start">
 //                         <p className="text-sm font-medium text-gray-900">
@@ -109,11 +109,11 @@
 //                           {formatTime(notification.timestamp)}
 //                         </p>
 //                       </div>
-                      
+
 //                       <p className="text-sm text-gray-600 mt-1 line-clamp-2">
 //                         {notification.message.message_text || 'Sent you a message'}
 //                       </p>
-                      
+
 //                       {!notification.read && (
 //                         <div className="mt-2">
 //                           <span className="inline-block w-2 h-2 bg-blue-500 rounded-full"></span>

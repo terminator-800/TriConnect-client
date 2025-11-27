@@ -27,12 +27,11 @@ const ChatLayout = () => {
       <Sidebar />
       <div className="pl-70 pr-10 pt-30">
         <div className="bg-white shadow-md py-6 px-10 mb-8">
-        <div className="flex flex-col">
-
-        <h1 className="text-2xl font-bold text-blue-900">Messages</h1>
-        <p className="text-gray-600">
-          Keep in touch with employers and agencies — track your job conversations here
-        </p>
+          <div className="flex flex-col">
+            <h1 className="text-2xl font-bold text-blue-900">Messages</h1>
+            <p className="text-gray-600">
+              Keep in touch with employers and agencies — track your job conversations here
+            </p>
           </div>
         </div>
       </div>
@@ -56,13 +55,14 @@ const ChatLayout = () => {
               </div>
             </div>
 
-            <div className="flex flex-col flex-1 border-l border-gray-300
-              ">
+            <div
+              className="flex flex-col flex-1 border-l border-gray-300
+              "
+            >
               <ChatHeader selectedUser={selectedUser} />
               <ChatWindow selectedUser={selectedUser} />
               <MessageInput selectedUser={selectedUser} />
             </div>
-
           </div>
         </div>
       </div>

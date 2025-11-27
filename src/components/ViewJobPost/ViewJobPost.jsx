@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { useEditJobPost } from "../../../hooks/useJobposts";
-import UpdateSuccess from "./UpdateSuccess";
+import { useState } from 'react';
+import { useEditJobPost } from '../../../hooks/useJobposts';
+import UpdateSuccess from './UpdateSuccess';
 
 const ViewJobPost = ({ data, onClose, role }) => {
   const job = data.active[0] || {};
@@ -10,12 +10,12 @@ const ViewJobPost = ({ data, onClose, role }) => {
   const [showSuccess, setShowSuccess] = useState(false);
 
   const [formData, setFormData] = useState({
-    job_title: job.job_title || "",
-    job_type: job.job_type || "",
-    salary_range: job.salary_range || "",
-    location: job.location || "",
-    required_skill: job.required_skill || "",
-    job_description: job.job_description || "",
+    job_title: job.job_title || '',
+    job_type: job.job_type || '',
+    salary_range: job.salary_range || '',
+    location: job.location || '',
+    required_skill: job.required_skill || '',
+    job_description: job.job_description || '',
   });
 
   const handleChange = (e) => {
@@ -60,12 +60,7 @@ const ViewJobPost = ({ data, onClose, role }) => {
             onClick={onClose}
             className="absolute top-4 right-4 w-6 h-6 flex items-center justify-center rounded-full bg-red-500 text-white font-bold cursor-pointer"
           >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -142,9 +137,7 @@ const ViewJobPost = ({ data, onClose, role }) => {
             </div>
 
             <div>
-              <label className="block font-semibold mb-1">
-                Job Description
-              </label>
+              <label className="block font-semibold mb-1">Job Description</label>
               <textarea
                 name="job_description"
                 value={formData.job_description}
@@ -162,11 +155,7 @@ const ViewJobPost = ({ data, onClose, role }) => {
               disabled={editJobPost.isLoading}
               className="px-10 py-1 bg-[#2563EB] text-white hover:bg-blue-700 cursor-pointer"
             >
-              {editJobPost.isLoading
-                ? "Saving..."
-                : isEditing
-                ? "Save Changes"
-                : "Edit Job"}
+              {editJobPost.isLoading ? 'Saving...' : isEditing ? 'Save Changes' : 'Edit Job'}
             </button>
 
             <button
@@ -177,9 +166,7 @@ const ViewJobPost = ({ data, onClose, role }) => {
             </button>
 
             {editJobPost.isError && (
-              <p className="text-red-500 mt-2">
-                Error saving job: {editJobPost.error.message}
-              </p>
+              <p className="text-red-500 mt-2">Error saving job: {editJobPost.error.message}</p>
             )}
           </div>
         </div>

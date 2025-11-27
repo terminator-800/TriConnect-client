@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import { useMarkMessagesAsSeen } from './helper'
+import { useMarkMessagesAsSeen } from './helper';
 import { useMessageHistory } from '../../../../../hooks/CHAT';
 import { useUserProfile } from '../../../../../hooks/useUserProfiles';
 import { useQueryClient } from '@tanstack/react-query';
 import { getInitials } from './helper';
-import { useChatRoom } from '../../../../../hooks/useChatRoom'
+import { useChatRoom } from '../../../../../hooks/useChatRoom';
 import { useSocket } from '../../../../../hooks/useSocket';
 import { ROLE } from '../../../../../utils/role';
 import icons from '../../../../assets/svg/Icons';
@@ -20,7 +20,11 @@ const ChatWindow = ({ selectedUser }) => {
   const currentUserId = profileData?.user_id;
 
   const { conversation_id = null } = selectedUser || {};
-  const { data: messages = [], isLoading, isError } = useMessageHistory(ROLE.MANPOWER_PROVIDER, conversation_id);
+  const {
+    data: messages = [],
+    isLoading,
+    isError,
+  } = useMessageHistory(ROLE.MANPOWER_PROVIDER, conversation_id);
 
   // Initialize socket connection
   useSocket(currentUserId, ROLE.MANPOWER_PROVIDER);
@@ -43,11 +47,11 @@ const ChatWindow = ({ selectedUser }) => {
     const handleNewMessage = (newMessage) => {
       if (Number(newMessage.conversation_id) === Number(conversation_id)) {
         queryClient.invalidateQueries({
-          queryKey: ['messages', ROLE.MANPOWER_PROVIDER, conversation_id]
+          queryKey: ['messages', ROLE.MANPOWER_PROVIDER, conversation_id],
         });
 
         queryClient.invalidateQueries({
-          queryKey: ['conversations', ROLE.MANPOWER_PROVIDER]
+          queryKey: ['conversations', ROLE.MANPOWER_PROVIDER],
         });
       }
     };
@@ -55,7 +59,7 @@ const ChatWindow = ({ selectedUser }) => {
     const handleMessagesSeen = (data) => {
       if (Number(data.conversation_id) === Number(conversation_id)) {
         queryClient.invalidateQueries({
-          queryKey: ['messages', ROLE.MANPOWER_PROVIDER, conversation_id]
+          queryKey: ['messages', ROLE.MANPOWER_PROVIDER, conversation_id],
         });
       }
     };
@@ -99,11 +103,15 @@ const ChatWindow = ({ selectedUser }) => {
                 : 'bg-gray-200 text-gray-800 rounded-bl-none';
 
               const isLastSenderMessage =
-                isSender && index === messages.findLastIndex((m) => Number(m.sender_id) === Number(currentUserId));
+                isSender &&
+                index ===
+                  messages.findLastIndex((m) => Number(m.sender_id) === Number(currentUserId));
 
               return (
-                <li key={msg.message_id || `msg-${index}`} className={`flex ${alignment} items-end`}>
-                  
+                <li
+                  key={msg.message_id || `msg-${index}`}
+                  className={`flex ${alignment} items-end`}
+                >
                   {/* AUTHORIZED PERSONNEL */}
                   {!isSender && (
                     <div className="flex-shrink-0 w-8 h-8 rounded-full mr-2 text-xs font-semibold overflow-hidden flex items-center justify-center bg-gray-400 text-white">
@@ -121,9 +129,7 @@ const ChatWindow = ({ selectedUser }) => {
 
                   <div className="flex flex-col items-start">
                     {/* APPLICATION CARD - Only if it has required application fields */}
-                    {msg.message_type === "apply" &&
-                    msg.full_name &&
-                    msg.email_address ? (
+                    {msg.message_type === 'apply' && msg.full_name && msg.email_address ? (
                       ApplicationCard(msg, isSender)
                     ) : (
                       <>
@@ -186,8 +192,8 @@ const ChatWindow = ({ selectedUser }) => {
           <div
             className="relative bg-white px-4 py-10 border border-gray-300 flex flex-col items-center"
             style={{
-              maxWidth: "95vw",
-              maxHeight: "90vh",
+              maxWidth: '95vw',
+              maxHeight: '90vh',
             }}
           >
             {/* Close button */}
@@ -205,8 +211,8 @@ const ChatWindow = ({ selectedUser }) => {
                 title="PDF Preview"
                 className="rounded-lg border"
                 style={{
-                  width: "80vw",
-                  height: "80vh",
+                  width: '80vw',
+                  height: '80vh',
                 }}
               />
             ) : (
@@ -215,8 +221,8 @@ const ChatWindow = ({ selectedUser }) => {
                 alt="Preview"
                 className="object-contain rounded-lg"
                 style={{
-                  maxWidth: "80vw",
-                  maxHeight: "80vh",
+                  maxWidth: '80vw',
+                  maxHeight: '80vh',
                 }}
               />
             )}

@@ -11,226 +11,220 @@ import Reject from '../UserVerification/Reject';
 const ITEMS_PER_PAGE = 5;
 
 const UserVerification = () => {
-    const [previewImage, setPreviewImage] = useState(null);
-    const [selectedUserForModal, setSelectedUserForModal] = useState(null);
-    const [showConfirmModal, setShowConfirmModal] = useState(false);
-    const [selectedUserId, setSelectedUserId] = useState(null);
-    const [showRejectModal, setShowRejectModal] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
+  const [previewImage, setPreviewImage] = useState(null);
+  const [selectedUserForModal, setSelectedUserForModal] = useState(null);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState(null);
+  const [showRejectModal, setShowRejectModal] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
-    const {
+  const {
     data: users = [],
     isLoading: loading,
     isError,
     error,
-    } = useSubmittedUsers(ROLE.ADMINISTRATOR);
+  } = useSubmittedUsers(ROLE.ADMINISTRATOR);
 
-    useEffect(() => {
-        document.body.style.overflow = previewImage ? 'hidden' : 'auto';
-        return () => {
-            document.body.style.overflow = 'auto';
-        };
-    }, [previewImage]);
+  useEffect(() => {
+    document.body.style.overflow = previewImage ? 'hidden' : 'auto';
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [previewImage]);
 
-    // Pagination 
-    const totalPages = Math.ceil(users.length / ITEMS_PER_PAGE);
-    const paginatedUsers = users.slice(
-        (currentPage - 1) * ITEMS_PER_PAGE,
-        currentPage * ITEMS_PER_PAGE
-    );
+  // Pagination
+  const totalPages = Math.ceil(users.length / ITEMS_PER_PAGE);
+  const paginatedUsers = users.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
 
-    return (
-        <>
-            <Sidebar />
-            <div className="min-h-screen flex flex-col justify-between bg-linear-to-b from-white to-cyan-400 pl-70 pr-10 pt-30">
-                
-                <div className="bg-white shadow-md py-6 px-10 mb-8">
-                        <div className="flex flex-col">
-                            <h1 className="text-2xl font-bold text-[#003479]">User Verification</h1>
-                                <p>
-                                    Review and verify users to allow platform access
-                                </p>
+  return (
+    <>
+      <Sidebar />
+      <div className="min-h-screen flex flex-col justify-between bg-linear-to-b from-white to-cyan-400 pl-70 pr-10 pt-30">
+        <div className="bg-white shadow-md py-6 px-10 mb-8">
+          <div className="flex flex-col">
+            <h1 className="text-2xl font-bold text-[#003479]">User Verification</h1>
+            <p>Review and verify users to allow platform access</p>
+          </div>
+        </div>
+
+        <div className="flex-1">
+          {loading ? (
+            <p className="mt-10 text-lg text-gray-600">Loading users...</p>
+          ) : isError ? (
+            <p className="mt-10 text-red-500">{error?.message || 'Error loading users'}</p>
+          ) : users.length === 0 ? (
+            <p className="mt-10 text-lg text-gray-500 italic text-center">
+              No users submitted requirements.
+            </p>
+          ) : (
+            // Scrollable Table
+            <div className="mt-10 flex-1 overflow-x-auto">
+              <table className="min-w-full divide-y divide-gray-200 border border-gray-300 overflow-hidden text-[#374151]">
+                <thead className="bg-gray-300">
+                  <tr>
+                    <th className="px-6 py-3 text-left font-semibold whitespace-nowrap">
+                      User Details
+                    </th>
+                    <th className="px-6 py-3 text-left font-semibold whitespace-nowrap">Type</th>
+                    <th className="px-6 py-3 text-left font-semibold whitespace-nowrap">
+                      Submitted Documents
+                    </th>
+                    <th className="px-6 py-3 text-left font-semibold whitespace-nowrap">Date</th>
+                    <th className="px-6 py-3 text-left font-semibold whitespace-nowrap">Actions</th>
+                  </tr>
+                </thead>
+
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {users.map((user) => (
+                    <tr key={user.user_id}>
+                      {/* Name */}
+                      <td className="px-6 py-4 text-sm font-bold italic text-gray-800">
+                        {user.full_name || user.business_name || user.agency_name || 'N/A'}
+                      </td>
+
+                      {/* Role */}
+                      <td
+                        className={`px-6 py-4 text-sm font-bold italic ${
+                          user.role === ROLE.JOBSEEKER
+                            ? 'text-blue-600'
+                            : user.role === ROLE.BUSINESS_EMPLOYER
+                              ? 'text-green-500'
+                              : user.role === ROLE.MANPOWER_PROVIDER
+                                ? 'text-orange-500'
+                                : user.role === ROLE.INDIVIDUAL_EMPLOYER
+                                  ? 'text-yellow-500'
+                                  : 'text-gray-500'
+                        }`}
+                      >
+                        {ROLE_LABELS[user.role] || user.role}
+                      </td>
+
+                      {/* Documents */}
+                      <td className="px-2 py-2 text-lg text-gray-800 w-[300px]">
+                        <div className="grid grid-cols-2 gap-2">
+                          {documentMap[user.role]?.map(({ key, label }) => (
+                            <button
+                              key={key}
+                              onClick={() =>
+                                setPreviewImage({ src: getImagePath(user, user[key]), label })
+                              }
+                              className="bg-gray-300 px-2 py-1 text-xs rounded hover:bg-gray-400 cursor-pointer"
+                            >
+                              {label}
+                            </button>
+                          ))}
                         </div>
-                    </div>
-                
-                <div className='flex-1'>
-                    {loading ? (
-                        <p className="mt-10 text-lg text-gray-600">Loading users...</p>
-                    ) : isError ? (
-                        <p className="mt-10 text-red-500">{error?.message || 'Error loading users'}</p>
-                    ) : users.length === 0 ? (
-                        <p className="mt-10 text-lg text-gray-500 italic text-center">
-                            No users submitted requirements.
-                        </p>
-                    ) : (
-                        // Scrollable Table
-                        <div className="mt-10 flex-1 overflow-x-auto">
-                            <table className="min-w-full divide-y divide-gray-200 border border-gray-300 overflow-hidden text-[#374151]">
-                                <thead className="bg-gray-300">
-                                    <tr>
-                                        <th className="px-6 py-3 text-left font-semibold whitespace-nowrap">
-                                            User Details
-                                        </th>
-                                        <th className="px-6 py-3 text-left font-semibold whitespace-nowrap">
-                                            Type
-                                        </th>
-                                        <th className="px-6 py-3 text-left font-semibold whitespace-nowrap">
-                                            Submitted Documents
-                                        </th>
-                                        <th className="px-6 py-3 text-left font-semibold whitespace-nowrap">
-                                            Date
-                                        </th>
-                                        <th className="px-6 py-3 text-left font-semibold whitespace-nowrap">
-                                            Actions
-                                        </th>
-                                    </tr>
-                                </thead>
+                      </td>
 
-                                <tbody className="bg-white divide-y divide-gray-200">
-                                    {users.map((user) => (
-                                        <tr key={user.user_id}>
-                                            {/* Name */}
-                                            <td className="px-6 py-4 text-sm font-bold italic text-gray-800">
-                                                {user.full_name || user.business_name || user.agency_name || 'N/A'}
-                                            </td>
+                      {/* Date */}
+                      <td className="px-6 py-4 text-sm text-gray-800">
+                        <span className="text-gray-500 text-sm">{user.created_at}</span>
+                      </td>
 
-                                            {/* Role */}
-                                            <td
-                                                className={`px-6 py-4 text-sm font-bold italic ${user.role === ROLE.JOBSEEKER
-                                                        ? 'text-blue-600'
-                                                        : user.role === ROLE.BUSINESS_EMPLOYER
-                                                            ? 'text-green-500'
-                                                            : user.role === ROLE.MANPOWER_PROVIDER
-                                                                ? 'text-orange-500'
-                                                                : user.role === ROLE.INDIVIDUAL_EMPLOYER
-                                                                    ? 'text-yellow-500'
-                                                                    : 'text-gray-500'
-                                                    }`}
-                                            >
-                                                {ROLE_LABELS[user.role] || user.role}
-                                            </td>
-
-                                            {/* Documents */}
-                                            <td className="px-2 py-2 text-lg text-gray-800 w-[300px]">
-                                                <div className="grid grid-cols-2 gap-2">
-                                                    {documentMap[user.role]?.map(({ key, label }) => (
-                                                        <button
-                                                            key={key}
-                                                            onClick={() => setPreviewImage({ src: getImagePath(user, user[key]), label })}
-                                                            className="bg-gray-300 px-2 py-1 text-xs rounded hover:bg-gray-400 cursor-pointer"
-                                                        >
-                                                            {label}
-                                                        </button>
-                                                    ))}
-                                                </div>
-                                            </td>
-
-                                            {/* Date */}
-                                            <td className="px-6 py-4 text-sm text-gray-800">
-                                                <span className="text-gray-500 text-sm">{user.created_at}</span>
-                                            </td>
-
-                                            {/* Buttons */}
-                                            <td className="px-6 py-4 text-sm text-gray-800 align-middle">
-                                                <div className="flex flex-col items-start space-y-2">
-                                                    <div className="flex space-x-2">
-                                                        <button
-                                                            onClick={() => {
-                                                                setSelectedUserId(user.user_id);
-                                                                setShowConfirmModal(true);
-                                                            }}
-                                                            className="bg-blue-900 hover:bg-blue-700 text-white px-10 py-1 cursor-pointer"
-                                                        >
-                                                            Verify
-                                                        </button>
-                                                        <button
-                                                            onClick={() => {
-                                                                setSelectedUserId(user.user_id);
-                                                                setShowRejectModal(true);
-                                                            }}
-                                                            className="border border-red-500 px-10 py-1 cursor-pointer"
-                                                        >
-                                                            Reject
-                                                        </button>
-                                                    </div>
-                                                    <button
-                                                        onClick={() => setSelectedUserForModal(user)}
-                                                        className="bg-gray-300 px-17.5 py-1 hover:bg-gray-400 cursor-pointer"
-                                                    >
-                                                        View Documents
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                      {/* Buttons */}
+                      <td className="px-6 py-4 text-sm text-gray-800 align-middle">
+                        <div className="flex flex-col items-start space-y-2">
+                          <div className="flex space-x-2">
+                            <button
+                              onClick={() => {
+                                setSelectedUserId(user.user_id);
+                                setShowConfirmModal(true);
+                              }}
+                              className="bg-blue-900 hover:bg-blue-700 text-white px-10 py-1 cursor-pointer"
+                            >
+                              Verify
+                            </button>
+                            <button
+                              onClick={() => {
+                                setSelectedUserId(user.user_id);
+                                setShowRejectModal(true);
+                              }}
+                              className="border border-red-500 px-10 py-1 cursor-pointer"
+                            >
+                              Reject
+                            </button>
+                          </div>
+                          <button
+                            onClick={() => setSelectedUserForModal(user)}
+                            className="bg-gray-300 px-17.5 py-1 hover:bg-gray-400 cursor-pointer"
+                          >
+                            View Documents
+                          </button>
                         </div>
-                    )}
-                </div>
-
-
-                {/* Pagination Component */}
-                <div className="mt-10 mb-10">
-                    <Pagination
-                        currentPage={currentPage}
-                        totalPages={totalPages}
-                        setCurrentPage={setCurrentPage}
-                    />
-                </div>
-
-                {previewImage && (
-                    <div className="fixed inset-0 bg-opacity-70 flex justify-center items-center z-50">
-                        <div className="relative backdrop-blur-2xl p-4 shadow-lg">
-                            <h2 className="text-lg font-semibold mb-2">{previewImage.label}</h2>
-                            <img src={previewImage.src} alt={previewImage.label} className="max-w-[80vw] max-h-[80vh] object-contain" />
-                        
-                            {/* Close Button */}
-                                <button
-                                onClick={() => setPreviewImage(null)}
-                                className="mt-5 absolute -top-2 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-red-500 text-white font-bold cursor-pointer hover:bg-red-600 transition"
-                                >
-                                <svg
-                                    className="w-5 h-5"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M6 18L18 6M6 6l12 12"
-                                    />
-                                </svg>
-                                </button>
-                        </div>
-                    </div>
-                )}
-
-                {selectedUserForModal && (
-                    <div className="fixed inset-0 bg-opacity-70 flex justify-center items-center z-50">
-                        <ViewDocument user={selectedUserForModal}
-                            onClose={() => setSelectedUserForModal(null)} />
-                    </div>
-                )}
-
-                {showConfirmModal && selectedUserId && (
-                    <Verify
-                        user={users.find((u) => u.user_id === selectedUserId)}
-                        onClose={() => setShowConfirmModal(false)}
-                    />
-                )}
-
-                {showRejectModal && selectedUserId && (
-                    <Reject
-                        user={users.find((u) => u.user_id === selectedUserId)}
-                        onClose={() => setShowRejectModal(false)}
-                    />
-                )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
-        </>
-    );
+          )}
+        </div>
+
+        {/* Pagination Component */}
+        <div className="mt-10 mb-10">
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            setCurrentPage={setCurrentPage}
+          />
+        </div>
+
+        {previewImage && (
+          <div className="fixed inset-0 bg-opacity-70 flex justify-center items-center z-50">
+            <div className="relative backdrop-blur-2xl p-4 shadow-lg">
+              <h2 className="text-lg font-semibold mb-2">{previewImage.label}</h2>
+              <img
+                src={previewImage.src}
+                alt={previewImage.label}
+                className="max-w-[80vw] max-h-[80vh] object-contain"
+              />
+
+              {/* Close Button */}
+              <button
+                onClick={() => setPreviewImage(null)}
+                className="mt-5 absolute -top-2 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-red-500 text-white font-bold cursor-pointer hover:bg-red-600 transition"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        )}
+
+        {selectedUserForModal && (
+          <div className="fixed inset-0 bg-opacity-70 flex justify-center items-center z-50">
+            <ViewDocument
+              user={selectedUserForModal}
+              onClose={() => setSelectedUserForModal(null)}
+            />
+          </div>
+        )}
+
+        {showConfirmModal && selectedUserId && (
+          <Verify
+            user={users.find((u) => u.user_id === selectedUserId)}
+            onClose={() => setShowConfirmModal(false)}
+          />
+        )}
+
+        {showRejectModal && selectedUserId && (
+          <Reject
+            user={users.find((u) => u.user_id === selectedUserId)}
+            onClose={() => setShowRejectModal(false)}
+          />
+        )}
+      </div>
+    </>
+  );
 };
 
 export default UserVerification;

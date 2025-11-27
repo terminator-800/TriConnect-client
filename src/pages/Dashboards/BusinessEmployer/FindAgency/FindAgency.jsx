@@ -1,12 +1,12 @@
-import { useUncontactedAgencies } from "../../../../../hooks/useUncontactedAgencies";
-import { useUserProfile } from "../../../../../hooks/useUserProfiles";
-import { useState } from "react";
-import { ROLE } from "../../../../../utils/role";
-import VerificationStatus from "../../../../pages/Dashboards/BusinessEmployer/VerificationForm/VerificationStatus";
-import MessageAgency from "../../../../components/MessageAgency";
-import Pagination from "../../../../components/Pagination";
-import Sidebar from "../Sidebar";
-import Form from "../../../../pages/Dashboards/BusinessEmployer/VerificationForm/Form";
+import { useUncontactedAgencies } from '../../../../../hooks/useUncontactedAgencies';
+import { useUserProfile } from '../../../../../hooks/useUserProfiles';
+import { useState } from 'react';
+import { ROLE } from '../../../../../utils/role';
+import VerificationStatus from '../../../../pages/Dashboards/BusinessEmployer/VerificationForm/VerificationStatus';
+import MessageAgency from '../../../../components/MessageAgency';
+import Pagination from '../../../../components/Pagination';
+import Sidebar from '../Sidebar';
+import Form from '../../../../pages/Dashboards/BusinessEmployer/VerificationForm/Form';
 
 const FindAgency = () => {
   const {
@@ -26,13 +26,9 @@ const FindAgency = () => {
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const agenciesPerPage = 4;
-  const totalPages =
-    agencies.length > 0 ? Math.ceil(agencies.length / agenciesPerPage) : 1;
+  const totalPages = agencies.length > 0 ? Math.ceil(agencies.length / agenciesPerPage) : 1;
   const startIndex = (currentPage - 1) * agenciesPerPage;
-  const currentAgencies = agencies.slice(
-    startIndex,
-    startIndex + agenciesPerPage
-  );
+  const currentAgencies = agencies.slice(startIndex, startIndex + agenciesPerPage);
 
   const [showApply, setShowApply] = useState(false);
   const [selectedAgency, setSelectedAgency] = useState(null);
@@ -44,7 +40,7 @@ const FindAgency = () => {
   };
 
   const openForm = () => {
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow = 'hidden';
     setShowForm(true);
   };
 
@@ -52,9 +48,7 @@ const FindAgency = () => {
     return (
       <>
         <Sidebar />
-        <div className="pl-110 pr-50 pt-50 p-10 min-h-screen text-xl">
-          Loading profile...
-        </div>
+        <div className="pl-110 pr-50 pt-50 p-10 min-h-screen text-xl">Loading profile...</div>
       </>
     );
   }
@@ -64,8 +58,7 @@ const FindAgency = () => {
       <>
         <Sidebar />
         <div className="pl-110 pr-50 pt-50 p-10 text-red-600">
-          An error occurred:{" "}
-          {error?.message || agencyError?.message || "Unknown error."}
+          An error occurred: {error?.message || agencyError?.message || 'Unknown error.'}
         </div>
       </>
     );
@@ -90,11 +83,11 @@ const FindAgency = () => {
           profileData={profileData}
           onClose={() => {
             setShowForm(false);
-            document.body.style.overflow = "auto";
+            document.body.style.overflow = 'auto';
           }}
           onSubmitSuccess={() => {
             setShowForm(false);
-            document.body.style.overflow = "auto";
+            document.body.style.overflow = 'auto';
             refetch();
           }}
         />
@@ -105,12 +98,8 @@ const FindAgency = () => {
           <>
             <div className="bg-white shadow-md py-6 px-10 mb-8">
               <div className="flex flex-col">
-                <h1 className="text-2xl font-bold text-[#003479]">
-                  Search for Manpower Provider
-                </h1>
-                <p>
-                  Find agencies to help with your recruitment needs
-                </p>
+                <h1 className="text-2xl font-bold text-[#003479]">Search for Manpower Provider</h1>
+                <p>Find agencies to help with your recruitment needs</p>
               </div>
             </div>
 
@@ -118,9 +107,7 @@ const FindAgency = () => {
               {isAgenciesLoading ? (
                 <p className="mt-10 text-lg">Loading agencies...</p>
               ) : agencies.length === 0 ? (
-                <p className="mt-10 text-lg italic text-gray-500">
-                  No manpower providers found.
-                </p>
+                <p className="mt-10 text-lg italic text-gray-500">No manpower providers found.</p>
               ) : (
                 <>
                   <div className="grid grid-cols-2 gap-6 mt-15">
@@ -135,21 +122,17 @@ const FindAgency = () => {
                             {agency.profile ? (
                               <img
                                 src={agency.profile}
-                                alt={agency.agency_name || "Agency"}
+                                alt={agency.agency_name || 'Agency'}
                                 className="w-full h-full object-cover rounded-full"
                               />
                             ) : (
                               <div className="w-14 h-14 rounded-full bg-gray-300 flex items-center justify-center text-lg font-bold text-gray-800">
-                                {(agency.agency_name || "")
-                                  .substring(0, 2)
-                                  .toUpperCase()}
+                                {(agency.agency_name || '').substring(0, 2).toUpperCase()}
                               </div>
                             )}
                           </div>
 
-                          <h2 className="text-xl font-semibold">
-                            {agency.agency_name}
-                          </h2>
+                          <h2 className="text-xl font-semibold">{agency.agency_name}</h2>
                         </div>
 
                         <div className="flex justify-between mt-6">

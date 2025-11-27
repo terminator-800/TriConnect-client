@@ -1,7 +1,7 @@
 import React from 'react';
 import icons from '../../../../assets/svg/Icons';
 
-const ReviewApplication = ({ 
+const ReviewApplication = ({
   applicationData = {
     full_name: '',
     email_address: '',
@@ -10,11 +10,11 @@ const ReviewApplication = ({
     resume: null,
     cover_letter: '',
     job_title: '',
-    company_name: ''
+    company_name: '',
   },
   onSubmit = () => {},
   onBack = () => {},
-  isSubmitting = false
+  isSubmitting = false,
 }) => {
   const handleSubmit = () => {
     onSubmit();
@@ -22,11 +22,12 @@ const ReviewApplication = ({
 
   return (
     <div className="backdrop-blur-2xl w-full max-w-7xl border border-gray-300 shadow-2xl overflow-hidden max-[769px]:mx-4 max-[769px]:mt-4 ml-55 mt-20">
-      
       {/* Header */}
       <div className="flex justify-between items-start p-8 max-[769px]:p-4">
         <div className="flex-1">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2 max-[769px]:text-xl">Review Your Application</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-2 max-[769px]:text-xl">
+            Review Your Application
+          </h2>
           <p className="text-sm text-gray-600">Please review your information before submitting</p>
         </div>
         <button
@@ -41,18 +42,20 @@ const ReviewApplication = ({
 
       {/* Content */}
       <div className="p-8 max-[769px]:p-4 max-h-[50vh] overflow-y-auto">
-        
         {/* Note Box */}
         <div className="bg-blue-50 border-l-4 border-blue-400 p-4 mb-8">
           <p className="text-sm text-gray-700">
-            <strong>Note:</strong> By submitting this application, you agree to share your information with the employer and confirm that all details provided are accurate.
+            <strong>Note:</strong> By submitting this application, you agree to share your
+            information with the employer and confirm that all details provided are accurate.
           </p>
         </div>
 
         {/* Personal Information Section */}
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-6">
-            <span className="text-2xl"><img src={icons.personal_information} alt="Personal information icon" /></span>
+            <span className="text-2xl">
+              <img src={icons.personal_information} alt="Personal information icon" />
+            </span>
             <h3 className="text-lg font-semibold text-gray-900">Personal Information</h3>
           </div>
 
@@ -61,17 +64,17 @@ const ReviewApplication = ({
               <span className="text-gray-600 font-medium">Full Name:</span>
               <span className="text-gray-900">{applicationData.full_name || 'N/A'}</span>
             </div>
-            
+
             <div className="flex gap-5 items-start py-3 border-b border-gray-200 max-[769px]:flex-col">
               <span className="text-gray-600 font-medium">Email:</span>
               <span className="text-gray-900">{applicationData.email_address || 'N/A'}</span>
             </div>
-            
+
             <div className="flex gap-5 items-start py-3 border-b border-gray-200 max-[769px]:flex-col">
               <span className="text-gray-600 font-medium">Phone:</span>
               <span className="text-gray-900">{applicationData.phone_number || 'N/A'}</span>
             </div>
-            
+
             <div className="flex gap-5 items-start py-3 max-[769px]:flex-col">
               <span className="text-gray-600 font-medium">Address:</span>
               <span className="text-gray-900">{applicationData.current_address || 'N/A'}</span>
@@ -85,7 +88,9 @@ const ReviewApplication = ({
         {/* Documents Section */}
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-6">
-            <span className="text-2xl"><img src={icons.resume} alt="Resume icon" /></span>
+            <span className="text-2xl">
+              <img src={icons.resume} alt="Resume icon" />
+            </span>
             <h3 className="text-lg font-semibold text-gray-900">Documents</h3>
           </div>
 
@@ -96,7 +101,7 @@ const ReviewApplication = ({
                 {applicationData.resume?.name || 'Not attached'}
               </span>
             </div>
-            
+
             <div className="flex gap-5 items-start py-3 max-[769px]:flex-col">
               <span className="text-gray-600 font-medium">Cover Letter:</span>
               <span className="text-gray-900">

@@ -10,18 +10,21 @@ import Pagination from '../../../../components/Pagination';
 import Sidebar from '../Sidebar';
 import icons from '../../../../assets/svg/Icons';
 import Form from '../VerificationForm/Form';
-import ContactApplicantLayout from '../../../../components/ContactApplicant/ContactApplicantLayout'
+import ContactApplicantLayout from '../../../../components/ContactApplicant/ContactApplicantLayout';
 
 const ViewApplicant = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(7);
-  const { data, isLoading, error } = useApplicants({ page: currentPage, pageSize, role: ROLE.BUSINESS_EMPLOYER });
+  const { data, isLoading, error } = useApplicants({
+    page: currentPage,
+    pageSize,
+    role: ROLE.BUSINESS_EMPLOYER,
+  });
 
   const [openMenuId, setOpenMenuId] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [showRejectModal, setShowRejectModal] = useState(false);
   const [selectedApplication, setSelectedApplication] = useState(null);
-
 
   // ✅ New states for contact modal
   const [showContactModal, setShowContactModal] = useState(false);
@@ -54,14 +57,14 @@ const ViewApplicant = () => {
   const totalPages = useMemo(() => Math.max(1, Math.ceil(total / pageSize)), [total, pageSize]);
 
   if (loadingProfile) return <div>Loading profile...</div>;
-  if (isProfileError) return <div>Error loading profile: {profileError?.message || 'Unknown error'}</div>;
+  if (isProfileError)
+    return <div>Error loading profile: {profileError?.message || 'Unknown error'}</div>;
 
   return (
     <>
       <Sidebar />
       <div className="min-h-screen flex flex-col justify-between bg-linear-to-b from-white to-cyan-400 pl-70 pr-10 pt-30">
         <div>
-
           {profileData?.is_verified ? (
             <>
               <div className="bg-white shadow-md py-6 px-10 mb-8">
@@ -82,74 +85,82 @@ const ViewApplicant = () => {
                         <th className="text-left py-3 px-4 font-semibold">Date Applied</th>
                         <th className="text-left py-3 px-4 font-semibold"></th>
                       </tr>
-                    </thead>  
+                    </thead>
 
                     <tbody>
-
                       {isLoading && (
                         <tr>
-                          <td colSpan={5} className="py-6 text-center text-gray-500">Loading...</td>
+                          <td colSpan={5} className="py-6 text-center text-gray-500">
+                            Loading...
+                          </td>
                         </tr>
                       )}
 
                       {!isLoading && rows.length === 0 && (
                         <tr>
-                          <td colSpan={5} className="py-6 text-center text-gray-500 italic">No applicants found.</td>
+                          <td colSpan={5} className="py-6 text-center text-gray-500 italic">
+                            No applicants found.
+                          </td>
                         </tr>
                       )}
 
-                      {!isLoading && rows.map((applicant) => (
-                        <tr key={applicant.application_id} className="border-b border-gray-300 relative text-[#1F2937]">
-                          <td className="py-3 px-4">{applicant.applicant_name}</td>
-                          <td className="py-3 px-4">{applicant.job_title}</td>
-                          <td className="py-3 px-4">{applicant.location || '-'}</td>
-                          <td className="py-3 px-4">{applicant.applied_at_formatted || '-'}</td>
-                          <td className="py-3 px-4">
-                            <button
-                              className="cursor-pointer"
-                              onClick={() =>
-                                setOpenMenuId(openMenuId === applicant.application_id ? null : applicant.application_id)
-                              }
-                            >
-                              <img src={icons.three_dots} alt="" />
-                            </button>
+                      {!isLoading &&
+                        rows.map((applicant) => (
+                          <tr
+                            key={applicant.application_id}
+                            className="border-b border-gray-300 relative text-[#1F2937]"
+                          >
+                            <td className="py-3 px-4">{applicant.applicant_name}</td>
+                            <td className="py-3 px-4">{applicant.job_title}</td>
+                            <td className="py-3 px-4">{applicant.location || '-'}</td>
+                            <td className="py-3 px-4">{applicant.applied_at_formatted || '-'}</td>
+                            <td className="py-3 px-4">
+                              <button
+                                className="cursor-pointer"
+                                onClick={() =>
+                                  setOpenMenuId(
+                                    openMenuId === applicant.application_id
+                                      ? null
+                                      : applicant.application_id
+                                  )
+                                }
+                              >
+                                <img src={icons.three_dots} alt="" />
+                              </button>
 
-                            {openMenuId === applicant.application_id && (
-                              <ApplicantMenu
-
-                                // Reject Applicant
-                                onRejectClick={() => {
-                                  setSelectedApplication(applicant);
-                                  setShowRejectModal(true);
-                                  setOpenMenuId(null);
-                                }}
-
-                                // View Profile
-                                onViewProfileClick={() => {
-                                  setSelectedApplicant(applicant);
-                                  setShowProfileModal(true);
-                                  setOpenMenuId(null);
-                                }}
-
-                                // Message Applicant
-                                onMessageClick={() => {
-                                  setSelectedContactApplicant(applicant);
-                                  setShowContactModal(true);
-                                  setOpenMenuId(null);
-                                }}
-                              />
-
-                            )}
-                          </td>
-                        </tr>
-                      ))}
+                              {openMenuId === applicant.application_id && (
+                                <ApplicantMenu
+                                  // Reject Applicant
+                                  onRejectClick={() => {
+                                    setSelectedApplication(applicant);
+                                    setShowRejectModal(true);
+                                    setOpenMenuId(null);
+                                  }}
+                                  // View Profile
+                                  onViewProfileClick={() => {
+                                    setSelectedApplicant(applicant);
+                                    setShowProfileModal(true);
+                                    setOpenMenuId(null);
+                                  }}
+                                  // Message Applicant
+                                  onMessageClick={() => {
+                                    setSelectedContactApplicant(applicant);
+                                    setShowContactModal(true);
+                                    setOpenMenuId(null);
+                                  }}
+                                />
+                              )}
+                            </td>
+                          </tr>
+                        ))}
                     </tbody>
                   </table>
 
                   {error && (
-                    <div className="px-4 py-3 text-red-600 text-sm border-t border-gray-200">Failed to load applicants</div>
+                    <div className="px-4 py-3 text-red-600 text-sm border-t border-gray-200">
+                      Failed to load applicants
+                    </div>
                   )}
-
                 </div>
               </div>
             </>
@@ -158,7 +169,6 @@ const ViewApplicant = () => {
               <VerificationStatus profileData={profileData} openForm={openForm} />
             </div>
           )}
-
         </div>
 
         {/* Pagination */}
@@ -169,7 +179,6 @@ const ViewApplicant = () => {
             setCurrentPage={setCurrentPage}
           />
         </div>
-
       </div>
 
       {/* Verification Form */}
@@ -216,7 +225,6 @@ const ViewApplicant = () => {
           }}
         />
       )}
-
     </>
   );
 };

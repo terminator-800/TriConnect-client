@@ -1,15 +1,15 @@
-import { useEffect, useRef, useState } from "react";
-import { useMarkMessagesAsSeen } from "./helper";
-import { useMessageHistory } from "../../../../../hooks/CHAT";
-import { useUserProfile } from "../../../../../hooks/useUserProfiles";
-import { useQueryClient } from "@tanstack/react-query";
-import { getInitials } from "./helper";
-import { useChatRoom } from "../../../../../hooks/useChatRoom";
-import { useSocket } from "../../../../../hooks/useSocket";
-import { ROLE } from "../../../../../utils/role";
-import socket from "../../../../../utils/socket";
-import icons from "../../../../assets/svg/Icons";
-import { ApplicationCard } from "../../../../components/ApplicationCard";
+import { useEffect, useRef, useState } from 'react';
+import { useMarkMessagesAsSeen } from './helper';
+import { useMessageHistory } from '../../../../../hooks/CHAT';
+import { useUserProfile } from '../../../../../hooks/useUserProfiles';
+import { useQueryClient } from '@tanstack/react-query';
+import { getInitials } from './helper';
+import { useChatRoom } from '../../../../../hooks/useChatRoom';
+import { useSocket } from '../../../../../hooks/useSocket';
+import { ROLE } from '../../../../../utils/role';
+import socket from '../../../../../utils/socket';
+import icons from '../../../../assets/svg/Icons';
+import { ApplicationCard } from '../../../../components/ApplicationCard';
 
 const ChatWindow = ({ selectedUser }) => {
   const endRef = useRef(null);
@@ -47,11 +47,11 @@ const ChatWindow = ({ selectedUser }) => {
     const handleNewMessage = (newMessage) => {
       if (Number(newMessage.conversation_id) === Number(conversation_id)) {
         queryClient.invalidateQueries({
-          queryKey: ["messages", ROLE.INDIVIDUAL_EMPLOYER, conversation_id],
+          queryKey: ['messages', ROLE.INDIVIDUAL_EMPLOYER, conversation_id],
         });
 
         queryClient.invalidateQueries({
-          queryKey: ["conversations", ROLE.INDIVIDUAL_EMPLOYER],
+          queryKey: ['conversations', ROLE.INDIVIDUAL_EMPLOYER],
         });
       }
     };
@@ -59,37 +59,33 @@ const ChatWindow = ({ selectedUser }) => {
     const handleMessagesSeen = (data) => {
       if (Number(data.conversation_id) === Number(conversation_id)) {
         queryClient.invalidateQueries({
-          queryKey: ["messages", ROLE.INDIVIDUAL_EMPLOYER, conversation_id],
+          queryKey: ['messages', ROLE.INDIVIDUAL_EMPLOYER, conversation_id],
         });
       }
     };
 
     // Listen for new messages
-    socket.on("receiveMessage", handleNewMessage);
+    socket.on('receiveMessage', handleNewMessage);
 
     // Listen for messages seen updates
-    socket.on("messagesSeen", handleMessagesSeen);
+    socket.on('messagesSeen', handleMessagesSeen);
 
     return () => {
-      socket.off("receiveMessage", handleNewMessage);
-      socket.off("messagesSeen", handleMessagesSeen);
+      socket.off('receiveMessage', handleNewMessage);
+      socket.off('messagesSeen', handleMessagesSeen);
     };
   }, [conversation_id, queryClient]);
 
   useEffect(() => {
     if (messages.length > 0) {
-      endRef.current?.scrollIntoView({ behavior: "smooth" });
+      endRef.current?.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages.length]);
 
   return (
     <div className="flex-1 overflow-y-auto p-6 bg-white">
-      {isLoading && (
-        <div className="text-gray-400 text-center">Loading messages...</div>
-      )}
-      {isError && (
-        <div className="text-red-500 text-center">Failed to load messages.</div>
-      )}
+      {isLoading && <div className="text-gray-400 text-center">Loading messages...</div>}
+      {isError && <div className="text-red-500 text-center">Failed to load messages.</div>}
       {!isLoading && !isError && messages.length === 0 && (
         <div className="text-gray-400 text-center">No messages yet.</div>
       )}
@@ -100,20 +96,16 @@ const ChatWindow = ({ selectedUser }) => {
             {messages.map((msg, index) => {
               const isSender = Number(msg.sender_id) === Number(currentUserId);
               const senderAvatar = selectedUser?.authorized_profile;
-              const senderInitials = getInitials(
-                selectedUser?.authorized_person || "unknown"
-              );
-              const alignment = isSender ? "justify-end" : "justify-start";
+              const senderInitials = getInitials(selectedUser?.authorized_person || 'unknown');
+              const alignment = isSender ? 'justify-end' : 'justify-start';
               const bubbleStyle = isSender
-                ? "bg-blue-500 text-white rounded-br-none"
-                : "bg-gray-200 text-gray-800 rounded-bl-none";
+                ? 'bg-blue-500 text-white rounded-br-none'
+                : 'bg-gray-200 text-gray-800 rounded-bl-none';
 
               const isLastSenderMessage =
                 isSender &&
                 index ===
-                  messages.findLastIndex(
-                    (m) => Number(m.sender_id) === Number(currentUserId)
-                  );
+                  messages.findLastIndex((m) => Number(m.sender_id) === Number(currentUserId));
 
               return (
                 <li
@@ -137,19 +129,15 @@ const ChatWindow = ({ selectedUser }) => {
 
                   <div className="flex flex-col items-start">
                     {/* APPLICATION CARD - Only if it has required application fields */}
-                    {msg.message_type === "apply" &&
-                    msg.full_name &&
-                    msg.email_address ? (
+                    {msg.message_type === 'apply' && msg.full_name && msg.email_address ? (
                       ApplicationCard(msg, isSender)
                     ) : (
                       <>
-                        <div
-                          className={`max-w-xs px-4 py-2 rounded-lg text-sm ${bubbleStyle}`}
-                        >
+                        <div className={`max-w-xs px-4 py-2 rounded-lg text-sm ${bubbleStyle}`}>
                           {/* FILE MESSAGE - PDF or Image */}
-                          {msg.message_type === "file" && msg.file_url && (
+                          {msg.message_type === 'file' && msg.file_url && (
                             <>
-                              {msg.file_url.endsWith(".pdf") ? (
+                              {msg.file_url.endsWith('.pdf') ? (
                                 <div
                                   className="w-48 h-64 rounded-lg border border-gray-300 cursor-pointer overflow-hidden"
                                   onClick={() => setPreviewImage(msg.file_url)}
@@ -181,15 +169,13 @@ const ChatWindow = ({ selectedUser }) => {
                         <div
                           className={`text-xs mt-1 ${
                             isSender
-                              ? "text-right self-end text-gray-500"
-                              : "text-left self-start text-gray-500"
+                              ? 'text-right self-end text-gray-500'
+                              : 'text-left self-start text-gray-500'
                           }`}
                         >
                           <div>sent {msg.created_at}</div>
                           {isLastSenderMessage && !!msg.is_read && (
-                            <div className="text-xs text-blue-500 mt-1">
-                              Seen
-                            </div>
+                            <div className="text-xs text-blue-500 mt-1">Seen</div>
                           )}
                         </div>
                       </>
@@ -210,8 +196,8 @@ const ChatWindow = ({ selectedUser }) => {
           <div
             className="relative bg-white px-4 py-10 border border-gray-300 flex flex-col items-center"
             style={{
-              maxWidth: "95vw",
-              maxHeight: "90vh",
+              maxWidth: '95vw',
+              maxHeight: '90vh',
             }}
           >
             {/* Close button */}
@@ -223,14 +209,14 @@ const ChatWindow = ({ selectedUser }) => {
             </button>
 
             {/* PDF or Image preview */}
-            {previewImage.endsWith(".pdf") ? (
+            {previewImage.endsWith('.pdf') ? (
               <iframe
                 src={previewImage}
                 title="PDF Preview"
                 className="rounded-lg border"
                 style={{
-                  width: "80vw",
-                  height: "80vh",
+                  width: '80vw',
+                  height: '80vh',
                 }}
               />
             ) : (
@@ -239,14 +225,14 @@ const ChatWindow = ({ selectedUser }) => {
                 alt="Preview"
                 className="object-contain rounded-lg"
                 style={{
-                  maxWidth: "80vw",
-                  maxHeight: "80vh",
+                  maxWidth: '80vw',
+                  maxHeight: '80vh',
                 }}
               />
             )}
 
             {/* Download button for PDF */}
-            {previewImage.endsWith(".pdf") && (
+            {previewImage.endsWith('.pdf') && (
               <a
                 href={previewImage}
                 target="_blank"

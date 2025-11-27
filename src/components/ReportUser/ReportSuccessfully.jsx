@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const ReportSuccessfully = ({ onClose }) => {
   return (
@@ -9,12 +9,7 @@ const ReportSuccessfully = ({ onClose }) => {
           onClick={onClose}
           className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-red-500 text-white font-bold hover:bg-red-600 transition cursor-pointer"
         >
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -25,18 +20,13 @@ const ReportSuccessfully = ({ onClose }) => {
         </button>
 
         {/* Title */}
-        <h2 className="text-center text-[#55C463] text-3xl mb-4">
-          Report Successfully Submitted!
-        </h2>
+        <h2 className="text-center text-[#55C463] text-3xl mb-4">Report Successfully Submitted!</h2>
 
         {/* Message */}
         <p className="text-center text-[#6B7280] text-base leading-relaxed">
           Thank you for helping us maintain a safe and trustworthy platform.
           <br />
-          Your report is now <span className="font-semibold">
-            under review
-          </span>{" "}
-          by our admin team.
+          Your report is now <span className="font-semibold">under review</span> by our admin team.
         </p>
       </div>
     </div>

@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react";
-import icons from "../../../../assets/svg/Icons";
+import { useEffect, useRef } from 'react';
+import icons from '../../../../assets/svg/Icons';
 
 const ActionMenu = ({ isOpen, onToggle, onDeleteClick, onViewJobDetails }) => {
   const menuRef = useRef(null);
@@ -12,9 +12,9 @@ const ActionMenu = ({ isOpen, onToggle, onDeleteClick, onViewJobDetails }) => {
     };
 
     if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener('mousedown', handleClickOutside);
     }
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isOpen, onToggle]);
 
   return (
@@ -29,10 +29,7 @@ const ActionMenu = ({ isOpen, onToggle, onDeleteClick, onViewJobDetails }) => {
       {isOpen && (
         <div className="absolute mt-2 w-48 bg-white border border-gray-300 shadow-lg z-10">
           <ul className="text-sm text-gray-700">
-            <li
-              onClick={onViewJobDetails}
-              className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-            >
+            <li onClick={onViewJobDetails} className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
               View Job Details
             </li>
 

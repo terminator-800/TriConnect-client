@@ -1,13 +1,18 @@
 import { useEffect } from 'react';
 
-export const useMessageScroll = ({ ref, messagesLength, selectedConversationId, setVisibleCount }) => {
+export const useMessageScroll = ({
+  ref,
+  messagesLength,
+  selectedConversationId,
+  setVisibleCount,
+}) => {
   useEffect(() => {
     const container = ref.current;
     if (!container) return;
 
     const handleScroll = () => {
       if (container.scrollTop < 50) {
-        setVisibleCount(prev => prev + 10);
+        setVisibleCount((prev) => prev + 10);
       }
     };
 

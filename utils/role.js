@@ -3,15 +3,15 @@ export const ROLE = {
   BUSINESS_EMPLOYER: 'business-employer',
   INDIVIDUAL_EMPLOYER: 'individual-employer',
   MANPOWER_PROVIDER: 'manpower-provider',
-  ADMINISTRATOR: 'administrator'
+  ADMINISTRATOR: 'administrator',
 };
 
 export const ROLE_CATEGORY = {
   EMPLOYER: 'employer',
   JOBSEEKER: 'jobseeker',
   MANPOWER: 'manpower',
-  UNKNOWN: 'Unknown'
-}
+  UNKNOWN: 'Unknown',
+};
 
 export const ROLE_LABELS = {
   [ROLE.JOBSEEKER]: 'Jobseeker',
@@ -24,7 +24,7 @@ export const roleColors = {
   'manpower-provider': 'text-orange-500',
   'business-employer': 'text-green-600',
   'individual-employer': 'text-yellow-500',
-  'jobseeker': 'text-blue-600',
+  jobseeker: 'text-blue-600',
 };
 
 export const getInitials = (entity = '') => {

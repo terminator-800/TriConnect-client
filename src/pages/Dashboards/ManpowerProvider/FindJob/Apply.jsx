@@ -19,14 +19,13 @@ const Apply = ({ employer, onClose }) => {
 
   const mutation = useMutation({
     mutationFn: async ({ job_post_id, receiver_id, message, files }) => {
-
       const formData = new FormData();
-      formData.append("job_post_id", job_post_id);
-      formData.append("receiver_id", receiver_id);
-      formData.append("message", message);
+      formData.append('job_post_id', job_post_id);
+      formData.append('receiver_id', receiver_id);
+      formData.append('message', message);
 
       if (files) {
-        formData.append("files", files);
+        formData.append('files', files);
       }
 
       const res = await axios.post(
@@ -35,7 +34,7 @@ const Apply = ({ employer, onClose }) => {
         {
           withCredentials: true,
           headers: {
-            "Content-Type": "multipart/form-data",
+            'Content-Type': 'multipart/form-data',
           },
         }
       );
@@ -47,7 +46,7 @@ const Apply = ({ employer, onClose }) => {
       setMessage('');
       setFiles(null);
 
-      socket.emit("sendMessage", {
+      socket.emit('sendMessage', {
         receiver_id: employer.user_id,
         message_text: message,
         file_url: data.file_url,
@@ -66,7 +65,6 @@ const Apply = ({ employer, onClose }) => {
   });
 
   const handleSubmit = () => {
-
     if (!message.trim() && !files) {
       alert('Please enter a message or attach a file.');
       return;
@@ -76,7 +74,7 @@ const Apply = ({ employer, onClose }) => {
       job_post_id: employer.job_post_id,
       receiver_id: employer.user_id,
       message,
-      files: files
+      files: files,
     });
   };
 
@@ -84,9 +82,10 @@ const Apply = ({ employer, onClose }) => {
 
   return (
     <div className="bg-gray-300 w-full max-w-2xl py-5 px-10 rounded-xl border border-gray-500 shadow-lg">
-      <div className='flex justify-between items-center border-b pb-3 mb-5 border-gray-500'>
+      <div className="flex justify-between items-center border-b pb-3 mb-5 border-gray-500">
         <h2 className="text-xl font-bold">
-          Contact {employer.business_name || employer.full_name || employer.agency_name || 'Employer'}
+          Contact{' '}
+          {employer.business_name || employer.full_name || employer.agency_name || 'Employer'}
         </h2>
         <button
           onClick={onClose}
@@ -97,7 +96,7 @@ const Apply = ({ employer, onClose }) => {
         </button>
       </div>
 
-      <p className='text-gray-700 mb-1'>Your Message:</p>
+      <p className="text-gray-700 mb-1">Your Message:</p>
       <textarea
         rows="6"
         value={message}
@@ -110,7 +109,6 @@ const Apply = ({ employer, onClose }) => {
       <div className="mb-4 flex flex-col">
         <label className="text-gray-700 font-medium mb-2" htmlFor="resume">
           Attach Documents <span className="text-sm text-gray-500">(Optional)</span>
-
           <div className="mt-2">
             <label
               htmlFor="resume"
@@ -129,7 +127,6 @@ const Apply = ({ employer, onClose }) => {
               onChange={(e) => setFiles(e.target.files[0])}
             />
           </div>
-
           {files && (
             <p className="text-sm text-gray-700 mt-2">
               Selected: <strong>{files.name}</strong>
@@ -142,10 +139,9 @@ const Apply = ({ employer, onClose }) => {
         <button
           onClick={handleSubmit}
           disabled={isSubmitting || !message.trim()}
-          className={`px-4 py-2 rounded-xl text-white cursor-pointer ${isSubmitting
-            ? 'bg-gray-500 cursor-not-allowed'
-            : 'bg-blue-900 hover:bg-blue-800'
-            }`}
+          className={`px-4 py-2 rounded-xl text-white cursor-pointer ${
+            isSubmitting ? 'bg-gray-500 cursor-not-allowed' : 'bg-blue-900 hover:bg-blue-800'
+          }`}
         >
           {isSubmitting ? 'Sending...' : 'Send Message'}
         </button>

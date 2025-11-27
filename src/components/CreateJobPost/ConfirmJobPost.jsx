@@ -1,5 +1,5 @@
-import { useNavigate } from "react-router-dom";
-import JobPostForm from "./HiringJobPostForm";
+import { useNavigate } from 'react-router-dom';
+import JobPostForm from './HiringJobPostForm';
 
 const ConfirmJobPost = ({ closeModal, role }) => {
   const navigate = useNavigate();
@@ -9,8 +9,8 @@ const ConfirmJobPost = ({ closeModal, role }) => {
       {/* Modal Content */}
       <div className="w-full max-w-5xl text-center shadow-lg p-6 relative border border-white backdrop-blur-2xl bottom-0 px-15 py-10">
         <h2 className="text-2xl leading-relaxed text-[#6B7280]">
-          Thank you! Your job post has been moved to pending and will be
-          reviewed by our admin before being published.
+          Thank you! Your job post has been moved to pending and will be reviewed by our admin
+          before being published.
         </h2>
 
         <div className="flex justify-center gap-6 mt-10">
@@ -24,7 +24,7 @@ const ConfirmJobPost = ({ closeModal, role }) => {
           <button
             onClick={() => {
               closeModal();
-              <JobPostForm/>
+              <JobPostForm />;
             }}
             className="px-10 py-1 border border-gray-800 hover:text-white hover:bg-gray-800 transition-all shadow-md bg-[#2C3E50] text-[#FFFFFF] cursor-pointer"
           >

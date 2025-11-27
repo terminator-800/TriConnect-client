@@ -8,9 +8,9 @@ export const useStatusChange = (role) => {
     mutationFn: async ({ jobPostId, status }) => {
       const response = await axios.patch(
         `${import.meta.env.VITE_API_URL}/${role}/${jobPostId}/${status}`,
-        {}, 
+        {},
         {
-          withCredentials: true, 
+          withCredentials: true,
         }
       );
       return response.data;

@@ -26,7 +26,6 @@ const Sidebar = () => {
     await logout();
   };
 
-
   return (
     <>
       {/* Navbar */}
@@ -36,11 +35,11 @@ const Sidebar = () => {
 
       {/* Sidebar */}
       <div className="fixed h-full bg-gray-400 text-white p-0 w-60 flex flex-col z-40">
-
         <ul className="list-none p-0 space-y-4 flex-1 flex flex-col mb-6 mt-30">
-
-          <li className={`${location.pathname.includes(`/${ROLE.MANPOWER_PROVIDER}/dashboard`) ? 'bg-gray-500' : ''} flex`}>
-            <img src={icons.dashboard} alt="" className='ml-5 w-[27px]' />
+          <li
+            className={`${location.pathname.includes(`/${ROLE.MANPOWER_PROVIDER}/dashboard`) ? 'bg-gray-500' : ''} flex`}
+          >
+            <img src={icons.dashboard} alt="" className="ml-5 w-[27px]" />
             <button
               onClick={() => navigate(`/${ROLE.MANPOWER_PROVIDER}/dashboard`)}
               className="text-black hover:text-gray-300 ml-3 bg-transparent border-none cursor-pointer p-2 font-medium"
@@ -49,8 +48,10 @@ const Sidebar = () => {
             </button>
           </li>
 
-          <li className={`${location.pathname.includes(`/${ROLE.MANPOWER_PROVIDER}/jobs`) ? 'bg-gray-500' : ''} flex`}>
-            <img src={icons.find_job} alt="" className='ml-5 w-[27px]' />
+          <li
+            className={`${location.pathname.includes(`/${ROLE.MANPOWER_PROVIDER}/jobs`) ? 'bg-gray-500' : ''} flex`}
+          >
+            <img src={icons.find_job} alt="" className="ml-5 w-[27px]" />
             <button
               onClick={() => navigate(`/${ROLE.MANPOWER_PROVIDER}/jobs`)}
               className="text-black hover:text-gray-300 ml-3 bg-transparent border-none cursor-pointer p-2 font-medium"
@@ -59,8 +60,10 @@ const Sidebar = () => {
             </button>
           </li>
 
-          <li className={`${location.pathname.includes(`/${ROLE.MANPOWER_PROVIDER}/manage`) ? 'bg-gray-500' : ''} flex`}>
-            <img src={icons.find_agency} alt="" className='ml-5 w-[27px]' />
+          <li
+            className={`${location.pathname.includes(`/${ROLE.MANPOWER_PROVIDER}/manage`) ? 'bg-gray-500' : ''} flex`}
+          >
+            <img src={icons.find_agency} alt="" className="ml-5 w-[27px]" />
             <button
               onClick={() => navigate(`/${ROLE.MANPOWER_PROVIDER}/manage`)}
               className="text-black hover:text-gray-300 ml-3 bg-transparent border-none cursor-pointer p-2 font-medium"
@@ -69,8 +72,10 @@ const Sidebar = () => {
             </button>
           </li>
 
-          <li className={`${location.pathname.includes(`/${ROLE.MANPOWER_PROVIDER}/create`) ? 'bg-gray-500' : ''} flex`}>
-            <img src={icons.find_agency} alt="" className='ml-5 w-[27px]' />
+          <li
+            className={`${location.pathname.includes(`/${ROLE.MANPOWER_PROVIDER}/create`) ? 'bg-gray-500' : ''} flex`}
+          >
+            <img src={icons.find_agency} alt="" className="ml-5 w-[27px]" />
             <button
               onClick={() => navigate(`/${ROLE.MANPOWER_PROVIDER}/create`)}
               className="text-black hover:text-gray-300 ml-3 bg-transparent border-none cursor-pointer p-2 font-medium"
@@ -79,8 +84,10 @@ const Sidebar = () => {
             </button>
           </li>
 
-          <li className={`${location.pathname.includes(`/${ROLE.MANPOWER_PROVIDER}/view`) ? 'bg-gray-500' : ''} flex`}>
-            <img src={icons.view_applicant} alt="" className='ml-5 w-[27px]' />
+          <li
+            className={`${location.pathname.includes(`/${ROLE.MANPOWER_PROVIDER}/view`) ? 'bg-gray-500' : ''} flex`}
+          >
+            <img src={icons.view_applicant} alt="" className="ml-5 w-[27px]" />
             <button
               onClick={() => navigate(`/${ROLE.MANPOWER_PROVIDER}/view`)}
               className="text-black hover:text-gray-300 ml-3 bg-transparent border-none cursor-pointer p-2 font-medium"
@@ -89,8 +96,10 @@ const Sidebar = () => {
             </button>
           </li>
 
-          <li className={`${location.pathname.includes(`/${ROLE.MANPOWER_PROVIDER}/message`) ? 'bg-gray-500' : ''} flex`}>
-            <img src={icons.message} alt="" className='ml-5 w-[27px]' />
+          <li
+            className={`${location.pathname.includes(`/${ROLE.MANPOWER_PROVIDER}/message`) ? 'bg-gray-500' : ''} flex`}
+          >
+            <img src={icons.message} alt="" className="ml-5 w-[27px]" />
             <button
               onClick={() => navigate(`/${ROLE.MANPOWER_PROVIDER}/message`)}
               className="text-black hover:text-gray-300 ml-3 bg-transparent border-none cursor-pointer p-2 font-medium"
@@ -116,16 +125,12 @@ const Sidebar = () => {
               {isLoggingOut ? 'Signing out...' : 'Sign out'}
             </button>
           </li>
-
         </ul>
       </div>
 
       {/* Feedback Modal */}
       {feedbackModalVisible && (
-        <Feedback
-          onClose={handleFeedbackClose}
-          role={ROLE.MANPOWER_PROVIDER}
-        />
+        <Feedback onClose={handleFeedbackClose} role={ROLE.MANPOWER_PROVIDER} />
       )}
     </>
   );

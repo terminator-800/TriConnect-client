@@ -1,29 +1,32 @@
-import { useCreateJobPost } from "../../../../../hooks/useCreateJobPost";
-import { useState, useEffect } from "react";
-import { ROLE } from "../../../../../utils/role";
-import ConfirmJobPost from "../../../../components/CreateJobPost/ConfirmJobPost"; 
+import { useCreateJobPost } from '../../../../../hooks/useCreateJobPost';
+import { useState, useEffect } from 'react';
+import { ROLE } from '../../../../../utils/role';
+import ConfirmJobPost from '../../../../components/CreateJobPost/ConfirmJobPost';
 
 const JobPostForm = () => {
-  const [job_title, setJobTitle] = useState("");
-  const [job_type, setJobType] = useState("");
-  const [salary_range, setSalaryRange] = useState("");
-  const [location, setLocation] = useState("");
-  const [required_skill, setRequiredSkill] = useState("");
-  const [job_description, setJobDescription] = useState("");
+  const [job_title, setJobTitle] = useState('');
+  const [job_type, setJobType] = useState('');
+  const [salary_range, setSalaryRange] = useState('');
+  const [location, setLocation] = useState('');
+  const [required_skill, setRequiredSkill] = useState('');
+  const [job_description, setJobDescription] = useState('');
   const [agreeToReview, setAgreeToReview] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-  
+
   const onSuccessCallback = () => {
-    setJobTitle("");
-    setJobType("");
-    setSalaryRange("");
-    setLocation("");
-    setRequiredSkill("");
-    setJobDescription("");
+    setJobTitle('');
+    setJobType('');
+    setSalaryRange('');
+    setLocation('');
+    setRequiredSkill('');
+    setJobDescription('');
     setAgreeToReview(false);
   };
 
-  const { mutate, isPending, isSuccess} = useCreateJobPost(ROLE.INDIVIDUAL_EMPLOYER, onSuccessCallback);
+  const { mutate, isPending, isSuccess } = useCreateJobPost(
+    ROLE.INDIVIDUAL_EMPLOYER,
+    onSuccessCallback
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,20 +45,20 @@ const JobPostForm = () => {
   };
 
   const isLoading = isPending;
-  
-      useEffect(() => {
-      if (isSuccess) {
-          onSuccessCallback(); 
-          setShowSuccessModal(true); 
-      }
-      }, [isSuccess]);
-  
-      useEffect(() => {
-      if (showSuccessModal) {
-          const timer = setTimeout(() => setShowSuccessModal(false), 5000);
-          return () => clearTimeout(timer);
-      }
-      }, [showSuccessModal]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      onSuccessCallback();
+      setShowSuccessModal(true);
+    }
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (showSuccessModal) {
+      const timer = setTimeout(() => setShowSuccessModal(false), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [showSuccessModal]);
 
   return (
     <>
@@ -65,7 +68,9 @@ const JobPostForm = () => {
       <div className="w-full bg-white p-15 rounded mt-15">
         <form onSubmit={handleSubmit}>
           <div className="mb-5">
-            <label htmlFor="job_title" className="block text-lg font-medium">Job Title</label>
+            <label htmlFor="job_title" className="block text-lg font-medium">
+              Job Title
+            </label>
             <input
               id="job_title"
               type="text"
@@ -78,7 +83,9 @@ const JobPostForm = () => {
           </div>
 
           <div className="mb-5 flex flex-col">
-            <label htmlFor="job_type" className="font-medium">Job Type</label>
+            <label htmlFor="job_type" className="font-medium">
+              Job Type
+            </label>
             <select
               name="job_type"
               id="job_type"
@@ -95,7 +102,9 @@ const JobPostForm = () => {
           </div>
 
           <div className="mb-5 flex flex-col">
-            <label htmlFor="salary_range" className="font-medium">Salary Range</label>
+            <label htmlFor="salary_range" className="font-medium">
+              Salary Range
+            </label>
             <input
               type="number"
               placeholder="Min - Max (PHP)"
@@ -107,7 +116,9 @@ const JobPostForm = () => {
           </div>
 
           <div className="mb-5 flex flex-col">
-            <label htmlFor="location" className="font-medium">Location</label>
+            <label htmlFor="location" className="font-medium">
+              Location
+            </label>
             <input
               type="text"
               placeholder="Location"
@@ -119,7 +130,9 @@ const JobPostForm = () => {
           </div>
 
           <div className="mb-5 flex flex-col">
-            <label htmlFor="required_skill" className="font-medium">Required Skill</label>
+            <label htmlFor="required_skill" className="font-medium">
+              Required Skill
+            </label>
             <input
               type="text"
               placeholder="e.g., Babysitting, Housekeeping, Elder Care"
@@ -131,7 +144,9 @@ const JobPostForm = () => {
           </div>
 
           <div className="mb-5">
-            <label htmlFor="job_description" className="font-medium">Job Description</label>
+            <label htmlFor="job_description" className="font-medium">
+              Job Description
+            </label>
             <textarea
               id="job_description"
               className="border border-gray-300 rounded p-2 w-full h-32 outline-none"
@@ -150,29 +165,29 @@ const JobPostForm = () => {
               onChange={(e) => setAgreeToReview(e.target.checked)}
             />
             <p>
-              By selecting <strong>Confirm</strong>, you agree that this job post will be reviewed by the system administrator. You will be notified once the job post is verified.
+              By selecting <strong>Confirm</strong>, you agree that this job post will be reviewed
+              by the system administrator. You will be notified once the job post is verified.
             </p>
           </div>
 
           <button
-              type="submit"
-              className="bg-blue-900 text-white rounded-xl px-10 shadow-md py-2 text-2xl cursor-pointer"
-              disabled={isLoading}
+            type="submit"
+            className="bg-blue-900 text-white rounded-xl px-10 shadow-md py-2 text-2xl cursor-pointer"
+            disabled={isLoading}
           >
-              {isLoading ? "Submitting..." : "Confirm"}
+            {isLoading ? 'Submitting...' : 'Confirm'}
           </button>
         </form>
       </div>
 
-        
       {/* Modal appears on top */}
-       {showSuccessModal && (
-            <ConfirmJobPost
-                onClose={() => setShowSuccessModal(false)}
-                closeModal={() => setShowSuccessModal(false)}
-                role={ROLE.INDIVIDUAL_EMPLOYER}
-            />
-        )}
+      {showSuccessModal && (
+        <ConfirmJobPost
+          onClose={() => setShowSuccessModal(false)}
+          closeModal={() => setShowSuccessModal(false)}
+          role={ROLE.INDIVIDUAL_EMPLOYER}
+        />
+      )}
     </>
   );
 };

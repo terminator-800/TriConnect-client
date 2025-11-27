@@ -10,7 +10,6 @@ export const saveTabToLocalStorage = (tab) => {
   localStorage.setItem('chat-active-tab', tab);
 };
 
-
 export const getInitials = (fullName) => {
   if (!fullName || typeof fullName !== 'string') return '?';
 
@@ -32,8 +31,7 @@ export const filterAndMapConversations = (conversations, activeTab) => {
   const filtered = conversations.filter((convo) => {
     if (activeTab === 'employer') {
       return convo.role === ROLE.BUSINESS_EMPLOYER || convo.role === ROLE.INDIVIDUAL_EMPLOYER;
-    }
-    else if (activeTab === 'jobseeker') {
+    } else if (activeTab === 'jobseeker') {
       return convo.role === ROLE.JOBSEEKER;
     }
     return false;
@@ -47,7 +45,7 @@ export const filterAndMapConversations = (conversations, activeTab) => {
     switch (convo.role) {
       case ROLE.BUSINESS_EMPLOYER:
         name = convo.business_name || unknown;
-        authorized_profile = convo.authorized_profile || unknown
+        authorized_profile = convo.authorized_profile || unknown;
         profile = convo.profile || unknown;
         break;
       case ROLE.INDIVIDUAL_EMPLOYER:
@@ -57,12 +55,11 @@ export const filterAndMapConversations = (conversations, activeTab) => {
 
       case ROLE.JOBSEEKER:
         name = convo.full_name || unknown;
-        profile = convo.profile|| unknown;
+        profile = convo.profile || unknown;
         authorized_profile = convo.profile || unknown;
         break;
 
       default:
-
         break;
     }
 
@@ -75,7 +72,7 @@ export const filterAndMapConversations = (conversations, activeTab) => {
       role: convo.role,
       conversation_id: convo.conversation_id,
       profile,
-      authorized_profile
+      authorized_profile,
     };
   });
 };
@@ -87,11 +84,7 @@ export const useMarkMessagesAsSeen = ({ role, conversation_id, messages, current
 
   const allMessageIds = useMemo(() => {
     return messages
-      .filter(
-        (msg) =>
-          Number(msg.receiver_id) === Number(currentUserId) &&
-          !msg.is_read
-      )
+      .filter((msg) => Number(msg.receiver_id) === Number(currentUserId) && !msg.is_read)
       .map((msg) => msg.message_id);
   }, [messages, currentUserId]);
 

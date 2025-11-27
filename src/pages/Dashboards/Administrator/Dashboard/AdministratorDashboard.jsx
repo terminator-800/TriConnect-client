@@ -5,14 +5,16 @@ const Dashboard = () => {
   return (
     <>
       <Sidebar />
-      <div className="min-h-screen flex flex-col justify-between bg-linear-to-b from-white to-cyan-400
+      <div
+        className="min-h-screen flex flex-col justify-between bg-linear-to-b from-white to-cyan-400
                 pl-70 pr-10 pt-30
                 "
-                >
-
+      >
         <div>
           <h1 className="text-2xl font-bold text-blue-900">Admin Dashboard</h1>
-          <p className="mt-2 text-gray-700">Gain insights into job post trends, user engagement, and overall platform growth.</p>
+          <p className="mt-2 text-gray-700">
+            Gain insights into job post trends, user engagement, and overall platform growth.
+          </p>
 
           {/* Cards */}
           <div className="flex flex-wrap gap-6 mt-8 justify-center md:justify-start">
@@ -36,13 +38,13 @@ const Dashboard = () => {
           </div>
 
           {/* Charts Section */}
-          <div className='bg-white p-5 rounded-lg mt-8 mb-20'>
+          <div className="bg-white p-5 rounded-lg mt-8 mb-20">
             <BarChart />
           </div>
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default Dashboard;

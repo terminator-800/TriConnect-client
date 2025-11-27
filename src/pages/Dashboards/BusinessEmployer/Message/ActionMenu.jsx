@@ -1,14 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const ActionMenu = ({
-  isOpen,
-  onToggle,
-  onReportClick,
-  onAcceptClick,
-  onDeclineClick,
-  icons,
-}) => {
+const ActionMenu = ({ isOpen, onToggle, onReportClick, onAcceptClick, onDeclineClick, icons }) => {
   return (
     <div className="relative inline-block text-left">
       <button
@@ -21,10 +14,7 @@ const ActionMenu = ({
       {isOpen && (
         <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 shadow-lg z-10">
           <ul className="text-sm text-gray-700">
-            <li
-              className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-              onClick={onReportClick}
-            >
+            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={onReportClick}>
               Report Applicant
             </li>
 

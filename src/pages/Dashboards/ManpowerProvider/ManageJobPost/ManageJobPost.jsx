@@ -12,120 +12,134 @@ import Form from '../VerificationForm/Form';
 import ViewJobPost from '../../../../components/ViewJobPost/ViewJobPost';
 
 const ManageJobPost = () => {
-    const [showForm, setShowForm] = useState(false);
-    const [state, dispatch] = useReducer(modalReducer, initialState);
-    const [showViewJobModal, setShowViewJobModal] = useState(false);
-    const [selectedJob, setSelectedJob] = useState(null);
+  const [showForm, setShowForm] = useState(false);
+  const [state, dispatch] = useReducer(modalReducer, initialState);
+  const [showViewJobModal, setShowViewJobModal] = useState(false);
+  const [selectedJob, setSelectedJob] = useState(null);
 
-    const { data: provider, isLoading: isProviderLoading, isError, error, refetch } = useUserProfile(ROLE.MANPOWER_PROVIDER);
-    const { data: jobPostsGrouped = { pending: [], active: [], completed: [] }, isLoading: isJobsLoading } = useJobPostsByUser();
-    console.log(jobPostsGrouped);
-    
-    const openForm = () => { document.body.style.overflow = 'hidden'; setShowForm(true); };
+  const {
+    data: provider,
+    isLoading: isProviderLoading,
+    isError,
+    error,
+    refetch,
+  } = useUserProfile(ROLE.MANPOWER_PROVIDER);
+  const {
+    data: jobPostsGrouped = { pending: [], active: [], completed: [] },
+    isLoading: isJobsLoading,
+  } = useJobPostsByUser();
+  console.log(jobPostsGrouped);
 
-    const handleDeleteClick = (job) => dispatch({ type: 'OPEN_DELETE_MODAL', payload: job });
-    const closeDeleteModal = () => dispatch({ type: 'CLOSE_DELETE_MODAL' });
+  const openForm = () => {
+    document.body.style.overflow = 'hidden';
+    setShowForm(true);
+  };
 
-    const openStatusConfirmModal = ({ jobPostId, status, job }) => {
-        dispatch({
-            type: 'OPEN_STATUS_MODAL',
-            payload: {
-                jobPostId,
-                status,
-                job_title: job.job_title,
-                location: job.location,
-                salary_range: job.salary_range,
-            },
-        });
-    };
+  const handleDeleteClick = (job) => dispatch({ type: 'OPEN_DELETE_MODAL', payload: job });
+  const closeDeleteModal = () => dispatch({ type: 'CLOSE_DELETE_MODAL' });
 
-    const closeStatusModal = () => dispatch({ type: 'CLOSE_STATUS_MODAL' });
+  const openStatusConfirmModal = ({ jobPostId, status, job }) => {
+    dispatch({
+      type: 'OPEN_STATUS_MODAL',
+      payload: {
+        jobPostId,
+        status,
+        job_title: job.job_title,
+        location: job.location,
+        salary_range: job.salary_range,
+      },
+    });
+  };
 
-    if (isProviderLoading || isJobsLoading) return <div className="p-10">Loading...</div>;
-    if (isError || !provider) return <div className="p-10 text-red-600">Error!</div>;
+  const closeStatusModal = () => dispatch({ type: 'CLOSE_STATUS_MODAL' });
 
-    const openViewJobModal = (job) => {
-        setSelectedJob(job); 
-        document.body.style.overflow = 'hidden';
-        setShowViewJobModal(true);
-    };
+  if (isProviderLoading || isJobsLoading) return <div className="p-10">Loading...</div>;
+  if (isError || !provider) return <div className="p-10 text-red-600">Error!</div>;
 
-    const closeViewJobModal = () => {
-        setSelectedJob(null);
-        document.body.style.overflow = 'auto';
-        setShowViewJobModal(false);
-    };
+  const openViewJobModal = (job) => {
+    setSelectedJob(job);
+    document.body.style.overflow = 'hidden';
+    setShowViewJobModal(true);
+  };
 
-    return (
-        <>
-            <Sidebar />
-            <div className="relative min-h-[500vh] bg-linear-to-b from-white to-cyan-400 pl-70 pr-10 pt-30">
-                {provider.is_verified ? (
-                    <>
-                        <div className="bg-white shadow-md py-6 px-10 mb-8">
-                            <div className="flex flex-col">
-                                <h1 className="text-2xl font-bold text-blue-900">Manage Job Post</h1>
-                                <p>View and manage all your job postings</p>
-                            </div>
-                        </div>
+  const closeViewJobModal = () => {
+    setSelectedJob(null);
+    document.body.style.overflow = 'auto';
+    setShowViewJobModal(false);
+  };
 
-                        {['pending', 'active', 'completed', 'rejected'].map((key) => (
-                            <JobTable
-                                key={key}
-                                title={`${key[0].toUpperCase()}${key.slice(1)} Job Post`}
-                                jobs={jobPostsGrouped[key] || []} // fallback if undefined
-                                onStatusChange={openStatusConfirmModal}
-                                onDelete={handleDeleteClick}
-                                onViewJobDetails={openViewJobModal}   
-                            />
-                        ))}
-                    </>
-                ) : (
-                    <div className="bg-white shadow-md p-6 w-full max-w-full border border-gray-300 px-20">
-                        <VerificationStatus profileData={provider} openForm={openForm} />
-                    </div>
-                )}
+  return (
+    <>
+      <Sidebar />
+      <div className="relative min-h-[500vh] bg-linear-to-b from-white to-cyan-400 pl-70 pr-10 pt-30">
+        {provider.is_verified ? (
+          <>
+            <div className="bg-white shadow-md py-6 px-10 mb-8">
+              <div className="flex flex-col">
+                <h1 className="text-2xl font-bold text-blue-900">Manage Job Post</h1>
+                <p>View and manage all your job postings</p>
+              </div>
             </div>
 
-            {showForm && (
-                <Form
-                    onClose={() => {
-                        setShowForm(false);
-                        document.body.style.overflow = 'auto';
-                    }}
-                    onSubmitSuccess={() => {
-                        setShowForm(false);
-                        document.body.style.overflow = 'auto';
-                        refetch();
-                    }}
-                />
-            )}
+            {['pending', 'active', 'completed', 'rejected'].map((key) => (
+              <JobTable
+                key={key}
+                title={`${key[0].toUpperCase()}${key.slice(1)} Job Post`}
+                jobs={jobPostsGrouped[key] || []} // fallback if undefined
+                onStatusChange={openStatusConfirmModal}
+                onDelete={handleDeleteClick}
+                onViewJobDetails={openViewJobModal}
+              />
+            ))}
+          </>
+        ) : (
+          <div className="bg-white shadow-md p-6 w-full max-w-full border border-gray-300 px-20">
+            <VerificationStatus profileData={provider} openForm={openForm} />
+          </div>
+        )}
+      </div>
 
-            {state.showDeleteModal && (
-                <ConfirmDeleteJobPost
-                    data={state.deleteTargetJob}
-                    onClose={closeDeleteModal}
-                    role={ROLE.MANPOWER_PROVIDER}
-                />
-            )}
+      {showForm && (
+        <Form
+          onClose={() => {
+            setShowForm(false);
+            document.body.style.overflow = 'auto';
+          }}
+          onSubmitSuccess={() => {
+            setShowForm(false);
+            document.body.style.overflow = 'auto';
+            refetch();
+          }}
+        />
+      )}
 
-            {state.showStatusModal && (
-                <ConfirmStatusChange
-                    data={state.statusChangeData}
-                    onClose={closeStatusModal}
-                    role={ROLE.MANPOWER_PROVIDER}
-                />
-            )}
+      {state.showDeleteModal && (
+        <ConfirmDeleteJobPost
+          data={state.deleteTargetJob}
+          onClose={closeDeleteModal}
+          role={ROLE.MANPOWER_PROVIDER}
+        />
+      )}
 
-             {showViewJobModal && (
-                <ViewJobPost
-                    data={selectedJob ? { active: [selectedJob], pending: [], completed: [] } : jobPostsGrouped} 
-                    role={ROLE.INDIVIDUAL_EMPLOYER}
-                    onClose={closeViewJobModal}
-                />
-            )}
-        </>
-    );
+      {state.showStatusModal && (
+        <ConfirmStatusChange
+          data={state.statusChangeData}
+          onClose={closeStatusModal}
+          role={ROLE.MANPOWER_PROVIDER}
+        />
+      )}
+
+      {showViewJobModal && (
+        <ViewJobPost
+          data={
+            selectedJob ? { active: [selectedJob], pending: [], completed: [] } : jobPostsGrouped
+          }
+          role={ROLE.INDIVIDUAL_EMPLOYER}
+          onClose={closeViewJobModal}
+        />
+      )}
+    </>
+  );
 };
 
 export default ManageJobPost;

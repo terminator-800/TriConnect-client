@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import icons from "../../../../assets/svg/Icons";
-import RequestIndividualModal from "./RequestIndividualModal ";
+import React, { useState } from 'react';
+import icons from '../../../../assets/svg/Icons';
+import RequestIndividualModal from './RequestIndividualModal ';
 
 const WorkerDetailModal = ({ worker, isOpen, onClose }) => {
   const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
 
   if (!isOpen || !worker) return null;
-  
-  console.log(worker, "individual modal");
+
+  console.log(worker, 'individual modal');
 
   const handleRequestManpower = () => {
     setIsRequestModalOpen(true);
@@ -34,9 +34,7 @@ const WorkerDetailModal = ({ worker, isOpen, onClose }) => {
             <div className="flex items-start justify-between">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
-                  <h2 className="text-3xl font-bold text-gray-900">
-                    {worker.worker_category}
-                  </h2>
+                  <h2 className="text-3xl font-bold text-gray-900">{worker.worker_category}</h2>
                   <span className="px-4 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
                     Individual
                   </span>
@@ -60,12 +58,12 @@ const WorkerDetailModal = ({ worker, isOpen, onClose }) => {
               <div>
                 <div className="flex items-center gap-2 text-gray-700 mb-1">
                   <span className="text-sm font-semibold justify-center flex gap-1">
-                    <img className="inline-block" src={icons.job_type} alt="" /> 
+                    <img className="inline-block" src={icons.job_type} alt="" />
                     Years of Experience
                   </span>
                 </div>
                 <p className="text-2xl font-bold text-gray-900 ml-6">
-                  {worker.years_of_experience || "N/A"}
+                  {worker.years_of_experience || 'N/A'}
                 </p>
               </div>
               <div>
@@ -79,31 +77,23 @@ const WorkerDetailModal = ({ worker, isOpen, onClose }) => {
 
             {/* Qualifications */}
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                Qualifications
-              </h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">Qualifications</h3>
               <div className="p-4 border border-gray-500">
-                <p className="leading-relaxed font-bold">
-                  {worker.qualifications}
-                </p>
+                <p className="leading-relaxed font-bold">{worker.qualifications}</p>
               </div>
             </div>
 
             {/* Skills / Experience */}
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                Skills / Experience
-              </h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">Skills / Experience</h3>
               <div className="p-4 border border-gray-500">
-                <p className="leading-relaxed font-bold">
-                  {worker.skill}
-                </p>
+                <p className="leading-relaxed font-bold">{worker.skill}</p>
               </div>
             </div>
 
             {/* Action Button */}
             <div className="pt-4">
-              <button 
+              <button
                 onClick={handleRequestManpower}
                 className="bg-blue-600 text-white px-10 py-1 font-semibold hover:bg-blue-700 transition-colors"
               >

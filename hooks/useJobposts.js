@@ -1,4 +1,4 @@
-import { useQuery, useMutation, useQueryClient  } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { ROLE } from '../utils/role';
 import axios from 'axios';
 
@@ -19,12 +19,9 @@ export const useUnappliedJobPosts = () =>
     queryKey: ['unappliedJobPosts'],
     queryFn: async () => {
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/unappliedJobPosts`,
-          {
-            withCredentials: true,
-          }
-        );
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/unappliedJobPosts`, {
+          withCredentials: true,
+        });
         return response.data;
       } catch (error) {
         alert('Failed to fetch job posts. Please try again later.');
@@ -35,7 +32,6 @@ export const useUnappliedJobPosts = () =>
     retry: 1,
     refetchOnWindowFocus: false,
   });
-
 
 export const useJobPostsByUser = (category) =>
   useQuery({
@@ -49,7 +45,6 @@ export const useJobPostsByUser = (category) =>
     },
     enabled: true,
   });
-
 
 export const useVerifiedJobPosts = () =>
   useQuery({
@@ -65,9 +60,8 @@ export const useVerifiedJobPosts = () =>
     },
   });
 
-  
 export const useEditJobPost = (role) => {
-  const queryClient = useQueryClient(); 
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (updatedJob) => {
@@ -79,7 +73,7 @@ export const useEditJobPost = (role) => {
       return response.data;
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries(['jobPostsByUser']); 
+      queryClient.invalidateQueries(['jobPostsByUser']);
       console.log(`Job post ${variables.job_post_id} updated successfully`);
     },
     onError: (error) => {
@@ -87,7 +81,3 @@ export const useEditJobPost = (role) => {
     },
   });
 };
-
-
-
-

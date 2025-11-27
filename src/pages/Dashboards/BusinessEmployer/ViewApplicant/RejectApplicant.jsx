@@ -5,10 +5,7 @@ const RejectApplicant = ({ application, onClose }) => {
 
   const handleReject = () => {
     if (!application?.application_id) return;
-    rejectMutation.mutate(
-      { applicationId: application.application_id },
-      { onSuccess: onClose }
-    );
+    rejectMutation.mutate({ applicationId: application.application_id }, { onSuccess: onClose });
   };
 
   return (
@@ -41,5 +38,3 @@ const RejectApplicant = ({ application, onClose }) => {
 };
 
 export default RejectApplicant;
-
-

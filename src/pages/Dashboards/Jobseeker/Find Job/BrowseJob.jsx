@@ -1,11 +1,11 @@
-import { useUnappliedJobPosts } from "../../../../../hooks/useJobposts";
-import { useState } from "react";
-import Pagination from "../../../../components/Pagination";
-import icons from "../../../../assets/svg/Icons";
-import Apply from "./Apply";
+import { useUnappliedJobPosts } from '../../../../../hooks/useJobposts';
+import { useState } from 'react';
+import Pagination from '../../../../components/Pagination';
+import icons from '../../../../assets/svg/Icons';
+import Apply from './Apply';
 
 const BrowseJob = () => {
-  const unknown = "Unknown";
+  const unknown = 'Unknown';
   const postsPerPage = 4;
   const [selectedJobPost, setSelectedJobPost] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,10 +18,7 @@ const BrowseJob = () => {
   } = useUnappliedJobPosts();
 
   const startIndex = (currentPage - 1) * postsPerPage;
-  const paginatedPosts = filteredJobPosts.slice(
-    startIndex,
-    startIndex + postsPerPage
-  );
+  const paginatedPosts = filteredJobPosts.slice(startIndex, startIndex + postsPerPage);
 
   return (
     <>
@@ -35,11 +32,7 @@ const BrowseJob = () => {
         {/* Search Bar */}
         <div className="flex-1 text-white pl-5 pr-5 shadow-md flex items-center gap-2 bg-[#BDC3C7]">
           <img src={icons.search_job_icon} alt="search jobs" />
-          <input
-            type="text"
-            placeholder="Search job titles"
-            className="outline-none flex-1 "
-          />
+          <input type="text" placeholder="Search job titles" className="outline-none flex-1 " />
           <button className="text-white bg-[#2563EB] rounded-xl px-10 py-1 cursor-pointer">
             Find jobs
           </button>
@@ -55,9 +48,7 @@ const BrowseJob = () => {
           ) : errorJobPosts ? (
             <p className="text-red-500">Failed to fetch job posts.</p>
           ) : filteredJobPosts.length === 0 ? (
-            <p className="text-gray-500 italic">
-              No approved job posts available.
-            </p>
+            <p className="text-gray-500 italic">No approved job posts available.</p>
           ) : (
             // Side with job posts
             paginatedPosts.map((post) => (
@@ -67,8 +58,8 @@ const BrowseJob = () => {
                 className={`border border-gray-300 py-5 px-5 shadow-md cursor-pointer overflow-hidden w-full min-h-[20vh] flex flex-col justify-between
                 ${
                   selectedJobPost?.job_post_id === post.job_post_id
-                    ? "bg-gray-200"
-                    : "bg-white hover:bg-gray-100"
+                    ? 'bg-gray-200'
+                    : 'bg-white hover:bg-gray-100'
                 }
                 `}
               >
@@ -76,14 +67,9 @@ const BrowseJob = () => {
                 <style>{`div::-webkit-scrollbar { display: none }`}</style>
 
                 <div className="flex flex-col gap-1">
-                  <h3 className="text-xl font-bold truncate">
-                    {post.job_title}
-                  </h3>
+                  <h3 className="text-xl font-bold truncate">{post.job_title}</h3>
                   <p className="text-gray-500 truncate">
-                    {post.business_name ||
-                      post.full_name ||
-                      post.agency_name ||
-                      unknown}
+                    {post.business_name || post.full_name || post.agency_name || unknown}
                   </p>
                   <span className="bg-blue-200 text-blue-700 rounded-full px-10 py-1 mt-2 text-sm w-max">
                     {post.job_type}
@@ -94,21 +80,13 @@ const BrowseJob = () => {
                 <div className="flex items-center gap-6 mt-5 text-gray-500 text-sm">
                   {/* Location */}
                   <div className="flex items-center gap-1 truncate">
-                    <img
-                      src={icons.location}
-                      alt="Location"
-                      className="w-4 h-4"
-                    />
+                    <img src={icons.location} alt="Location" className="w-4 h-4" />
                     <span className="truncate">{post.location}</span>
                   </div>
 
                   {/* Posted Date */}
                   <div className="flex items-center gap-1 truncate">
-                    <img
-                      src={icons.posted_clock}
-                      alt="Posted"
-                      className="w-4 h-4"
-                    />
+                    <img src={icons.posted_clock} alt="Posted" className="w-4 h-4" />
                     <span className="truncate">Posted: {post.approved_at}</span>
                   </div>
                 </div>
@@ -174,13 +152,9 @@ const BrowseJob = () => {
                         <span>
                           <img src={icons.job_type} alt="" />
                         </span>
-                        <label className="text-gray-600 text-sm">
-                          Job Type
-                        </label>
+                        <label className="text-gray-600 text-sm">Job Type</label>
                       </div>
-                      <p className="text-gray-900 font-semibold ml-6">
-                        {selectedJobPost.job_type}
-                      </p>
+                      <p className="text-gray-900 font-semibold ml-6">{selectedJobPost.job_type}</p>
                     </div>
 
                     {/* Location */}
@@ -189,13 +163,9 @@ const BrowseJob = () => {
                         <span>
                           <img src={icons.location_blue} alt="" />
                         </span>
-                        <label className="text-gray-600 text-sm">
-                          Location
-                        </label>
+                        <label className="text-gray-600 text-sm">Location</label>
                       </div>
-                      <p className="text-gray-900 font-semibold ml-6">
-                        {selectedJobPost.location}
-                      </p>
+                      <p className="text-gray-900 font-semibold ml-6">{selectedJobPost.location}</p>
                     </div>
 
                     {/* Salary Range */}
@@ -204,9 +174,7 @@ const BrowseJob = () => {
                         <span>
                           <img src={icons.salary_range} alt="" />
                         </span>
-                        <label className="text-gray-600 text-sm">
-                          Salary Range
-                        </label>
+                        <label className="text-gray-600 text-sm">Salary Range</label>
                       </div>
                       <p className="text-gray-900 font-semibold ml-6">
                         {selectedJobPost.salary_range}
@@ -220,20 +188,15 @@ const BrowseJob = () => {
                       <span>
                         <img src={icons.required_skills} alt="" />
                       </span>
-                      <label className="text-gray-600 text-sm">
-                        Required Skills
-                      </label>
+                      <label className="text-gray-600 text-sm">Required Skills</label>
                     </div>
                     <ul className="ml-6 space-y-2">
                       {selectedJobPost.required_skill &&
                         selectedJobPost.required_skill
-                          .split("\n")
+                          .split('\n')
                           .filter((skill) => skill.trim())
                           .map((skill, idx) => (
-                            <li
-                              key={idx}
-                              className="cursor-pointer text-sm text-gray-900"
-                            >
+                            <li key={idx} className="cursor-pointer text-sm text-gray-900">
                               {skill.trim()}
                             </li>
                           ))}

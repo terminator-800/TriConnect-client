@@ -1,10 +1,10 @@
-import { useReportedUsers } from "../../../../../hooks/REPORT";
-import { getInitials } from "./helper";
-import { useState } from "react";
-import { ROLE } from "../../../../../utils/role";
-import ReportUser from "../../../../components/ReportUser/ReportUser";
-import ActionMenu from "./ActionMenu";
-import icons from "../../../../assets/svg/Icons";
+import { useReportedUsers } from '../../../../../hooks/REPORT';
+import { getInitials } from './helper';
+import { useState } from 'react';
+import { ROLE } from '../../../../../utils/role';
+import ReportUser from '../../../../components/ReportUser/ReportUser';
+import ActionMenu from './ActionMenu';
+import icons from '../../../../assets/svg/Icons';
 
 const ChatHeader = ({ selectedUser }) => {
   const [showReportModal, setShowReportModal] = useState(false);
@@ -32,13 +32,13 @@ const ChatHeader = ({ selectedUser }) => {
   const handleAcceptClick = () => {
     setShowActionMenu(false);
     // Add accept logic here
-    console.log("Accept applicant");
+    console.log('Accept applicant');
   };
 
   const handleDeclineClick = () => {
     setShowActionMenu(false);
     // Add decline logic here
-    console.log("Decline applicant");
+    console.log('Decline applicant');
   };
 
   return (
@@ -49,7 +49,7 @@ const ChatHeader = ({ selectedUser }) => {
             {selectedUser.authorized_profile ? (
               <img
                 src={selectedUser.authorized_profile}
-                alt={authorizedPerson || "User"}
+                alt={authorizedPerson || 'User'}
                 className="w-10 h-10 rounded-full object-cover"
               />
             ) : (
@@ -61,8 +61,7 @@ const ChatHeader = ({ selectedUser }) => {
             <div className="text-sm text-gray-700">
               <span className="font-medium">Sent by: {authorizedPerson}</span>
               <div className="text-xs text-gray-500">
-                {selectedUser.sent_at &&
-                  `Last message: ${selectedUser.sent_at}`}
+                {selectedUser.sent_at && `Last message: ${selectedUser.sent_at}`}
               </div>
             </div>
           </div>
@@ -77,9 +76,7 @@ const ChatHeader = ({ selectedUser }) => {
           />
         </>
       ) : (
-        <div className="text-gray-400 text-center">
-          Select a user to start chatting
-        </div>
+        <div className="text-gray-400 text-center">Select a user to start chatting</div>
       )}
 
       {showReportModal && (

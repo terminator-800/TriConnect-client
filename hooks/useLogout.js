@@ -11,7 +11,7 @@ export const useLogout = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await api.post(`/logout`, {}, { withCredentials: true, });
+      const response = await api.post(`/logout`, {}, { withCredentials: true });
 
       if (response.status === 200) {
         // Always clear fallback token in case cookies were blocked
@@ -30,5 +30,3 @@ export const useLogout = () => {
 
   return { logout, isLoading, error };
 };
-
-

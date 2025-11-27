@@ -7,11 +7,12 @@ export const useRejectApplication = () => {
 
   return useMutation({
     mutationFn: async ({ applicationId, role = ROLE.BUSINESS_EMPLOYER }) => {
-      const prefix = role === ROLE.INDIVIDUAL_EMPLOYER
-        ? '/individual-employer'
-        : role === ROLE.MANPOWER_PROVIDER
-          ? '/manpower-provider'
-          : '/business-employer';
+      const prefix =
+        role === ROLE.INDIVIDUAL_EMPLOYER
+          ? '/individual-employer'
+          : role === ROLE.MANPOWER_PROVIDER
+            ? '/manpower-provider'
+            : '/business-employer';
 
       const response = await axios.patch(
         `${import.meta.env.VITE_API_URL}${prefix}/applications/${applicationId}/reject`,
@@ -29,5 +30,3 @@ export const useRejectApplication = () => {
     },
   });
 };
-
-

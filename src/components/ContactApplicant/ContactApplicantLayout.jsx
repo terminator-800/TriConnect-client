@@ -1,8 +1,8 @@
-import { useSendMessage } from "../../../hooks/useSendMessage";
-import { useState } from "react";
+import { useSendMessage } from '../../../hooks/useSendMessage';
+import { useState } from 'react';
 
 const ContactApplicant = ({ onClose, applicant, role }) => {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const [file, setFile] = useState(null);
 
   const { mutate: sendMessage, isPending } = useSendMessage(role);
@@ -15,7 +15,7 @@ const ContactApplicant = ({ onClose, applicant, role }) => {
     e.preventDefault();
 
     sendMessage({
-      receiver_id: applicant?.applicant_user_id, 
+      receiver_id: applicant?.applicant_user_id,
       message_text: message,
       conversation_id: applicant?.conversation_id || null,
       files: file ? [file] : [],
@@ -55,16 +55,10 @@ const ContactApplicant = ({ onClose, applicant, role }) => {
 
           {/* File Upload */}
           <div className="mb-6">
-            <label className="block font-medium mb-2">
-              Documents (Optional)
-            </label>
+            <label className="block font-medium mb-2">Documents (Optional)</label>
             <label className="flex items-center gap-2 text-blue-600 border border-blue-500 rounded-md px-4 py-2 cursor-pointer w-fit hover:bg-blue-50">
               📎 Attach Files
-              <input
-                type="file"
-                className="hidden"
-                onChange={handleFileChange}
-              />
+              <input type="file" className="hidden" onChange={handleFileChange} />
             </label>
             {file && <p className="mt-2 text-sm text-gray-600">📄 {file.name}</p>}
           </div>
@@ -74,10 +68,11 @@ const ContactApplicant = ({ onClose, applicant, role }) => {
             <button
               type="submit"
               disabled={isPending}
-              className={`${isPending ? "bg-gray-400" : "bg-blue-700 hover:bg-blue-800"
-                } text-white font-semibold px-5 py-2 rounded-md transition cursor-pointer`}
+              className={`${
+                isPending ? 'bg-gray-400' : 'bg-blue-700 hover:bg-blue-800'
+              } text-white font-semibold px-5 py-2 rounded-md transition cursor-pointer`}
             >
-              {isPending ? "Sending..." : "Send Message"}
+              {isPending ? 'Sending...' : 'Send Message'}
             </button>
           </div>
         </form>

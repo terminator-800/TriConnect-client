@@ -20,7 +20,7 @@
 
 //     // Listen for new messages globally
 //     socket.on('receiveMessage', (newMessage) => {
-      
+
 //       // Check if this message is for the current user
 //       if (Number(newMessage.receiver_id) === Number(userId)) {
 //         handleNewMessage(newMessage);
@@ -83,7 +83,7 @@
 
 //     // Update unread counts
 //     updateUnreadCounts({ conversation_id: message.conversation_id });
-    
+
 //     // Invalidate queries for real-time updates
 //     invalidateQueries(message.conversation_id);
 //   };
@@ -100,7 +100,7 @@
 //     queryClient.invalidateQueries({
 //       queryKey: ['messages', role, conversationId]
 //     });
-    
+
 //     // Invalidate conversations list
 //     queryClient.invalidateQueries({
 //       queryKey: ['conversations', role]
@@ -114,9 +114,9 @@
 //   };
 
 //   const markNotificationAsRead = (notificationId) => {
-//     setNotifications(prev => 
-//       prev.map(notif => 
-//         notif.id === notificationId 
+//     setNotifications(prev =>
+//       prev.map(notif =>
+//         notif.id === notificationId
 //           ? { ...notif, read: true }
 //           : notif
 //       )

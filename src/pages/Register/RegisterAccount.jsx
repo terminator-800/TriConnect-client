@@ -1,43 +1,43 @@
-import { useResendVerification } from '../../../hooks/useResendVeification'
-import { useParams, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
-import { ROLE } from '../../../utils/role'
-import BackButton from '../../components/BackButton'
-import axios from 'axios'
-import Navbar from '../Navbar'
-import VerifyAccount from '../../components/VerifyAccount'
+import { useResendVerification } from '../../../hooks/useResendVeification';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { ROLE } from '../../../utils/role';
+import BackButton from '../../components/BackButton';
+import axios from 'axios';
+import Navbar from '../Navbar';
+import VerifyAccount from '../../components/VerifyAccount';
 
 const RegisterAccount = () => {
   const { mutate: resendVerification, isLoading: isResending } = useResendVerification();
   const [showResend, setShowResend] = useState(false);
 
-  const { accountType, type } = useParams()
-  const navigate = useNavigate()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
+  const { accountType, type } = useParams();
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [isRegistering, setIsRegistering] = useState(false);
-  const individual = "individual"
-  const business = "business"
+  const individual = 'individual';
+  const business = 'business';
 
   const handleRegister = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      alert("Passwords do not match");
+      alert('Passwords do not match');
       return;
     }
 
-    setIsRegistering(true); 
+    setIsRegistering(true);
 
     try {
-      if (accountType === "employer") {
+      if (accountType === 'employer') {
         if (type === business) {
           try {
             const data = {
               email: email,
               password: password,
-              role: ROLE.BUSINESS_EMPLOYER
+              role: ROLE.BUSINESS_EMPLOYER,
             };
             const businessRes = await axios.post(
               `${import.meta.env.VITE_API_URL}/register/${ROLE.BUSINESS_EMPLOYER}`,
@@ -48,14 +48,14 @@ const RegisterAccount = () => {
               navigate('/register/employer/business/account/verify', { state: { email } });
               // alert("Business employer account created successfully");
             } else {
-              alert("Business employer account creation failed");
+              alert('Business employer account creation failed');
             }
           } catch (error) {
             if (error.response && error.response.status === 409) {
               setShowResend(true);
-              alert("Email already exists. Would you like to resend the verification email?");
+              alert('Email already exists. Would you like to resend the verification email?');
             } else {
-              alert("Account creation failed");
+              alert('Account creation failed');
             }
           }
         } else if (type === individual) {
@@ -63,7 +63,7 @@ const RegisterAccount = () => {
             const data = {
               email: email,
               password: password,
-              role: ROLE.INDIVIDUAL_EMPLOYER
+              role: ROLE.INDIVIDUAL_EMPLOYER,
             };
             const individualRes = await axios.post(
               `${import.meta.env.VITE_API_URL}/register/${ROLE.INDIVIDUAL_EMPLOYER}`,
@@ -74,14 +74,14 @@ const RegisterAccount = () => {
               // alert("Individual employer account created successfully");
               navigate('/register/employer/business/account/verify', { state: { email } });
             } else {
-              alert("Individual employer account creation failed");
+              alert('Individual employer account creation failed');
             }
           } catch (error) {
             if (error.response && error.response.status === 409) {
               setShowResend(true);
-              alert("Email already exists. Would you like to resend the verification email?");
+              alert('Email already exists. Would you like to resend the verification email?');
             } else {
-              alert("Account creation failed");
+              alert('Account creation failed');
             }
           }
         }
@@ -90,9 +90,12 @@ const RegisterAccount = () => {
           const data = {
             email: email,
             password: password,
-            role: accountType
+            role: accountType,
           };
-          const res = await axios.post(`${import.meta.env.VITE_API_URL}/register/${accountType}`, data);
+          const res = await axios.post(
+            `${import.meta.env.VITE_API_URL}/register/${accountType}`,
+            data
+          );
           if (res.status === 201) {
             // alert(
             //   accountType === "jobseeker"
@@ -101,55 +104,90 @@ const RegisterAccount = () => {
             // );
             navigate(`/register/${accountType}/verify`, { state: { email } });
           } else {
-            alert("Account creation failed");
+            alert('Account creation failed');
           }
         } catch (error) {
           if (error.response && error.response.status === 409) {
             setShowResend(true);
-            alert("Email already exists. Would you like to resend the verification email?");
+            alert('Email already exists. Would you like to resend the verification email?');
           } else {
-            alert("Account creation failed");
+            alert('Account creation failed');
           }
         }
       }
     } catch (error) {
       if (error.response && error.response.status === 409) {
       } else {
-        alert("Account creation failed");
+        alert('Account creation failed');
       }
-      } finally {
+    } finally {
       setIsRegistering(false); // stop loading
     }
   };
 
   return (
     <>
-      <Navbar userType={"register"} />
-      <div className='flex justify-center items-center h-screen bg-linear-to-b from-white to-cyan-400 flex-col'>
+      <Navbar userType={'register'} />
+      <div className="flex justify-center items-center h-screen bg-linear-to-b from-white to-cyan-400 flex-col">
         {type === business || type === individual ? (
           <h1 className="font-bold text-3xl text-left mb-5">
-            Create an account as ({type === business ? "Business Type Employer" : "Individual Type Employer"})
+            Create an account as (
+            {type === business ? 'Business Type Employer' : 'Individual Type Employer'})
           </h1>
         ) : (
           <h1 className="font-bold text-2xl text-left mb-5">
-            Create an account as ({
-              accountType === "jobseeker" ? "Job Seeker" :
-                accountType === "manpower-provider" ? "Manpower Provider" : ""
-            })
+            Create an account as (
+            {accountType === 'jobseeker'
+              ? 'Job Seeker'
+              : accountType === 'manpower-provider'
+                ? 'Manpower Provider'
+                : ''}
+            )
           </h1>
         )}
 
-        <div className='border pt-10 pb-10 pl-15 pr-15 rounded-md flex flex-col bg-white max-[769px]:mx-15'>
-          <form onSubmit={handleRegister} className='flex  rounded-md bg-white flex-col xl:w-3xl lg:w-2xl md:w-md'>
+        <div className="border pt-10 pb-10 pl-15 pr-15 rounded-md flex flex-col bg-white max-[769px]:mx-15">
+          <form
+            onSubmit={handleRegister}
+            className="flex  rounded-md bg-white flex-col xl:w-3xl lg:w-2xl md:w-md"
+          >
+            <label htmlFor="email" className="mt-2 font-bold ">
+              Email Address
+            </label>
+            <input
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              required
+              name="email"
+              id="name"
+              type="email"
+              placeholder="Enter your email address"
+              className="outline-none border border-gray-400 rounded p-1 pl-3"
+            />
 
-            <label htmlFor="email" className='mt-2 font-bold '>Email Address</label>
-            <input onChange={(e) => setEmail(e.target.value)} value={email} required name='email' id='name' type="email" placeholder='Enter your email address' className='outline-none border border-gray-400 rounded p-1 pl-3' />
+            <label htmlFor="password" className="mt-2 font-bold">
+              Enter password
+            </label>
+            <input
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              required
+              type="password"
+              placeholder="Enter your password"
+              className="outline-none border border-gray-400 rounded p-1 pl-3"
+            />
 
-            <label htmlFor="password" className='mt-2 font-bold'>Enter password</label>
-            <input onChange={(e) => setPassword(e.target.value)} value={password} required type="password" placeholder='Enter your password' className='outline-none border border-gray-400 rounded p-1 pl-3' />
-
-            <label htmlFor="confirmpassword" className='mt-2 font-bold'>Confirm password</label>
-            <input onChange={(e) => setConfirmPassword(e.target.value)} value={confirmPassword} required type="password" placeholder='Enter your password again' className='outline-none border border-gray-400 rounded p-1 pl-3' />
+            <label htmlFor="confirmpassword" className="mt-2 font-bold">
+              Confirm password
+            </label>
+            <input
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              value={confirmPassword}
+              required
+              type="password"
+              placeholder="Enter your password again"
+              className="outline-none border border-gray-400 rounded p-1 pl-3"
+            />
 
             <div className="flex justify-center mt-5 gap-10">
               <button
@@ -161,10 +199,9 @@ const RegisterAccount = () => {
                     : 'hover:bg-blue-800 cursor-pointer' // normal style
                 }`}
               >
-                {isRegistering ? "Registering..." : "Proceed"}
+                {isRegistering ? 'Registering...' : 'Proceed'}
               </button>
             </div>
-
           </form>
 
           {showResend && (
@@ -173,45 +210,49 @@ const RegisterAccount = () => {
               <button
                 onClick={() => {
                   if (!email) {
-                    alert("Please enter your email address first.");
+                    alert('Please enter your email address first.');
                     return;
                   }
 
-                  const resolvedRole = accountType === "employer"
-                    ? type === business
-                      ? ROLE.BUSINESS_EMPLOYER
-                      : ROLE.INDIVIDUAL_EMPLOYER
-                    : accountType;
+                  const resolvedRole =
+                    accountType === 'employer'
+                      ? type === business
+                        ? ROLE.BUSINESS_EMPLOYER
+                        : ROLE.INDIVIDUAL_EMPLOYER
+                      : accountType;
 
-                  resendVerification({ email, role: resolvedRole }, {
-                    onSuccess: () => {
-                      alert("Verification email resent. Please check your inbox.");
-                    },
-                    onError: (error) => {
-                      alert("Failed to resend verification email.");
+                  resendVerification(
+                    { email, role: resolvedRole },
+                    {
+                      onSuccess: () => {
+                        alert('Verification email resent. Please check your inbox.');
+                      },
+                      onError: (error) => {
+                        alert('Failed to resend verification email.');
+                      },
                     }
-                  });
+                  );
                 }}
-                disabled={isResending} 
+                disabled={isResending}
                 className={`text-blue-800 underline ${
-                  isResending 
-                    ? 'cursor-not-allowed text-gray-400' 
-                    : 'cursor-pointer' 
+                  isResending ? 'cursor-not-allowed text-gray-400' : 'cursor-pointer'
                 }`}
               >
-                {isResending ? "Resending..." : "Resend Verification Email"} 
-                
+                {isResending ? 'Resending...' : 'Resend Verification Email'}
               </button>
             </div>
           )}
 
           <div className="flex justify-center mt-5 gap-10">
-            <BackButton to='/register' className='bg-white text-blue-900 pt-1 pb-1 pl-10 pr-10 rounded-3xl w-50 text-2xl cursor-pointer border border-blue-900' />
+            <BackButton
+              to="/register"
+              className="bg-white text-blue-900 pt-1 pb-1 pl-10 pr-10 rounded-3xl w-50 text-2xl cursor-pointer border border-blue-900"
+            />
           </div>
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default RegisterAccount
+export default RegisterAccount;

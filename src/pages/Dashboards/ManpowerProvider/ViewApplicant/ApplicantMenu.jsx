@@ -9,5 +9,3 @@ const ApplicantMenu = ({ onRejectClick }) => {
 };
 
 export default ApplicantMenu;
-
-

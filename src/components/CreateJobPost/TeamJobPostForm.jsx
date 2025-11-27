@@ -1,17 +1,17 @@
-import { useState, useEffect } from "react";
-import ConfirmJobPost from "./ConfirmJobPost";
-import { useCreateTeamJobPost } from "../../../hooks/useCreateJobPost";
+import { useState, useEffect } from 'react';
+import ConfirmJobPost from './ConfirmJobPost';
+import { useCreateTeamJobPost } from '../../../hooks/useCreateJobPost';
 
 const TeamJobPostForm = ({ onClose, role }) => {
   const [formData, setFormData] = useState({
-    worker_category: "",
-    number_of_workers: "",
-    location: "",
-    senior_workers: "",
-    mid_level_workers: "",
-    junior_workers: "",
-    entry_level_workers: "",
-    team_skills: "",
+    worker_category: '',
+    number_of_workers: '',
+    location: '',
+    senior_workers: '',
+    mid_level_workers: '',
+    junior_workers: '',
+    entry_level_workers: '',
+    team_skills: '',
   });
 
   const [agreeToReview, setAgreeToReview] = useState(false);
@@ -39,14 +39,14 @@ const TeamJobPostForm = ({ onClose, role }) => {
   const handleCreateAnother = () => {
     setShowSuccessModal(false);
     setFormData({
-      worker_category: "",
-      number_of_workers: "",
-      location: "",
-      senior_workers: "",
-      mid_level_workers: "",
-      junior_workers: "",
-      entry_level_workers: "",
-      team_skills: "",
+      worker_category: '',
+      number_of_workers: '',
+      location: '',
+      senior_workers: '',
+      mid_level_workers: '',
+      junior_workers: '',
+      entry_level_workers: '',
+      team_skills: '',
     });
     setAgreeToReview(false);
   };
@@ -67,12 +67,7 @@ const TeamJobPostForm = ({ onClose, role }) => {
             onClick={onClose}
             className="absolute top-4 right-4 w-6 h-6 flex items-center justify-center rounded-full bg-red-500 text-white font-bold cursor-pointer"
           >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -103,8 +98,7 @@ const TeamJobPostForm = ({ onClose, role }) => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block font-semibold mb-2">
-                  Number of Workers Available{" "}
-                  <span className="text-red-600">*</span>
+                  Number of Workers Available <span className="text-red-600">*</span>
                 </label>
                 <input
                   type="number"
@@ -226,14 +220,13 @@ const TeamJobPostForm = ({ onClose, role }) => {
                 onChange={(e) => setAgreeToReview(e.target.checked)}
               />
               <p>
-                By selecting <strong>Confirm</strong>, you agree that this job
-                post will be reviewed by the system administrator. You will be
-                notified once the job post is verified.
+                By selecting <strong>Confirm</strong>, you agree that this job post will be reviewed
+                by the system administrator. You will be notified once the job post is verified.
               </p>
             </div>
 
             {/* Confirm Button */}
-             <div className="flex justify-center pt-4">
+            <div className="flex justify-center pt-4">
               <button
                 type="submit"
                 disabled={createTeamJobPostMutation.isLoading || !agreeToReview}
@@ -242,12 +235,12 @@ const TeamJobPostForm = ({ onClose, role }) => {
                     px-10 py-1 text-white shadow-md
                     ${
                       !agreeToReview || createTeamJobPostMutation.isLoading
-                        ? "bg-blue-400 cursor-not-allowed"
-                        : "bg-blue-600 hover:bg-blue-700 cursor-pointer"
+                        ? 'bg-blue-400 cursor-not-allowed'
+                        : 'bg-blue-600 hover:bg-blue-700 cursor-pointer'
                     }
                   `}
               >
-                {createTeamJobPostMutation.isLoading ? "Submitting..." : "Confirm"}
+                {createTeamJobPostMutation.isLoading ? 'Submitting...' : 'Confirm'}
               </button>
             </div>
           </div>
@@ -255,9 +248,7 @@ const TeamJobPostForm = ({ onClose, role }) => {
       </div>
 
       {/* Success Modal using ConfirmJobPost */}
-      {showSuccessModal && (
-        <ConfirmJobPost closeModal={handleCreateAnother} role={role} />
-      )}
+      {showSuccessModal && <ConfirmJobPost closeModal={handleCreateAnother} role={role} />}
     </>
   );
 };

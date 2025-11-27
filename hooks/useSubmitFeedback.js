@@ -19,7 +19,7 @@ export const useSubmitFeedback = (role, onSuccessCallback) => {
     },
     onError: (error) => {
       if (error.response?.status === 409) {
-        alert("You have already submitted feedback. Thank you!");
+        alert('You have already submitted feedback. Thank you!');
       } else {
         alert('Something went wrong while submitting feedback.');
       }

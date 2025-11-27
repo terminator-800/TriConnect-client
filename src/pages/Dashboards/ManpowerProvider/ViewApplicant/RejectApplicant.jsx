@@ -42,5 +42,3 @@ const RejectApplicant = ({ application, onClose }) => {
 };
 
 export default RejectApplicant;
-
-

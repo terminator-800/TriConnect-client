@@ -6,14 +6,14 @@ import ReportUser from '../../../../components/ReportUser/ReportUser';
 import icons from '../../../../assets/svg/Icons';
 
 const ChatHeader = ({ selectedUser }) => {
-
   const [showReportModal, setShowReportModal] = useState(false);
 
   const { data: reportedUsers = [] } = useReportedUsers(ROLE.JOBSEEKER);
 
   const isUserReported = reportedUsers.includes(selectedUser?.sender_id);
 
-  const authorizedPerson = selectedUser?.agency_authorized_person || selectedUser?.authorized_person || null;
+  const authorizedPerson =
+    selectedUser?.agency_authorized_person || selectedUser?.authorized_person || null;
 
   const displayProfile =
     selectedUser?.role === 'business-employer' || selectedUser?.role === 'manpower-provider'
@@ -29,45 +29,44 @@ const ChatHeader = ({ selectedUser }) => {
   }
 
   return (
-    <div className="flex items-center justify-between p-4 border-b border-gray-300 bg-white
+    <div
+      className="flex items-center justify-between p-4 border-b border-gray-300 bg-white
        
-    ">
-
+    "
+    >
       {selectedUser ? (
         <>
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-gray-400 flex items-center justify-center text-white font-bold overflow-hidden">
-            
-             {/* Authorized Persons */}
+              {/* Authorized Persons */}
               {displayProfile ? (
-
                 <img
                   src={displayProfile}
                   alt={authorizedPerson}
                   className="w-full h-full object-cover"
                 />
-
               ) : (
                 getInitials(authorizedPerson) || 'unknown'
               )}
-
             </div>
 
             <div className="text-sm text-gray-700">
-
-              <span className="font-medium truncate block 
+              <span
+                className="font-medium truncate block 
               max-[601px]:w-32
               max-[538px]:w-20
-              max-[426px]:w-10">
+              max-[426px]:w-10"
+              >
                 Sent by: {authorizedPerson}
               </span>
 
-              <div className="text-xs text-gray-500 truncate block 
+              <div
+                className="text-xs text-gray-500 truncate block 
               max-[538px]:w-20
-              max-[426px]:w-10">
+              max-[426px]:w-10"
+              >
                 {selectedUser.sent_at && `Last message: ${selectedUser.sent_at}`}
               </div>
-
             </div>
           </div>
 
@@ -93,7 +92,6 @@ const ChatHeader = ({ selectedUser }) => {
           role={ROLE.JOBSEEKER}
         />
       )}
-
     </div>
   );
 };

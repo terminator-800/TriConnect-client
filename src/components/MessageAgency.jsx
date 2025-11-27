@@ -11,9 +11,9 @@ const MessageAgency = ({ receiver, role, onClose }) => {
   const [message, setMessage] = useState('');
   const [file, setFile] = useState(null);
   const [success, setSuccess] = useState(false);
-  
+
   const receiver_id = Number(receiver?.agency_id);
-  
+
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => {
@@ -23,7 +23,6 @@ const MessageAgency = ({ receiver, role, onClose }) => {
 
   const mutation = useMutation({
     mutationFn: async ({ receiver_id, message, file }) => {
-
       const formData = new FormData();
       formData.append('agency_profile_id', receiver.user_id);
       formData.append('receiver_id', receiver_id);
@@ -80,7 +79,6 @@ const MessageAgency = ({ receiver, role, onClose }) => {
 
   return (
     <div className="bg-gray-300 w-full max-w-2xl py-5 px-10 rounded-xl border border-gray-500 shadow-lg">
-
       <div className="flex justify-between items-center border-b pb-3 mb-5 border-gray-500">
         <h2 className="text-xl font-bold truncate">
           Message {receiver.agency_name || receiver.business_name || receiver.full_name || 'Agency'}
@@ -133,15 +131,20 @@ const MessageAgency = ({ receiver, role, onClose }) => {
         </div>
       </div>
 
-      <div className="flex justify-end gap-3 mt-4
+      <div
+        className="flex justify-end gap-3 mt-4
           max-[769px]:flex-col max-[769px]:items-stretch
                 max-[426px]:flex-col max-[426px]:items-stretch
-      ">
+      "
+      >
         <button
           onClick={handleSubmit}
           disabled={isSubmitting || !message.trim()}
-          className={`px-4 py-2 rounded-xl text-white ${isSubmitting ? 'bg-gray-500 cursor-not-allowed' : 'bg-blue-900 hover:bg-blue-800 cursor-pointer'
-            }`}
+          className={`px-4 py-2 rounded-xl text-white ${
+            isSubmitting
+              ? 'bg-gray-500 cursor-not-allowed'
+              : 'bg-blue-900 hover:bg-blue-800 cursor-pointer'
+          }`}
         >
           {isSubmitting ? 'Sending…' : 'Send Message'}
         </button>

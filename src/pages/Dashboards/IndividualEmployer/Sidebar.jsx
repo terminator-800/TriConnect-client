@@ -34,11 +34,11 @@ const Sidebar = () => {
 
       {/* Sidebar */}
       <div className="fixed h-full bg-gray-400 text-white p-0 w-60 flex flex-col z-40">
-
         <ul className="list-none p-0 space-y-4 flex-1 flex flex-col mb-6 mt-30">
-
-          <li className={`${location.pathname.includes(`/${ROLE.INDIVIDUAL_EMPLOYER}/dashboard`) ? 'bg-gray-500' : ''} flex`}>
-            <img src={icons.dashboard} alt="" className='w-[27px] ml-5' />
+          <li
+            className={`${location.pathname.includes(`/${ROLE.INDIVIDUAL_EMPLOYER}/dashboard`) ? 'bg-gray-500' : ''} flex`}
+          >
+            <img src={icons.dashboard} alt="" className="w-[27px] ml-5" />
             <button
               onClick={() => navigate(`/${ROLE.INDIVIDUAL_EMPLOYER}/dashboard`)}
               className="text-black hover:text-gray-300 ml-3 bg-transparent border-none cursor-pointer p-2 font-medium"
@@ -47,8 +47,10 @@ const Sidebar = () => {
             </button>
           </li>
 
-          <li className={`${location.pathname.includes(`/${ROLE.INDIVIDUAL_EMPLOYER}/manage`) ? 'bg-gray-500' : ''} flex`}>
-            <img src={icons.manage_job_post} alt="" className='ml-5' />
+          <li
+            className={`${location.pathname.includes(`/${ROLE.INDIVIDUAL_EMPLOYER}/manage`) ? 'bg-gray-500' : ''} flex`}
+          >
+            <img src={icons.manage_job_post} alt="" className="ml-5" />
             <button
               onClick={() => navigate(`/${ROLE.INDIVIDUAL_EMPLOYER}/manage`)}
               className="text-black hover:text-gray-300 ml-3 bg-transparent border-none cursor-pointer p-2 font-medium"
@@ -67,8 +69,10 @@ const Sidebar = () => {
             </button>
           </li> */}
 
-          <li className={`${location.pathname.includes(`/${ROLE.INDIVIDUAL_EMPLOYER}/view`) ? 'bg-gray-500' : ''} flex`}>
-            <img src={icons.view_applicant} alt="" className='ml-5 w-[27px]' />
+          <li
+            className={`${location.pathname.includes(`/${ROLE.INDIVIDUAL_EMPLOYER}/view`) ? 'bg-gray-500' : ''} flex`}
+          >
+            <img src={icons.view_applicant} alt="" className="ml-5 w-[27px]" />
             <button
               onClick={() => navigate(`/${ROLE.INDIVIDUAL_EMPLOYER}/view`)}
               className="text-black hover:text-gray-300 ml-3 bg-transparent border-none cursor-pointer p-2 font-medium"
@@ -77,8 +81,10 @@ const Sidebar = () => {
             </button>
           </li>
 
-          <li className={`${location.pathname.includes(`/${ROLE.INDIVIDUAL_EMPLOYER}/find`) ? 'bg-gray-500' : ''} flex`}>
-            <img src={icons.find_agency} alt="" className='ml-5 w-[27px]' />
+          <li
+            className={`${location.pathname.includes(`/${ROLE.INDIVIDUAL_EMPLOYER}/find`) ? 'bg-gray-500' : ''} flex`}
+          >
+            <img src={icons.find_agency} alt="" className="ml-5 w-[27px]" />
             <button
               onClick={() => navigate(`/${ROLE.INDIVIDUAL_EMPLOYER}/find`)}
               className="text-black hover:text-gray-300 ml-3 bg-transparent border-none cursor-pointer p-2 font-medium"
@@ -87,8 +93,10 @@ const Sidebar = () => {
             </button>
           </li>
 
-          <li className={`${location.pathname.includes(`/${ROLE.INDIVIDUAL_EMPLOYER}/message`) ? 'bg-gray-500' : ''} flex`}>
-            <img src={icons.message} alt="" className='ml-5 w-[27px]' />
+          <li
+            className={`${location.pathname.includes(`/${ROLE.INDIVIDUAL_EMPLOYER}/message`) ? 'bg-gray-500' : ''} flex`}
+          >
+            <img src={icons.message} alt="" className="ml-5 w-[27px]" />
             <button
               onClick={() => navigate(`/${ROLE.INDIVIDUAL_EMPLOYER}/message`)}
               className="text-black hover:text-gray-300 ml-3 bg-transparent border-none cursor-pointer p-2 font-medium"
@@ -119,10 +127,7 @@ const Sidebar = () => {
 
       {/* Feedback Modal */}
       {feedbackModalVisible && (
-        <Feedback
-          onClose={handleFeedbackClose}
-          role={ROLE.INDIVIDUAL_EMPLOYER}
-        />
+        <Feedback onClose={handleFeedbackClose} role={ROLE.INDIVIDUAL_EMPLOYER} />
       )}
     </>
   );

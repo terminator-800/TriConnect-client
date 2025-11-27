@@ -47,12 +47,12 @@ const Sidebar = () => {
         className={`fixed h-full bg-gray-400 text-white p-0 w-60 flex flex-col z-40 transform transition-transform duration-300
                     ${isOpen ? 'translate-x-0 pt-10' : '-translate-x-full'} 
                     lg:translate-x-0 lg:pt-0`}
-                    >
-
+      >
         <ul className="list-none p-0 space-y-4 flex-1 flex flex-col mb-6 mt-30">
-
-          <li className={`${location.pathname.includes(`/${ROLE.JOBSEEKER}/jobs`) ? 'bg-gray-500' : ''} flex`}>
-            <img src={icons.find_job} alt="" className='ml-5 w-[27px]' />
+          <li
+            className={`${location.pathname.includes(`/${ROLE.JOBSEEKER}/jobs`) ? 'bg-gray-500' : ''} flex`}
+          >
+            <img src={icons.find_job} alt="" className="ml-5 w-[27px]" />
             <button
               onClick={() => navigate(`/${ROLE.JOBSEEKER}/jobs`)}
               className="text-black hover:text-gray-300 ml-3 bg-transparent border-none cursor-pointer p-2 font-medium"
@@ -61,8 +61,10 @@ const Sidebar = () => {
             </button>
           </li>
 
-          <li className={`${location.pathname.includes(`/${ROLE.JOBSEEKER}/agencies`) ? 'bg-gray-500' : ''} flex`}>
-            <img src={icons.find_agency} alt="" className='ml-5 w-[27px]' />
+          <li
+            className={`${location.pathname.includes(`/${ROLE.JOBSEEKER}/agencies`) ? 'bg-gray-500' : ''} flex`}
+          >
+            <img src={icons.find_agency} alt="" className="ml-5 w-[27px]" />
             <button
               onClick={() => navigate(`/${ROLE.JOBSEEKER}/agencies`)}
               className="text-black hover:text-gray-300 ml-3 bg-transparent border-none cursor-pointer p-2 font-medium"
@@ -71,8 +73,10 @@ const Sidebar = () => {
             </button>
           </li>
 
-          <li className={`${location.pathname.includes(`/${ROLE.JOBSEEKER}/message`) ? 'bg-gray-500' : ''} flex`}>
-            <img src={icons.message} alt="" className='ml-5 w-[27px]' />
+          <li
+            className={`${location.pathname.includes(`/${ROLE.JOBSEEKER}/message`) ? 'bg-gray-500' : ''} flex`}
+          >
+            <img src={icons.message} alt="" className="ml-5 w-[27px]" />
             <button
               onClick={() => navigate(`/${ROLE.JOBSEEKER}/message`)}
               className="text-black hover:text-gray-300 ml-3 bg-transparent border-none cursor-pointer p-2 font-medium"
@@ -102,12 +106,7 @@ const Sidebar = () => {
       </div>
 
       {/* Feedback Modal */}
-      {feedbackModalVisible && (
-        <Feedback
-          onClose={handleFeedbackClose}
-          role={ROLE.JOBSEEKER}
-        />
-      )}
+      {feedbackModalVisible && <Feedback onClose={handleFeedbackClose} role={ROLE.JOBSEEKER} />}
     </>
   );
 };

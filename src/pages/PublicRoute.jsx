@@ -1,7 +1,7 @@
-import { useEffect, useState, useRef } from "react";
-import { Navigate, Outlet } from "react-router-dom";
-import { ROLE } from "../../utils/role"; 
-import axios from "axios";
+import { useEffect, useState, useRef } from 'react';
+import { Navigate, Outlet } from 'react-router-dom';
+import { ROLE } from '../../utils/role';
+import axios from 'axios';
 
 const PublicRoute = ({ children }) => {
   const [authData, setAuthData] = useState({ authenticated: null, role: null });
@@ -18,7 +18,7 @@ const PublicRoute = ({ children }) => {
         });
         setAuthData({ authenticated: data.authenticated, role: data.role });
       } catch {
-        const token = localStorage.getItem("token"); 
+        const token = localStorage.getItem('token');
         if (token) {
           try {
             const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/auth/verify-token`, {
@@ -48,7 +48,7 @@ const PublicRoute = ({ children }) => {
   if (authData.authenticated === null) return <div>Public Route Loading...</div>;
 
   if (authData.authenticated) {
-    const redirectPath = roleToPath[authData.role] || "/";
+    const redirectPath = roleToPath[authData.role] || '/';
     return <Navigate to={redirectPath} replace />;
   }
 

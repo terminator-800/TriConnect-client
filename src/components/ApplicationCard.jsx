@@ -1,4 +1,4 @@
-import icons from "../assets/svg/Icons";
+import icons from '../assets/svg/Icons';
 
 export const ApplicationCard = (msg, isSender) => {
   const {
@@ -24,12 +24,8 @@ export const ApplicationCard = (msg, isSender) => {
   if (hasEmptyFields) {
     return (
       <div className="w-full max-w-lg px-4 py-3 bg-red-50 border border-red-300 rounded-lg">
-        <p className="text-red-700 text-sm font-semibold">
-          ⚠️ Incomplete Application
-        </p>
-        <p className="text-red-600 text-xs mt-1">
-          Some required fields are missing.
-        </p>
+        <p className="text-red-700 text-sm font-semibold">⚠️ Incomplete Application</p>
+        <p className="text-red-600 text-xs mt-1">Some required fields are missing.</p>
       </div>
     );
   }
@@ -41,7 +37,7 @@ export const ApplicationCard = (msg, isSender) => {
         {/* Applied for */}
         <div>
           <p className="text-gray-900 text-base font-semibold">
-            Applied for <span className="font-bold">{job_title || "Position"}</span>
+            Applied for <span className="font-bold">{job_title || 'Position'}</span>
           </p>
         </div>
 
@@ -76,7 +72,9 @@ export const ApplicationCard = (msg, isSender) => {
             <div className="flex items-center gap-3 bg-gray-50 p-3 rounded-lg border border-gray-200">
               <div className="flex-shrink-0">
                 <div className="w-10 h-10 bg-red-100 rounded flex items-center justify-center">
-                  <span><img src={icons.resume_download} alt="resume download" /></span>
+                  <span>
+                    <img src={icons.resume_download} alt="resume download" />
+                  </span>
                 </div>
               </div>
               <div className="flex-1 min-w-0">
@@ -93,10 +91,7 @@ export const ApplicationCard = (msg, isSender) => {
               >
                 <img src={icons.download_pdf_arrow} alt="" />
               </a>
-              {
-                console.log(msg)
-                
-              }
+              {console.log(msg)}
             </div>
           </div>
         )}
@@ -105,9 +100,7 @@ export const ApplicationCard = (msg, isSender) => {
         <div>
           <p className="text-gray-900 text-sm font-bold mb-2">Cover Letter</p>
           <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-            <p className="text-gray-700 text-sm line-clamp-4 whitespace-pre-wrap">
-              {cover_letter}
-            </p>
+            <p className="text-gray-700 text-sm line-clamp-4 whitespace-pre-wrap">{cover_letter}</p>
           </div>
         </div>
       </div>

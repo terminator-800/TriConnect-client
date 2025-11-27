@@ -1,17 +1,25 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
     <footer className="bg-white text-black text-center py-6 border-t border-gray-300">
       {/* Top links */}
       <div className="flex justify-center space-x-4 mb-2">
-        <Link to="#" className="hover:underline font-semibold">About Us</Link>
+        <Link to="#" className="hover:underline font-semibold">
+          About Us
+        </Link>
         <span>|</span>
-        <Link to="#" className="hover:underline font-semibold">How It Works</Link>
+        <Link to="#" className="hover:underline font-semibold">
+          How It Works
+        </Link>
         <span>|</span>
-        <Link to="#" className="hover:underline font-semibold">Why Us</Link>
+        <Link to="#" className="hover:underline font-semibold">
+          Why Us
+        </Link>
         <span>|</span>
-        <Link to="#" className="hover:underline font-semibold">Feedbacks</Link>
+        <Link to="#" className="hover:underline font-semibold">
+          Feedbacks
+        </Link>
       </div>
 
       {/* Contact info */}
@@ -31,8 +39,8 @@ const Footer = () => {
 
       {/* Copyright */}
       <p className="text-sm">
-        Copyright © 2025{" "}
-        <span className="text-blue-700 font-semibold">TriConnect</span> All Right Reserved.
+        Copyright © 2025 <span className="text-blue-700 font-semibold">TriConnect</span> All Right
+        Reserved.
       </p>
     </footer>
   );

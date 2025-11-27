@@ -1,4 +1,4 @@
-import icons from "../../../../assets/svg/Icons";
+import icons from '../../../../assets/svg/Icons';
 
 const PreviewReportImage = ({ imageUrl, onClose }) => {
   if (!imageUrl) return null;

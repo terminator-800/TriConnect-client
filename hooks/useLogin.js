@@ -20,7 +20,7 @@ export const useLogin = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const res = await api.post(`/login`, { email, password })
+      const res = await api.post(`/login`, { email, password });
 
       if (res.status === 200) {
         // Fallback: store token in localStorage if cookies are blocked
@@ -32,7 +32,6 @@ export const useLogin = () => {
         navigate(target);
       }
       return res.data;
-
     } catch (err) {
       setError(err.response?.data?.message || err.message || 'Login failed');
       throw err;
@@ -43,5 +42,3 @@ export const useLogin = () => {
 
   return { login, isLoading, error };
 };
-
-

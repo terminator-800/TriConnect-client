@@ -20,7 +20,7 @@ const ChatLayout = () => {
   };
 
   const { data: conversations = [] } = useConversations(ROLE.MANPOWER_PROVIDER);
-  
+
   const displayedUsers = filterAndMapConversations(conversations, activeTab);
 
   return (
@@ -35,7 +35,7 @@ const ChatLayout = () => {
         </div>
       </div>
 
-       <div className="relative min-h-[75vh] bg-linear-to-b from-white to-cyan-400 pl-70 pr-10 pt-15">
+      <div className="relative min-h-[75vh] bg-linear-to-b from-white to-cyan-400 pl-70 pr-10 pt-15">
         <div className="bg-white rounded shadow-md mx-auto h-[600px] flex flex-col border border-gray-300">
           <div className="flex flex-1 overflow-hidden">
             <div className="border-r border-gray-300">

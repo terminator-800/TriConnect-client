@@ -9,7 +9,7 @@ export const useDeleteJobPost = (role) => {
       const response = await axios.delete(
         `${import.meta.env.VITE_API_URL}/${role}/delete/jobpost/${jobPostId}`,
         {
-          withCredentials: true, 
+          withCredentials: true,
         }
       );
       return response.data;

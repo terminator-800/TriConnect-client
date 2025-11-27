@@ -13,8 +13,12 @@ const ChatLayout = () => {
   const [activeTab, setActiveTab] = useState(getTabFromLocalStorage);
   const [selectedUser, setSelectedUser] = useState(null);
 
-  const { data: conversations = [], isLoading, isError } = useConversations(ROLE.INDIVIDUAL_EMPLOYER);
-  
+  const {
+    data: conversations = [],
+    isLoading,
+    isError,
+  } = useConversations(ROLE.INDIVIDUAL_EMPLOYER);
+
   const displayedUsers = filterAndMapConversations(conversations, activeTab);
 
   const handleTabChange = (tab) => {
@@ -38,7 +42,6 @@ const ChatLayout = () => {
         <div className="bg-white rounded shadow-md mx-auto h-[600px] flex flex-col border border-gray-300">
           <div className="flex flex-1 overflow-hidden">
             <div className="border-r border-gray-300">
-
               <ChatTabs
                 activeTab={activeTab}
                 setActiveTab={handleTabChange}
@@ -57,7 +60,6 @@ const ChatLayout = () => {
               <ChatWindow selectedUser={selectedUser} />
               <MessageInput selectedUser={selectedUser} />
             </div>
-
           </div>
         </div>
       </div>

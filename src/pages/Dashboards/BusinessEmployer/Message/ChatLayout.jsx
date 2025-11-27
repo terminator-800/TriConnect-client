@@ -14,7 +14,7 @@ const ChatLayout = () => {
   const [selectedUser, setSelectedUser] = useState(null);
 
   const { data: conversations = [], isLoading, isError } = useConversations(ROLE.BUSINESS_EMPLOYER);
-  
+
   const displayedUsers = filterAndMapConversations(conversations, activeTab);
 
   const handleTabChange = (tab) => {
@@ -23,14 +23,12 @@ const ChatLayout = () => {
   };
 
   return (
-    <div className=''>
+    <div className="">
       <Sidebar />
       <div className="pl-70 pr-10 pt-30">
         <div className="bg-white shadow-md py-6 px-10 mb-8">
           <h1 className="text-2xl font-bold text-[#003479]">Messages</h1>
-          <p>
-            Keep in touch with employers and agencies — track your job conversations here
-          </p>
+          <p>Keep in touch with employers and agencies — track your job conversations here</p>
         </div>
       </div>
 
@@ -38,7 +36,6 @@ const ChatLayout = () => {
         <div className="bg-white rounded shadow-md mx-auto h-[600px] flex flex-col border border-gray-300">
           <div className="flex flex-1 overflow-hidden">
             <div className=" border-r border-gray-300">
-
               <ChatTabs
                 activeTab={activeTab}
                 setActiveTab={handleTabChange}
@@ -57,7 +54,6 @@ const ChatLayout = () => {
               <ChatWindow selectedUser={selectedUser} />
               <MessageInput selectedUser={selectedUser} />
             </div>
-
           </div>
         </div>
       </div>

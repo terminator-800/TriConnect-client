@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useUserProfile } from "../../../../../hooks/useUserProfiles";
+import { useUserProfile } from '../../../../../hooks/useUserProfiles';
 import { ROLE } from '../../../../../utils/role';
 import VerificationStatus from '../Verification Form/VerificationStatus';
 import ChangeProfile from '../../../../components/ChangeProfile/ChangeProfile';
@@ -10,8 +10,8 @@ import icons from '../../../../assets/svg/Icons';
 import Form from '../Verification Form/Form';
 
 const IndividualEmployerProfile = () => {
-  const personal = 'personal'
-  const security = 'security'
+  const personal = 'personal';
+  const security = 'security';
   const [activeTab, setActiveTab] = useState(personal);
   const [formData, setFormData] = useState({
     email: '',
@@ -31,7 +31,7 @@ const IndividualEmployerProfile = () => {
     error,
     refetch,
   } = useUserProfile(ROLE.INDIVIDUAL_EMPLOYER);
-  
+
   useEffect(() => {
     if (profileData) {
       setFormData({
@@ -52,7 +52,7 @@ const IndividualEmployerProfile = () => {
   if (isError) return <div>{error?.message || 'Failed to fetch profile data.'}</div>;
 
   const handleInputChange = (field, value) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   return (
@@ -65,16 +65,17 @@ const IndividualEmployerProfile = () => {
               <>
                 <div className="flex items-center pt-20 justify-between w-full">
                   <div>
-                    <h1 className='font-bold text-4xl'>{profileData.full_name}</h1>
+                    <h1 className="font-bold text-4xl">{profileData.full_name}</h1>
                     <div className="bg-white p-3 rounded-md shadow-md flex justify-between items-center w-full border border-gray-300 mt-5">
                       <div className="flex gap-4 items-center">
                         <div>
-                          <div className='flex'>
+                          <div className="flex">
                             <h1 className="font-bold text-2xl text-yellow-900">Account Verified</h1>
                             <img src={icons.verified} alt="" />
                           </div>
                           <p className="text-yellow-900 max-w-4xl">
-                            Your account has been successfully verified and all submitted requirements have been approved.
+                            Your account has been successfully verified and all submitted
+                            requirements have been approved.
                           </p>
                         </div>
                       </div>
@@ -82,8 +83,7 @@ const IndividualEmployerProfile = () => {
                   </div>
 
                   {/* Profile */}
-                  <ChangeProfile profileData={profileData}/>
-
+                  <ChangeProfile profileData={profileData} />
                 </div>
 
                 <div className="bg-white w-full flex justify-between mt-20 gap-5">
@@ -128,7 +128,6 @@ const IndividualEmployerProfile = () => {
             }}
           />
         )}
-
       </div>
     </>
   );

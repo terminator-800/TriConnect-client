@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { ROLE } from '../utils/role';
-import axios from 'axios'
+import axios from 'axios';
 
 export const useUserProfile = (role) => {
   return useQuery({
@@ -57,4 +57,3 @@ export const useVerifiedUsers = () =>
       return response.data;
     },
   });
-

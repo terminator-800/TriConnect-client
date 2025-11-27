@@ -8,5 +8,4 @@ const getChatImagePath = (msg) => {
   return null;
 };
 
-
 export default getChatImagePath;

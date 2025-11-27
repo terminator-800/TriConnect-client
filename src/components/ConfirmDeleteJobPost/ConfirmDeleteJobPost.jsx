@@ -1,7 +1,7 @@
-import { useDeleteJobPost } from "../../../hooks/useDeleteJobPost";
-import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import SuccessfullyDeleted from "./SuccessfullyDeleted";
+import { useDeleteJobPost } from '../../../hooks/useDeleteJobPost';
+import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import SuccessfullyDeleted from './SuccessfullyDeleted';
 
 const ConfirmDeleteJobPost = ({ onClose, data, role }) => {
   const [showSuccess, setShowSuccess] = useState(false);
@@ -12,7 +12,7 @@ const ConfirmDeleteJobPost = ({ onClose, data, role }) => {
 
   useEffect(() => {
     const originalStyle = window.getComputedStyle(document.body).overflow;
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow = 'hidden';
     return () => {
       document.body.style.overflow = originalStyle;
     };
@@ -23,7 +23,7 @@ const ConfirmDeleteJobPost = ({ onClose, data, role }) => {
       await deleteJobPost(data.post_id);
       setShowSuccess(true);
     } catch (err) {
-      alert("Failed to delete job post. Please try again.");
+      alert('Failed to delete job post. Please try again.');
     }
   };
 
@@ -35,12 +35,11 @@ const ConfirmDeleteJobPost = ({ onClose, data, role }) => {
     <div className="fixed inset-0 bg-opacity-50 z-50 flex items-center justify-center">
       <div className="backdrop-blur-2xl p-8 py-15 shadow-lg max-w-5xl w-full relative border border-white ml-60 mt-10">
         <p className="text-[#2C3E50] text-center mb-4 text-3xl">
-          Are you sure you want to{" "}
-          <span className="text-[#D71E1E]">remove</span> "{data.job_title}"
+          Are you sure you want to <span className="text-[#D71E1E]">remove</span> "{data.job_title}"
         </p>
         <p className="text-[#6B7280] text-center mb-15">
-          This action cannot be undone. The job post and all associated data
-          will be <span className="text-[#D71E1E]">permanently deleted.</span>
+          This action cannot be undone. The job post and all associated data will be{' '}
+          <span className="text-[#D71E1E]">permanently deleted.</span>
         </p>
 
         <div className="flex justify-center gap-4">
@@ -49,7 +48,7 @@ const ConfirmDeleteJobPost = ({ onClose, data, role }) => {
             disabled={isLoading}
             className="bg-[#2563EB] hover:bg-blue-500 text-white px-15 py-1 cursor-pointer"
           >
-            {isLoading ? "Deleting..." : "Yes"}
+            {isLoading ? 'Deleting...' : 'Yes'}
           </button>
           <button
             onClick={onClose}

@@ -8,7 +8,7 @@ const BASE_URL = import.meta.env.VITE_API_URL || '';
  */
 export const getImageReportPath = (filePath) => {
   if (!filePath) return '';
-  
+
   const normalized = filePath.startsWith('/') ? filePath : `/${filePath}`;
   return `${BASE_URL}/uploads${normalized}`;
 };

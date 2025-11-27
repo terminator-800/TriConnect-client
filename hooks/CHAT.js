@@ -6,10 +6,9 @@ export const useConversations = (role) => {
   return useQuery({
     queryKey: ['conversations', role],
     queryFn: async () => {
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/${role}/conversations`,
-        { withCredentials: true }
-      );
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/${role}/conversations`, {
+        withCredentials: true,
+      });
       return response.data;
     },
 
@@ -38,8 +37,7 @@ export const useMessageHistory = (role, conversation_id) => {
 
     onError: () => {
       alert('Failed to fetch messages. Please try again.');
-    }
-
+    },
   });
 };
 
@@ -47,9 +45,7 @@ export const useMarkAsSeen = (role, conversation_id) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-
     mutationFn: async (message_id) => {
-
       const response = await axios.patch(
         `${import.meta.env.VITE_API_URL}/${role}/mark-as-seen`,
         message_id,
@@ -64,8 +60,7 @@ export const useMarkAsSeen = (role, conversation_id) => {
 
     onError: () => {
       alert('Failed to mark message as seen. Please try again.');
-    }
-
+    },
   });
 };
 
@@ -97,12 +92,6 @@ export const useSendMessage = (role) => {
 
     onError: () => {
       alert('Failed to send message. Try again.');
-    }
-    
+    },
   });
 };
-
-
-
-
-

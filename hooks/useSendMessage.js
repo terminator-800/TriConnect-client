@@ -3,7 +3,6 @@ import axios from 'axios';
 const API = import.meta.env.VITE_API_URL;
 
 export const useSendMessage = (role) => {
-  
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -17,16 +16,12 @@ export const useSendMessage = (role) => {
         formData.append('files', file);
       });
 
-      const res = await axios.post(
-        `${API}/${role}/messages/send`,
-        formData,
-        {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        }
-      );
+      const res = await axios.post(`${API}/${role}/messages/send`, formData, {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
 
       return res.data;
     },

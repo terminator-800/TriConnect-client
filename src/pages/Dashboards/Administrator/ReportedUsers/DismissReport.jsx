@@ -1,4 +1,4 @@
-import { useDismissReport } from '../../../../../hooks/useDismissReport'; 
+import { useDismissReport } from '../../../../../hooks/useDismissReport';
 import { ROLE_LABELS } from '../../../../../utils/role';
 import { useState } from 'react';
 
@@ -6,7 +6,7 @@ const roleColors = {
   'manpower-provider': 'text-orange-500',
   'business-employer': 'text-green-600',
   'individual-employer': 'text-yellow-500',
-  'jobseeker': 'text-blue-600',
+  jobseeker: 'text-blue-600',
 };
 
 const DismissReport = (onDone) => {
@@ -30,12 +30,12 @@ const DismissReport = (onDone) => {
     if (!reportData) return;
 
     dismissReport(
-      { reportId: reportData.reportId }, 
+      { reportId: reportData.reportId },
       {
         onSuccess: () => {
           alert(`Report for "${reportData.name}" has been dismissed.`);
           hideModal();
-          if (onDone) onDone(); 
+          if (onDone) onDone();
         },
         onError: () => {
           alert('Something went wrong while dismissing the report.');
@@ -77,10 +77,7 @@ const DismissReport = (onDone) => {
 
             {/* Action Buttons */}
             <div className="mt-5 flex justify-end gap-2">
-              <button
-                onClick={hideModal}
-                className="px-4 py-2 bg-gray-200 rounded cursor-pointer"
-              >
+              <button onClick={hideModal} className="px-4 py-2 bg-gray-200 rounded cursor-pointer">
                 Cancel
               </button>
               <button

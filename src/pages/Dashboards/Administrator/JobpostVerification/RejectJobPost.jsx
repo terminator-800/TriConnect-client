@@ -1,55 +1,49 @@
-import { useRejectJobPost } from "../../../../../hooks/useRejectJobPost";
-import { useEffect } from "react";
+import { useRejectJobPost } from '../../../../../hooks/useRejectJobPost';
+import { useEffect } from 'react';
 
 const RejectJobPost = ({ jobPost, onClose }) => {
   useEffect(() => {
     const originalStyle = window.getComputedStyle(document.body).overflow;
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow = 'hidden';
     return () => {
       document.body.style.overflow = originalStyle;
     };
   }, []);
 
   const rejectJobPostMutation = useRejectJobPost();
-const TYPE_MAP = {
-  individual_job_post: 'individual',
-  team_job_post: 'team',
-  default: 'hiring', 
-};
-
-const handleReject = () => {
   const TYPE_MAP = {
     individual_job_post: 'individual',
     team_job_post: 'team',
     default: 'hiring',
   };
-  const type = TYPE_MAP[jobPost.post_type] || 'hiring';
 
-  const id = jobPost.job_post_id;
+  const handleReject = () => {
+    const TYPE_MAP = {
+      individual_job_post: 'individual',
+      team_job_post: 'team',
+      default: 'hiring',
+    };
+    const type = TYPE_MAP[jobPost.post_type] || 'hiring';
 
+    const id = jobPost.job_post_id;
 
-  rejectJobPostMutation.mutate(
-    { type, id },
-    {
-      onSuccess: () => onClose(),
-      onError: () => alert("Something went wrong while rejecting the job post."),
-    }
-  );
-};
-
-
+    rejectJobPostMutation.mutate(
+      { type, id },
+      {
+        onSuccess: () => onClose(),
+        onError: () => alert('Something went wrong while rejecting the job post.'),
+      }
+    );
+  };
 
   const isLoading = rejectJobPostMutation.isPending;
 
   return (
     <div className="fixed inset-0 bg-opacity-50 z-50 flex items-center justify-center ml-55">
       <div className="p-8 shadow-lg max-w-3xl w-full relative border border-gray-300 backdrop-blur-2xl">
-        <h2 className="text-xl font-bold mb-4 text-red-600 text-center">
-          Reject Job Post
-        </h2>
+        <h2 className="text-xl font-bold mb-4 text-red-600 text-center">Reject Job Post</h2>
         <p className="text-gray-700 text-center mb-4">
-          Are you sure you want to reject this jobpost? This action cannot be
-          undone.
+          Are you sure you want to reject this jobpost? This action cannot be undone.
         </p>
 
         <div className="border border-gray-300 p-5 text-gray-600 mb-4">
@@ -73,12 +67,12 @@ const handleReject = () => {
               px-10 py-1 text-white
               ${
                 isLoading
-                  ? "bg-red-500 cursor-not-allowed opacity-70"
-                  : "bg-red-700 hover:bg-red-600 cursor-pointer"
+                  ? 'bg-red-500 cursor-not-allowed opacity-70'
+                  : 'bg-red-700 hover:bg-red-600 cursor-pointer'
               }
             `}
           >
-            {isLoading ? "Rejecting..." : "Reject"}
+            {isLoading ? 'Rejecting...' : 'Reject'}
           </button>
 
           {/* Cancel Button */}
@@ -89,8 +83,8 @@ const handleReject = () => {
               px-10 py-1 border border-gray-300
               ${
                 isLoading
-                  ? "bg-gray-200 cursor-not-allowed opacity-70"
-                  : "hover:bg-gray-100 cursor-pointer"
+                  ? 'bg-gray-200 cursor-not-allowed opacity-70'
+                  : 'hover:bg-gray-100 cursor-pointer'
               }
             `}
           >

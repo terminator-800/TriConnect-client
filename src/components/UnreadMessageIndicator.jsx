@@ -4,7 +4,7 @@ import { useUserProfile } from '../../hooks/useUserProfiles';
 const UnreadMessageIndicator = ({ role }) => {
   const { data: profileData } = useUserProfile(role);
   const userId = profileData?.user_id;
-  
+
   const { totalUnreadCount } = useGlobalNotifications(userId, role);
 
   if (totalUnreadCount === 0) return null;

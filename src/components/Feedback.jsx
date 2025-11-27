@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useSubmitFeedback } from "../../hooks/useSubmitFeedback";
+import { useEffect, useState } from 'react';
+import { useSubmitFeedback } from '../../hooks/useSubmitFeedback';
 
 const Feedback = ({ onClose, role }) => {
   const [message, setMessage] = useState('');
@@ -14,19 +14,20 @@ const Feedback = ({ onClose, role }) => {
 
   const handleSubmit = () => {
     if (!message.trim()) {
-      alert("Please enter your feedback.");
+      alert('Please enter your feedback.');
       return;
     }
     submitFeedback({ message });
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 
+    <div
+      className="fixed inset-0 flex items-center justify-center z-50 
                     max-[769px]:mx-5
-                   ">
+                   "
+    >
       {/* Feedback modal */}
       <div className="relative bg-white pl-7 pr-7 pt-5 pb-5 shadow-lg w-[550px] z-10 border border-gray-300">
-
         {/* Header */}
         <div className="border-b-4 border-gray-300 flex justify-between mb-3">
           <h2 className="text-2xl font-bold">Feedback Details</h2>
@@ -53,8 +54,9 @@ const Feedback = ({ onClose, role }) => {
           <button
             onClick={handleSubmit}
             disabled={isLoading}
-            className={`px-10 py-1 cursor-pointer ${isLoading ? 'bg-gray-400 text-gray-200' : 'bg-blue-900 text-white hover:bg-blue-800'
-              }`}
+            className={`px-10 py-1 cursor-pointer ${
+              isLoading ? 'bg-gray-400 text-gray-200' : 'bg-blue-900 text-white hover:bg-blue-800'
+            }`}
           >
             {isLoading ? 'Submitting...' : 'Submit Feedback'}
           </button>

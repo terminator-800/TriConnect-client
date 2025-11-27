@@ -6,7 +6,6 @@ import ReportUser from '../../../../components/ReportUser/ReportUser';
 import icons from '../../../../assets/svg/Icons';
 
 const ChatHeader = ({ selectedUser }) => {
-
   const [showReportModal, setShowReportModal] = useState(false);
 
   const { data: reportedUsers = [] } = useReportedUsers(ROLE.MANPOWER_PROVIDER);
@@ -20,14 +19,12 @@ const ChatHeader = ({ selectedUser }) => {
     <div className="flex items-center justify-between p-4 border-b border-gray-300 bg-white">
       {selectedUser ? (
         <>
-
           <div className="flex items-center gap-3">
-            
             {/* Authorized  Profile */}
             {selectedUser.authorized_profile ? (
               <img
                 src={selectedUser.authorized_profile}
-                alt={fullName || "User"}
+                alt={fullName || 'User'}
                 className="w-10 h-10 rounded-full object-cover"
               />
             ) : (
@@ -38,7 +35,6 @@ const ChatHeader = ({ selectedUser }) => {
 
             {/* Details */}
             <div className="text-sm text-gray-700">
-
               <div className="font-medium">Sent by: {fullName || 'N/A'}</div>
 
               {selectedUser.sent_at && (
@@ -46,7 +42,6 @@ const ChatHeader = ({ selectedUser }) => {
                   Last message: {selectedUser.sent_at || 'No messages yet'}
                 </div>
               )}
-
             </div>
           </div>
 
@@ -59,7 +54,6 @@ const ChatHeader = ({ selectedUser }) => {
             </button>
           )}
         </>
-
       ) : (
         <div className="text-gray-400 text-center w-full">Select a user to start chatting</div>
       )}
@@ -72,7 +66,6 @@ const ChatHeader = ({ selectedUser }) => {
           role={ROLE.MANPOWER_PROVIDER}
         />
       )}
-
     </div>
   );
 };

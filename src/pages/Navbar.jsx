@@ -1,11 +1,10 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { ROLE } from "../../utils/role";
-import NotificationBell from "../components/Notification/NotificationBell";
-import icons from "../assets/svg/Icons";
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ROLE } from '../../utils/role';
+import NotificationBell from '../components/Notification/NotificationBell';
+import icons from '../assets/svg/Icons';
 
 const Navbar = ({ userType }) => {
-
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -15,9 +14,8 @@ const Navbar = ({ userType }) => {
 
   return (
     <div>
-
       {/* Landing Page */}
-      {userType === "guest" && (
+      {userType === 'guest' && (
         <nav className="border-b border-gray-300 px-6 py-4 bg-white">
           <div className="flex justify-between items-center">
             {/* Logo */}
@@ -28,13 +26,21 @@ const Navbar = ({ userType }) => {
 
             {/* Desktop Nav Links */}
             <div className="hidden md:flex gap-5">
-              <Link className="font-bold" to="#">Features</Link>
+              <Link className="font-bold" to="#">
+                Features
+              </Link>
               <span>|</span>
-              <a href="#how_it_works" className="font-bold">How it Works</a>
+              <a href="#how_it_works" className="font-bold">
+                How it Works
+              </a>
               <span>|</span>
-              <Link className="font-bold" to="#">Why Us</Link>
+              <Link className="font-bold" to="#">
+                Why Us
+              </Link>
               <span>|</span>
-              <Link className="font-bold" to="#">Feedbacks</Link>
+              <Link className="font-bold" to="#">
+                Feedbacks
+              </Link>
             </div>
 
             {/* Desktop Buttons */}
@@ -62,19 +68,24 @@ const Navbar = ({ userType }) => {
           {/* Mobile Dropdown Menu */}
           {menuOpen && (
             <div className="flex flex-col items-center mt-4 space-y-4 md:hidden">
-              <Link className="font-bold" to="#">Features</Link>
-              <a href="#how_it_works" className="font-bold">How it Works</a>
-              <Link className="font-bold" to="#">Why Us</Link>
-              <Link className="font-bold" to="#">Feedbacks</Link>
+              <Link className="font-bold" to="#">
+                Features
+              </Link>
+              <a href="#how_it_works" className="font-bold">
+                How it Works
+              </a>
+              <Link className="font-bold" to="#">
+                Why Us
+              </Link>
+              <Link className="font-bold" to="#">
+                Feedbacks
+              </Link>
 
               <div className="flex flex-col items-center">
                 <Link to="/login" className="text-blue-600 p-2 font-bold rounded">
                   Login
                 </Link>
-                <Link
-                  to="/register"
-                  className="bg-blue-900 font-bold p-2 rounded-3xl text-white"
-                >
+                <Link to="/register" className="bg-blue-900 font-bold p-2 rounded-3xl text-white">
                   Sign Up
                 </Link>
               </div>
@@ -84,7 +95,7 @@ const Navbar = ({ userType }) => {
       )}
 
       {/* Register / Signup */}
-      {userType === "register" && (
+      {userType === 'register' && (
         <nav className="border-b border-gray-300 px-6 py-4 bg-white">
           <div className="flex justify-between items-center">
             {/* Logo */}
@@ -106,10 +117,7 @@ const Navbar = ({ userType }) => {
 
             {/* Desktop Buttons */}
             <div className="hidden md:flex">
-              <Link
-                to="/login"
-                className="text-blue-600 pl-3 p-1 pr-3 font-bold rounded m-2"
-              >
+              <Link to="/login" className="text-blue-600 pl-3 p-1 pr-3 font-bold rounded m-2">
                 Login
               </Link>
               <Link
@@ -138,16 +146,10 @@ const Navbar = ({ userType }) => {
               <Link className="font-bold">Feedbacks</Link>
 
               <div className="flex flex-col items-center">
-                <Link
-                  to="/login"
-                  className="text-blue-600 p-2 font-bold rounded"
-                >
+                <Link to="/login" className="text-blue-600 p-2 font-bold rounded">
                   Login
                 </Link>
-                <Link
-                  to="/register"
-                  className="bg-blue-900 font-bold p-2 rounded-3xl text-white"
-                >
+                <Link to="/register" className="bg-blue-900 font-bold p-2 rounded-3xl text-white">
                   Sign Up
                 </Link>
               </div>
@@ -156,8 +158,8 @@ const Navbar = ({ userType }) => {
         </nav>
       )}
 
-       {/* Register / Signup */}
-      {userType === "verify" && (
+      {/* Register / Signup */}
+      {userType === 'verify' && (
         <nav className="border-b border-gray-300 px-6 py-4 bg-white">
           <div className="flex justify-between items-center">
             {/* Logo */}
@@ -179,10 +181,7 @@ const Navbar = ({ userType }) => {
 
             {/* Desktop Buttons */}
             <div className="hidden md:flex">
-              <Link
-                to="/login"
-                className="text-blue-600 pl-3 p-1 pr-3 font-bold rounded m-2"
-              >
+              <Link to="/login" className="text-blue-600 pl-3 p-1 pr-3 font-bold rounded m-2">
                 Login
               </Link>
               <Link
@@ -211,16 +210,10 @@ const Navbar = ({ userType }) => {
               <Link className="font-bold">Feedbacks</Link>
 
               <div className="flex flex-col items-center">
-                <Link
-                  to="/login"
-                  className="text-blue-600 p-2 font-bold rounded"
-                >
+                <Link to="/login" className="text-blue-600 p-2 font-bold rounded">
                   Login
                 </Link>
-                <Link
-                  to="/register"
-                  className="bg-blue-900 font-bold p-2 rounded-3xl text-white"
-                >
+                <Link to="/register" className="bg-blue-900 font-bold p-2 rounded-3xl text-white">
                   Sign Up
                 </Link>
               </div>
@@ -230,7 +223,7 @@ const Navbar = ({ userType }) => {
       )}
 
       {/* Login */}
-      {userType === "login" && (
+      {userType === 'login' && (
         <nav className="border-b border-gray-300 px-6 py-4 bg-white fixed top-0 left-0 w-full z-50">
           <div className="flex justify-between items-center">
             {/* Logo */}
@@ -241,21 +234,26 @@ const Navbar = ({ userType }) => {
 
             {/* Desktop Nav Links */}
             <div className="hidden md:flex gap-5">
-              <Link className="font-bold" to="#">Features</Link>
+              <Link className="font-bold" to="#">
+                Features
+              </Link>
               <span>|</span>
-              <Link className="font-bold" to="#">How it Works</Link>
+              <Link className="font-bold" to="#">
+                How it Works
+              </Link>
               <span>|</span>
-              <Link className="font-bold" to="#">Why Us</Link>
+              <Link className="font-bold" to="#">
+                Why Us
+              </Link>
               <span>|</span>
-              <Link className="font-bold" to="#">Feedbacks</Link>
+              <Link className="font-bold" to="#">
+                Feedbacks
+              </Link>
             </div>
 
             {/* Desktop Buttons */}
             <div className="hidden md:flex">
-              <Link
-                to="/login"
-                className="text-blue-600 pl-3 p-1 pr-3 font-bold rounded m-2"
-              >
+              <Link to="/login" className="text-blue-600 pl-3 p-1 pr-3 font-bold rounded m-2">
                 Login
               </Link>
               <Link
@@ -278,22 +276,24 @@ const Navbar = ({ userType }) => {
           {/* Mobile Dropdown */}
           {menuOpen && (
             <div className="flex flex-col items-center mt-4 space-y-4 md:hidden">
-              <Link className="font-bold" to="#">Features</Link>
-              <Link className="font-bold" to="#">How it Works</Link>
-              <Link className="font-bold" to="#">Why Us</Link>
-              <Link className="font-bold" to="#">Feedbacks</Link>
+              <Link className="font-bold" to="#">
+                Features
+              </Link>
+              <Link className="font-bold" to="#">
+                How it Works
+              </Link>
+              <Link className="font-bold" to="#">
+                Why Us
+              </Link>
+              <Link className="font-bold" to="#">
+                Feedbacks
+              </Link>
 
               <div className="flex flex-col items-center">
-                <Link
-                  to="/login"
-                  className="text-blue-600 p-2 font-bold rounded"
-                >
+                <Link to="/login" className="text-blue-600 p-2 font-bold rounded">
                   Login
                 </Link>
-                <Link
-                  to="/register"
-                  className="bg-blue-900 font-bold p-2 rounded-3xl text-white"
-                >
+                <Link to="/register" className="bg-blue-900 font-bold p-2 rounded-3xl text-white">
                   Sign Up
                 </Link>
               </div>
@@ -338,16 +338,10 @@ const Navbar = ({ userType }) => {
                   >
                     View Profile
                   </Link>
-                  <Link
-                    to="/messages"
-                    className="block px-4 py-2 text-black hover:bg-gray-100"
-                  >
+                  <Link to="/messages" className="block px-4 py-2 text-black hover:bg-gray-100">
                     Message
                   </Link>
-                  <Link
-                    to="/settings"
-                    className="block px-4 py-2 text-black hover:bg-gray-100"
-                  >
+                  <Link to="/settings" className="block px-4 py-2 text-black hover:bg-gray-100">
                     Settings
                   </Link>
                 </div>
@@ -357,14 +351,10 @@ const Navbar = ({ userType }) => {
         </div>
       )}
 
-
       {/* Business Employer */}
       {userType === ROLE.BUSINESS_EMPLOYER && (
         <div className="flex justify-between items-center py-5 px-10 border border-gray-300">
-          <Link
-            to={"/"}
-            className="font-bold text-blue-900 flex items-center gap-3"
-          >
+          <Link to={'/'} className="font-bold text-blue-900 flex items-center gap-3">
             <img src={icons.logo_triconnect} alt="" className="h-10" />
             TriConnect
           </Link>
@@ -394,16 +384,10 @@ const Navbar = ({ userType }) => {
                   >
                     View Profile
                   </Link>
-                  <Link
-                    to="/messages"
-                    className="block px-4 py-2 text-black hover:bg-gray-100"
-                  >
+                  <Link to="/messages" className="block px-4 py-2 text-black hover:bg-gray-100">
                     Message
                   </Link>
-                  <Link
-                    to="/settings"
-                    className="block px-4 py-2 text-black hover:bg-gray-100"
-                  >
+                  <Link to="/settings" className="block px-4 py-2 text-black hover:bg-gray-100">
                     Settings
                   </Link>
                 </div>
@@ -413,14 +397,10 @@ const Navbar = ({ userType }) => {
         </div>
       )}
 
-
       {/* Individual Employer */}
       {userType === ROLE.INDIVIDUAL_EMPLOYER && (
         <div className="flex justify-between items-center py-5 px-10 border border-gray-300">
-          <Link
-            to={"/"}
-            className="font-bold text-blue-900 flex items-center gap-3"
-          >
+          <Link to={'/'} className="font-bold text-blue-900 flex items-center gap-3">
             <img src={icons.logo_triconnect} alt="" className="h-10" />
             TriConnect
           </Link>
@@ -450,16 +430,10 @@ const Navbar = ({ userType }) => {
                   >
                     View Profile
                   </Link>
-                  <Link
-                    to="/messages"
-                    className="block px-4 py-2 text-black hover:bg-gray-100"
-                  >
+                  <Link to="/messages" className="block px-4 py-2 text-black hover:bg-gray-100">
                     Message
                   </Link>
-                  <Link
-                    to="/settings"
-                    className="block px-4 py-2 text-black hover:bg-gray-100"
-                  >
+                  <Link to="/settings" className="block px-4 py-2 text-black hover:bg-gray-100">
                     Settings
                   </Link>
                 </div>
@@ -469,14 +443,10 @@ const Navbar = ({ userType }) => {
         </div>
       )}
 
-
       {/* Manpower Provider */}
       {userType === ROLE.MANPOWER_PROVIDER && (
         <div className="flex justify-between items-center py-5 px-10 border border-gray-300">
-          <Link
-            to={"/"}
-            className="font-bold text-blue-900 flex items-center gap-3"
-          >
+          <Link to={'/'} className="font-bold text-blue-900 flex items-center gap-3">
             <img src={icons.logo_triconnect} alt="" className="h-10" />
             TriConnect
           </Link>
@@ -506,16 +476,10 @@ const Navbar = ({ userType }) => {
                   >
                     View Profile
                   </Link>
-                  <Link
-                    to="/messages"
-                    className="block px-4 py-2 text-black hover:bg-gray-100"
-                  >
+                  <Link to="/messages" className="block px-4 py-2 text-black hover:bg-gray-100">
                     Message
                   </Link>
-                  <Link
-                    to="/settings"
-                    className="block px-4 py-2 text-black hover:bg-gray-100"
-                  >
+                  <Link to="/settings" className="block px-4 py-2 text-black hover:bg-gray-100">
                     Settings
                   </Link>
                 </div>
@@ -525,11 +489,10 @@ const Navbar = ({ userType }) => {
         </div>
       )}
 
-
       {/* Administrator */}
       {userType === ROLE.ADMINISTRATOR && (
         <nav className="flex justify-between items-center py-5 px-10 border border-gray-300">
-          <Link to={"/"} className="font-bold text-blue-900 flex items-center gap-3">
+          <Link to={'/'} className="font-bold text-blue-900 flex items-center gap-3">
             <img src={icons.logo_triconnect} alt="" className="h-10" />
             TriConnect
           </Link>
@@ -542,8 +505,6 @@ const Navbar = ({ userType }) => {
           </div>
         </nav>
       )}
-
-
     </div>
   );
 };

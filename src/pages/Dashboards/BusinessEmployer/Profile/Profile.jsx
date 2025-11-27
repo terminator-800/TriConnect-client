@@ -10,8 +10,8 @@ import Form from '../VerificationForm/Form';
 import ChangeProfile from '../../../../components/ChangeProfile/ChangeProfile';
 
 const Profile = () => {
-  const personal = 'personal'
-  const security = 'security'
+  const personal = 'personal';
+  const security = 'security';
   const [activeTab, setActiveTab] = useState(personal);
   const [showForm, setShowForm] = useState(false);
   const [editMode, setEditMode] = useState(false);
@@ -23,7 +23,7 @@ const Profile = () => {
     error,
     refetch,
   } = useUserProfile(ROLE.BUSINESS_EMPLOYER);
-  
+
   const [formData, setFormData] = useState({
     email: '',
     business_name: '',
@@ -54,7 +54,7 @@ const Profile = () => {
   if (isError) return <div>Error!</div>;
 
   const handleInputChange = (field, value) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   return (
@@ -63,23 +63,23 @@ const Profile = () => {
 
       <div className="relative min-h-screen bg-linear-to-b from-white to-cyan-400 pl-70 pr-10 pt-30">
         <div className="bg-white shadow-md p-6 w-full border border-gray-300 px-20">
-
           <div>
             {profileData.is_verified ? (
               <>
                 <div className="flex items-center pt-20 justify-between w-full">
                   <div>
-                    <h1 className='font-bold text-4xl'>{profileData.business_name}</h1>
+                    <h1 className="font-bold text-4xl">{profileData.business_name}</h1>
 
                     <div className="bg-white p-3 shadow-md flex justify-between items-center w-full border border-gray-300 mt-5">
                       <div className="flex gap-4 items-center">
                         <div>
-                          <div className='flex'>
+                          <div className="flex">
                             <h1 className="font-bold text-2xl text-yellow-900">Account Verified</h1>
                             <img src={icons.verified} alt="" />
                           </div>
                           <p className="text-yellow-900 max-w-4xl">
-                            Your account has been successfully verified and all submitted requirements have been approved.
+                            Your account has been successfully verified and all submitted
+                            requirements have been approved.
                           </p>
                         </div>
                       </div>
@@ -87,7 +87,7 @@ const Profile = () => {
                   </div>
 
                   <div className="ml-6">
-                    <ChangeProfile profileData={profileData}/>
+                    <ChangeProfile profileData={profileData} />
                   </div>
                 </div>
 
@@ -120,9 +120,7 @@ const Profile = () => {
                   />
                 )}
 
-                {activeTab === security && (
-                  <Security />
-                )}
+                {activeTab === security && <Security />}
               </>
             ) : (
               <VerificationStatus profileData={profileData} openForm={openForm} />

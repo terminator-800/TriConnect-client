@@ -24,9 +24,9 @@ import logo_triconnect from './logo_triconnect.svg';
 import not_verified from './not_verified.svg';
 import verified from './verified.svg';
 import location from './location.svg';
-import pin from './pin.svg'
+import pin from './pin.svg';
 import three_dots from './three_dots.svg';
-import close from './close.svg'
+import close from './close.svg';
 import verified_check from './verified_check.svg';
 import report_user from './report_user.svg';
 import send from './send.svg';
@@ -38,10 +38,10 @@ import user_friendly_interface from './user_friendly_interface.svg';
 import check from './check.svg';
 import background_blur from './background_blur.svg';
 import bg_modal_blur from './bg_modal_blur.svg';
-import close_view_job_post from "./close_view_job_post.svg";
+import close_view_job_post from './close_view_job_post.svg';
 import three_dots_vertical from './three_dots_vertical.svg';
 import verification_email from './verification_email.svg';
-import search_job_icon from './search_job_icon.svg'
+import search_job_icon from './search_job_icon.svg';
 import posted_clock from './posted_clock.svg';
 import job_type from './job_type.svg';
 import location_blue from './location_blue.svg';
@@ -55,61 +55,61 @@ import resume_download from './resume_download.svg';
 import download_pdf_arrow from './download_pdf_arrow.svg';
 
 const icons = {
-    find_agency,
-    dashboard,
-    manage_job_post,
-    message,
-    view_applicant,
-    job_post_details,
-    create_job_post,
-    find_job,
-    profile,
-    notification_bell,
-    user_verification,
-    verified_user,
-    job_post_verification,
-    verified_job_post,
-    reported_user,
-    user_feedback,
-    select_jobseeker,
-    select_employer,
-    select_manpower_provider,
-    landing_page,
-    login,
-    attach_file,
-    logo_triconnect,
-    not_verified,
-    verified,
-    location,
-    pin,
-    three_dots,
-    close,
-    verified_check,
-    report_user,
-    send,
-    change_profile,
-    all_in_one_platform,
-    custom_tools_for_everyone,
-    secure_reliable,
-    user_friendly_interface,
-    check,
-    background_blur,
-    bg_modal_blur,
-    close_view_job_post,
-    three_dots_vertical,
-    verification_email,
-    search_job_icon,
-    posted_clock,
-    job_type,
-    location_blue,
-    salary_range,
-    required_skills,
-    resume,
-    cover_letter,
-    drag_drop,
-    personal_information,
-    resume_download,
-    download_pdf_arrow
-}
+  find_agency,
+  dashboard,
+  manage_job_post,
+  message,
+  view_applicant,
+  job_post_details,
+  create_job_post,
+  find_job,
+  profile,
+  notification_bell,
+  user_verification,
+  verified_user,
+  job_post_verification,
+  verified_job_post,
+  reported_user,
+  user_feedback,
+  select_jobseeker,
+  select_employer,
+  select_manpower_provider,
+  landing_page,
+  login,
+  attach_file,
+  logo_triconnect,
+  not_verified,
+  verified,
+  location,
+  pin,
+  three_dots,
+  close,
+  verified_check,
+  report_user,
+  send,
+  change_profile,
+  all_in_one_platform,
+  custom_tools_for_everyone,
+  secure_reliable,
+  user_friendly_interface,
+  check,
+  background_blur,
+  bg_modal_blur,
+  close_view_job_post,
+  three_dots_vertical,
+  verification_email,
+  search_job_icon,
+  posted_clock,
+  job_type,
+  location_blue,
+  salary_range,
+  required_skills,
+  resume,
+  cover_letter,
+  drag_drop,
+  personal_information,
+  resume_download,
+  download_pdf_arrow,
+};
 
 export default icons;

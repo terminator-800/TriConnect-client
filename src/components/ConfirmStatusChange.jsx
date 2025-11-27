@@ -43,9 +43,15 @@ const ConfirmStatusChange = ({ onClose, data, role }) => {
         </p>
 
         <div className="mb-4 text-sm text-gray-800 border border-gray-300 p-4 rounded-lg bg-gray-50">
-          <p><strong>Job Title:</strong> {data.job_title}</p>
-          <p><strong>Location:</strong> {data.location}</p>
-          <p><strong>Salary:</strong> {data.salary_range}</p>
+          <p>
+            <strong>Job Title:</strong> {data.job_title}
+          </p>
+          <p>
+            <strong>Location:</strong> {data.location}
+          </p>
+          <p>
+            <strong>Salary:</strong> {data.salary_range}
+          </p>
         </div>
 
         <div className="flex justify-center gap-4">
@@ -78,7 +84,7 @@ ConfirmStatusChange.propTypes = {
     location: PropTypes.string,
     salary_range: PropTypes.string,
   }),
-  role: PropTypes.string.isRequired, 
+  role: PropTypes.string.isRequired,
 };
 
 export default ConfirmStatusChange;

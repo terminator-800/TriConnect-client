@@ -39,16 +39,13 @@ const UserFeedback = () => {
     <>
       <Sidebar />
       <div className="min-h-screen flex flex-col justify-between bg-linear-to-b from-white to-cyan-400 pl-70 pr-10 pt-30 backdrop-blur-2xl">
-
         <div className="bg-white shadow-md py-6 px-10 mb-8">
-            <div className="flex flex-col">
-              <h1 className="text-2xl font-bold text-blue-900">User Feedback</h1>
-              <p>
-                Review and manage feedback submitted by TriConnect users
-              </p>
+          <div className="flex flex-col">
+            <h1 className="text-2xl font-bold text-blue-900">User Feedback</h1>
+            <p>Review and manage feedback submitted by TriConnect users</p>
           </div>
         </div>
-        
+
         <div className="w-full rounded mt-10 flex flex-col flex-1">
           {/* Table Section */}
           <div className="overflow-x-auto flex-1">
@@ -77,12 +74,12 @@ const UserFeedback = () => {
                         {fb.profile ? (
                           <img
                             src={fb.profile}
-                            alt={fb.user_name || "User"}
+                            alt={fb.user_name || 'User'}
                             className="w-full h-full object-cover"
                           />
                         ) : (
                           <span className="text-xs font-bold text-gray-600 italic">
-                            {fb.initials || "n/a"}
+                            {fb.initials || 'n/a'}
                           </span>
                         )}
                       </div>
@@ -90,7 +87,9 @@ const UserFeedback = () => {
                       <span className="font-semibold italic">{fb.name}</span>
                     </td>
 
-                    <td className={`px-6 py-4 font-bold text-sm italic ${fb.color} whitespace-nowrap`}>
+                    <td
+                      className={`px-6 py-4 font-bold text-sm italic ${fb.color} whitespace-nowrap`}
+                    >
                       {ROLE_LABELS[fb.type]}
                     </td>
 
@@ -128,16 +127,11 @@ const UserFeedback = () => {
             />
           </div>
         </div>
-
       </div>
-
 
       {/* Feedback Modal */}
       {selectedFeedback && (
-        <ViewFeedback
-          feedback={selectedFeedback}
-          onClose={() => setSelectedFeedback(null)}
-        />
+        <ViewFeedback feedback={selectedFeedback} onClose={() => setSelectedFeedback(null)} />
       )}
     </>
   );

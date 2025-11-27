@@ -20,23 +20,25 @@ const VerifiedUser = () => {
   return (
     <>
       <Sidebar />
-      <div className="min-h-screen flex flex-col justify-between bg-linear-to-b from-white to-cyan-400 
+      <div
+        className="min-h-screen flex flex-col justify-between bg-linear-to-b from-white to-cyan-400 
             pl-70 pr-10 pt-30
-             ">
-                <div className="bg-white shadow-md py-6 px-10 mb-8">
-                  <div className="flex flex-col">
-                    <h1 className="text-2xl font-bold text-[#003479]">Verified Users</h1>
-                    <p>
-                      Browse and manage users who have been verified on the platform
-                    </p>
-                  </div>
-                </div>
+             "
+      >
+        <div className="bg-white shadow-md py-6 px-10 mb-8">
+          <div className="flex flex-col">
+            <h1 className="text-2xl font-bold text-[#003479]">Verified Users</h1>
+            <p>Browse and manage users who have been verified on the platform</p>
+          </div>
+        </div>
 
         <div className="flex-1">
           {isLoading ? (
             <p className="mt-10 text-lg text-gray-600 text-center">Loading verified users...</p>
           ) : isError ? (
-            <p className="mt-10 text-red-500">{error?.message || 'Failed to load verified users.'}</p>
+            <p className="mt-10 text-red-500">
+              {error?.message || 'Failed to load verified users.'}
+            </p>
           ) : verifiedUsers.length === 0 ? (
             <p className="mt-10 text-lg text-gray-500 italic text-center">
               No verified users found.
@@ -60,11 +62,7 @@ const VerifiedUser = () => {
 
                 <tbody className="bg-white divide-y divide-gray-200">
                   {currentUsers.map((user) => {
-                    const name =
-                      user.full_name ||
-                      user.business_name ||
-                      user.agency_name ||
-                      'N/A';
+                    const name = user.full_name || user.business_name || user.agency_name || 'N/A';
 
                     return (
                       <tr key={user.user_id} className="border-t border-gray-300">
@@ -91,7 +89,8 @@ const VerifiedUser = () => {
 
                         {/* Role */}
                         <td
-                          className={`px-6 py-4 text-sm font-bold italic whitespace-nowrap ${user.role === ROLE.JOBSEEKER
+                          className={`px-6 py-4 text-sm font-bold italic whitespace-nowrap ${
+                            user.role === ROLE.JOBSEEKER
                               ? 'text-blue-500'
                               : user.role === ROLE.BUSINESS_EMPLOYER
                                 ? 'text-green-500'
@@ -100,7 +99,7 @@ const VerifiedUser = () => {
                                   : user.role === ROLE.INDIVIDUAL_EMPLOYER
                                     ? 'text-yellow-500'
                                     : 'text-gray-500'
-                            }`}
+                          }`}
                         >
                           {ROLE_LABELS[user.role] || user.role}
                         </td>
@@ -127,26 +126,19 @@ const VerifiedUser = () => {
                 </tbody>
               </table>
             </div>
-
           )}
         </div>
 
-        <div className='mt-10 mb-10'>
+        <div className="mt-10 mb-10">
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}
             setCurrentPage={setCurrentPage}
           />
         </div>
-
       </div>
 
-      {selectedUser && (
-        <ViewDocument
-          user={selectedUser}
-          onClose={() => setSelectedUser(null)}
-        />
-      )}
+      {selectedUser && <ViewDocument user={selectedUser} onClose={() => setSelectedUser(null)} />}
     </>
   );
 };

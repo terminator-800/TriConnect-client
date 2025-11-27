@@ -1,10 +1,10 @@
-import { useUserProfile } from "../../../../../hooks/useUserProfiles";
-import { useState } from "react";
-import { ROLE } from "../../../../../utils/role";
-import Sidebar from "../Sidebar"
-import BrowseJob from "./BrowseJob"
-import VerificationStatus from '../Verification Form/VerificationStatus'
-import Form from "../Verification Form/Form";
+import { useUserProfile } from '../../../../../hooks/useUserProfiles';
+import { useState } from 'react';
+import { ROLE } from '../../../../../utils/role';
+import Sidebar from '../Sidebar';
+import BrowseJob from './BrowseJob';
+import VerificationStatus from '../Verification Form/VerificationStatus';
+import Form from '../Verification Form/Form';
 
 const FindJob = () => {
   const [showForm, setShowForm] = useState(false);
@@ -20,7 +20,7 @@ const FindJob = () => {
   if (isError) return <div>Failed to load profile.</div>;
 
   const openForm = () => {
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow = 'hidden';
     setShowForm(true);
   };
 
@@ -35,7 +35,6 @@ const FindJob = () => {
           <div className="bg-white shadow-md p-6 w-full max-w-full border border-gray-300 px-20">
             <VerificationStatus profileData={profileData} openForm={openForm} />
           </div>
-
         ) : profileData.is_submitted ? (
           <div className="bg-white shadow-md p-6 w-full max-w-full border border-gray-300 px-20">
             <VerificationStatus profileData={profileData} openForm={openForm} />
@@ -49,7 +48,7 @@ const FindJob = () => {
         {showForm && (
           <Form
             onClose={() => {
-              setShowForm(false)
+              setShowForm(false);
               document.body.style.overflow = 'auto';
             }}
             onSubmitSuccess={() => {
@@ -60,7 +59,7 @@ const FindJob = () => {
         )}
       </div>
     </>
-  )
-}
+  );
+};
 
-export default FindJob
+export default FindJob;

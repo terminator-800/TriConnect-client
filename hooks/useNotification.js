@@ -7,13 +7,12 @@ export function useNotification(role) {
   return useQuery({
     queryKey: ['notifications'],
     queryFn: async () => {
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/${role}/notification`,
-        { withCredentials: true }
-      );
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/${role}/notification`, {
+        withCredentials: true,
+      });
       return response.data;
     },
-    staleTime: 1000 * 60, 
+    staleTime: 1000 * 60,
     refetchInterval: 1000 * 30,
     onSuccess: () => {
       // 🔥 Invalidate the user profile for THIS role

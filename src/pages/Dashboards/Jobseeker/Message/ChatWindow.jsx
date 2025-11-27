@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useMarkMessagesAsSeen } from './helper'
+import { useMarkMessagesAsSeen } from './helper';
 import { useMessageHistory } from '../../../../../hooks/CHAT';
 import { useUserProfile } from '../../../../../hooks/useUserProfiles';
 import { useQueryClient } from '@tanstack/react-query';
@@ -21,7 +21,11 @@ const ChatWindow = ({ selectedUser }) => {
 
   const { conversation_id = null } = selectedUser || {};
 
-  const { data: messages = [], isLoading, isError } = useMessageHistory(ROLE.JOBSEEKER, conversation_id);
+  const {
+    data: messages = [],
+    isLoading,
+    isError,
+  } = useMessageHistory(ROLE.JOBSEEKER, conversation_id);
 
   // Initialize socket connection
   useSocket(currentUserId, ROLE.JOBSEEKER);
@@ -42,23 +46,21 @@ const ChatWindow = ({ selectedUser }) => {
     if (!conversation_id) return;
 
     const handleNewMessage = (newMessage) => {
-
       if (Number(newMessage.conversation_id) === Number(conversation_id)) {
         queryClient.invalidateQueries({
-          queryKey: ['messages', ROLE.JOBSEEKER, conversation_id]
+          queryKey: ['messages', ROLE.JOBSEEKER, conversation_id],
         });
 
         queryClient.invalidateQueries({
-          queryKey: ['conversations', ROLE.JOBSEEKER]
+          queryKey: ['conversations', ROLE.JOBSEEKER],
         });
       }
     };
 
     const handleMessagesSeen = (data) => {
-
       if (Number(data.conversation_id) === Number(conversation_id)) {
         queryClient.invalidateQueries({
-          queryKey: ['messages', ROLE.JOBSEEKER, conversation_id]
+          queryKey: ['messages', ROLE.JOBSEEKER, conversation_id],
         });
       }
     };
@@ -104,15 +106,19 @@ const ChatWindow = ({ selectedUser }) => {
       )}
 
       <div className="flex-1 bg-white flex flex-col">
-        <div className="flex-1 overflow-y-auto px-2 py-4 flex flex-col justify-end min-h-[50vh]
+        <div
+          className="flex-1 overflow-y-auto px-2 py-4 flex flex-col justify-end min-h-[50vh]
           
           max-[769px]:px-2
           max-[769px]:py-0
            max-[426px]:px-2
            max-[376px]:px-2
-        ">
-          <ul className="flex flex-col space-y-4
-          ">
+        "
+        >
+          <ul
+            className="flex flex-col space-y-4
+          "
+          >
             {messages.map((msg, index) => {
               const isSender = Number(msg.sender_id) === Number(currentUserId);
               const senderAvatar = selectedUser?.authorized_profile;
@@ -123,11 +129,15 @@ const ChatWindow = ({ selectedUser }) => {
                 : 'bg-gray-200 text-gray-800 rounded-bl-none';
 
               const isLastSenderMessage =
-                isSender && index === messages.findLastIndex((m) => Number(m.sender_id) === Number(currentUserId));
+                isSender &&
+                index ===
+                  messages.findLastIndex((m) => Number(m.sender_id) === Number(currentUserId));
 
               return (
-                <li key={msg.message_id || `msg-${index}`} className={`flex ${alignment} items-end`}>
-
+                <li
+                  key={msg.message_id || `msg-${index}`}
+                  className={`flex ${alignment} items-end`}
+                >
                   {/* AUTHORIZED PERSONEL */}
                   {!isSender && (
                     <div className="shrink-0 w-8 h-8 rounded-full mr-2 text-xs font-semibold overflow-hidden flex items-center justify-center bg-gray-400 text-white">
@@ -145,9 +155,7 @@ const ChatWindow = ({ selectedUser }) => {
 
                   <div className="flex flex-col items-start">
                     {/* APPLICATION CARD - Only if it has required application fields */}
-                    {msg.message_type === "apply" &&
-                    msg.full_name &&
-                    msg.email_address ? (
+                    {msg.message_type === 'apply' && msg.full_name && msg.email_address ? (
                       ApplicationCard(msg, isSender)
                     ) : (
                       <>
@@ -178,14 +186,16 @@ const ChatWindow = ({ selectedUser }) => {
                           )}
 
                           {/* TEXT MESSAGE */}
-                          <div className="wrap-break-word whitespace-pre-wrap
+                          <div
+                            className="wrap-break-word whitespace-pre-wrap
                             max-[769px]:max-w-50
                             max-[601px]:max-w-40
                             max-[426px]:max-w-25
                             max-[511px]:max-w-25
                             max-[376px]:max-w-15
                             max-[321px]:max-w-5
-                          ">
+                          "
+                          >
                             <div>{msg.message_text || 'No message yet'}</div>
                           </div>
                         </div>
@@ -216,8 +226,8 @@ const ChatWindow = ({ selectedUser }) => {
           <div
             className="relative bg-white px-4 py-10 border border-gray-300 flex flex-col items-center"
             style={{
-              maxWidth: "95vw",
-              maxHeight: "90vh",
+              maxWidth: '95vw',
+              maxHeight: '90vh',
             }}
           >
             {/* Close button */}
@@ -235,8 +245,8 @@ const ChatWindow = ({ selectedUser }) => {
                 title="PDF Preview"
                 className="rounded-lg border"
                 style={{
-                  width: "80vw",
-                  height: "80vh",
+                  width: '80vw',
+                  height: '80vh',
                 }}
               />
             ) : (
@@ -245,8 +255,8 @@ const ChatWindow = ({ selectedUser }) => {
                 alt="Preview"
                 className="object-contain rounded-lg"
                 style={{
-                  maxWidth: "80vw",
-                  maxHeight: "80vh",
+                  maxWidth: '80vw',
+                  maxHeight: '80vh',
                 }}
               />
             )}
@@ -266,7 +276,6 @@ const ChatWindow = ({ selectedUser }) => {
           </div>
         </div>
       )}
-
     </div>
   );
 };

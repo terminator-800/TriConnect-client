@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useMarkAsSeen } from '../../../../../hooks/CHAT';
-import { ROLE } from "../../../../../utils/role";
+import { ROLE } from '../../../../../utils/role';
 
 export const getTabFromLocalStorage = () => {
   return localStorage.getItem('chat-active-tab') || ROLE.JOBSEEKER;
@@ -27,17 +27,16 @@ export const getInitials = (fullName) => {
 
 // This is for Chat Headers Data PROPS
 export const filterAndMapConversations = (conversations, activeTab) => {
-  const filtered = conversations.filter(convo => convo.role === activeTab);
+  const filtered = conversations.filter((convo) => convo.role === activeTab);
   const unknown = 'Unknown';
 
-  return filtered.map(convo => {
+  return filtered.map((convo) => {
     let name = unknown;
     let authorized_person = null;
-    let authorized_profile = null
+    let authorized_profile = null;
     let profile = null;
 
     switch (convo.role) {
-
       case ROLE.JOBSEEKER:
         name = convo.full_name || unknown;
         authorized_person = convo.full_name;
@@ -66,7 +65,7 @@ export const filterAndMapConversations = (conversations, activeTab) => {
       conversation_id: convo.conversation_id,
       authorized_person,
       profile,
-      authorized_profile
+      authorized_profile,
     };
   });
 };
@@ -78,11 +77,7 @@ export const useMarkMessagesAsSeen = ({ role, conversation_id, messages, current
 
   const allMessageIds = useMemo(() => {
     return messages
-      .filter(
-        (msg) =>
-          Number(msg.receiver_id) === Number(currentUserId) &&
-          !msg.is_read
-      )
+      .filter((msg) => Number(msg.receiver_id) === Number(currentUserId) && !msg.is_read)
       .map((msg) => msg.message_id);
   }, [messages, currentUserId]);
 
@@ -101,5 +96,3 @@ export const useMarkMessagesAsSeen = ({ role, conversation_id, messages, current
     }
   }, [newMessagesToMark, markAsSeen]);
 };
-
-

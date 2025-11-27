@@ -9,7 +9,7 @@ const MessageInput = ({ selectedUser }) => {
   const [messageText, setMessageText] = useState('');
 
   const { mutate: sendMessage, isPending } = useSendMessage(ROLE.BUSINESS_EMPLOYER);
-  
+
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
     setSelectedFiles((prevFiles) => [...prevFiles, ...files]);
@@ -44,7 +44,10 @@ const MessageInput = ({ selectedUser }) => {
       {selectedFiles.length > 0 && (
         <div className="flex flex-col gap-1 px-2">
           {selectedFiles.map((file, index) => (
-            <div key={index} className="flex items-center justify-between text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded">
+            <div
+              key={index}
+              className="flex items-center justify-between text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded"
+            >
               <span className="truncate">{file.name}</span>
               <button
                 onClick={() => handleRemoveFile(index)}
