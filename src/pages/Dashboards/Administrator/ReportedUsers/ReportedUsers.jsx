@@ -1,0 +1,167 @@
+import { useAllReportedUsers } from '../../../../../hooks/REPORT';
+import { useState } from 'react';
+import ViewReportedUser from './ViewReportedUser';
+import Pagination from '../../../../components/Pagination';
+import Sidebar from '../Sidebar';
+
+const USERS_PER_PAGE = 4;
+
+const roleColors = {
+  'manpower-provider': 'text-orange-500',
+  'business-employer': 'text-green-600',
+  'individual-employer': 'text-yellow-500',
+  'jobseeker': 'text-blue-600',
+};
+
+const ReportedUser = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedReport, setSelectedReport] = useState(null);
+  const { data: allReportedUsers = [], isLoading, isError } = useAllReportedUsers();
+
+  const totalPages = Math.ceil(allReportedUsers.length / USERS_PER_PAGE);
+  const startIndex = (currentPage - 1) * USERS_PER_PAGE;
+  const paginatedUsers = allReportedUsers.slice(startIndex, startIndex + USERS_PER_PAGE);
+
+  const getInitials = (entity = '') => {
+    const parts = entity.trim().split(/\s+/);
+    if (parts.length === 0) return '';
+    if (parts.length === 1) return parts[0][0].toUpperCase();
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  };
+
+  return (
+    <>
+      <Sidebar />
+      <div className="min-h-screen flex flex-col justify-between bg-linear-to-b from-white to-cyan-400 pl-70 pr-10 pt-30">
+
+          <div className="bg-white shadow-md py-6 px-10 mb-8">
+            <div className="flex flex-col">
+              <h1 className="text-2xl font-bold text-blue-900">Reported Users</h1>
+              <p>Tagline</p>
+            </div>
+          </div>
+
+          {/* Scrollabe */}
+          <div className="flex-1 mt-10">
+            <div className="overflow-x-auto shadow bg-white">
+              <table className="min-w-max w-full text-left">
+                <thead>
+                  <tr className="bg-gray-300 text-[#374151]">
+                    <th className="px-6 py-3 font-semibold">User Details</th>
+                    <th className="px-6 py-3 font-semibold">User Type</th>
+                    <th className="px-6 py-3 font-semibold">Report Reason</th>
+                    <th className="px-6 py-3 font-semibold">Date Reported</th>
+                    <th className="px-6 py-3 font-semibold">Actions</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {isLoading && (
+                    <tr>
+                      <td colSpan="5" className="px-4 py-4 text-center text-gray-600">
+                        Loading reported users...
+                      </td>
+                    </tr>
+                  )}
+
+                  {isError && (
+                    <tr>
+                      <td colSpan="5" className="px-4 py-4 text-center text-red-600">
+                        Failed to load reported users.
+                      </td>
+                    </tr>
+                  )}
+
+                  {!isLoading && !isError && paginatedUsers.length === 0 && (
+                    <tr>
+                      <td colSpan="5" className="px-4 py-4 text-center text-gray-600">
+                        No reported users found.
+                      </td>
+                    </tr>
+                  )}
+                  
+                  {!isLoading && !isError && paginatedUsers.map((report) => (
+                    <tr key={report.report_id} className="border-t border-gray-200">
+                      {/* User Info */}
+                      <td className="px-6 py-5 flex items-center gap-3 italic whitespace-nowrap">
+                        <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center text-sm font-medium text-gray-600">
+                          {report.reported_user?.profile ? (
+                            <img
+                              src={report.reported_user.profile}
+                              alt={report.reported_user?.name || "User"}
+                              className="w-full h-full object-cover rounded-full"
+                            />
+                          ) : (
+                            getInitials(report.reported_user?.entity) || "N/A"
+                          )}
+                        </div>
+                        <div>
+                          <div className="font-semibold">{report.reported_user?.entity || 'N/A'}</div>
+                        </div>
+                      </td>
+
+                      {/* User Type */}
+                      <td
+                        className={`px-6 py-5 capitalize text-sm font-bold italic ${roleColors[report.reported_user?.role] || 'text-gray-700'
+                          } whitespace-nowrap`}
+                      >
+                        {report.reported_user?.role.replace('-', ' ')}
+                      </td>
+
+                      {/* Report Reason */}
+                      <td className="px-6 py-5 whitespace-nowrap">
+                        <div className="font-semibold">{report.reason}</div>
+                        <div className="text-xs text-gray-500">
+                          Reported by: {report.reporter?.name || report.reporter?.user_id || 'N/A'}
+                        </div>
+                        {report.proofs?.length > 0 && (
+                          <div className="mt-1 text-xs text-gray-600 italic">
+                            {report.proofs.length} proof{report.proofs.length > 1 ? 's' : ''} attached
+                          </div>
+                        )}
+                      </td>
+
+                      {/* Date */}
+                      <td className="px-6 py-5 text-sm text-gray-700 whitespace-nowrap">
+                        <span>{report.created_at || 'just now'}</span>
+                      </td>
+
+                      {/* Action */}
+                      <td className="px-6 py-5 whitespace-nowrap">
+                        <button
+                          disabled={!report.can_view}
+                          onClick={() => setSelectedReport(report)}
+                          className={`px-10 py-1 text-white text-sm font-medium ${report.can_view
+                            ? 'bg-blue-900 hover:bg-blue-800'
+                            : 'bg-gray-300 cursor-not-allowed'
+                            } cursor-pointer`}
+                        >
+                          View
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        {/* Pagination always at bottom */}
+        <div className='mt-10 mb-10'>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            setCurrentPage={setCurrentPage}
+          />
+        </div>
+
+        <ViewReportedUser
+          report={selectedReport}
+          onClose={() => setSelectedReport(null)}
+        />
+      </div>
+    </>
+  );
+};
+
+export default ReportedUser;

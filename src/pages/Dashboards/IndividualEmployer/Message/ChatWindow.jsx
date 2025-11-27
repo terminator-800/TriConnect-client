@@ -1,0 +1,267 @@
+import { useEffect, useRef, useState } from "react";
+import { useMarkMessagesAsSeen } from "./helper";
+import { useMessageHistory } from "../../../../../hooks/CHAT";
+import { useUserProfile } from "../../../../../hooks/useUserProfiles";
+import { useQueryClient } from "@tanstack/react-query";
+import { getInitials } from "./helper";
+import { useChatRoom } from "../../../../../hooks/useChatRoom";
+import { useSocket } from "../../../../../hooks/useSocket";
+import { ROLE } from "../../../../../utils/role";
+import socket from "../../../../../utils/socket";
+import icons from "../../../../assets/svg/Icons";
+import { ApplicationCard } from "../../../../components/ApplicationCard";
+
+const ChatWindow = ({ selectedUser }) => {
+  const endRef = useRef(null);
+  const [previewImage, setPreviewImage] = useState(null);
+  const queryClient = useQueryClient();
+
+  const { data: profileData } = useUserProfile(ROLE.INDIVIDUAL_EMPLOYER);
+  const currentUserId = profileData?.user_id;
+
+  const { conversation_id = null } = selectedUser || {};
+  const {
+    data: messages = [],
+    isLoading,
+    isError,
+  } = useMessageHistory(ROLE.INDIVIDUAL_EMPLOYER, conversation_id);
+
+  // Initialize socket connection
+  useSocket(currentUserId, ROLE.INDIVIDUAL_EMPLOYER);
+
+  // Join conversation room
+  useChatRoom(conversation_id);
+
+  // 🔁 Automatically mark messages as seen
+  useMarkMessagesAsSeen({
+    role: ROLE.INDIVIDUAL_EMPLOYER,
+    conversation_id,
+    messages,
+    currentUserId,
+  });
+
+  // Real-time message listener
+  useEffect(() => {
+    if (!conversation_id) return;
+
+    const handleNewMessage = (newMessage) => {
+      if (Number(newMessage.conversation_id) === Number(conversation_id)) {
+        queryClient.invalidateQueries({
+          queryKey: ["messages", ROLE.INDIVIDUAL_EMPLOYER, conversation_id],
+        });
+
+        queryClient.invalidateQueries({
+          queryKey: ["conversations", ROLE.INDIVIDUAL_EMPLOYER],
+        });
+      }
+    };
+
+    const handleMessagesSeen = (data) => {
+      if (Number(data.conversation_id) === Number(conversation_id)) {
+        queryClient.invalidateQueries({
+          queryKey: ["messages", ROLE.INDIVIDUAL_EMPLOYER, conversation_id],
+        });
+      }
+    };
+
+    // Listen for new messages
+    socket.on("receiveMessage", handleNewMessage);
+
+    // Listen for messages seen updates
+    socket.on("messagesSeen", handleMessagesSeen);
+
+    return () => {
+      socket.off("receiveMessage", handleNewMessage);
+      socket.off("messagesSeen", handleMessagesSeen);
+    };
+  }, [conversation_id, queryClient]);
+
+  useEffect(() => {
+    if (messages.length > 0) {
+      endRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages.length]);
+
+  return (
+    <div className="flex-1 overflow-y-auto p-6 bg-white">
+      {isLoading && (
+        <div className="text-gray-400 text-center">Loading messages...</div>
+      )}
+      {isError && (
+        <div className="text-red-500 text-center">Failed to load messages.</div>
+      )}
+      {!isLoading && !isError && messages.length === 0 && (
+        <div className="text-gray-400 text-center">No messages yet.</div>
+      )}
+
+      <div className="flex-1 bg-white flex flex-col">
+        <div className="flex-1 overflow-y-auto px-6 py-4 flex flex-col justify-end min-h-[50vh]">
+          <ul className="flex flex-col space-y-4">
+            {messages.map((msg, index) => {
+              const isSender = Number(msg.sender_id) === Number(currentUserId);
+              const senderAvatar = selectedUser?.authorized_profile;
+              const senderInitials = getInitials(
+                selectedUser?.authorized_person || "unknown"
+              );
+              const alignment = isSender ? "justify-end" : "justify-start";
+              const bubbleStyle = isSender
+                ? "bg-blue-500 text-white rounded-br-none"
+                : "bg-gray-200 text-gray-800 rounded-bl-none";
+
+              const isLastSenderMessage =
+                isSender &&
+                index ===
+                  messages.findLastIndex(
+                    (m) => Number(m.sender_id) === Number(currentUserId)
+                  );
+
+              return (
+                <li
+                  key={msg.message_id || `msg-${index}`}
+                  className={`flex ${alignment} items-end`}
+                >
+                  {/* AUTHORIZED PERSONNEL */}
+                  {!isSender && (
+                    <div className="flex-shrink-0 w-8 h-8 rounded-full mr-2 text-xs font-semibold overflow-hidden flex items-center justify-center bg-gray-400 text-white">
+                      {senderAvatar ? (
+                        <img
+                          src={senderAvatar}
+                          alt="profile"
+                          className="w-full h-full object-cover rounded-full"
+                        />
+                      ) : (
+                        senderInitials
+                      )}
+                    </div>
+                  )}
+
+                  <div className="flex flex-col items-start">
+                    {/* APPLICATION CARD - Only if it has required application fields */}
+                    {msg.message_type === "apply" &&
+                    msg.full_name &&
+                    msg.email_address ? (
+                      ApplicationCard(msg, isSender)
+                    ) : (
+                      <>
+                        <div
+                          className={`max-w-xs px-4 py-2 rounded-lg text-sm ${bubbleStyle}`}
+                        >
+                          {/* FILE MESSAGE - PDF or Image */}
+                          {msg.message_type === "file" && msg.file_url && (
+                            <>
+                              {msg.file_url.endsWith(".pdf") ? (
+                                <div
+                                  className="w-48 h-64 rounded-lg border border-gray-300 cursor-pointer overflow-hidden"
+                                  onClick={() => setPreviewImage(msg.file_url)}
+                                >
+                                  <iframe
+                                    src={msg.file_url}
+                                    title="PDF Preview"
+                                    className="w-full h-full pointer-events-none"
+                                  />
+                                </div>
+                              ) : (
+                                <img
+                                  src={msg.file_url}
+                                  alt="Sent file"
+                                  className="w-48 h-auto rounded-lg border border-gray-300 cursor-pointer hover:opacity-80"
+                                  onClick={() => setPreviewImage(msg.file_url)}
+                                />
+                              )}
+                            </>
+                          )}
+
+                          {/* TEXT MESSAGE */}
+                          <div className="break-words whitespace-pre-wrap">
+                            <div>{msg.message_text}</div>
+                          </div>
+                        </div>
+
+                        {/* Message timestamp and read status */}
+                        <div
+                          className={`text-xs mt-1 ${
+                            isSender
+                              ? "text-right self-end text-gray-500"
+                              : "text-left self-start text-gray-500"
+                          }`}
+                        >
+                          <div>sent {msg.created_at}</div>
+                          {isLastSenderMessage && !!msg.is_read && (
+                            <div className="text-xs text-blue-500 mt-1">
+                              Seen
+                            </div>
+                          )}
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </li>
+              );
+            })}
+
+            <div ref={endRef} />
+          </ul>
+        </div>
+      </div>
+
+      {/* Preview Modal */}
+      {previewImage && (
+        <div className="fixed inset-0 bg-opacity-70 flex items-center justify-center z-50">
+          <div
+            className="relative bg-white px-4 py-10 border border-gray-300 flex flex-col items-center"
+            style={{
+              maxWidth: "95vw",
+              maxHeight: "90vh",
+            }}
+          >
+            {/* Close button */}
+            <button
+              className="absolute top-2 right-2 text-gray-700 hover:text-red-500 text-xl cursor-pointer"
+              onClick={() => setPreviewImage(null)}
+            >
+              <img src={icons.close} alt="Close" />
+            </button>
+
+            {/* PDF or Image preview */}
+            {previewImage.endsWith(".pdf") ? (
+              <iframe
+                src={previewImage}
+                title="PDF Preview"
+                className="rounded-lg border"
+                style={{
+                  width: "80vw",
+                  height: "80vh",
+                }}
+              />
+            ) : (
+              <img
+                src={previewImage}
+                alt="Preview"
+                className="object-contain rounded-lg"
+                style={{
+                  maxWidth: "80vw",
+                  maxHeight: "80vh",
+                }}
+              />
+            )}
+
+            {/* Download button for PDF */}
+            {previewImage.endsWith(".pdf") && (
+              <a
+                href={previewImage}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute bottom-4 right-4 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+                download
+              >
+                Download PDF
+              </a>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ChatWindow;
