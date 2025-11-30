@@ -14,14 +14,16 @@ const ChatLayout = () => {
   const [selectedUser, setSelectedUser] = useState(null);
 
   const { data: conversations = [], isLoading, isError } = useConversations(ROLE.BUSINESS_EMPLOYER);
-
+  // console.log('conversation: ', conversations.job_title);
+  
   const displayedUsers = filterAndMapConversations(conversations, activeTab);
-
+  console.log("Displayed Users: ", displayedUsers);
+  
   const handleTabChange = (tab) => {
     saveTabToLocalStorage(tab);
     setActiveTab(tab);
   };
-
+  // console.log('Selected:', selectedUser);
   return (
     <div className="">
       <Sidebar />
@@ -50,9 +52,11 @@ const ChatLayout = () => {
             </div>
 
             <div className="flex flex-col flex-1 border-l border-gray-300">
-              <ChatHeader selectedUser={selectedUser} />
-              <ChatWindow selectedUser={selectedUser} />
-              <MessageInput selectedUser={selectedUser} />
+              <ChatHeader 
+              selectedUser={selectedUser}
+              onSelect={(user) => setSelectedUser(user)}/>
+              <ChatWindow selectedUser={selectedUser}/>
+              <MessageInput selectedUser={selectedUser}/>
             </div>
           </div>
         </div>

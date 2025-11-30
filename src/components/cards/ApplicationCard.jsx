@@ -1,4 +1,4 @@
-import icons from '../assets/svg/Icons';
+import icons from '../../assets/svg/Icons';
 
 export const ApplicationCard = (msg, isSender) => {
   const {

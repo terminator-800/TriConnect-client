@@ -8,20 +8,21 @@ const ApplicantMenu = ({ onRejectClick, onViewProfileClick, onMessageClick }) =>
         </li>
 
         {/* Message Applicant */}
-        <li
+        {/* <li
           className="px-4 py-2 hover:bg-gray-100 cursor-pointer border-b border-[#D8D9DB]"
           onClick={onMessageClick}
         >
           Message Applicant
-        </li>
+        </li> */}
 
         {/* Reject Applicant */}
-        <li
+        {/* <li
           className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-red-600"
           onClick={onRejectClick}
         >
           Reject Applicant
-        </li>
+        </li> */}
+
       </ul>
     </div>
   );

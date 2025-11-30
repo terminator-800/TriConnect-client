@@ -9,7 +9,9 @@ import { useSocket } from '../../../../../hooks/useSocket';
 import { ROLE } from '../../../../../utils/role';
 import icons from '../../../../assets/svg/Icons';
 import socket from '../../../../../utils/socket';
-import { ApplicationCard } from '../../../../components/ApplicationCard';
+import { ApplicationCard } from '../../../../components/cards/ApplicationCard';
+import { BusinessRequestCard } from '../../../../components/cards/BusinessRequestCard';
+import { IndividualRequestCard } from '../../../../components/cards/IndividualRequestCard';
 
 const ChatWindow = ({ selectedUser }) => {
   const endRef = useRef(null);
@@ -18,14 +20,15 @@ const ChatWindow = ({ selectedUser }) => {
 
   const { data: profileData } = useUserProfile(ROLE.MANPOWER_PROVIDER);
   const currentUserId = profileData?.user_id;
-
+  
   const { conversation_id = null } = selectedUser || {};
   const {
     data: messages = [],
     isLoading,
     isError,
   } = useMessageHistory(ROLE.MANPOWER_PROVIDER, conversation_id);
-
+  console.log(messages);
+  
   // Initialize socket connection
   useSocket(currentUserId, ROLE.MANPOWER_PROVIDER);
 
@@ -129,53 +132,60 @@ const ChatWindow = ({ selectedUser }) => {
 
                   <div className="flex flex-col items-start">
                     {/* APPLICATION CARD - Only if it has required application fields */}
-                    {msg.message_type === 'apply' && msg.full_name && msg.email_address ? (
-                      ApplicationCard(msg, isSender)
-                    ) : (
-                      <>
-                        <div className={`max-w-xs px-4 py-2 rounded-lg text-sm ${bubbleStyle}`}>
-                          {/* FILE MESSAGE - PDF or Image */}
-                          {msg.message_type === 'file' && msg.file_url && (
-                            <>
-                              {msg.file_url.endsWith('.pdf') ? (
-                                <div
-                                  className="w-48 h-64 rounded-lg border border-gray-300 cursor-pointer overflow-hidden"
-                                  onClick={() => setPreviewImage(msg.file_url)}
-                                >
-                                  <iframe
+                   {msg.message_type === 'apply' && msg.full_name && msg.email_address ? (
+                        ApplicationCard(msg, isSender)
+                      ) : msg.message_type === 'request' && msg.job_title && !msg.company_name ? (
+                        IndividualRequestCard(msg, isSender)
+                      ) : msg.message_type === 'request' && msg.job_title && msg.email_address ? (
+                        BusinessRequestCard(msg, isSender)
+                      ) : (
+                        <>
+                          <div className={`max-w-xs px-4 py-2 rounded-lg text-sm ${bubbleStyle}`}>
+                            {/* FILE MESSAGE - PDF or Image */}
+                            {msg.message_type === 'file' && msg.file_url && (
+                              <>
+                                {msg.file_url.endsWith('.pdf') ? (
+                                  <div
+                                    className="w-48 h-64 rounded-lg border border-gray-300 cursor-pointer overflow-hidden"
+                                    onClick={() => setPreviewImage(msg.file_url)}
+                                  >
+                                    <iframe
+                                      src={msg.file_url}
+                                      title="PDF Preview"
+                                      className="w-full h-full pointer-events-none"
+                                    />
+                                  </div>
+                                ) : (
+                                  <img
                                     src={msg.file_url}
-                                    title="PDF Preview"
-                                    className="w-full h-full pointer-events-none"
+                                    alt="Sent file"
+                                    className="w-48 h-auto rounded-lg border border-gray-300 cursor-pointer hover:opacity-80"
+                                    onClick={() => setPreviewImage(msg.file_url)}
                                   />
-                                </div>
-                              ) : (
-                                <img
-                                  src={msg.file_url}
-                                  alt="Sent file"
-                                  className="w-48 h-auto rounded-lg border border-gray-300 cursor-pointer hover:opacity-80"
-                                  onClick={() => setPreviewImage(msg.file_url)}
-                                />
-                              )}
-                            </>
-                          )}
+                                )}
+                              </>
+                            )}
 
-                          {/* TEXT MESSAGE */}
-                          <div className="break-words whitespace-pre-wrap">
-                            <div>{msg.message_text}</div>
+                            {/* TEXT MESSAGE */}
+                            <div className="break-words whitespace-pre-wrap">
+                              <div>{msg.message_text}</div>
+                            </div>
                           </div>
-                        </div>
 
-                        {/* Message timestamp and read status */}
-                        <div
-                          className={`text-xs mt-1 ${isSender ? 'text-right self-end text-gray-500' : 'text-left self-start text-gray-500'}`}
-                        >
-                          <div>sent {msg.created_at}</div>
-                          {isLastSenderMessage && !!msg.is_read && (
-                            <div className="text-xs text-blue-500 mt-1">Seen</div>
-                          )}
-                        </div>
-                      </>
-                    )}
+                          {/* Message timestamp and read status */}
+                          <div
+                            className={`text-xs mt-1 ${
+                              isSender ? 'text-right self-end text-gray-500' : 'text-left self-start text-gray-500'
+                            }`}
+                          >
+                            <div>sent {msg.created_at}</div>
+                            {isLastSenderMessage && !!msg.is_read && (
+                              <div className="text-xs text-blue-500 mt-1">Seen</div>
+                            )}
+                          </div>
+                        </>
+                      )}
+
                   </div>
                 </li>
               );

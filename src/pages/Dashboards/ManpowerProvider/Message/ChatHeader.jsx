@@ -3,17 +3,44 @@ import { getInitials } from './helper';
 import { useState } from 'react';
 import { ROLE } from '../../../../../utils/role';
 import ReportUser from '../../../../components/ReportUser/ReportUser';
+import ActionMenu from './ActionMenu';
 import icons from '../../../../assets/svg/Icons';
 
 const ChatHeader = ({ selectedUser }) => {
   const [showReportModal, setShowReportModal] = useState(false);
+  const [showActionMenu, setShowActionMenu] = useState(false);
 
   const { data: reportedUsers = [] } = useReportedUsers(ROLE.MANPOWER_PROVIDER);
 
   const isUserReported = reportedUsers.includes(selectedUser?.sender_id);
 
+  if (!selectedUser) {
+    return (
+      <div className="flex items-center justify-center p-4 border-b border-gray-300 bg-white text-gray-400">
+        Select a user to start chatting
+      </div>
+    );
+  }
+
   const fullName = selectedUser?.authorized_person || selectedUser?.name || 'Unknown';
   const initials = getInitials(fullName);
+
+  const handleReportClick = () => {
+    setShowActionMenu(false);
+    setShowReportModal(true);
+  };
+
+  const handleAcceptClick = () => {
+    setShowActionMenu(false);
+    // Add accept logic here
+    console.log('Accept applicant');
+  };
+
+  const handleDeclineClick = () => {
+    setShowActionMenu(false);
+    // Add decline logic here
+    console.log('Decline applicant');
+  };
 
   return (
     <div className="flex items-center justify-between p-4 border-b border-gray-300 bg-white">
@@ -45,14 +72,14 @@ const ChatHeader = ({ selectedUser }) => {
             </div>
           </div>
 
-          {!isUserReported && (
-            <button
-              className="text-red-500 text-xl font-bold cursor-pointer"
-              onClick={() => setShowReportModal(true)}
-            >
-              <img src={icons.report_user} alt="report user" />
-            </button>
-          )}
+          <ActionMenu
+            isOpen={showActionMenu}
+            onToggle={setShowActionMenu}
+            onReportClick={handleReportClick}
+            onAcceptClick={handleAcceptClick}
+            onDeclineClick={handleDeclineClick}
+            icons={icons}
+          />
         </>
       ) : (
         <div className="text-gray-400 text-center w-full">Select a user to start chatting</div>

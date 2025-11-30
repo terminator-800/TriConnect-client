@@ -9,7 +9,9 @@ import { useSocket } from '../../../../../hooks/useSocket';
 import { ROLE } from '../../../../../utils/role';
 import socket from '../../../../../utils/socket';
 import icons from '../../../../assets/svg/Icons';
-import { ApplicationCard } from '../../../../components/ApplicationCard';
+import { ApplicationCard } from '../../../../components/cards/ApplicationCard';
+import { BusinessRequestCard } from '../../../../components/cards/BusinessRequestCard';
+import { IndividualRequestCard } from '../../../../components/cards/IndividualRequestCard';
 
 const ChatWindow = ({ selectedUser }) => {
   const endRef = useRef(null);
@@ -129,9 +131,13 @@ const ChatWindow = ({ selectedUser }) => {
 
                   <div className="flex flex-col items-start">
                     {/* APPLICATION CARD - Only if it has required application fields */}
-                    {msg.message_type === 'apply' && msg.full_name && msg.email_address ? (
-                      ApplicationCard(msg, isSender)
-                    ) : (
+                     {msg.message_type === 'apply' && msg.full_name && msg.email_address ? (
+                          ApplicationCard(msg, isSender)
+                        ) : msg.message_type === 'request' && msg.job_title && !msg.company_name ? (
+                          IndividualRequestCard(msg, isSender)
+                        ) : msg.message_type === 'request' && msg.job_title && msg.email_address ? (
+                          BusinessRequestCard(msg, isSender)
+                        ) : (
                       <>
                         <div className={`max-w-xs px-4 py-2 rounded-lg text-sm ${bubbleStyle}`}>
                           {/* FILE MESSAGE - PDF or Image */}

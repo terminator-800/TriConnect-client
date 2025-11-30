@@ -4,12 +4,15 @@ import { useState } from 'react';
 import { ROLE } from '../../../../../utils/role';
 import ReportUser from '../../../../components/ReportUser/ReportUser';
 import ActionMenu from './ActionMenu';
+import HireApplicant from '../../../../components/HireApplicant/HireApplicant'; // Add this import
 import icons from '../../../../assets/svg/Icons';
 
-const ChatHeader = ({ selectedUser }) => {
+const ChatHeader = ({ selectedUser } ) => {
   const [showReportModal, setShowReportModal] = useState(false);
   const [showActionMenu, setShowActionMenu] = useState(false);
-
+  const [showHireModal, setShowHireModal] = useState(false); // Add this state
+  console.log("Selected:", selectedUser, "THIS IS CHAT HEADER");
+  
   const { data: reportedUsers = [] } = useReportedUsers(ROLE.BUSINESS_EMPLOYER);
 
   const isUserReported = reportedUsers.includes(selectedUser?.sender_id);
@@ -31,8 +34,7 @@ const ChatHeader = ({ selectedUser }) => {
 
   const handleAcceptClick = () => {
     setShowActionMenu(false);
-    // Add accept logic here
-    console.log('Accept applicant');
+    setShowHireModal(true); // Show hire modal instead
   };
 
   const handleDeclineClick = () => {
@@ -62,6 +64,7 @@ const ChatHeader = ({ selectedUser }) => {
               <span className="font-medium">Sent by: {authorizedPerson}</span>
               <div className="text-xs text-gray-500">
                 {selectedUser.sent_at && `Last message: ${selectedUser.sent_at}`}
+                
               </div>
             </div>
           </div>
@@ -73,6 +76,7 @@ const ChatHeader = ({ selectedUser }) => {
             onAcceptClick={handleAcceptClick}
             onDeclineClick={handleDeclineClick}
             icons={icons}
+            positionName={selectedUser?.job_title}
           />
         </>
       ) : (
@@ -85,6 +89,13 @@ const ChatHeader = ({ selectedUser }) => {
           conversationId={selectedUser.conversation_id}
           onClose={() => setShowReportModal(false)}
           role={ROLE.BUSINESS_EMPLOYER}
+        />
+      )}
+
+      {showHireModal && (
+        <HireApplicant
+          selectedUser={selectedUser}
+          onClose={() => setShowHireModal(false)}
         />
       )}
     </div>

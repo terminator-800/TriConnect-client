@@ -72,7 +72,7 @@ const Sidebar = () => {
             </button>
           </li>
 
-          <li
+          {/* <li
             className={`${location.pathname.includes(`/${ROLE.MANPOWER_PROVIDER}/create`) ? 'bg-gray-500' : ''} flex`}
           >
             <img src={icons.find_agency} alt="" className="ml-5 w-[27px]" />
@@ -82,7 +82,7 @@ const Sidebar = () => {
             >
               Create Job Post
             </button>
-          </li>
+          </li> */}
 
           <li
             className={`${location.pathname.includes(`/${ROLE.MANPOWER_PROVIDER}/view`) ? 'bg-gray-500' : ''} flex`}

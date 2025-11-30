@@ -9,7 +9,7 @@ import { useSocket } from '../../../../../hooks/useSocket';
 import { ROLE } from '../../../../../utils/role';
 import icons from '../../../../assets/svg/Icons';
 import socket from '../../../../../utils/socket';
-import { ApplicationCard } from '../../../../components/ApplicationCard';
+import { ApplicationCard } from '../../../../components/cards/ApplicationCard';
 
 const ChatWindow = ({ selectedUser }) => {
   const endRef = useRef(null);

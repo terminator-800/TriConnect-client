@@ -29,16 +29,20 @@ export const getInitials = (fullName) => {
 export const filterAndMapConversations = (conversations, activeTab) => {
   const filtered = conversations.filter((convo) => convo.role === activeTab);
   const unknown = 'Unknown';
-
+  console.log(filtered, "helper");
+  
   return filtered.map((convo) => {
     let name = unknown;
     let authorized_person = null;
     let authorized_profile = null;
+    let job_title = null;
+
     switch (convo.role) {
       case ROLE.JOBSEEKER:
         name = convo.full_name || unknown;
         authorized_person = convo.full_name;
         authorized_profile = convo.profile || null;
+        job_title = convo.job_title || null;
         break;
 
       case ROLE.MANPOWER_PROVIDER:
@@ -63,6 +67,7 @@ export const filterAndMapConversations = (conversations, activeTab) => {
       message_id: convo.message_id,
       profile: convo.profile,
       authorized_profile,
+      job_title,
     };
   });
 };
