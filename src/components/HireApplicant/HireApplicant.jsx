@@ -1,7 +1,7 @@
+import { useUserProfile } from '../../../hooks/useUserProfiles';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { useUserProfile } from '../../../hooks/useUserProfiles';
 
 export default function HireApplicant({ selectedUser, onClose, role }) {
   if (!selectedUser) return null;
