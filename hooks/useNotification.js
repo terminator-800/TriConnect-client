@@ -1,11 +1,9 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 
 export function useNotification(role) {
-  const queryClient = useQueryClient();
-
   return useQuery({
-    queryKey: ['notifications'],
+    queryKey: ['notifications', role],
     queryFn: async () => {
       const response = await axios.get(`${import.meta.env.VITE_API_URL}/${role}/notification`, {
         withCredentials: true,
@@ -14,12 +12,24 @@ export function useNotification(role) {
     },
     staleTime: 1000 * 60,
     refetchInterval: 1000 * 30,
-    onSuccess: () => {
-      // 🔥 Invalidate the user profile for THIS role
-      queryClient.invalidateQueries(['user-profile', role]);
+  });
+}
+
+export function useSeenNotifications(role, mutationOptions = {}) {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (notification_id) => {
+      const response = await axios.patch(
+        `${import.meta.env.VITE_API_URL}/${role}/notification/${notification_id}/seen`,
+        {},
+        { withCredentials: true }
+      );
+      return response.data;
     },
-    onError: (error) => {
-      console.error('Failed to fetch notifications:', error);
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['notifications', role] });
     },
+    ...mutationOptions,
   });
 }

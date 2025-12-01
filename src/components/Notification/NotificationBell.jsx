@@ -1,11 +1,12 @@
 // components/NotificationsBell.jsx
 import React, { useState, useRef, useEffect } from 'react';
-import { useNotification } from '../../../hooks/useNotification';
+import { useNotification, useSeenNotifications } from '../../../hooks/useNotification';
 import icons from '../../assets/svg/Icons';
 import AccountVerificationNotif from './AccountVerificationNotif';
 
 export default function NotificationsBell({ role }) {
   const { data: notifications, isLoading, isError } = useNotification(role);
+  const { mutate: markAsSeen } = useSeenNotifications(role);
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -43,7 +44,9 @@ export default function NotificationsBell({ role }) {
       >
         <img src={icons.notification_bell} alt="Notifications" className="h-6 w-6" />
         {notifications.length > 0 && (
-          <span className="absolute top-0 right-0 inline-block w-2 h-2 bg-red-500 rounded-full" />
+          <span className="absolute -top-1 -right-1 inline-flex items-center justify-center min-w-5 h-5 px-1 text-xs font-bold text-white bg-red-500 rounded-full">
+            {notifications.length}
+          </span>
         )}
       </button>
 
@@ -56,6 +59,7 @@ export default function NotificationsBell({ role }) {
             <div
               key={notif.notification_id}
               className="p-3 border-b last:border-b-0 hover:bg-gray-50 transition"
+              onClick={() => markAsSeen(notif.notification_id)}
             >
               {notif.type === 'account_verification' && <AccountVerificationNotif notif={notif} />}
             </div>
