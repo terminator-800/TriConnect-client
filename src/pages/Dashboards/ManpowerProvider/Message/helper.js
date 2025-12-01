@@ -41,6 +41,7 @@ export const filterAndMapConversations = (conversations, activeTab) => {
     let name = unknown;
     let authorized_profile = null;
     let profile = null;
+    let job_title = null;
 
     switch (convo.role) {
       case ROLE.BUSINESS_EMPLOYER:
@@ -57,6 +58,7 @@ export const filterAndMapConversations = (conversations, activeTab) => {
         name = convo.full_name || unknown;
         profile = convo.profile || unknown;
         authorized_profile = convo.profile || unknown;
+        job_title = convo.job_title || null;
         break;
 
       default:
@@ -73,6 +75,7 @@ export const filterAndMapConversations = (conversations, activeTab) => {
       conversation_id: convo.conversation_id,
       profile,
       authorized_profile,
+      job_title,
     };
   });
 };

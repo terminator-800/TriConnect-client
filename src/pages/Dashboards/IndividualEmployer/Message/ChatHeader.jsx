@@ -4,12 +4,16 @@ import { useState } from 'react';
 import { ROLE } from '../../../../../utils/role';
 import ReportUser from '../../../../components/ReportUser/ReportUser';
 import ActionMenu from './ActionMenu';
+import HireApplicant from '../../../../components/HireApplicant/HireApplicant'; 
+import RejectApplicant from '../../../../components/HireApplicant/RejectApplicant';
 import icons from '../../../../assets/svg/Icons';
 
-const ChatHeader = ({ selectedUser }) => {
+const ChatHeader = ({ selectedUser } ) => {
   const [showReportModal, setShowReportModal] = useState(false);
   const [showActionMenu, setShowActionMenu] = useState(false);
-
+  const [showHireModal, setShowHireModal] = useState(false); 
+  const [showRejectModal, setShowRejectModal] = useState(false);
+  
   const { data: reportedUsers = [] } = useReportedUsers(ROLE.INDIVIDUAL_EMPLOYER);
 
   const isUserReported = reportedUsers.includes(selectedUser?.sender_id);
@@ -31,14 +35,12 @@ const ChatHeader = ({ selectedUser }) => {
 
   const handleAcceptClick = () => {
     setShowActionMenu(false);
-    // Add accept logic here
-    console.log('Accept applicant');
+    setShowHireModal(true); 
   };
 
   const handleDeclineClick = () => {
     setShowActionMenu(false);
-    // Add decline logic here
-    console.log('Decline applicant');
+    setShowRejectModal(true);
   };
 
   return (
@@ -62,6 +64,7 @@ const ChatHeader = ({ selectedUser }) => {
               <span className="font-medium">Sent by: {authorizedPerson}</span>
               <div className="text-xs text-gray-500">
                 {selectedUser.sent_at && `Last message: ${selectedUser.sent_at}`}
+                
               </div>
             </div>
           </div>
@@ -83,8 +86,22 @@ const ChatHeader = ({ selectedUser }) => {
         <ReportUser
           reportedUser={selectedUser}
           conversationId={selectedUser.conversation_id}
-          onClose={() => setShowReportModal}
+          onClose={() => setShowReportModal(false)}
           role={ROLE.INDIVIDUAL_EMPLOYER}
+        />
+      )}
+
+      {showHireModal && (
+        <HireApplicant
+          selectedUser={selectedUser}
+          onClose={() => setShowHireModal(false)}
+        />
+      )}
+
+       {showRejectModal && (
+        <RejectApplicant
+          selectedUser={selectedUser}
+          onClose={() => setShowRejectModal(false)}
         />
       )}
     </div>

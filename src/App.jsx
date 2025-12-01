@@ -42,7 +42,7 @@ import JobseekerFindAgency from './pages/Dashboards/Jobseeker/FindAgency/FindAge
 import JobseekerMessage from './pages/Dashboards/Jobseeker/Message/ChatLayout';
 
 // Manpower Provider
-import ManpowerProviderFindJob from './pages/Dashboards/ManpowerProvider/FindJob/FindJob';
+// import ManpowerProviderFindJob from './pages/Dashboards/ManpowerProvider/FindJob/FindJob';
 // import ManpowerProviderCreateJobPost from './pages/Dashboards/ManpowerProvider/JobPost/CreateJobPost'
 import ManpowerDashboardLayout from '../src/pages/Dashboards/ManpowerProvider/Dashboard/DashboardLayout';
 import ManpowerProviderMessage from './pages/Dashboards/ManpowerProvider/Message/ChatLayout';
@@ -154,7 +154,7 @@ function App() {
             {/* <Route  element={<ManpowerProviderDashboard />} /> */}
             <Route path="profile/*" index element={<ManpowerProviderProfile />} />
             <Route path="dashboard" element={<ManpowerDashboardLayout />} />
-            <Route path="jobs" element={<ManpowerProviderFindJob />} />
+            {/* <Route path="jobs" element={<ManpowerProviderFindJob />} /> */}
             {/* <Route path="create" element={<ManpowerProviderCreateJobPost />} /> */}
             <Route path="manage" element={<ManpowerProviderManageJobPost />} />
             <Route path="message" element={<ManpowerProviderMessage />} />

@@ -4,14 +4,15 @@ import { useState } from 'react';
 import { ROLE } from '../../../../../utils/role';
 import ReportUser from '../../../../components/ReportUser/ReportUser';
 import ActionMenu from './ActionMenu';
-import HireApplicant from '../../../../components/HireApplicant/HireApplicant'; // Add this import
+import HireApplicant from '../../../../components/HireApplicant/HireApplicant'; 
+import RejectApplicant from '../../../../components/HireApplicant/RejectApplicant';
 import icons from '../../../../assets/svg/Icons';
 
 const ChatHeader = ({ selectedUser } ) => {
   const [showReportModal, setShowReportModal] = useState(false);
   const [showActionMenu, setShowActionMenu] = useState(false);
-  const [showHireModal, setShowHireModal] = useState(false); // Add this state
-  console.log("Selected:", selectedUser, "THIS IS CHAT HEADER");
+  const [showHireModal, setShowHireModal] = useState(false); 
+  const [showRejectModal, setShowRejectModal] = useState(false);
   
   const { data: reportedUsers = [] } = useReportedUsers(ROLE.BUSINESS_EMPLOYER);
 
@@ -34,13 +35,12 @@ const ChatHeader = ({ selectedUser } ) => {
 
   const handleAcceptClick = () => {
     setShowActionMenu(false);
-    setShowHireModal(true); // Show hire modal instead
+    setShowHireModal(true); 
   };
 
   const handleDeclineClick = () => {
     setShowActionMenu(false);
-    // Add decline logic here
-    console.log('Decline applicant');
+    setShowRejectModal(true);
   };
 
   return (
@@ -76,7 +76,6 @@ const ChatHeader = ({ selectedUser } ) => {
             onAcceptClick={handleAcceptClick}
             onDeclineClick={handleDeclineClick}
             icons={icons}
-            positionName={selectedUser?.job_title}
           />
         </>
       ) : (
@@ -96,6 +95,13 @@ const ChatHeader = ({ selectedUser } ) => {
         <HireApplicant
           selectedUser={selectedUser}
           onClose={() => setShowHireModal(false)}
+        />
+      )}
+
+       {showRejectModal && (
+        <RejectApplicant
+          selectedUser={selectedUser}
+          onClose={() => setShowRejectModal(false)}
         />
       )}
     </div>

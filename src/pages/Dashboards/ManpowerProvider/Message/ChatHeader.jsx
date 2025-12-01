@@ -5,11 +5,14 @@ import { ROLE } from '../../../../../utils/role';
 import ReportUser from '../../../../components/ReportUser/ReportUser';
 import ActionMenu from './ActionMenu';
 import icons from '../../../../assets/svg/Icons';
+import HireApplicant from '../../../../components/HireApplicant/HireApplicant'; 
+import RejectApplicant from '../../../../components/HireApplicant/RejectApplicant';
 
 const ChatHeader = ({ selectedUser }) => {
   const [showReportModal, setShowReportModal] = useState(false);
   const [showActionMenu, setShowActionMenu] = useState(false);
-
+ const [showHireModal, setShowHireModal] = useState(false); 
+  const [showRejectModal, setShowRejectModal] = useState(false);
   const { data: reportedUsers = [] } = useReportedUsers(ROLE.MANPOWER_PROVIDER);
 
   const isUserReported = reportedUsers.includes(selectedUser?.sender_id);
@@ -30,16 +33,14 @@ const ChatHeader = ({ selectedUser }) => {
     setShowReportModal(true);
   };
 
-  const handleAcceptClick = () => {
+   const handleAcceptClick = () => {
     setShowActionMenu(false);
-    // Add accept logic here
-    console.log('Accept applicant');
+    setShowHireModal(true); 
   };
 
   const handleDeclineClick = () => {
     setShowActionMenu(false);
-    // Add decline logic here
-    console.log('Decline applicant');
+    setShowRejectModal(true);
   };
 
   return (
@@ -93,6 +94,20 @@ const ChatHeader = ({ selectedUser }) => {
           role={ROLE.MANPOWER_PROVIDER}
         />
       )}
+
+      {showHireModal && (
+            <HireApplicant
+              selectedUser={selectedUser}
+              onClose={() => setShowHireModal(false)}
+            />
+          )}
+      
+          {showRejectModal && (
+          <RejectApplicant
+            selectedUser={selectedUser}
+            onClose={() => setShowRejectModal(false)}
+          />
+        )}
     </div>
   );
 };

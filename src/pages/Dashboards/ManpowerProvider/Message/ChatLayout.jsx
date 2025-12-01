@@ -14,11 +14,11 @@ const ChatLayout = () => {
   const [activeTab, setActiveTab] = useState(getTabFromLocalStorage);
   const [selectedUser, setSelectedUser] = useState(null);
 
-  const handleTabChange = (tab) => {
-    setActiveTab(tab);
-    saveTabToLocalStorage(tab);
-  };
-
+ const handleTabChange = (tab) => {
+     saveTabToLocalStorage(tab);
+     setActiveTab(tab);
+   };
+   
   const { data: conversations = [] } = useConversations(ROLE.MANPOWER_PROVIDER);
 
   const displayedUsers = filterAndMapConversations(conversations, activeTab);
@@ -53,7 +53,9 @@ const ChatLayout = () => {
 
             {/* Chat Section */}
             <div className="flex flex-col flex-1">
-              <ChatHeader selectedUser={selectedUser} />
+              <ChatHeader selectedUser={selectedUser} 
+                  
+                  onSelect={(user) => setSelectedUser(user)}/>
               <ChatWindow selectedUser={selectedUser} />
               <MessageInput selectedUser={selectedUser} />
             </div>

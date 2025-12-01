@@ -53,8 +53,8 @@ const ChatLayout = () => {
 
             <div className="flex flex-col flex-1 border-l border-gray-300">
               <ChatHeader 
-              selectedUser={selectedUser}
-              onSelect={(user) => setSelectedUser(user)}/>
+                  selectedUser={selectedUser}
+                  onSelect={(user) => setSelectedUser(user)}/>
               <ChatWindow selectedUser={selectedUser}/>
               <MessageInput selectedUser={selectedUser}/>
             </div>

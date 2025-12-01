@@ -1,20 +1,16 @@
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import HireApplicant from '../../../../components/HireApplicant/HireApplicant'; // Import the component
 
-const ActionMenu = ({ isOpen, onToggle, onReportClick, onAcceptClick, onDeclineClick, icons, applicantName, positionName }) => {
-  const [showHireModal, setShowHireModal] = useState(false);
+const ActionMenu = ({ isOpen, onToggle, onReportClick, onAcceptClick, onDeclineClick, icons, }) => {
 
   const handleAcceptClick = () => {
   onAcceptClick();
   onToggle(false);
 };
 
-
-  const handleCloseHireModal = () => {
-    setShowHireModal(false);
-    if (onAcceptClick) onAcceptClick(); // Call parent callback if needed
-  };
+const handleDeclineClick = () => {
+  onDeclineClick();
+  onToggle(false);
+};
 
   return (
     <>
@@ -42,7 +38,7 @@ const ActionMenu = ({ isOpen, onToggle, onReportClick, onAcceptClick, onDeclineC
 
               <li
                 className="px-4 py-2 hover:bg-gray-100 text-red-600 cursor-pointer"
-                onClick={onDeclineClick}
+                onClick={handleDeclineClick}
               >
                 Decline Applicant
               </li>
@@ -51,13 +47,6 @@ const ActionMenu = ({ isOpen, onToggle, onReportClick, onAcceptClick, onDeclineC
         )}
       </div>
 
-      {/* {showHireModal && (
-        <HireApplicant 
-          applicantName={applicantName}
-          positionName={positionName}
-          onClose={handleCloseHireModal}
-        />
-      )} */}
     </>
   );
 };
@@ -69,8 +58,6 @@ ActionMenu.propTypes = {
   onAcceptClick: PropTypes.func,
   onDeclineClick: PropTypes.func,
   icons: PropTypes.object.isRequired,
-  applicantName: PropTypes.string.isRequired,
-  positionName: PropTypes.string.isRequired,
 };
 
 export default ActionMenu;
