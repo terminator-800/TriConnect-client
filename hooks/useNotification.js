@@ -12,6 +12,7 @@ export function useNotification(role) {
     },
     staleTime: 1000 * 60,
     refetchInterval: 1000 * 30,
+    refetchOnWindowFocus: 'always',
   });
 }
 

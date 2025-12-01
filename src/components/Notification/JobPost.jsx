@@ -1,13 +1,13 @@
+import React from 'react';
 import icons from '../../assets/svg/Icons';
-
-export default function AccountVerificationNotif({ notif }) {
+export default function JobPost({ notif }) {
   const titleColor = {
-    'REQUIREMENTS REJECTED': 'text-red-500',
-    'REQUIREMENTS APPROVED': 'text-green-500',
+    'JOB POST APPROVED': 'text-blue-600',
+    'JOB POST REJECTED': 'text-red-600',
   };
   return (
     <>
-      <div className={`font-semibold mt-3 ${titleColor[notif.title] || 'text-blue-500'}`}>
+      <div className={`font-semibold mt-3 ${titleColor[notif.title] || 'text-gray-800'}`}>
         {notif.title}
       </div>
       <div className="flex items-center justify-between">

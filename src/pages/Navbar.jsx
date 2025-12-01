@@ -498,7 +498,7 @@ const Navbar = ({ userType }) => {
           </Link>
 
           <div className="relative flex">
-            <div className="flex items-center font-bold cursor-pointer">
+            <div className="flex items-center font-bold ">
               <NotificationBell role={ROLE.ADMINISTRATOR} />
               <span className="hidden sm:inline">Notifications</span>
             </div>

@@ -1,16 +1,28 @@
 // components/NotificationsBell.jsx
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNotification, useSeenNotifications } from '../../../hooks/useNotification';
 import icons from '../../assets/svg/Icons';
 import AccountVerificationNotif from './AccountVerificationNotif';
+import JobPost from './JobPost';
+import { useNavigate } from 'react-router-dom';
+
+const PAGES = {
+  'NEW JOB POST CREATED': '/administrator/job-post-verification',
+  'JOB POST APPROVED': '/business-employer/manage',
+};
 
 export default function NotificationsBell({ role }) {
+  const navigate = useNavigate();
   const { data: notifications, isLoading, isError } = useNotification(role);
   const { mutate: markAsSeen } = useSeenNotifications(role);
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
-
   const toggleDropdown = () => setOpen((prev) => !prev);
+
+  const NOTIFICATIONS_TYPE = {
+    account_verification: (notif) => <AccountVerificationNotif notif={notif} />,
+    job_post_status: (notif) => <JobPost notif={notif} />,
+  };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -21,6 +33,21 @@ export default function NotificationsBell({ role }) {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  const handleClick = (notif) => {
+    markAsSeen(notif.notification_id, {
+      onSuccess: () => {
+        handlePageNavigate(notif.title);
+      },
+    });
+  };
+
+  const handlePageNavigate = (notificationTitle) => {
+    const page = PAGES[notificationTitle];
+    if (page) {
+      navigate(page);
+    }
+  };
 
   // Return inline messages for loading/error/empty
   if (isLoading) return <div className="p-2 text-gray-500">Loading notifications...</div>;
@@ -40,7 +67,7 @@ export default function NotificationsBell({ role }) {
       {/* Bell Icon */}
       <button
         onClick={toggleDropdown}
-        className="relative p-2 rounded-full hover:bg-gray-200 transition"
+        className="relative p-2 rounded-full hover:bg-gray-200 transition hover:cursor-pointer"
       >
         <img src={icons.notification_bell} alt="Notifications" className="h-6 w-6" />
         {notifications.length > 0 && (
@@ -58,10 +85,10 @@ export default function NotificationsBell({ role }) {
           {notifications.map((notif) => (
             <div
               key={notif.notification_id}
-              className="p-3 border-b last:border-b-0 hover:bg-gray-50 transition"
-              onClick={() => markAsSeen(notif.notification_id)}
+              className="p-3 border-b last:border-b-0 hover:bg-gray-50 hover:cursor-pointer transition"
+              onClick={() => handleClick(notif)}
             >
-              {notif.type === 'account_verification' && <AccountVerificationNotif notif={notif} />}
+              {NOTIFICATIONS_TYPE[notif.type]?.(notif)}
             </div>
           ))}
         </div>
