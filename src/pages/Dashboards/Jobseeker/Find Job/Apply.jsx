@@ -93,9 +93,17 @@ const Apply = ({ employer, onClose }) => {
     setValidationError('');
   };
 
-  const handleFileChange = (e) => {
+    const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
+
+    // Check file type
+    const allowedTypes = ['application/pdf'];
+    if (!allowedTypes.includes(file.type)) {
+      setValidationError('Only PDF files are allowed');
+      e.target.value = '';
+      return;
+    }
 
     if (!validateFileSize(file)) {
       setValidationError('File size must be less than 5MB');
@@ -328,13 +336,13 @@ const Apply = ({ employer, onClose }) => {
                   <span className="text-sm font-semibold text-gray-700">
                     Click to upload or drag and drop
                   </span>
-                  <span className="text-xs text-gray-500 mt-1">PDF, DOC, or DOCX (Max 5MB)</span>
+                  <span className="text-xs text-gray-500 mt-1">PDF(Max 5MB)</span>
                 </label>
                 <input
                   id="file"
                   type="file"
                   name="files"
-                  accept="application/pdf,.doc,.docx"
+                  accept="application/pdf"  // Only allow PDF
                   className="hidden"
                   onChange={handleFileChange}
                   disabled={isSubmitting}

@@ -28,7 +28,6 @@ const ManageJobPost = () => {
     data: jobPostsGrouped = { pending: [], active: [], completed: [] },
     isLoading: isJobsLoading,
   } = useJobPostsByUser();
-  console.log(jobPostsGrouped);
 
   const openForm = () => {
     document.body.style.overflow = 'hidden';
