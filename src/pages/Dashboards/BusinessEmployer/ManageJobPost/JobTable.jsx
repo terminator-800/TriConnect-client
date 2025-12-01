@@ -24,9 +24,9 @@ const JobTable = ({ title, jobs, onStatusChange, onDelete, onViewJobDetails }) =
         {jobs.length > 0 ? (
           jobs.map((job) => (
             <div
-              key={job.job_post_id}
+              key={job.post_id}
               className="flex justify-between px-4 py-2 border-b border-gray-300 items-center text-[#1F2937]"
-            >
+            > 
               <div className="w-1/4">{job.job_title}</div>
               <div className="w-1/5">{job.job_type}</div>
               <div className="w-1/5">{job.created_at}</div>
@@ -41,13 +41,13 @@ const JobTable = ({ title, jobs, onStatusChange, onDelete, onViewJobDetails }) =
                   <StatusDropdown
                     status={job.jobpost_status}
                     onChange={(status) =>
-                      onStatusChange({ jobPostId: job.job_post_id, status, job })
+                      onStatusChange({ jobPostId: job.post_id, status, job })
                     }
                   />
                 )}
                 <ActionMenu
-                  isOpen={openMenuId === job.job_post_id}
-                  onToggle={() => handleToggleMenu(job.job_post_id)}
+                  isOpen={openMenuId === job.post_id}
+                  onToggle={() => handleToggleMenu(job.post_id)}
                   onDeleteClick={() => onDelete(job)}
                   onViewJobDetails={() => onViewJobDetails(job)}
                 />

@@ -12,6 +12,7 @@ import icons from '../../../../assets/svg/Icons';
 import { ApplicationCard } from '../../../../components/cards/ApplicationCard';
 import { BusinessRequestCard } from '../../../../components/cards/BusinessRequestCard';
 import { IndividualRequestCard } from '../../../../components/cards/IndividualRequestCard';
+import { HireApplicantCard } from '../../../../components/cards/HireApplicantCard';
 
 const ChatWindow = ({ selectedUser }) => {
   const endRef = useRef(null);
@@ -134,7 +135,10 @@ const ChatWindow = ({ selectedUser }) => {
                         IndividualRequestCard(msg, isSender)
                       ) : msg.message_type === 'request' && msg.job_title && msg.email_address ? (
                         BusinessRequestCard(msg, isSender)
-                      ) : (
+                      ): msg.message_type === 'hire' && msg.job_title && msg.start_date && msg.end_date && msg.hire_message ? (
+                          <HireApplicantCard msg={msg} isSender={isSender} />
+                      ) : 
+                      (
                       <>
                         <div className={`max-w-xs px-4 py-2 rounded-lg text-sm ${bubbleStyle}`}>
                           {/* FILE MESSAGE - PDF or Image */}

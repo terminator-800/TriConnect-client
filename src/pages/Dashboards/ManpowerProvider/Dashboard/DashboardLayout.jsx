@@ -34,7 +34,7 @@ const DashboardLayout = () => {
               onClick={() => setShowFindWorkers(!showFindWorkers)}
               className="text-blue-900 border border-blue-900 font-semibold px-10 py-1 rounded hover:bg-blue-700 hover:text-white transition cursor-pointer"
             >
-              {showFindWorkers ? '← Dashboard' : 'Find Workers'}
+              {showFindWorkers ? '← Dashboard' : 'Find Jobs'}
             </button>
 
             <select

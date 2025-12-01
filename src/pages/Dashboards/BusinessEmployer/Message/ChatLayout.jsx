@@ -14,10 +14,10 @@ const ChatLayout = () => {
   const [selectedUser, setSelectedUser] = useState(null);
 
   const { data: conversations = [], isLoading, isError } = useConversations(ROLE.BUSINESS_EMPLOYER);
-  // console.log('conversation: ', conversations.job_title);
+  // console.log('conversation: ', conversations);
   
   const displayedUsers = filterAndMapConversations(conversations, activeTab);
-  console.log("Displayed Users: ", displayedUsers);
+  // console.log("Displayed Users: ", displayedUsers);
   
   const handleTabChange = (tab) => {
     saveTabToLocalStorage(tab);

@@ -22,12 +22,12 @@ const BrowseJob = () => {
 
   return (
     <>
-      <div className="bg-white shadow-md py-6 px-10 mb-8 flex flex-col md:flex-row gap-4">
+      {/* <div className="bg-white shadow-md py-6 px-10 mb-8 flex flex-col md:flex-row gap-4"> */}
         {/* Title & description */}
-        <div className="flex flex-col flex-1 justify-center">
+        {/* <div className="flex flex-col flex-1 justify-center">
           <h1 className="text-2xl font-bold text-blue-900">Browse Job</h1>
           <p>Browse job openings and apply to positions that fit you</p>
-        </div>
+        </div> */}
 
         {/* Search Bar */}
         {/* <div className="flex-1 text-white pl-5 pr-5 shadow-md flex items-center gap-2 bg-[#BDC3C7]">
@@ -37,7 +37,7 @@ const BrowseJob = () => {
             Find jobs
           </button>
         </div> */}
-      </div>
+      {/* </div> */}
 
       {/* Search Bar */}
 

@@ -10,6 +10,7 @@ import { ROLE } from '../../../../../utils/role';
 import icons from '../../../../assets/svg/Icons';
 import socket from '../../../../../utils/socket';
 import { ApplicationCard } from '../../../../components/cards/ApplicationCard';
+import { HireApplicantCard } from '../../../../components/cards/HireApplicantCard';
 
 const ChatWindow = ({ selectedUser }) => {
   const endRef = useRef(null);
@@ -156,8 +157,15 @@ const ChatWindow = ({ selectedUser }) => {
                   <div className="flex flex-col items-start">
                     {/* APPLICATION CARD - Only if it has required application fields */}
                     {msg.message_type === 'apply' && msg.full_name && msg.email_address ? (
-                      ApplicationCard(msg, isSender)
-                    ) : (
+                        ApplicationCard(msg, isSender)
+                      ) : msg.message_type === 'request' && msg.job_title && !msg.company_name ? (
+                        IndividualRequestCard(msg, isSender)
+                      ) : msg.message_type === 'request' && msg.job_title && msg.email_address ? (
+                        BusinessRequestCard(msg, isSender)
+                      ): msg.message_type === 'hire' && msg.job_title && msg.start_date && msg.end_date && msg.hire_message ? (
+                          <HireApplicantCard msg={msg} isSender={isSender} />
+                      ) : 
+                      (
                       <>
                         <div className={`max-w-xs px-4 py-2 rounded-lg text-sm ${bubbleStyle}`}>
                           {/* FILE MESSAGE - PDF or Image */}
@@ -173,6 +181,7 @@ const ChatWindow = ({ selectedUser }) => {
                                     title="PDF Preview"
                                     className="w-full h-full pointer-events-none"
                                   />
+                                  {console.log(messages)}
                                 </div>
                               ) : (
                                 <img
@@ -186,23 +195,18 @@ const ChatWindow = ({ selectedUser }) => {
                           )}
 
                           {/* TEXT MESSAGE */}
-                          <div
-                            className="wrap-break-word whitespace-pre-wrap
-                            max-[769px]:max-w-50
-                            max-[601px]:max-w-40
-                            max-[426px]:max-w-25
-                            max-[511px]:max-w-25
-                            max-[376px]:max-w-15
-                            max-[321px]:max-w-5
-                          "
-                          >
-                            <div>{msg.message_text || 'No message yet'}</div>
+                          <div className="wrap-break-word whitespace-pre-wrap">
+                            <div>{msg.message_text}</div>
                           </div>
                         </div>
 
                         {/* Message timestamp and read status */}
                         <div
-                          className={`text-xs mt-1 ${isSender ? 'text-right self-end text-gray-500' : 'text-left self-start text-gray-500'}`}
+                          className={`text-xs mt-1 ${
+                            isSender
+                              ? 'text-right self-end text-gray-500'
+                              : 'text-left self-start text-gray-500'
+                          }`}
                         >
                           <div>sent {msg.created_at}</div>
                           {isLastSenderMessage && !!msg.is_read && (

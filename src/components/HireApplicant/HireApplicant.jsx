@@ -1,43 +1,91 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
+import { useUserProfile } from '../../../hooks/useUserProfiles';
 
-export default function HireApplicant({ selectedUser, onClose }) {
+export default function HireApplicant({ selectedUser, onClose, role }) {
   if (!selectedUser) return null;
 
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-
-  const applicantName = selectedUser?.authorized_person || selectedUser?.name || 'Applicant';
-  console.log(selectedUser, "HIRE MODAL");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const { data: profileData } = useUserProfile(role);
     
-  const handleConfirmHire = () => {
+  const employerName = profileData?.business_name || profileData?.full_name || 'Employer';
+  const applicantName = selectedUser?.authorized_person || selectedUser?.name || 'Applicant';
+
+  const handleConfirmHire = async () => {
+    console.log('🔍 Dates before validation:', { startDate, endDate });
+    
     if (!startDate || !endDate) {
-      alert('Please fill in both start and end dates');
+      setError('Please fill in both start and end dates');
+      return;
+    }
+
+    // Validate that end date is after start date
+    if (new Date(endDate) <= new Date(startDate)) {
+      setError('End date must be after start date');
       return;
     }
     
-    setShowConfirmation(true);
-    // You can add API call here to accept the applicant with contract dates
-    console.log('Accepting applicant:', {
-      ...selectedUser,
-      startDate,
-      endDate
-    });
+    setIsLoading(true);
+    setError('');
+
+    // Prepare the payload
+    const payload = {
+      employee_id: selectedUser.sender_id, 
+      job_title: selectedUser.job_title,
+      start_date: startDate,
+      end_date: endDate,
+      conversation_id: selectedUser.conversation_id,
+      full_name: applicantName,
+      employer_name: employerName,
+      hire_message: `By accepting this offer, your account will be temporarily disabled from ${startDate} until ${endDate}. This means you will not be able to apply for other jobs or access job-seeking features during your employment. Your account will be automatically reactivated once your employment/contract period ends. Do you accept this job offer?`
+    };
+
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/${role}/hire-applicant`,
+        payload,
+        { 
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        }
+      );
+
+      console.log('✅ Hire response:', response.data);
+      setShowConfirmation(true);
+      
+    } catch (err) {
+      console.error('❌ Error hiring applicant:', err);
+      console.error('❌ Error response:', err.response?.data);
+      console.error('❌ Error status:', err.response?.status);
+      setError(
+        err.response?.data?.message || 'Failed to hire applicant. Please try again.'
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleClose = () => {
     setShowConfirmation(false);
+    setError('');
     if (onClose) onClose();
   };
 
   return (
-    <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center p-4 z-50 ml-55">
       {!showConfirmation ? (
-        <div className="backdrop-blur-2xl shadow-lg p-8 max-w-2xl w-full relative">
+        <div className="backdrop-blur-2xl shadow-lg p-8 max-w-3xl w-full relative">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 bg-red-600 hover:bg-red-700 text-white rounded-full w-8 h-8 flex items-center justify-center transition-colors cursor-pointer"
+            disabled={isLoading}
+            className="absolute top-4 right-4 bg-red-600 hover:bg-red-700 text-white rounded-full w-8 h-8 flex items-center justify-center transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             ✕
           </button>
@@ -45,6 +93,15 @@ export default function HireApplicant({ selectedUser, onClose }) {
           <h2 className="text-2xl font-semibold text-gray-900 mb-6">
             Set Employment Contract
           </h2>
+
+          {/* Error Message */}
+          {error && (
+            <div className="mb-4 p-3 bg-red-100 border border-red-400 rounded text-red-700 text-sm">
+              ✕ {error}
+            </div>
+          )}
+
+      
           
           <div className="grid grid-cols-2 gap-6 mb-6">
             <div>
@@ -54,8 +111,14 @@ export default function HireApplicant({ selectedUser, onClose }) {
               <input
                 type="date"
                 value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                onChange={(e) => {
+                  console.log('📅 Start date changed to:', e.target.value);
+                  setStartDate(e.target.value);
+                  setError('');
+                }}
+                disabled={isLoading}
+                min={new Date().toISOString().split('T')[0]}
+                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-200 disabled:cursor-not-allowed"
               />
             </div>
 
@@ -66,8 +129,14 @@ export default function HireApplicant({ selectedUser, onClose }) {
               <input
                 type="date"
                 value={endDate}
-                onChange={(e) => setEndDate(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                onChange={(e) => {
+                  console.log('📅 End date changed to:', e.target.value);
+                  setEndDate(e.target.value);
+                  setError('');
+                }}
+                disabled={isLoading}
+                min={startDate || new Date().toISOString().split('T')[0]}
+                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-200 disabled:cursor-not-allowed"
               />
             </div>
           </div>
@@ -75,9 +144,14 @@ export default function HireApplicant({ selectedUser, onClose }) {
           <div className="flex justify-center">
             <button
               onClick={handleConfirmHire}
-              className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-10 py-1 transition-colors cursor-pointer"
+              disabled={isLoading}
+              className={`font-medium px-10 py-1 transition-colors ${
+                isLoading
+                  ? 'bg-blue-400 cursor-not-allowed'
+                  : 'bg-blue-600 hover:bg-blue-700 cursor-pointer'
+              } text-white`}
             >
-              Confirm & Hire
+              {isLoading ? 'Processing...' : 'Confirm & Hire'}
             </button>
           </div>
         </div>
@@ -114,4 +188,5 @@ export default function HireApplicant({ selectedUser, onClose }) {
 HireApplicant.propTypes = {
   selectedUser: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired,
+  role: PropTypes.string.isRequired,
 };

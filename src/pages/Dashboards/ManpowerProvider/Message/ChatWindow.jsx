@@ -12,6 +12,7 @@ import socket from '../../../../../utils/socket';
 import { ApplicationCard } from '../../../../components/cards/ApplicationCard';
 import { BusinessRequestCard } from '../../../../components/cards/BusinessRequestCard';
 import { IndividualRequestCard } from '../../../../components/cards/IndividualRequestCard';
+import { HireApplicantCard } from '../../../../components/cards/HireApplicantCard';
 
 const ChatWindow = ({ selectedUser }) => {
   const endRef = useRef(null);
@@ -138,54 +139,59 @@ const ChatWindow = ({ selectedUser }) => {
                         IndividualRequestCard(msg, isSender)
                       ) : msg.message_type === 'request' && msg.job_title && msg.email_address ? (
                         BusinessRequestCard(msg, isSender)
-                      ) : (
-                        <>
-                          <div className={`max-w-xs px-4 py-2 rounded-lg text-sm ${bubbleStyle}`}>
-                            {/* FILE MESSAGE - PDF or Image */}
-                            {msg.message_type === 'file' && msg.file_url && (
-                              <>
-                                {msg.file_url.endsWith('.pdf') ? (
-                                  <div
-                                    className="w-48 h-64 rounded-lg border border-gray-300 cursor-pointer overflow-hidden"
-                                    onClick={() => setPreviewImage(msg.file_url)}
-                                  >
-                                    <iframe
-                                      src={msg.file_url}
-                                      title="PDF Preview"
-                                      className="w-full h-full pointer-events-none"
-                                    />
-                                  </div>
-                                ) : (
-                                  <img
+                      ): msg.message_type === 'hire' && msg.job_title && msg.start_date && msg.end_date && msg.hire_message ? (
+                          <HireApplicantCard msg={msg} isSender={isSender} />
+                      ) : 
+                      (
+                      <>
+                        <div className={`max-w-xs px-4 py-2 rounded-lg text-sm ${bubbleStyle}`}>
+                          {/* FILE MESSAGE - PDF or Image */}
+                          {msg.message_type === 'file' && msg.file_url && (
+                            <>
+                              {msg.file_url.endsWith('.pdf') ? (
+                                <div
+                                  className="w-48 h-64 rounded-lg border border-gray-300 cursor-pointer overflow-hidden"
+                                  onClick={() => setPreviewImage(msg.file_url)}
+                                >
+                                  <iframe
                                     src={msg.file_url}
-                                    alt="Sent file"
-                                    className="w-48 h-auto rounded-lg border border-gray-300 cursor-pointer hover:opacity-80"
-                                    onClick={() => setPreviewImage(msg.file_url)}
+                                    title="PDF Preview"
+                                    className="w-full h-full pointer-events-none"
                                   />
-                                )}
-                              </>
-                            )}
+                                  {console.log(messages)}
+                                </div>
+                              ) : (
+                                <img
+                                  src={msg.file_url}
+                                  alt="Sent file"
+                                  className="w-48 h-auto rounded-lg border border-gray-300 cursor-pointer hover:opacity-80"
+                                  onClick={() => setPreviewImage(msg.file_url)}
+                                />
+                              )}
+                            </>
+                          )}
 
-                            {/* TEXT MESSAGE */}
-                            <div className="break-words whitespace-pre-wrap">
-                              <div>{msg.message_text}</div>
-                            </div>
+                          {/* TEXT MESSAGE */}
+                          <div className="wrap-break-word whitespace-pre-wrap">
+                            <div>{msg.message_text}</div>
                           </div>
+                        </div>
 
-                          {/* Message timestamp and read status */}
-                          <div
-                            className={`text-xs mt-1 ${
-                              isSender ? 'text-right self-end text-gray-500' : 'text-left self-start text-gray-500'
-                            }`}
-                          >
-                            <div>sent {msg.created_at}</div>
-                            {isLastSenderMessage && !!msg.is_read && (
-                              <div className="text-xs text-blue-500 mt-1">Seen</div>
-                            )}
-                          </div>
-                        </>
-                      )}
-
+                        {/* Message timestamp and read status */}
+                        <div
+                          className={`text-xs mt-1 ${
+                            isSender
+                              ? 'text-right self-end text-gray-500'
+                              : 'text-left self-start text-gray-500'
+                          }`}
+                        >
+                          <div>sent {msg.created_at}</div>
+                          {isLastSenderMessage && !!msg.is_read && (
+                            <div className="text-xs text-blue-500 mt-1">Seen</div>
+                          )}
+                        </div>
+                      </>
+                    )}
                   </div>
                 </li>
               );

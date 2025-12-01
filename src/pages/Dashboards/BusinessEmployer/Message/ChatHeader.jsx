@@ -94,6 +94,7 @@ const ChatHeader = ({ selectedUser } ) => {
       {showHireModal && (
         <HireApplicant
           selectedUser={selectedUser}
+          role={ROLE.BUSINESS_EMPLOYER}
           onClose={() => setShowHireModal(false)}
         />
       )}

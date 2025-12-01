@@ -23,7 +23,7 @@ const Profile = () => {
     error,
     refetch,
   } = useUserProfile(ROLE.BUSINESS_EMPLOYER);
-
+  
   const [formData, setFormData] = useState({
     email: '',
     business_name: '',

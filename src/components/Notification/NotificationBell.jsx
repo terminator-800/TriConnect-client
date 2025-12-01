@@ -5,7 +5,9 @@ import icons from '../../assets/svg/Icons';
 import AccountVerificationNotif from './AccountVerificationNotif';
 import JobPost from './JobPost';
 import SystemNotification from './SystemNotification';
+import HireOfferNotif from './HireOfferNotif';
 import { useNavigate } from 'react-router-dom';
+import ApplicantNotif from './ApplicantNotif';
 
 const PAGES = {
   'NEW JOB POST CREATED': '/administrator/job-post-verification',
@@ -25,6 +27,8 @@ export default function NotificationsBell({ role }) {
     account_verification: (notif) => <AccountVerificationNotif notif={notif} />,
     job_post_status: (notif) => <JobPost notif={notif} />,
     system: (notif) => <SystemNotification notif={notif} />,
+    hire: (notif) => <HireOfferNotif notif={notif} />,
+    job_application: (notif) => <ApplicantNotif notif={notif} />,
   };
 
   useEffect(() => {
