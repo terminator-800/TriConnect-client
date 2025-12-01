@@ -1,8 +1,7 @@
 import icons from '../../assets/svg/Icons';
-export default function JobPost({ notif }) {
+export default function SystemNotification({ notif }) {
   const titleColor = {
-    'JOB POST APPROVED': 'text-blue-600',
-    'JOB POST REJECTED': 'text-red-600',
+    'NEW FEEDBACK SUBMITTED': 'text-yellow-600',
   };
   return (
     <>

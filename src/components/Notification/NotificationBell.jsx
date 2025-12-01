@@ -4,11 +4,13 @@ import { useNotification, useSeenNotifications } from '../../../hooks/useNotific
 import icons from '../../assets/svg/Icons';
 import AccountVerificationNotif from './AccountVerificationNotif';
 import JobPost from './JobPost';
+import SystemNotification from './SystemNotification';
 import { useNavigate } from 'react-router-dom';
 
 const PAGES = {
   'NEW JOB POST CREATED': '/administrator/job-post-verification',
   'JOB POST APPROVED': '/business-employer/manage',
+  'NEW FEEDBACK SUBMITTED': '/administrator/feedback',
 };
 
 export default function NotificationsBell({ role }) {
@@ -22,6 +24,7 @@ export default function NotificationsBell({ role }) {
   const NOTIFICATIONS_TYPE = {
     account_verification: (notif) => <AccountVerificationNotif notif={notif} />,
     job_post_status: (notif) => <JobPost notif={notif} />,
+    system: (notif) => <SystemNotification notif={notif} />,
   };
 
   useEffect(() => {
