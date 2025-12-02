@@ -59,7 +59,7 @@ const RequestIndividualModal = ({ isOpen, onClose, worker, onSuccessClose }) => 
       if (formData.individual_job_post_id) payload.individual_job_post_id = formData.individual_job_post_id;
       if (formData.team_job_post_id) payload.team_job_post_id = formData.team_job_post_id;
 
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/${ROLE.BUSINESS_EMPLOYER}/requests`, payload, {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/${ROLE.INDIVIDUAL_EMPLOYER}/requests`, payload, {
         withCredentials: true,
       });
 

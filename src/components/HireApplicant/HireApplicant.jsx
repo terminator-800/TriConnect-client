@@ -13,11 +13,10 @@ export default function HireApplicant({ selectedUser, onClose, role }) {
   const [error, setError] = useState('');
   const { data: profileData } = useUserProfile(role);
     
-  const employerName = profileData?.business_name || profileData?.full_name || 'Employer';
+  const employerName = profileData?.business_name || profileData?.full_name || profileData.agency_name || 'Employer';
   const applicantName = selectedUser?.authorized_person || selectedUser?.name || 'Applicant';
 
   const handleConfirmHire = async () => {
-    console.log('🔍 Dates before validation:', { startDate, endDate });
     
     if (!startDate || !endDate) {
       setError('Please fill in both start and end dates');
@@ -36,7 +35,7 @@ export default function HireApplicant({ selectedUser, onClose, role }) {
     // Prepare the payload
     const payload = {
       employee_id: selectedUser.sender_id, 
-      job_title: selectedUser.job_title,
+      job_title: selectedUser.job_title || "MEMBER",
       start_date: startDate,
       end_date: endDate,
       conversation_id: selectedUser.conversation_id,
@@ -44,7 +43,8 @@ export default function HireApplicant({ selectedUser, onClose, role }) {
       employer_name: employerName,
       hire_message: `By accepting this offer, your account will be temporarily disabled from ${startDate} until ${endDate}. This means you will not be able to apply for other jobs or access job-seeking features during your employment. Your account will be automatically reactivated once your employment/contract period ends. Do you accept this job offer?`
     };
-
+    {console.log(payload, "HIRE APPLICANT PAYLOAD");}
+    
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/${role}/hire-applicant`,
@@ -57,13 +57,9 @@ export default function HireApplicant({ selectedUser, onClose, role }) {
         }
       );
 
-      console.log('✅ Hire response:', response.data);
       setShowConfirmation(true);
       
     } catch (err) {
-      console.error('❌ Error hiring applicant:', err);
-      console.error('❌ Error response:', err.response?.data);
-      console.error('❌ Error status:', err.response?.status);
       setError(
         err.response?.data?.message || 'Failed to hire applicant. Please try again.'
       );
@@ -112,7 +108,6 @@ export default function HireApplicant({ selectedUser, onClose, role }) {
                 type="date"
                 value={startDate}
                 onChange={(e) => {
-                  console.log('📅 Start date changed to:', e.target.value);
                   setStartDate(e.target.value);
                   setError('');
                 }}
@@ -130,7 +125,6 @@ export default function HireApplicant({ selectedUser, onClose, role }) {
                 type="date"
                 value={endDate}
                 onChange={(e) => {
-                  console.log('📅 End date changed to:', e.target.value);
                   setEndDate(e.target.value);
                   setError('');
                 }}

@@ -3,7 +3,7 @@ import { useMarkAsSeen } from '../../../../../hooks/CHAT';
 import { ROLE } from '../../../../../utils/role';
 
 export const getTabFromLocalStorage = () => {
-  return localStorage.getItem('chat-active-tab') || ROLE.BUSINESS_EMPLOYER;
+  return localStorage.getItem('chat-active-tab') || ROLE.MANPOWER_PROVIDER;
 };
 
 export const saveTabToLocalStorage = (tab) => {
@@ -46,18 +46,18 @@ export const filterAndMapConversations = (conversations, activeTab) => {
     switch (convo.role) {
       case ROLE.BUSINESS_EMPLOYER:
         name = convo.business_name || unknown;
-        authorized_profile = convo.authorized_profile || unknown;
-        profile = convo.profile || unknown;
+        authorized_profile = convo.authorized_profile || null;
+        profile = convo.profile || null;
         break;
       case ROLE.INDIVIDUAL_EMPLOYER:
         name = convo.full_name || unknown;
-        profile = convo.profile || unknown;
-        authorized_profile = convo.profile || unknown;
-
+        profile = convo.profile || null;
+        authorized_profile = convo.profile || null;
+        break;
       case ROLE.JOBSEEKER:
         name = convo.full_name || unknown;
-        profile = convo.profile || unknown;
-        authorized_profile = convo.profile || unknown;
+        profile = convo.profile || null;
+        authorized_profile = convo.profile || null;
         job_title = convo.job_title || null;
         break;
 

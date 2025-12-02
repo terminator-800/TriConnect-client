@@ -1,16 +1,22 @@
 import PropTypes from 'prop-types';
+import { ROLE } from '../../../../../utils/role';
 
-const ActionMenu = ({ isOpen, onToggle, onReportClick, onAcceptClick, onDeclineClick, icons, }) => {
+const ActionMenu = ({ isOpen, onToggle, onReportClick, onAcceptClick, onDeclineClick, icons, userRole }) => {
 
-  const handleAcceptClick = () => {
-  onAcceptClick();
-  onToggle(false);
-};
+   const isEmployer = userRole === ROLE.BUSINESS_EMPLOYER || userRole === ROLE.INDIVIDUAL_EMPLOYER;
+    const reportLabel = isEmployer ? "Report Employer" : "Report Applicant";
+    const acceptLabel = isEmployer ? "Accept Employer" : "Accept Applicant";
+    const declineLabel = isEmployer ? "Decline Employer" : "Decline Applicant";
 
-const handleDeclineClick = () => {
-  onDeclineClick();
-  onToggle(false);
-};
+    const handleAcceptClick = () => {
+      onAcceptClick();
+      onToggle(false);
+    };
+
+    const handleDeclineClick = () => {
+      onDeclineClick();
+      onToggle(false);
+    };
 
   return (
     <>
@@ -26,21 +32,21 @@ const handleDeclineClick = () => {
           <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 shadow-lg z-10">
             <ul className="text-sm text-gray-700">
               <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={onReportClick}>
-                Report Applicant
+                {reportLabel}
               </li>
 
               <li
                 className="px-4 py-2 hover:bg-gray-100 cursor-pointer border-b border-[#D8D9DB] text-[#55C463]"
                 onClick={handleAcceptClick}
               >
-                Accept Applicant
+                {acceptLabel}
               </li>
 
               <li
                 className="px-4 py-2 hover:bg-gray-100 text-red-600 cursor-pointer"
                 onClick={handleDeclineClick}
               >
-                Decline Applicant
+                {declineLabel}
               </li>
             </ul>
           </div>

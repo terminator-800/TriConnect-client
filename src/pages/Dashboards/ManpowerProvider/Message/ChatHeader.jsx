@@ -25,8 +25,16 @@ const ChatHeader = ({ selectedUser }) => {
     );
   }
 
-  const fullName = selectedUser?.authorized_person || selectedUser?.name || 'Unknown';
-  const initials = getInitials(fullName);
+  const fullName =
+  selectedUser?.authorized_person ||
+  selectedUser?.agency_authorized_person ||
+  selectedUser?.full_name ||
+  selectedUser?.name ||
+  selectedUser?.sender_name ||
+  'Unknown';
+
+const initials = getInitials(fullName);
+
 
   const handleReportClick = () => {
     setShowActionMenu(false);
@@ -80,6 +88,7 @@ const ChatHeader = ({ selectedUser }) => {
             onAcceptClick={handleAcceptClick}
             onDeclineClick={handleDeclineClick}
             icons={icons}
+            userRole={selectedUser.role} 
           />
         </>
       ) : (
@@ -96,18 +105,19 @@ const ChatHeader = ({ selectedUser }) => {
       )}
 
       {showHireModal && (
-            <HireApplicant
-              selectedUser={selectedUser}
-              onClose={() => setShowHireModal(false)}
-            />
-          )}
+        <HireApplicant
+          selectedUser={selectedUser}
+          role={ROLE.MANPOWER_PROVIDER}
+          onClose={() => setShowHireModal(false)}
+        />
+      )}
       
-          {showRejectModal && (
-          <RejectApplicant
-            selectedUser={selectedUser}
-            onClose={() => setShowRejectModal(false)}
-          />
-        )}
+      {showRejectModal && (
+        <RejectApplicant
+          selectedUser={selectedUser}
+          onClose={() => setShowRejectModal(false)}
+        />
+      )}
     </div>
   );
 };
