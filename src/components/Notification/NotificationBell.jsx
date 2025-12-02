@@ -8,11 +8,15 @@ import SystemNotification from './SystemNotification';
 import HireOfferNotif from './HireOfferNotif';
 import { useNavigate } from 'react-router-dom';
 import ApplicantNotif from './ApplicantNotif';
+import Report from './Report';
 
 const PAGES = {
   'NEW JOB POST CREATED': '/administrator/job-post-verification',
   'JOB POST APPROVED': '/business-employer/manage',
   'NEW FEEDBACK SUBMITTED': '/administrator/feedback',
+  'NEW REQUIREMENT UPLOADED': '/administrator/verification',
+  'NEW USER REPORT': '/administrator/reported',
+  'NEW APPLICATION': '/business-employer/view',
 };
 
 export default function NotificationsBell({ role }) {
@@ -29,6 +33,7 @@ export default function NotificationsBell({ role }) {
     system: (notif) => <SystemNotification notif={notif} />,
     hire: (notif) => <HireOfferNotif notif={notif} />,
     job_application: (notif) => <ApplicantNotif notif={notif} />,
+    report: (notif) => <Report notif={notif} />,
   };
 
   useEffect(() => {
