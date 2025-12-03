@@ -13,6 +13,7 @@ import { ApplicationCard } from '../../../../components/cards/ApplicationCard';
 import { BusinessRequestCard } from '../../../../components/cards/BusinessRequestCard';
 import { IndividualRequestCard } from '../../../../components/cards/IndividualRequestCard';
 import { HireApplicantCard } from '../../../../components/cards/HireApplicantCard';
+import { ExpressInterestCard } from '../../../../components/cards/ExpressInterestCard';
 
 const ChatWindow = ({ selectedUser }) => {
   const endRef = useRef(null);
@@ -140,6 +141,8 @@ const ChatWindow = ({ selectedUser }) => {
                           BusinessRequestCard(msg, isSender)
                         ): msg.message_type === 'hire' && msg.job_title && msg.start_date && msg.end_date && msg.hire_message ? (
                             <HireApplicantCard msg={msg} isSender={isSender} />
+                        ) : msg.message_type === 'express' && msg.express_message ? (
+                            ExpressInterestCard(msg, isSender)
                         ) : 
                         (
                         <>

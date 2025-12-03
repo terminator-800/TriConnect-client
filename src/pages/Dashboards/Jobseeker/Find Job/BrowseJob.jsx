@@ -3,6 +3,11 @@ import { useState } from 'react';
 import Pagination from '../../../../components/Pagination';
 import icons from '../../../../assets/svg/Icons';
 import Apply from './Apply';
+import { useUserProfile } from '../../../../../hooks/useUserProfiles';
+import { ROLE } from '../../../../../utils/role';
+import DisabledAccount from '../../../../components/DisabledAccount';
+import VerificationStatus from '../Verification Form/VerificationStatus';
+import Form from '../Verification Form/Form';
 
 const BrowseJob = () => {
   const unknown = 'Unknown';
@@ -10,6 +15,15 @@ const BrowseJob = () => {
   const [selectedJobPost, setSelectedJobPost] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+
+  const {
+    data: profileData,
+    isLoading: loadingProfile,
+    isError: errorProfile,
+    refetch,
+  } = useUserProfile(ROLE.JOBSEEKER);
+  
 
   const {
     data: filteredJobPosts = [],
@@ -19,6 +33,41 @@ const BrowseJob = () => {
 
   const startIndex = (currentPage - 1) * postsPerPage;
   const paginatedPosts = filteredJobPosts.slice(startIndex, startIndex + postsPerPage);
+  const openForm = () => setShowForm(true);
+
+   if (profileData.is_verified && profileData.employment_status === 'hired') {
+    return (
+      <DisabledAccount 
+        contractData={{
+          employer: profileData.employer_name,
+          job_title: profileData.job_title,
+          start_date: profileData.contract_start_date,
+          end_date: profileData.contract_end_date,
+        }}
+      />
+    );
+  }
+
+  // Show verification status if not verified
+  if (!profileData.is_verified) {
+    return (
+      <div className="relative min-h-screen bg-linear-to-b from-white to-cyan-400 pl-70 pr-10 pt-30">
+        <div className="bg-white shadow-md p-6 w-full border border-gray-300 px-20">
+          <VerificationStatus profileData={profileData} openForm={openForm} />
+        </div>
+
+        {showForm && (
+          <Form
+            onClose={() => setShowForm(false)}
+            onSubmitSuccess={() => {
+              setShowForm(false);
+              refetch();
+            }}
+          />
+        )}
+      </div>
+    );
+  }
 
   return (
     <>

@@ -8,6 +8,7 @@ import PersonalInfo from './PersonalInfo';
 import Security from './Security';
 import VerificationStatus from '../Verification Form/VerificationStatus';
 import ChangeProfile from '../../../../components/ChangeProfile/ChangeProfile';
+import DisabledAccount from '../../../../components/DisabledAccount';
 
 const JobseekerProfile = () => {
   const personal = 'personal';
@@ -28,7 +29,7 @@ const JobseekerProfile = () => {
     isError,
     refetch,
   } = useUserProfile(ROLE.JOBSEEKER);
-
+  console.log("profileData:", profileData);
   useEffect(() => {
     if (profileData) {
       setFormData({
@@ -53,85 +54,100 @@ const JobseekerProfile = () => {
     <>
       <Sidebar />
 
-      <div className="relative min-h-screen bg-linear-to-b from-white to-cyan-400 pl-70 pr-10 pt-30">
-        <div className="bg-white shadow-md p-6 w-full border border-gray-300 px-20">
-          {profileData.is_verified ? (
-            <>
-              <div className="flex items-center pt-20 justify-between w-full">
-                <div>
-                  <h1 className="font-bold text-4xl">{profileData.full_name}</h1>
-                  <div className="bg-white p-3 shadow-md flex justify-between items-center w-full border border-gray-300 mt-5">
-                    <div className="flex gap-4 items-center">
-                      <div>
-                        <div className="flex">
-                          <h1 className="font-bold text-2xl text-yellow-900">Account Verified</h1>
-                          <img src={icons.verified} alt="" />
+      {/* Show Disabled Account when verified AND hired - Outside the white bg container */}
+      {profileData.is_verified && profileData.employment_status === 'hired' ? (
+        <div className="relative min-h-screen bg-linear-to-b from-white to-cyan-400 pl-70 pr-10 pt-30">
+          <DisabledAccount 
+            contractData={{
+              employer: profileData.employer_name,
+              job_title: profileData.job_title,
+              start_date: profileData.contract_start_date,
+              end_date: profileData.contract_end_date,
+            }}
+          />
+        </div>
+      ) : (
+        <div className="relative min-h-screen bg-linear-to-b from-white to-cyan-400 pl-70 pr-10 pt-30">
+          <div className="bg-white shadow-md p-6 w-full border border-gray-300 px-20">
+            {profileData.is_verified ? (
+              // Show normal verified profile
+              <>
+                <div className="flex items-center pt-20 justify-between w-full">
+                  <div>
+                    <h1 className="font-bold text-4xl">{profileData.full_name}</h1>
+                    <div className="bg-white p-3 shadow-md flex justify-between items-center w-full border border-gray-300 mt-5">
+                      <div className="flex gap-4 items-center">
+                        <div>
+                          <div className="flex">
+                            <h1 className="font-bold text-2xl text-yellow-900">Account Verified</h1>
+                            <img src={icons.verified} alt="" />
+                          </div>
+                          <p className="text-yellow-900 max-w-4xl">
+                            Your account has been successfully verified and all submitted requirements
+                            have been approved.
+                          </p>
                         </div>
-                        <p className="text-yellow-900 max-w-4xl">
-                          Your account has been successfully verified and all submitted requirements
-                          have been approved.
-                        </p>
                       </div>
                     </div>
                   </div>
+
+                  {/* Change Profile */}
+                  <div className="ml-6">
+                    <ChangeProfile profileData={profileData} />
+                  </div>
                 </div>
 
-                {/* Change Profile */}
-                <div className="ml-6">
-                  <ChangeProfile profileData={profileData} />
+                {/* Tabs */}
+                <div className="bg-white w-full flex justify-between mt-20 gap-5">
+                  <button
+                    onClick={() => setActiveTab(personal)}
+                    className={`px-10 py-1 w-full cursor-pointer transition-all duration-200
+                      ${activeTab === personal ? 'bg-blue-900 text-white' : 'bg-white border border-blue-900 text-blue-900'}`}
+                  >
+                    Personal Information
+                  </button>
+                  <button
+                    onClick={() => setActiveTab(security)}
+                    className={`px-10 py-1 w-full cursor-pointer transition-all duration-200
+                      ${activeTab === security ? 'bg-blue-900 text-white' : 'bg-white border border-blue-900 text-blue-900'}`}
+                  >
+                    Security
+                  </button>
                 </div>
-              </div>
 
-              {/* Tabs */}
-              <div className="bg-white w-full flex justify-between mt-20 gap-5">
-                <button
-                  onClick={() => setActiveTab(personal)}
-                  className={`px-10 py-1 w-full cursor-pointer transition-all duration-200
-                    ${activeTab === personal ? 'bg-blue-900 text-white' : 'bg-white border border-blue-900 text-blue-900'}`}
-                >
-                  Personal Information
-                </button>
-                <button
-                  onClick={() => setActiveTab(security)}
-                  className={`px-10 py-1 w-full cursor-pointer transition-all duration-200
-                    ${activeTab === security ? 'bg-blue-900 text-white' : 'bg-white border border-blue-900 text-blue-900'}`}
-                >
-                  Security
-                </button>
-              </div>
+                {activeTab === personal && (
+                  <PersonalInfo
+                    formData={formData}
+                    profileData={profileData}
+                    editMode={editMode}
+                    handleInputChange={handleInputChange}
+                    setEditMode={setEditMode}
+                    setFormData={setFormData}
+                  />
+                )}
 
-              {activeTab === personal && (
-                <PersonalInfo
-                  formData={formData}
-                  profileData={profileData}
-                  editMode={editMode}
-                  handleInputChange={handleInputChange}
-                  setEditMode={setEditMode}
-                  setFormData={setFormData}
-                />
-              )}
+                {activeTab === security && <Security />}
+              </>
+            ) : profileData.is_rejected ? (
+              <VerificationStatus profileData={profileData} openForm={openForm} />
+            ) : profileData.is_submitted ? (
+              <VerificationStatus profileData={profileData} openForm={openForm} />
+            ) : (
+              <VerificationStatus profileData={profileData} openForm={openForm} />
+            )}
+          </div>
 
-              {activeTab === security && <Security />}
-            </>
-          ) : profileData.is_rejected ? (
-            <VerificationStatus profileData={profileData} openForm={openForm} />
-          ) : profileData.is_submitted ? (
-            <VerificationStatus profileData={profileData} openForm={openForm} />
-          ) : (
-            <VerificationStatus profileData={profileData} openForm={openForm} />
+          {showForm && (
+            <Form
+              onClose={() => setShowForm(false)}
+              onSubmitSuccess={() => {
+                setShowForm(false);
+                refetch();
+              }}
+            />
           )}
         </div>
-
-        {showForm && (
-          <Form
-            onClose={() => setShowForm(false)}
-            onSubmitSuccess={() => {
-              setShowForm(false);
-              refetch();
-            }}
-          />
-        )}
-      </div>
+      )}
     </>
   );
 };

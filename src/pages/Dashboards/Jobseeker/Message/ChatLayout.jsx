@@ -1,5 +1,6 @@
 import { filterAndMapConversations, getTabFromLocalStorage, saveTabToLocalStorage } from './helper';
 import { useConversations } from '../../../../../hooks/CHAT';
+import { useUserProfile } from '../../../../../hooks/useUserProfiles';
 import { useState } from 'react';
 import { ROLE } from '../../../../../utils/role';
 import Sidebar from '../Sidebar';
@@ -8,10 +9,21 @@ import ChatHeader from './ChatHeader';
 import ChatWindow from './ChatWindow';
 import MessageInput from './MessageInput';
 import ConversationList from './ConversationLists';
+import DisabledAccount from '../../../../components/DisabledAccount';
+import VerificationStatus from '../Verification Form/VerificationStatus';
+import Form from '../Verification Form/Form';
 
 const ChatLayout = () => {
   const [activeTab, setActiveTab] = useState(getTabFromLocalStorage);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [showForm, setShowForm] = useState(false);
+
+  const {
+    data: profileData,
+    isLoading: loadingProfile,
+    isError: errorProfile,
+    refetch,
+  } = useUserProfile(ROLE.JOBSEEKER);
 
   const { data: conversations = [], isLoading, isError } = useConversations(ROLE.JOBSEEKER);
 
@@ -22,6 +34,74 @@ const ChatLayout = () => {
     saveTabToLocalStorage(tab);
   };
 
+  const openForm = () => setShowForm(true);
+
+  if (loadingProfile) {
+    return (
+      <>
+        <Sidebar />
+        <div className="pl-70 pr-10 pt-30 min-h-screen">
+          <div>Loading...</div>
+        </div>
+      </>
+    );
+  }
+
+  if (errorProfile) {
+    return (
+      <>
+        <Sidebar />
+        <div className="pl-70 pr-10 pt-30 min-h-screen">
+          <div>Failed to fetch profile data.</div>
+        </div>
+      </>
+    );
+  }
+
+  // Check if hired - show disabled account
+  if (profileData.is_verified && profileData.employment_status === 'hired') {
+    return (
+      <>
+        <Sidebar />
+        <div className="relative min-h-screen bg-linear-to-b from-white to-cyan-400 pl-70 pr-10 pt-30">
+          <DisabledAccount 
+            contractData={{
+              employer: profileData.employer_name,
+              job_title: profileData.job_title,
+              start_date: profileData.contract_start_date,
+              end_date: profileData.contract_end_date,
+            }}
+          />
+        </div>
+      </>
+    );
+  }
+
+  // Check if not verified - show verification status
+  if (!profileData.is_verified) {
+    return (
+      <>
+        <Sidebar />
+        <div className="relative min-h-screen bg-linear-to-b from-white to-cyan-400 pl-70 pr-10 pt-30">
+          <div className="bg-white shadow-md p-6 w-full border border-gray-300 px-20">
+            <VerificationStatus profileData={profileData} openForm={openForm} />
+          </div>
+
+          {showForm && (
+            <Form
+              onClose={() => setShowForm(false)}
+              onSubmitSuccess={() => {
+                setShowForm(false);
+                refetch();
+              }}
+            />
+          )}
+        </div>
+      </>
+    );
+  }
+
+  // If verified and not hired, show normal Chat page
   return (
     <>
       <Sidebar />
@@ -56,8 +136,7 @@ const ChatLayout = () => {
             </div>
 
             <div
-              className="flex flex-col flex-1 border-l border-gray-300
-              "
+              className="flex flex-col flex-1 border-l border-gray-300"
             >
               <ChatHeader selectedUser={selectedUser} />
               <ChatWindow selectedUser={selectedUser} />

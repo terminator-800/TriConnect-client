@@ -10,16 +10,18 @@ import { useNavigate } from 'react-router-dom';
 import ApplicantNotif from './ApplicantNotif';
 import Report from './Report';
 
-const PAGES = {
+export default function NotificationsBell({ role }) {
+  const PAGES = {
+  // FOR ADMIN
   'NEW JOB POST CREATED': '/administrator/job-post-verification',
-  'JOB POST APPROVED': '/business-employer/manage',
+  'NEW USER REPORT': '/administrator/reported',
   'NEW FEEDBACK SUBMITTED': '/administrator/feedback',
   'NEW REQUIREMENT UPLOADED': '/administrator/verification',
-  'NEW USER REPORT': '/administrator/reported',
-  'NEW APPLICATION': '/business-employer/view',
+  // USERS ONLY
+  'JOB POST APPROVED': `/${role}/manage`,
+  'NEW APPLICATION': `/${role}/view`,
 };
 
-export default function NotificationsBell({ role }) {
   const navigate = useNavigate();
   const { data: notifications, isLoading, isError } = useNotification(role);
   const { mutate: markAsSeen } = useSeenNotifications(role);
