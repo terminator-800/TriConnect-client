@@ -31,14 +31,6 @@ const FindJob = () => {
       <div className="relative min-h-screen bg-linear-to-b from-white to-cyan-400 pl-70 pr-10 pt-30">
         {profileData.is_verified ? (
           <BrowseJob />
-        ) : profileData.is_rejected ? (
-          <div className="bg-white shadow-md p-6 w-full max-w-full border border-gray-300 px-20">
-            <VerificationStatus profileData={profileData} openForm={openForm} />
-          </div>
-        ) : profileData.is_submitted ? (
-          <div className="bg-white shadow-md p-6 w-full max-w-full border border-gray-300 px-20">
-            <VerificationStatus profileData={profileData} openForm={openForm} />
-          </div>
         ) : (
           <div className="bg-white shadow-md p-6 w-full max-w-full border border-gray-300 px-20">
             <VerificationStatus profileData={profileData} openForm={openForm} />
