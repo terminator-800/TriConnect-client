@@ -74,6 +74,52 @@ const VerificationForm = ({ onClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (full_name.trim() === '') {
+      alert('Full Name is required');
+      return;
+    }
+
+    if (!date_of_birth) {
+      alert('Date of Birth is required');
+      return;
+    }
+
+    if (phone.trim() === '') {
+      alert('Phone is required');
+      return;
+    }
+
+    if (gender.trim() === '') {
+      alert('Gender is required');
+      return;
+    }
+
+    if (present_address.trim() === '') {
+      alert('Present Address is required');
+      return;
+    }
+
+    if (permanent_address.trim() === '') {
+      alert('Permanent Address is required');
+      return;
+    }
+
+    if (!government_id) {
+      alert('Government ID is required');
+      return;
+    }
+
+    if (!selfie_with_id) {
+      alert('Selfie with ID is required');
+      return;
+    }
+
+    if (!nbi_barangay_clearance) {
+      alert('NBI or Barangay Clearance is required');
+      return;
+    }
+
     mutation.mutate();
   };
 
@@ -85,11 +131,11 @@ const VerificationForm = ({ onClose }) => {
   }, []);
 
   return (
-    <div className="fixed flex items-center justify-center z-50 inset-0">
+    <div className="fixed flex items-center justify-center z-50 inset-0 backdrop-blur-sm">
       {!showSuccessModal && (
         <form
           onSubmit={handleSubmit}
-          className="relative z-10 border-2 border-gray-300 bg-white rounded-xl p-6 h-[90vh] overflow-y-auto w-full max-w-2xl mt-20 hide-scrollbar"
+          className="relative z-10 border-2 border-gray-300 bg-white rounded-xl p-6 h-[90vh] overflow-y-auto w-full max-w-2xl"
         >
           <button
             type="button"

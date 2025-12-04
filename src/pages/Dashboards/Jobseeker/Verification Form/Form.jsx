@@ -105,11 +105,52 @@ const Form = ({ onClose, onSubmitSuccess }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (jsFullname.trim() === '') {
+      alert('Full Name is required');
+      return;
+    }
+
+    if (jsDob.trim() === '') {
+      alert('Date of Birth is required');
+      return;
+    }
+
+    if (jsContactNumber.trim() === '') {
+      alert('Contact Number is required');
+      return;
+    }
+
+    if (jsGender.trim() === '') {
+      alert('Gender is required');
+      return;
+    }
+
+    if (jsPresentAddress.trim() === '') {
+      alert('Present Address is required');
+      return;
+    }
+
+    if (!jsGovernmentID) {
+      alert('Government-issued ID is required');
+      return;
+    }
+
+    if (!jsSelfieID) {
+      alert('Selfie with Government-issued ID is required');
+      return;
+    }
+
+    if (!jsNBIBarangayClearance) {
+      alert('NBI or Barangay Clearance is required');
+      return;
+    }
+
     mutation.mutate();
   };
 
   return (
-    <div className="fixed flex items-center justify-center z-50 inset-0 ">
+    <div className="fixed flex items-center justify-center z-50 inset-0 h-[90vh]">
       {!showSuccessModal && (
         <form
           onSubmit={handleSubmit}
