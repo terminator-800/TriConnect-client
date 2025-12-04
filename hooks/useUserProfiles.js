@@ -27,6 +27,7 @@ export const useUserProfile = (role) => {
     },
     staleTime: 5 * 60 * 1000,
     retry: false,
+    refetchOnWindowFocus: 'always',
   });
 };
 

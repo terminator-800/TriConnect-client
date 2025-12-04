@@ -21,5 +21,5 @@ export const useApplicants = ({ page = 1, pageSize = 10, role } = {}) =>
     },
     keepPreviousData: true,
     staleTime: 1000 * 30,
-    retry: 1,
+    refetchOnWindowFocus: 'always',
   });

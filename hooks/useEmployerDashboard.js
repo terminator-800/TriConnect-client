@@ -17,5 +17,6 @@ export const useEmployerDashboard = (role) =>
       });
       return data;
     },
-    staleTime: 60_000,
+    staleTime: 1000 * 60,
+    refetchOnWindowFocus: 'always',
   });
