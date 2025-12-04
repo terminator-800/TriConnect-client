@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useStatusChange } from '../../hooks/useStatusChange';
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';

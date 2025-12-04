@@ -39,7 +39,7 @@ const DashboardLayout = () => {
           <div className="bg-white shadow-md py-6 px-10 mb-8 flex justify-between items-center">
             <div>
               <h1 className="text-2xl font-bold text-[#003479]">
-                {showFindWorkers ? 'Find Workers' : 'Welcome, Employer!'}
+                {showFindWorkers ? 'Find Workers' : 'Welcome, Man Power Provider!'}
               </h1>
               <p>
                 {showFindWorkers
