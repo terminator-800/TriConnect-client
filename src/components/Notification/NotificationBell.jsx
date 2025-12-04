@@ -12,15 +12,16 @@ import Report from './Report';
 
 export default function NotificationsBell({ role }) {
   const PAGES = {
-  // FOR ADMIN
-  'NEW JOB POST CREATED': '/administrator/job-post-verification',
-  'NEW USER REPORT': '/administrator/reported',
-  'NEW FEEDBACK SUBMITTED': '/administrator/feedback',
-  'NEW REQUIREMENT UPLOADED': '/administrator/verification',
-  // USERS ONLY
-  'JOB POST APPROVED': `/${role}/manage`,
-  'NEW APPLICATION': `/${role}/view`,
-};
+    // FOR ADMIN
+    'NEW JOB POST CREATED': '/administrator/job-post-verification',
+    'NEW USER REPORT': '/administrator/reported',
+    'NEW FEEDBACK SUBMITTED': '/administrator/feedback',
+    'NEW REQUIREMENT UPLOADED': '/administrator/verification',
+    // USERS ONLY
+    'JOB POST APPROVED': `/${role}/manage`,
+    'NEW APPLICATION': `/${role}/view`,
+    'JOB OFFER CONFIRMATION': `/${role}/message`,
+  };
 
   const navigate = useNavigate();
   const { data: notifications, isLoading, isError } = useNotification(role);
