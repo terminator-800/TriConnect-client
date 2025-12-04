@@ -26,7 +26,6 @@ export const useUnappliedJobPosts = () =>
         });
         return response.data;
       } catch (error) {
-        alert('Failed to fetch job posts. Please try again later.');
         throw error;
       }
     },
