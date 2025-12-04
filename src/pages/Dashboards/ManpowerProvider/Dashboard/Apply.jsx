@@ -73,18 +73,18 @@ const Apply = ({ employer, onClose }) => {
   const isSubmitting = mutation.isPending;
 
   return (
-    <div className="backdrop-blur-2xl w-full max-w-5xl py-5 px-10 shadow-lg ml-55">
+    <div className="backdrop-blur-2xl w-full max-w-5xl py-5 px-10 shadow-lg ">
       <div className="flex justify-between items-center border-b pb-3 mb-5 border-gray-500">
         <div>
           <h2 className="text-xl font-bold">Express Interest</h2>
-          <p className='text-[#6B7280] text-sm'>Send an initiation message to the employer</p>
+          <p className="text-[#6B7280] text-sm">Send an initiation message to the employer</p>
         </div>
         <button
           onClick={onClose}
           className="absolute top-4 right-4 bg-red-600 text-white rounded-full w-7 h-7 flex items-center justify-center font-bold text-lg hover:bg-red-700 cursor-pointer"
           disabled={isSubmitting}
         >
-         ✕
+          ✕
         </button>
       </div>
 

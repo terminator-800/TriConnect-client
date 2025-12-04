@@ -23,14 +23,14 @@ const BrowseJob = () => {
   return (
     <>
       {/* <div className="bg-white shadow-md py-6 px-10 mb-8 flex flex-col md:flex-row gap-4"> */}
-        {/* Title & description */}
-        {/* <div className="flex flex-col flex-1 justify-center">
+      {/* Title & description */}
+      {/* <div className="flex flex-col flex-1 justify-center">
           <h1 className="text-2xl font-bold text-blue-900">Browse Job</h1>
           <p>Browse job openings and apply to positions that fit you</p>
         </div> */}
 
-        {/* Search Bar */}
-        {/* <div className="flex-1 text-white pl-5 pr-5 shadow-md flex items-center gap-2 bg-[#BDC3C7]">
+      {/* Search Bar */}
+      {/* <div className="flex-1 text-white pl-5 pr-5 shadow-md flex items-center gap-2 bg-[#BDC3C7]">
           <img src={icons.search_job_icon} alt="search jobs" />
           <input type="text" placeholder="Search job titles" className="outline-none flex-1 " />
           <button className="text-white bg-[#2563EB] rounded-xl px-10 py-1 cursor-pointer">
@@ -97,11 +97,11 @@ const BrowseJob = () => {
 
         {selectedJobPost && (
           <div
-            className="fixed inset-0 bg-opacity-50 flex justify-center items-center z-50 p-4 ml-55 pt-50"
+            className="fixed inset-0 bg-opacity-50 flex justify-center items-center z-50 p-4 bg-blur-sm"
             onClick={() => setSelectedJobPost(null)}
           >
             <div
-              className="backdrop-blur-2xl shadow-lg relative w-full max-w-7xl max-h-[90vh] overflow-y-auto"
+              className="w-full max-w-7xl max-h-[90vh] overflow-y-auto shadow-xl relative backdrop-blur-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close Button */}
@@ -241,7 +241,7 @@ const BrowseJob = () => {
       </div>
 
       {isModalOpen && selectedJobPost && (
-        <div className="fixed inset-0 bg-opacity-40 flex justify-center items-center z-50">
+        <div className="fixed inset-0  flex justify-center items-center z-50 ">
           <Apply
             employer={selectedJobPost}
             onClose={() => {

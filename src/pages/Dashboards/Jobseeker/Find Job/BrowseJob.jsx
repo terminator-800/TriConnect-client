@@ -281,7 +281,7 @@ const BrowseJob = () => {
                   </button> */}
                 </div>
               </div>
-            </div>  
+            </div>
           </div>
         )}
       </div>

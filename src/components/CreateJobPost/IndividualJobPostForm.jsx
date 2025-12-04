@@ -63,8 +63,8 @@ const IndividualJobPostForm = ({ onClose, role }) => {
   return (
     <>
       {/* Main Form Modal */}
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-50 p-4 ml-55">
-        <div className="relative w-full max-w-7xl shadow-lg py-6 overflow-y-auto max-h-[90vh] backdrop-blur-2xl mt-25 px-10">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-75 backdrop-blur-sm">
+        <div className="relative w-full max-w-7xl shadow-lg py-6 overflow-y-auto  bg-white px-10 h-[90vh]">
           {/* Close Button */}
           <button
             onClick={onClose}
@@ -188,8 +188,6 @@ const IndividualJobPostForm = ({ onClose, role }) => {
                 by the system administrator. You will be notified once the job post is verified.
               </p>
             </div>
-
-            {/* Confirm Button */}
             {/* Confirm Button */}
             <div className="flex justify-center pt-4">
               <button
