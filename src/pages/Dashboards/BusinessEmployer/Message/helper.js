@@ -27,9 +27,9 @@ export const getInitials = (fullName) => {
 
 // This is for Chat Headers Data PROPS
 export const filterAndMapConversations = (conversations, activeTab) => {
+  
   const filtered = conversations.filter((convo) => convo.role === activeTab);
   const unknown = 'Unknown';
-  console.log(filtered, "helper");
   
   return filtered.map((convo) => {
     let name = unknown;

@@ -28,7 +28,7 @@ const ChatWindow = ({ selectedUser }) => {
     isLoading,
     isError,
   } = useMessageHistory(ROLE.BUSINESS_EMPLOYER, conversation_id);
-
+  console.log(messages, "MESSAGES")
   // Initialize socket connection
   useSocket(currentUserId, ROLE.BUSINESS_EMPLOYER);
 

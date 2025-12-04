@@ -102,6 +102,7 @@ const ChatHeader = ({ selectedUser } ) => {
        {showRejectModal && (
         <RejectApplicant
           selectedUser={selectedUser}
+          role={ROLE.BUSINESS_EMPLOYER}
           onClose={() => setShowRejectModal(false)}
         />
       )}
