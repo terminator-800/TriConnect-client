@@ -16,14 +16,14 @@ export const useLogout = () => {
       const response = await api.post(`/logout`, {}, { withCredentials: true });
 
       if (response.status === 200) {
-        localStorage.removeItem('token');
-        queryClient.invalidateQueries(); // Invalidate all queries
         navigate('/login');
+        localStorage.removeItem('token');
+        queryClient.invalidateQueries();
       }
     } catch (err) {
       setError(err.response?.data?.message || 'Logout failed. Please try again.');
       localStorage.removeItem('token');
-      queryClient.invalidateQueries(); // Invalidate all queries
+      queryClient.invalidateQueries();
     } finally {
       localStorage.removeItem('token');
       setIsLoading(false);
