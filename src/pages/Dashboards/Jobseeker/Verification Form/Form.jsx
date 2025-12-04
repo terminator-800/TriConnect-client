@@ -109,11 +109,11 @@ const Form = ({ onClose, onSubmitSuccess }) => {
   };
 
   return (
-    <div className="fixed flex items-center justify-center z-50 inset-0">
+    <div className="fixed flex items-center justify-center z-50 inset-0 ">
       {!showSuccessModal && (
         <form
           onSubmit={handleSubmit}
-          className="relative z-10 border-2 border-gray-300 bg-white rounded-xl p-6 h-[90vh] overflow-y-auto w-full max-w-2xl mt-20 hide-scrollbar"
+          className="relative z-10 border-2 border-gray-300 bg-white rounded-xl p-6 h-[90vh] overflow-y-auto w-full max-w-2xl mt-20 "
         >
           {/* ✅ Close Button */}
           <button

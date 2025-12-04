@@ -23,7 +23,6 @@ const BrowseJob = () => {
     isError: errorProfile,
     refetch,
   } = useUserProfile(ROLE.JOBSEEKER);
-  
 
   const {
     data: filteredJobPosts = [],
@@ -35,9 +34,9 @@ const BrowseJob = () => {
   const paginatedPosts = filteredJobPosts.slice(startIndex, startIndex + postsPerPage);
   const openForm = () => setShowForm(true);
 
-   if (profileData.is_verified && profileData.employment_status === 'hired') {
+  if (profileData.is_verified && profileData.employment_status === 'hired') {
     return (
-      <DisabledAccount 
+      <DisabledAccount
         contractData={{
           employer: profileData.employer_name,
           job_title: profileData.job_title,
@@ -146,17 +145,17 @@ const BrowseJob = () => {
 
         {selectedJobPost && (
           <div
-            className="fixed inset-0 bg-opacity-50 flex justify-center items-center z-50 p-4 ml-55 pt-50"
+            className="fixed inset-0 flex justify-center items-center z-50 backdrop-blur-sm bg-black/30"
             onClick={() => setSelectedJobPost(null)}
           >
             <div
-              className="backdrop-blur-2xl shadow-lg relative w-full max-w-7xl max-h-[90vh] overflow-y-auto"
+              className="bg-white w-full max-w-7xl max-h-[90vh] overflow-y-auto rounded-lg shadow-xl relative"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close Button */}
               <button
                 onClick={() => setSelectedJobPost(null)}
-                className="absolute top-4 right-4 bg-red-600 text-white rounded-full w-7 h-7 flex items-center justify-center font-bold text-lg hover:bg-red-700 cursor-pointer"
+                className="absolute top-4 right-4 bg-red-600 text-white rounded-full w-7 h-7 hover:bg-red-700 cursor-pointer"
               >
                 ✕
               </button>
