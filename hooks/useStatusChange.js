@@ -5,9 +5,9 @@ export const useStatusChange = (role) => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: async ({ jobPostId, status }) => {
+    mutationFn: async ({ jobPostId, status, postType }) => {
       const response = await axios.patch(
-        `${import.meta.env.VITE_API_URL}/${role}/${jobPostId}/${status}`,
+        `${import.meta.env.VITE_API_URL}/${role}/${jobPostId}/${status}/${postType}`,
         {},
         {
           withCredentials: true,

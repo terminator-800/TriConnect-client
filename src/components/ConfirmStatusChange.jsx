@@ -2,7 +2,7 @@ import { useStatusChange } from '../../hooks/useStatusChange';
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-const ConfirmStatusChange = ({ onClose, data, role }) => {
+const ConfirmStatusChange = ({ onClose, data, role, postType }) => {
   if (!data) return null;
 
   const { changeStatus, isLoading } = useStatusChange(role);
@@ -20,6 +20,7 @@ const ConfirmStatusChange = ({ onClose, data, role }) => {
       await changeStatus({
         jobPostId: data.jobPostId,
         status: data.status,
+        postType,
       });
       onClose();
     } catch (err) {

@@ -16,12 +16,12 @@ const ManageJobPost = () => {
   const [state, dispatch] = useReducer(modalReducer, initialState);
   const [showViewJobModal, setShowViewJobModal] = useState(false);
   const [selectedJob, setSelectedJob] = useState(null);
+  const [activePostType, setActivePostType] = useState('hiring');
 
   const {
     data: provider,
     isLoading: isProviderLoading,
     isError,
-    error,
     refetch,
   } = useUserProfile(ROLE.MANPOWER_PROVIDER);
   const {
@@ -52,6 +52,19 @@ const ManageJobPost = () => {
 
   const closeStatusModal = () => dispatch({ type: 'CLOSE_STATUS_MODAL' });
 
+  // Map active tab to post_type values
+  const postTypeMap = {
+    hiring: 'job_post',
+    individual: 'individual_job_post',
+    team: 'team_job_post',
+  };
+
+  // Filter jobs by post_type based on selected tab
+  const filterJobsByPostType = (jobs) => {
+    const targetPostType = postTypeMap[activePostType];
+    return jobs.filter((job) => job.post_type === targetPostType);
+  };
+
   if (isProviderLoading || isJobsLoading) return <div className="p-10">Loading...</div>;
   if (isError || !provider) return <div className="p-10 text-red-600">Error!</div>;
 
@@ -74,20 +87,55 @@ const ManageJobPost = () => {
         {provider.is_verified ? (
           <>
             <div className="bg-white shadow-md py-6 px-10 mb-8">
-              <div className="flex flex-col">
-                <h1 className="text-2xl font-bold text-blue-900">Manage Job Post</h1>
-                <p>View and manage all your job postings</p>
+              <div className="flex items-center justify-between">
+                <div className="flex flex-col">
+                  <h1 className="text-2xl font-bold text-blue-900">Manage Job Post</h1>
+                  <p>View and manage all your job postings</p>
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => setActivePostType('hiring')}
+                    className={`px-6 py-2 rounded font-medium transition-colors ${
+                      activePostType === 'hiring'
+                        ? 'bg-blue-900 text-white'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                  >
+                    Hiring Post
+                  </button>
+                  <button
+                    onClick={() => setActivePostType('individual')}
+                    className={`px-6 py-2 rounded font-medium transition-colors ${
+                      activePostType === 'individual'
+                        ? 'bg-blue-900 text-white'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                  >
+                    Individual Post
+                  </button>
+                  <button
+                    onClick={() => setActivePostType('team')}
+                    className={`px-6 py-2 rounded font-medium transition-colors ${
+                      activePostType === 'team'
+                        ? 'bg-blue-900 text-white'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                  >
+                    Team Post
+                  </button>
+                </div>
               </div>
             </div>
 
             {['pending', 'active', 'completed', 'rejected'].map((key) => (
               <JobTable
-                key={key}
+                key={`${key}-${activePostType}`}
                 title={`${key[0].toUpperCase()}${key.slice(1)} Job Post`}
-                jobs={jobPostsGrouped[key] || []} // fallback if undefined
+                jobs={filterJobsByPostType(jobPostsGrouped[key] || [])}
                 onStatusChange={openStatusConfirmModal}
                 onDelete={handleDeleteClick}
                 onViewJobDetails={openViewJobModal}
+                activePostType={activePostType}
               />
             ))}
           </>
@@ -125,6 +173,7 @@ const ManageJobPost = () => {
           data={state.statusChangeData}
           onClose={closeStatusModal}
           role={ROLE.MANPOWER_PROVIDER}
+          postType={postTypeMap[activePostType]}
         />
       )}
 
