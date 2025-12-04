@@ -16,7 +16,7 @@ const Form = ({ onClose }) => {
   const dtiRef = useRef();
   const businessEstablishmentRef = useRef();
 
-  // Agreement state
+  // Agreement state  
   const [agreed, setAgreed] = useState(false);
   const [showAgreement, setShowAgreement] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);

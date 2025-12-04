@@ -154,7 +154,7 @@ const Form = ({ onClose, onSubmitSuccess }) => {
       {!showSuccessModal && (
         <form
           onSubmit={handleSubmit}
-          className="relative z-10 border-2 border-gray-300 bg-white rounded-xl p-6 h-[90vh] overflow-y-auto w-full max-w-2xl mt-20 "
+          className="relative z-10 border-2 border-gray-300 bg-white rounded-xl p-6 h-[90vh] overflow-y-auto w-full max-w-2xl"
         >
           {/* ✅ Close Button */}
           <button
