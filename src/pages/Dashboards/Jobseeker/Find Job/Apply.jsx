@@ -173,7 +173,7 @@ const Apply = ({ employer, onClose }) => {
   // Submitted Step
   if (currentStep === 'submitted') {
     return (
-      <div className="fixed inset-0 bg-opacity-40 flex items-center justify-center p-4 z-50">
+      <div className="fixed inset-0 bg-opacity-40 flex items-center justify-center p-4 z-50 ml-55">
         <div className="backdrop-blur-2xl shadow-lg max-w-5xl w-full relative">
           <button
             onClick={onClose}
@@ -208,7 +208,7 @@ const Apply = ({ employer, onClose }) => {
   // Form Step
   if (currentStep === 'form') {
     return (
-      <div className="backdrop-blur-2xl w-full max-w-7xl border border-gray-300 shadow-2xl bg-white max-h-[90vh] flex flex-col">
+      <div className="w-full max-w-7xl border border-gray-300 shadow-2xl max-h-[90vh] flex flex-col ml-55 backdrop-blur-2xl">
         {/* Header */}
         <div className="flex justify-between items-center p-6 max-[769px]:p-4 shrink-0">
           <div>

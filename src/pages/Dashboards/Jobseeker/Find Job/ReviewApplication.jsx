@@ -1,4 +1,3 @@
-import React from 'react';
 import icons from '../../../../assets/svg/Icons';
 
 const ReviewApplication = ({
@@ -21,7 +20,7 @@ const ReviewApplication = ({
   };
 
   return (
-    <div className="backdrop-blur-2xl w-full max-w-7xl border border-gray-300 shadow-2xl bg-white h-[90vh] flex flex-col">
+    <div className="backdrop-blur-2xl w-full max-w-7xl border border-gray-300 shadow-2xl flex flex-col ml-55">
       {/* Header */}
       <div className="flex justify-between items-start p-8 max-[769px]:p-4">
         <div className="flex-1">

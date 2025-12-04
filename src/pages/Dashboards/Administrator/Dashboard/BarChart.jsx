@@ -54,6 +54,7 @@ const BarChart = () => {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false, // ✅ This allows custom height
     plugins: {
       legend: {
         position: 'bottom',
@@ -96,7 +97,11 @@ const BarChart = () => {
     },
   };
 
-  return <Bar data={chartData} options={options} />;
+  return (
+    <div style={{ width: '100%', height: '400px' }}>
+      <Bar data={chartData} options={options} />
+    </div>
+  );
 };
 
 export default BarChart;

@@ -145,11 +145,11 @@ const BrowseJob = () => {
 
         {selectedJobPost && (
           <div
-            className="fixed inset-0 flex justify-center items-center z-50 backdrop-blur-sm bg-black/30"
+            className="fixed inset-0 flex justify-center items-center z-50 ml-55"
             onClick={() => setSelectedJobPost(null)}
           >
             <div
-              className="bg-white w-full max-w-7xl max-h-[90vh] overflow-y-auto rounded-lg shadow-xl relative"
+              className="w-full max-w-7xl max-h-[90vh] overflow-y-auto shadow-xl relative backdrop-blur-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close Button */}

@@ -53,6 +53,7 @@ import drag_drop from './drag_drop.svg';
 import personal_information from './personal_information.svg';
 import resume_download from './resume_download.svg';
 import download_pdf_arrow from './download_pdf_arrow.svg';
+import hired_job_seeker from './hired_job_seeker.svg';
 
 const icons = {
   find_agency,
@@ -110,6 +111,7 @@ const icons = {
   personal_information,
   resume_download,
   download_pdf_arrow,
+  hired_job_seeker,
 };
 
 export default icons;
