@@ -107,7 +107,6 @@ const FileUpload = forwardRef(
           id={id}
           accept="image/png, image/jpeg, image/jpg"
           className="hidden"
-          required
         />
       </div>
     );

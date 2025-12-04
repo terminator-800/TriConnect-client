@@ -273,15 +273,15 @@ const BrowseJob = () => {
                   >
                     Apply Now
                   </button>
-                  <button
+                  {/* <button
                     onClick={() => {}}
                     className="flex-1 bg-transparent text-gray-800 cursor-pointer font-semibold px-10 py-1 border hover:bg-gray-50 transition"
                   >
                     Save Job
-                  </button>
+                  </button> */}
                 </div>
               </div>
-            </div>
+            </div>  
           </div>
         )}
       </div>
