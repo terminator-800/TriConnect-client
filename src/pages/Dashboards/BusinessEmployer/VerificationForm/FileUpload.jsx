@@ -18,6 +18,27 @@ const BusinessFileUpload = forwardRef(
     const handleChange = (e) => {
       const selectedFile = e.target.files[0];
       if (selectedFile) {
+        // Validate image type
+        const validImageTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+        if (!validImageTypes.includes(selectedFile.type)) {
+          alert('Invalid file type. Please upload a valid image file (JPEG or PNG).');
+          if (fileInputRef.current) {
+            fileInputRef.current.value = '';
+          }
+          return;
+        }
+
+        // Validate image size (limit to 5MB)
+        const maxSizeInMB = 5;
+        const maxSizeInBytes = maxSizeInMB * 1024 * 1024;
+        if (selectedFile.size > maxSizeInBytes) {
+          alert(`File size exceeds ${maxSizeInMB}MB limit. Please upload a smaller image.`);
+          if (fileInputRef.current) {
+            fileInputRef.current.value = '';
+          }
+          return;
+        }
+
         setFile(selectedFile);
         if (allowPreview && setPreview) {
           const reader = new FileReader();

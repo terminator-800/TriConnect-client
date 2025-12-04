@@ -21,7 +21,7 @@ const ReviewApplication = ({
   };
 
   return (
-    <div className="backdrop-blur-2xl w-full max-w-7xl border border-gray-300 shadow-2xl overflow-hidden max-[769px]:mx-4 max-[769px]:mt-4 ml-55 mt-20">
+    <div className="backdrop-blur-2xl w-full max-w-7xl border border-gray-300 shadow-2xl bg-white h-[90vh] flex flex-col">
       {/* Header */}
       <div className="flex justify-between items-start p-8 max-[769px]:p-4">
         <div className="flex-1">

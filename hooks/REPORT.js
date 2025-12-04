@@ -83,7 +83,7 @@ export const useReportedUsers = (role) => {
       return res.data;
     },
     staleTime: 5 * 60 * 1000,
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: 'always',
   });
 };
 
@@ -101,6 +101,6 @@ export const useAllReportedUsers = () => {
       return res.data;
     },
     staleTime: 5 * 60 * 1000,
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: 'always',
   });
 };

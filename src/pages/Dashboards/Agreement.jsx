@@ -1,7 +1,7 @@
 const Agreement = ({ onClose }) => {
   return (
     <div className="fixed inset-0 bg-opacity-50 z-50 flex items-center justify-center ">
-      <div className="backdrop-blur-3xl p-8 shadow-lg max-w-3xl w-full h-[80vh] overflow-y-auto hide-scrollbar relative">
+      <div className="backdrop-blur-3xl p-8 shadow-lg max-w-3xl w-full h-[80vh] overflow-y-auto  relative">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 w-6 h-6 flex items-center justify-center rounded-full bg-red-500 text-white font-bold cursor-pointer"

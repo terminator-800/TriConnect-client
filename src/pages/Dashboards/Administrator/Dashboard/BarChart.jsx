@@ -82,6 +82,12 @@ const BarChart = () => {
         beginAtZero: true,
         ticks: {
           color: '#555',
+          stepSize: 1,
+          callback: function (value) {
+            if (Number.isInteger(value)) {
+              return value;
+            }
+          },
         },
         grid: {
           color: 'rgba(0,0,0,0.1)',

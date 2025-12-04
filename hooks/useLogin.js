@@ -13,7 +13,7 @@ export const useLogin = () => {
     [ROLE.BUSINESS_EMPLOYER]: `/${ROLE.BUSINESS_EMPLOYER}/dashboard`,
     [ROLE.INDIVIDUAL_EMPLOYER]: `/${ROLE.INDIVIDUAL_EMPLOYER}/dashboard`,
     [ROLE.MANPOWER_PROVIDER]: `/${ROLE.MANPOWER_PROVIDER}/dashboard`,
-    [ROLE.ADMINISTRATOR]: `/${ROLE.ADMINISTRATOR}/verification`,
+    [ROLE.ADMINISTRATOR]: `/${ROLE.ADMINISTRATOR}/dashboard`,
   };
 
   const login = useCallback(async ({ email, password }) => {

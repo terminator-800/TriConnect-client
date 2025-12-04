@@ -1,11 +1,13 @@
 import { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
 import api from '../api/axios';
 
 export const useLogout = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const logout = useCallback(async () => {
     setIsLoading(true);
@@ -14,19 +16,19 @@ export const useLogout = () => {
       const response = await api.post(`/logout`, {}, { withCredentials: true });
 
       if (response.status === 200) {
-        // Always clear fallback token in case cookies were blocked
         localStorage.removeItem('token');
+        queryClient.invalidateQueries(); // Invalidate all queries
         navigate('/login');
       }
     } catch (err) {
       setError(err.response?.data?.message || 'Logout failed. Please try again.');
-      // Optional: surface a toast/alert here if needed
       localStorage.removeItem('token');
+      queryClient.invalidateQueries(); // Invalidate all queries
     } finally {
       localStorage.removeItem('token');
       setIsLoading(false);
     }
-  }, [navigate]);
+  }, [navigate, queryClient]);
 
   return { logout, isLoading, error };
 };

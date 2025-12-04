@@ -1,7 +1,9 @@
 import Sidebar from '../Sidebar';
 import BarChart from './BarChart';
+import { useFetchChartData } from './chartData';
 
 const Dashboard = () => {
+  const { data } = useFetchChartData();
   return (
     <>
       <Sidebar />
@@ -20,10 +22,10 @@ const Dashboard = () => {
           <div className="flex flex-wrap gap-6 mt-8 justify-center md:justify-start">
             {/* Card Template */}
             {[
-              { title: 'Total Job Seekers', value: 0 },
-              { title: 'Total Employers', value: 0 },
-              { title: 'Total Agencies', value: 0 },
-              { title: 'Hired Job Seekers', value: 0 },
+              { title: 'Total Job Seekers', value: data?.summary?.totalJobseekersYear || 0 },
+              { title: 'Total Employers', value: data?.summary?.totalEmployersYear || 0 },
+              { title: 'Total Agencies', value: data?.summary?.totalAgenciesYear || 0 },
+              { title: 'Hired Job Seekers', value: data?.summary?.totalHiredYear || 0 },
             ].map((card) => (
               <div
                 key={card.title}

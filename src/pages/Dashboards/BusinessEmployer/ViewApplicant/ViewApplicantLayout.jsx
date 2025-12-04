@@ -172,13 +172,15 @@ const ViewApplicant = () => {
         </div>
 
         {/* Pagination */}
-        <div className="mt-10 mb-10">
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            setCurrentPage={setCurrentPage}
-          />
-        </div>
+        {profileData?.is_verified && (
+          <div className="mt-10 mb-10">
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              setCurrentPage={setCurrentPage}
+            />
+          </div>
+        )}
       </div>
 
       {/* Verification Form */}

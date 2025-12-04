@@ -12,6 +12,8 @@ export const usePendingJobPosts = () =>
       );
       return response.data;
     },
+    refetchOnWindowFocus: 'always',
+    staleTime: 1000 * 60,
   });
 
 export const useUnappliedJobPosts = () =>
@@ -44,6 +46,8 @@ export const useJobPostsByUser = (category) =>
       return response.data;
     },
     enabled: true,
+    refetchOnWindowFocus: 'always',
+    staleTime: 1000 * 60,
   });
 
 export const useVerifiedJobPosts = () =>
@@ -58,6 +62,8 @@ export const useVerifiedJobPosts = () =>
       );
       return response.data;
     },
+    refetchOnWindowFocus: 'always',
+    staleTime: 1000 * 60,
   });
 
 export const useEditJobPost = (role) => {

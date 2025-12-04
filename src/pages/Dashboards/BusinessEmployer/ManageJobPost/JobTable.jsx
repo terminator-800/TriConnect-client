@@ -26,7 +26,7 @@ const JobTable = ({ title, jobs, onStatusChange, onDelete, onViewJobDetails }) =
             <div
               key={job.post_id}
               className="flex justify-between px-4 py-2 border-b border-gray-300 items-center text-[#1F2937]"
-            > 
+            >
               <div className="w-1/4">{job.job_title}</div>
               <div className="w-1/5">{job.job_type}</div>
               <div className="w-1/5">{job.created_at}</div>
@@ -40,9 +40,7 @@ const JobTable = ({ title, jobs, onStatusChange, onDelete, onViewJobDetails }) =
                 ) : (
                   <StatusDropdown
                     status={job.jobpost_status}
-                    onChange={(status) =>
-                      onStatusChange({ jobPostId: job.post_id, status, job })
-                    }
+                    onChange={(status) => onStatusChange({ jobPostId: job.post_id, status, job })}
                   />
                 )}
                 <ActionMenu

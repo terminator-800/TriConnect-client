@@ -93,7 +93,7 @@ const Apply = ({ employer, onClose }) => {
     setValidationError('');
   };
 
-    const handleFileChange = (e) => {
+  const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
@@ -122,26 +122,32 @@ const Apply = ({ employer, onClose }) => {
     // Validation
     if (!formData.full_name.trim()) {
       setValidationError('Full name is required');
+      alert('Full name is required');
       return;
     }
     if (!formData.phone_number.trim()) {
       setValidationError('Phone number is required');
+      alert('Phone number is required');
       return;
     }
     if (!formData.email_address.trim()) {
       setValidationError('Email address is required');
+      alert('Email address is required');
       return;
     }
     if (!validateEmail(formData.email_address)) {
       setValidationError('Please enter a valid email address');
+      alert('Please enter a valid email address');
       return;
     }
     if (!formData.current_address.trim()) {
       setValidationError('Current address is required');
+      alert('Current address is required');
       return;
     }
     if (!formData.resume) {
       setValidationError('Resume is required');
+      alert('Resume is required');
       return;
     }
 
@@ -167,7 +173,7 @@ const Apply = ({ employer, onClose }) => {
   // Submitted Step
   if (currentStep === 'submitted') {
     return (
-      <div className="fixed inset-0 bg-opacity-40 flex items-center justify-center p-4 z-50 ml-55 mt-40">
+      <div className="fixed inset-0 bg-opacity-40 flex items-center justify-center p-4 z-50">
         <div className="backdrop-blur-2xl shadow-lg max-w-5xl w-full relative">
           <button
             onClick={onClose}
@@ -202,9 +208,9 @@ const Apply = ({ employer, onClose }) => {
   // Form Step
   if (currentStep === 'form') {
     return (
-      <div className="backdrop-blur-2xl w-full max-w-7xl border border-gray-300 shadow-2xl overflow-hidden max-[769px]:mx-4 max-[769px]:mt-4 ml-55 mt-20">
+      <div className="backdrop-blur-2xl w-full max-w-7xl border border-gray-300 shadow-2xl bg-white max-h-[90vh] flex flex-col">
         {/* Header */}
-        <div className="flex justify-between items-center p-6 max-[769px]:p-4">
+        <div className="flex justify-between items-center p-6 max-[769px]:p-4 shrink-0">
           <div>
             <h2 className="text-2xl font-bold text-gray-900">Personal Information</h2>
             <p className="text-sm text-gray-600">Please provide your contact information</p>
@@ -220,13 +226,13 @@ const Apply = ({ employer, onClose }) => {
         </div>
 
         {/* Content */}
-        <div className="p-8 max-[769px]:p-4 overflow-y-auto max-h-[80vh]">
+        <div className="p-8 max-[769px]:p-4 overflow-y-auto flex-1">
           {/* Error Message */}
-          {validationError && (
+          {/* {validationError && (
             <div className="p-4 bg-red-100 border border-red-400 rounded text-red-700 text-sm mb-6">
               ✕ {validationError}
             </div>
-          )}
+          )} */}
 
           <div className="mb-8">
             {/* Form Grid */}
@@ -246,6 +252,7 @@ const Apply = ({ employer, onClose }) => {
                   className="p-3 border border-gray-300 rounded bg-white outline-none focus:border-blue-500 disabled:bg-gray-200"
                   disabled={isSubmitting}
                   aria-label="Full name input"
+                  required
                 />
               </div>
 
@@ -264,6 +271,7 @@ const Apply = ({ employer, onClose }) => {
                   className="p-3 border border-gray-300 rounded bg-white outline-none focus:border-blue-500 disabled:bg-gray-200"
                   disabled={isSubmitting}
                   aria-label="Phone number input"
+                  required
                 />
               </div>
 
@@ -282,6 +290,7 @@ const Apply = ({ employer, onClose }) => {
                   className="p-3 border border-gray-300 rounded bg-white outline-none focus:border-blue-500 disabled:bg-gray-200"
                   disabled={isSubmitting}
                   aria-label="Email address input"
+                  required
                 />
               </div>
 
@@ -303,13 +312,14 @@ const Apply = ({ employer, onClose }) => {
                   className="p-3 border border-gray-300 rounded bg-white outline-none focus:border-blue-500 disabled:bg-gray-200"
                   disabled={isSubmitting}
                   aria-label="Current address input"
+                  required
                 />
               </div>
             </div>
           </div>
 
           {/* Upload Documents Section */}
-          <div className="mb-8">
+          <div>
             <h3 className="text-lg font-bold text-gray-900 mb-2">Upload Documents</h3>
             <p className="text-sm text-gray-600 mb-6">Attach your resume</p>
 
@@ -342,11 +352,12 @@ const Apply = ({ employer, onClose }) => {
                   id="file"
                   type="file"
                   name="files"
-                  accept="application/pdf"  // Only allow PDF
+                  accept="application/pdf" // Only allow PDF
                   className="hidden"
                   onChange={handleFileChange}
                   disabled={isSubmitting}
                   aria-label="File input for resume upload"
+                  required
                 />
                 {formData.resume && (
                   <p className="text-sm text-green-600 mt-2">✓ {formData.resume.name}</p>
@@ -372,18 +383,16 @@ const Apply = ({ employer, onClose }) => {
                   rows="5"
                   disabled={isSubmitting}
                   aria-label="Cover letter input"
+                  required
                 />
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Footer with Button */}
-        <div className="flex justify-center gap-3 p-6 max-[769px]:flex-col max-[769px]:p-4">
           <button
             onClick={handleContinue}
             disabled={isSubmitting}
-            className={`px-10 py-1 text-white font-semibold cursor-pointer transition ${
+            className={`px-10 py-1 pt-1 text-white font-semibold cursor-pointer transition ${
               isSubmitting
                 ? 'bg-blue-400 cursor-not-allowed'
                 : 'bg-blue-600 hover:bg-blue-500 cursor-not-allowed'
