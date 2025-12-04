@@ -1,291 +1,34 @@
-import React from 'react';
-
+import { useEmployerDashboard } from '../../../../../hooks/useEmployerDashboard';
+import { ROLE } from '../../../../../utils/role';
 const MainContent = () => {
-  const stats = [
-    { label: 'TOTAL APPLICANTS', value: 601, color: 'text-gray-800' },
-    { label: 'APPLIED', value: 35, color: 'text-blue-600' },
-    { label: 'HIRED', value: 92, color: 'text-green-600' },
-    { label: 'REJECTED', value: 8, color: 'text-red-600' },
-  ];
+  const { data = {}, isPending, error } = useEmployerDashboard(ROLE.BUSINESS_EMPLOYER);
 
-  const jobPosts = [
-    {
-      title: 'Construction Worker',
-      type: 'Contractual',
-      date: '2025-04-10',
-      applicants: 2,
-      status: 'Active',
-    },
-    {
-      title: 'Delivery Driver',
-      type: 'Long Term',
-      date: '2025-04-10',
-      applicants: 2,
-      status: 'Active',
-    },
-    {
-      title: 'Office Assistant',
-      type: 'Long Term',
-      date: '2025-04-10',
-      applicants: 2,
-      status: 'Active',
-    },
-    {
-      title: 'Cashier',
-      type: 'Short Term',
-      date: '2025-04-10',
-      applicants: 2,
-      status: 'Active',
-    },
-    {
-      title: 'Dishwasher',
-      type: 'Short Term',
-      date: '2025-04-10',
-      applicants: 2,
-      status: 'Active',
-    },
-    {
-      title: 'Graphics Designer',
-      type: 'Contractual',
-      date: '2025-04-10',
-      applicants: 2,
-      status: 'Active',
-    },
-    {
-      title: 'Software Developer',
-      type: 'Contractual',
-      date: '2025-04-10',
-      applicants: 2,
-      status: 'Active',
-    },
-    {
-      title: 'Construction Worker',
-      type: 'Contractual',
-      date: '2025-04-10',
-      applicants: 2,
-      status: 'Active',
-    },
-    {
-      title: 'Delivery Driver',
-      type: 'Long Term',
-      date: '2025-04-10',
-      applicants: 2,
-      status: 'Active',
-    },
-    {
-      title: 'Office Assistant',
-      type: 'Long Term',
-      date: '2025-04-10',
-      applicants: 2,
-      status: 'Active',
-    },
-    {
-      title: 'Cashier',
-      type: 'Short Term',
-      date: '2025-04-10',
-      applicants: 2,
-      status: 'Active',
-    },
-    {
-      title: 'Dishwasher',
-      type: 'Short Term',
-      date: '2025-04-10',
-      applicants: 2,
-      status: 'Active',
-    },
-    {
-      title: 'Graphics Designer',
-      type: 'Contractual',
-      date: '2025-04-10',
-      applicants: 2,
-      status: 'Active',
-    },
-    {
-      title: 'Software Developer',
-      type: 'Contractual',
-      date: '2025-04-10',
-      applicants: 2,
-      status: 'Active',
-    },
-    {
-      title: 'Construction Worker',
-      type: 'Contractual',
-      date: '2025-04-10',
-      applicants: 2,
-      status: 'Active',
-    },
-    {
-      title: 'Delivery Driver',
-      type: 'Long Term',
-      date: '2025-04-10',
-      applicants: 2,
-      status: 'Active',
-    },
-    {
-      title: 'Office Assistant',
-      type: 'Long Term',
-      date: '2025-04-10',
-      applicants: 2,
-      status: 'Active',
-    },
-    {
-      title: 'Cashier',
-      type: 'Short Term',
-      date: '2025-04-10',
-      applicants: 2,
-      status: 'Active',
-    },
-    {
-      title: 'Dishwasher',
-      type: 'Short Term',
-      date: '2025-04-10',
-      applicants: 2,
-      status: 'Active',
-    },
-    {
-      title: 'Graphics Designer',
-      type: 'Contractual',
-      date: '2025-04-10',
-      applicants: 2,
-      status: 'Active',
-    },
-    {
-      title: 'Software Developer',
-      type: 'Contractual',
-      date: '2025-04-10',
-      applicants: 2,
-      status: 'Active',
-    },
-  ];
+  const statsData = data.stats || {};
+  const jobPosts = data.recentJobPosts || [];
+  const applicants = data.recentApplicants || [];
 
-  const applicants = [
-    {
-      name: 'Alvin Sangco',
-      job: 'Construction Worker',
-      location: 'Cabadbaran City',
-      date: '2025-04-10',
-    },
-    {
-      name: 'Denesse Membrano',
-      job: 'Delivery Driver',
-      location: 'Cabadbaran City',
-      date: '2025-04-10',
-    },
-    {
-      name: 'Phenlay Azorcon',
-      job: 'Office Assistant',
-      location: 'Cabadbaran City',
-      date: '2025-04-10',
-    },
-    {
-      name: 'Samantha Ferrer',
-      job: 'Cashier',
-      location: 'Cabadbaran City',
-      date: '2025-04-10',
-    },
-    {
-      name: 'Lanilyn Mongado',
-      job: 'Dishwasher',
-      location: 'Cabadbaran City',
-      date: '2025-04-10',
-    },
-    {
-      name: 'Maureen Baroro',
-      job: 'Graphics Designer',
-      location: 'Cabadbaran City',
-      date: '2025-04-10',
-    },
-    {
-      name: 'Ayaka Dadivas',
-      job: 'Software Developer',
-      location: 'Cabadbaran City',
-      date: '2025-04-10',
-    },
-    {
-      name: 'Alvin Sangco',
-      job: 'Construction Worker',
-      location: 'Cabadbaran City',
-      date: '2025-04-10',
-    },
-    {
-      name: 'Denesse Membrano',
-      job: 'Delivery Driver',
-      location: 'Cabadbaran City',
-      date: '2025-04-10',
-    },
-    {
-      name: 'Phenlay Azorcon',
-      job: 'Office Assistant',
-      location: 'Cabadbaran City',
-      date: '2025-04-10',
-    },
-    {
-      name: 'Samantha Ferrer',
-      job: 'Cashier',
-      location: 'Cabadbaran City',
-      date: '2025-04-10',
-    },
-    {
-      name: 'Lanilyn Mongado',
-      job: 'Dishwasher',
-      location: 'Cabadbaran City',
-      date: '2025-04-10',
-    },
-    {
-      name: 'Maureen Baroro',
-      job: 'Graphics Designer',
-      location: 'Cabadbaran City',
-      date: '2025-04-10',
-    },
-    {
-      name: 'Ayaka Dadivas',
-      job: 'Software Developer',
-      location: 'Cabadbaran City',
-      date: '2025-04-10',
-    },
-    {
-      name: 'Alvin Sangco',
-      job: 'Construction Worker',
-      location: 'Cabadbaran City',
-      date: '2025-04-10',
-    },
-    {
-      name: 'Denesse Membrano',
-      job: 'Delivery Driver',
-      location: 'Cabadbaran City',
-      date: '2025-04-10',
-    },
-    {
-      name: 'Phenlay Azorcon',
-      job: 'Office Assistant',
-      location: 'Cabadbaran City',
-      date: '2025-04-10',
-    },
-    {
-      name: 'Samantha Ferrer',
-      job: 'Cashier',
-      location: 'Cabadbaran City',
-      date: '2025-04-10',
-    },
-    {
-      name: 'Lanilyn Mongado',
-      job: 'Dishwasher',
-      location: 'Cabadbaran City',
-      date: '2025-04-10',
-    },
-    {
-      name: 'Maureen Baroro',
-      job: 'Graphics Designer',
-      location: 'Cabadbaran City',
-      date: '2025-04-10',
-    },
-    {
-      name: 'Ayaka Dadivas',
-      job: 'Software Developer',
-      location: 'Cabadbaran City',
-      date: '2025-04-10',
-    },
-  ];
+  if (isPending) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div
+        className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded relative"
+        role="alert"
+      >
+        <strong className="font-bold">Error!</strong>
+        <span className="block sm:inline">
+          {' '}
+          {error.message || 'Failed to load dashboard data.'}
+        </span>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -293,19 +36,19 @@ const MainContent = () => {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10 text-left">
         <div className="bg-white shadow p-6  hover:shadow-md transition">
           <h3 className="text-sm font-medium text-gray-500 mb-2">TOTAL APPLICANTS</h3>
-          <p className="text-3xl font-bold text-gray-800">601</p>
+          <p className="text-3xl font-bold text-gray-800">{statsData.totalApplicants || 0}</p>
         </div>
         <div className="bg-white shadow p-6  hover:shadow-md transition">
           <h3 className="text-sm font-medium text-gray-500 mb-2">APPLIED</h3>
-          <p className="text-3xl font-bold text-blue-600">35</p>
+          <p className="text-3xl font-bold text-blue-600">{statsData.applied || 0}</p>
         </div>
         <div className="bg-white shadow p-6  hover:shadow-md transition">
           <h3 className="text-sm font-medium text-gray-500 mb-2">HIRED</h3>
-          <p className="text-3xl font-bold text-green-600">92</p>
+          <p className="text-3xl font-bold text-green-600">{statsData.hired || 0}</p>
         </div>
         <div className="bg-white shadow p-6  hover:shadow-md transition">
           <h3 className="text-sm font-medium text-gray-500 mb-2">REJECTED</h3>
-          <p className="text-3xl font-bold text-red-600">8</p>
+          <p className="text-3xl font-bold text-red-600">{statsData.rejected || 0}</p>
         </div>
       </div>
 
@@ -326,18 +69,28 @@ const MainContent = () => {
                 </tr>
               </thead>
               <tbody>
-                {jobPosts.map((job, i) => (
-                  <tr
-                    key={i}
-                    className=" hover:bg-gray-100 border-b border-[#E5E7EB] text-[#1F2937]"
-                  >
-                    <td className="p-3">{job.title}</td>
-                    <td className="p-3">{job.type}</td>
-                    <td className="p-3">{job.date}</td>
-                    <td className="p-3">{job.applicants}</td>
-                    <td className="p-3 text-blue-600 font-medium cursor-pointer">{job.status}</td>
+                {jobPosts.length > 0 ? (
+                  jobPosts.map((job) => (
+                    <tr
+                      key={job.job_post_id}
+                      className=" hover:bg-gray-100 border-b border-[#E5E7EB] text-[#1F2937]"
+                    >
+                      <td className="p-3">{job.job_title}</td>
+                      <td className="p-3">{job.job_type}</td>
+                      <td className="p-3">{job.created_at_formatted}</td>
+                      <td className="p-3">{job.applicant_count}</td>
+                      <td className="p-3 text-blue-600 font-medium cursor-pointer">
+                        {job.jobpost_status}
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="5" className="p-4 text-center text-gray-500">
+                      No recent job posts found.
+                    </td>
                   </tr>
-                ))}
+                )}
               </tbody>
             </table>
           </div>
@@ -357,17 +110,25 @@ const MainContent = () => {
                 </tr>
               </thead>
               <tbody>
-                {applicants.map((app, i) => (
-                  <tr
-                    key={i}
-                    className="border-b border-[#E5E7EB] hover:bg-gray-100 text-[#1F2937]"
-                  >
-                    <td className="p-3">{app.name}</td>
-                    <td className="p-3">{app.job}</td>
-                    <td className="p-3">{app.location}</td>
-                    <td className="p-3">{app.date}</td>
+                {applicants.length > 0 ? (
+                  applicants.map((app) => (
+                    <tr
+                      key={app.application_id}
+                      className="border-b border-[#E5E7EB] hover:bg-gray-100 text-[#1F2937]"
+                    >
+                      <td className="p-3">{app.applicant_name}</td>
+                      <td className="p-3">{app.job_title}</td>
+                      <td className="p-3">{app.location}</td>
+                      <td className="p-3">{app.applied_at_formatted}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="4" className="p-4 text-center text-gray-500">
+                      No recent applicants found.
+                    </td>
                   </tr>
-                ))}
+                )}
               </tbody>
             </table>
           </div>
