@@ -11,7 +11,7 @@ import RejectApplicant from '../../../../components/HireApplicant/RejectApplican
 const ChatHeader = ({ selectedUser }) => {
   const [showReportModal, setShowReportModal] = useState(false);
   const [showActionMenu, setShowActionMenu] = useState(false);
- const [showHireModal, setShowHireModal] = useState(false); 
+  const [showHireModal, setShowHireModal] = useState(false); 
   const [showRejectModal, setShowRejectModal] = useState(false);
   const { data: reportedUsers = [] } = useReportedUsers(ROLE.MANPOWER_PROVIDER);
 

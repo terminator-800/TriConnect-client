@@ -114,7 +114,8 @@ export const HireApplicantCard = ({ msg, isSender }) => {
   // React Query mutation for declining job offer
   const declineMutation = useMutation({
     mutationFn: async (offerData) => {
-      const response = await axios.post(
+      // Use PATCH to match acceptOffer, or POST if that's what your backend route expects
+      const response = await axios.patch(
         `${import.meta.env.VITE_API_URL}/${msg.receiver_role}/decline-offer`, 
         offerData,
         { withCredentials: true }
@@ -123,6 +124,7 @@ export const HireApplicantCard = ({ msg, isSender }) => {
     },
     onMutate: async (offerData) => {
       await queryClient.cancelQueries(['messages', conversation_id]);
+      await queryClient.cancelQueries(['conversations']);
       
       const previousMessages = queryClient.getQueryData(['messages', conversation_id]);
       
@@ -138,18 +140,26 @@ export const HireApplicantCard = ({ msg, isSender }) => {
       return { previousMessages };
     },
     onSuccess: (data) => {
+      console.log('Decline success:', data);
       setStatus('declined');
       
       queryClient.invalidateQueries(['messages', conversation_id]);
       queryClient.invalidateQueries(['conversations']);
+      
+      // Emit WebSocket event for decline
+      socket.emit('offer-declined', {
+        conversation_id,
+        message_id,
+        hire_status: 'rejected'
+      });
     },
     onError: (error, variables, context) => {
-      
       if (context?.previousMessages) {
         queryClient.setQueryData(['messages', conversation_id], context.previousMessages);
       }
       
       setStatus('error');
+      console.error('Decline error:', error.response?.data || error.message);
     },
     onSettled: () => {
       queryClient.invalidateQueries(['messages', conversation_id]);
@@ -170,14 +180,11 @@ export const HireApplicantCard = ({ msg, isSender }) => {
     acceptMutation.mutate(offerData);
   };
 
-  const handleDecline = () => {
+    const handleDecline = () => {
     const offerData = {
       job_title,
       employer_name,
-      full_name,
-      start_date,
-      end_date,
-      declined_at: new Date().toISOString(),
+      rejection_reason: 'Offer declined by applicant',
       message_id,
       conversation_id,
     };

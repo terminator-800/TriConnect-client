@@ -20,6 +20,8 @@ export default function NotificationsBell({ role }) {
   // USERS ONLY
   'JOB POST APPROVED': `/${role}/manage`,
   'NEW APPLICATION': `/${role}/view`,
+  'JOB OFFER CONFIRMATION': `/${role}/message`,
+  'JOB OFFER DECLINED': `/${role}/message`,
 };
 
   const navigate = useNavigate();

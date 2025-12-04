@@ -70,15 +70,14 @@ const FindAgency = () => {
       <>
         <Sidebar />
         <div className="relative min-h-screen bg-linear-to-b from-white to-cyan-400 pl-70 pr-10 pt-30">
-
-        <DisabledAccount 
-          contractData={{
-            employer: profileData.employer_name,
-            job_title: profileData.job_title,
-            start_date: profileData.contract_start_date,
-            end_date: profileData.contract_end_date,
-          }}
-        />
+          <DisabledAccount 
+            contractData={{
+              employer: profileData.employer_name,
+              job_title: profileData.job_title,
+              start_date: profileData.contract_start_date,
+              end_date: profileData.contract_end_date,
+            }}
+          />
         </div>
       </>
     );
