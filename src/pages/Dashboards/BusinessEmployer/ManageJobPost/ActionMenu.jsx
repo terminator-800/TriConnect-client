@@ -33,9 +33,10 @@ const ActionMenu = ({ isOpen, onToggle, onDeleteClick, onViewJobDetails }) => {
               View Job Details
             </li>
 
-            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer b border-b border-[#D8D9DB]">
+            {/* Temporary disabled this options because API not not returning applicants list just the count */}
+            {/* <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer b border-b border-[#D8D9DB]">
               View Applicants
-            </li>
+            </li> */}
 
             <li
               onClick={onDeleteClick}
