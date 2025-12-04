@@ -7,12 +7,17 @@ import ActionMenu from './ActionMenu';
 import icons from '../../../../assets/svg/Icons';
 import HireApplicant from '../../../../components/HireApplicant/HireApplicant'; 
 import RejectApplicant from '../../../../components/HireApplicant/RejectApplicant';
+import axios from 'axios';
 
 const ChatHeader = ({ selectedUser }) => {
   const [showReportModal, setShowReportModal] = useState(false);
   const [showActionMenu, setShowActionMenu] = useState(false);
   const [showHireModal, setShowHireModal] = useState(false); 
   const [showRejectModal, setShowRejectModal] = useState(false);
+
+  const [showAcceptEmployerModal, setShowAcceptEmployerModal] = useState(false);
+  const [showRejectEmployerModal, setShowRejectEmployerModal] = useState(false);
+
   const { data: reportedUsers = [] } = useReportedUsers(ROLE.MANPOWER_PROVIDER);
 
   const isUserReported = reportedUsers.includes(selectedUser?.sender_id);
@@ -33,22 +38,59 @@ const ChatHeader = ({ selectedUser }) => {
   selectedUser?.sender_name ||
   'Unknown';
 
-const initials = getInitials(fullName);
-
+  const initials = getInitials(fullName);
 
   const handleReportClick = () => {
     setShowActionMenu(false);
     setShowReportModal(true);
   };
 
-   const handleAcceptClick = () => {
-    setShowActionMenu(false);
-    setShowHireModal(true); 
+  const handleAcceptClick = async () => {
+  setShowActionMenu(false);
+    
+    // Accept Employer logic
+    if (selectedUser?.role === ROLE.BUSINESS_EMPLOYER || selectedUser?.role === ROLE.INDIVIDUAL_EMPLOYER) {
+      try {
+        await axios.post(`${import.meta.env.VITE_API_URL}/manpower-provider/accept-employer`, {
+          employerId: selectedUser.sender_id,        
+          conversationId: selectedUser.conversation_id,
+          referenceId: selectedUser.conversation_id,
+        },
+         {
+          withCredentials: true, // 🔥 IMPORTANT
+         });
+
+      } catch (err) {
+        console.error("Accept employer failed:", err);
+      }
+      return;
+    }
+
+    setShowHireModal(true);
   };
 
-  const handleDeclineClick = () => {
+
+  const handleDeclineClick = async () => {
     setShowActionMenu(false);
-    setShowRejectModal(true);
+
+    if (selectedUser?.role === ROLE.BUSINESS_EMPLOYER || selectedUser?.role === ROLE.INDIVIDUAL_EMPLOYER) {
+      try {
+        await axios.post(`${import.meta.env.VITE_API_URL}/manpower-provider/decline-employer`, {
+          employerId: selectedUser.sender_id,        
+          conversationId: selectedUser.conversation_id,
+          referenceId: selectedUser.conversation_id,
+        },
+         {
+          withCredentials: true, 
+         });
+
+      } catch (err) {
+        console.error("Decline employer failed:", err);
+      }
+      return;
+    }
+
+    setShowHireModal(true);
   };
 
   return (

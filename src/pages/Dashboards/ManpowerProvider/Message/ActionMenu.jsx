@@ -3,20 +3,20 @@ import { ROLE } from '../../../../../utils/role';
 
 const ActionMenu = ({ isOpen, onToggle, onReportClick, onAcceptClick, onDeclineClick, icons, userRole }) => {
 
-   const isEmployer = userRole === ROLE.BUSINESS_EMPLOYER || userRole === ROLE.INDIVIDUAL_EMPLOYER;
-    const reportLabel = isEmployer ? "Report Employer" : "Report Applicant";
-    const acceptLabel = isEmployer ? "Accept Employer" : "Accept Applicant";
-    const declineLabel = isEmployer ? "Decline Employer" : "Decline Applicant";
+  const isEmployer = userRole === ROLE.BUSINESS_EMPLOYER || userRole === ROLE.INDIVIDUAL_EMPLOYER;
+  const reportLabel = isEmployer ? "Report Employer" : "Report Applicant";
+  const acceptLabel = isEmployer ? "Accept Employer" : "Accept Applicant";
+  const declineLabel = isEmployer ? "Decline Employer" : "Decline Applicant";
 
-    const handleAcceptClick = () => {
-      onAcceptClick();
-      onToggle(false);
-    };
+  const handleAcceptClick = () => {
+    onAcceptClick();
+    onToggle(false);
+  };
 
-    const handleDeclineClick = () => {
-      onDeclineClick();
-      onToggle(false);
-    };
+  const handleDeclineClick = () => {
+    onDeclineClick();
+    onToggle(false);
+  };
 
   return (
     <>
