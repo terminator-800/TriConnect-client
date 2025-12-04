@@ -7,7 +7,7 @@ import ActionMenu from './ActionMenu';
 import HireApplicant from '../../../../components/HireApplicant/HireApplicant'; 
 import RejectApplicant from '../../../../components/HireApplicant/RejectApplicant';
 import icons from '../../../../assets/svg/Icons';
-
+import { useApplicants } from '../../../../../hooks/useApplicants';
 const ChatHeader = ({ selectedUser } ) => {
   const [showReportModal, setShowReportModal] = useState(false);
   const [showActionMenu, setShowActionMenu] = useState(false);
@@ -15,7 +15,12 @@ const ChatHeader = ({ selectedUser } ) => {
   const [showRejectModal, setShowRejectModal] = useState(false);
   
   const { data: reportedUsers = [] } = useReportedUsers(ROLE.BUSINESS_EMPLOYER);
+   const { data: applicants, isLoading, error } = useApplicants({
+      role: ROLE.BUSINESS_EMPLOYER,
+    });
 
+    console.log(applicants, "APPLICANTS IN CHAT HEADER");
+    
   const isUserReported = reportedUsers.includes(selectedUser?.sender_id);
 
   if (!selectedUser) {

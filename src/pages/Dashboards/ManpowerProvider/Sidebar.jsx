@@ -63,7 +63,7 @@ const Sidebar = () => {
           <li
             className={`${location.pathname.includes(`/${ROLE.MANPOWER_PROVIDER}/manage`) ? 'bg-gray-500' : ''} flex`}
           >
-            <img src={icons.find_agency} alt="" className="ml-5 w-[27px]" />
+            <img src={icons.manage_job_post} alt="" className="ml-5 w-[27px]" />
             <button
               onClick={() => navigate(`/${ROLE.MANPOWER_PROVIDER}/manage`)}
               className="text-black hover:text-gray-300 ml-3 bg-transparent border-none cursor-pointer p-2 font-medium"
@@ -71,18 +71,6 @@ const Sidebar = () => {
               Manage Job Post
             </button>
           </li>
-
-          {/* <li
-            className={`${location.pathname.includes(`/${ROLE.MANPOWER_PROVIDER}/create`) ? 'bg-gray-500' : ''} flex`}
-          >
-            <img src={icons.find_agency} alt="" className="ml-5 w-[27px]" />
-            <button
-              onClick={() => navigate(`/${ROLE.MANPOWER_PROVIDER}/create`)}
-              className="text-black hover:text-gray-300 ml-3 bg-transparent border-none cursor-pointer p-2 font-medium"
-            >
-              Create Job Post
-            </button>
-          </li> */}
 
           <li
             className={`${location.pathname.includes(`/${ROLE.MANPOWER_PROVIDER}/view`) ? 'bg-gray-500' : ''} flex`}
@@ -95,6 +83,32 @@ const Sidebar = () => {
               View Applicant
             </button>
           </li>
+
+            <li
+            className={`${location.pathname.includes(`/${ROLE.MANPOWER_PROVIDER}/create`) ? 'bg-gray-500' : ''} flex`}
+          >
+            <img src={icons.find_agency} alt="" className="ml-5 w-[27px]" />
+            <button
+              // onClick={() => navigate(`/${ROLE.MANPOWER_PROVIDER}/create`)}
+              className="text-black hover:text-gray-300 ml-3 bg-transparent border-none cursor-pointer p-2 font-medium"
+            >
+              View Requests
+            </button>
+          </li>
+
+          <li
+            className={`${location.pathname.includes(`/${ROLE.MANPOWER_PROVIDER}/create`) ? 'bg-gray-500' : ''} flex`}
+          >
+            <img src={icons.manage_teams} alt="" className="ml-5 w-[27px]" />
+            <button
+              // onClick={() => navigate(`/${ROLE.MANPOWER_PROVIDER}/create`)}
+              className="text-black hover:text-gray-300 ml-3 bg-transparent border-none cursor-pointer p-2 font-medium"
+            >
+              Manage Teams
+            </button>
+          </li>
+
+         
 
           <li
             className={`${location.pathname.includes(`/${ROLE.MANPOWER_PROVIDER}/message`) ? 'bg-gray-500' : ''} flex`}
