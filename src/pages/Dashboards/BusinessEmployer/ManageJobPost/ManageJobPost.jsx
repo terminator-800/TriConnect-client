@@ -129,6 +129,7 @@ const ManageJobPost = () => {
           data={state.statusChangeData}
           onClose={closeStatusModal}
           role={ROLE.BUSINESS_EMPLOYER}
+          postType={"job_post"}
         />
       )}
 

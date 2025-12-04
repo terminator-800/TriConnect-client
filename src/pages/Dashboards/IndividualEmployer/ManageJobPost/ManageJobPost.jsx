@@ -46,6 +46,7 @@ const ManageJobPost = () => {
         job_title: job.job_title,
         location: job.location,
         salary_range: job.salary_range,
+        postType: job.post_type,
       },
     });
   };
@@ -125,6 +126,7 @@ const ManageJobPost = () => {
           data={state.statusChangeData}
           onClose={closeStatusModal}
           role={ROLE.INDIVIDUAL_EMPLOYER}
+          postType={"job_post"}
         />
       )}
 
