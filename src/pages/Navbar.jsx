@@ -19,42 +19,46 @@ const Navbar = ({ userType }) => {
         <nav className="border-b border-gray-300 px-6 py-4 bg-white">
           <div className="flex justify-between items-center">
             {/* Logo */}
-            <Link to="/" className="font-bold text-blue-900 flex items-center gap-3">
+            <Link to="#home" className="font-bold text-blue-900 flex items-center gap-3">
               <img src={icons.logo_triconnect} alt="TriConnect logo" className="h-10" />
               TriConnect
             </Link>
 
             {/* Desktop Nav Links */}
             <div className="hidden md:flex gap-5">
-              <Link className="font-bold" to="#">
-                Features
-              </Link>
+              <a className="font-bold" href="#about_us">
+                About Us
+              </a>
               <span>|</span>
               <a href="#how_it_works" className="font-bold">
                 How it Works
               </a>
               <span>|</span>
-              <Link className="font-bold" to="#">
+              <a className="font-bold" href="#why_us">
                 Why Us
-              </Link>
+              </a>
               <span>|</span>
-              <Link className="font-bold" to="#">
-                Feedbacks
-              </Link>
+              <a className="font-bold" href="#testimonials">Feedbacks</a>
             </div>
 
             {/* Desktop Buttons */}
-            <div className="hidden md:flex">
-              <Link to="/login" className="text-blue-600 pl-3 p-1 pr-3 font-bold rounded m-2">
-                Login
-              </Link>
-              <Link
-                to="/register"
-                className="bg-blue-900 font-bold p-1 rounded-3xl pl-3 pr-3 text-white m-2"
-              >
-                Sign Up
-              </Link>
-            </div>
+          <div className="hidden md:flex items-center">
+            <Link
+              to="/login"
+              className="text-[#003479] px-1 py-1 font-bold m-2"
+            >
+              Login
+            </Link>
+
+            <span className="text-[#003479] font-bold ">|</span>
+
+            <Link
+              to="/register"
+              className="text-[#003479] px-1 py-1 font-bold m-2"
+            >
+              Sign Up
+            </Link>
+          </div>
 
             {/* Mobile Hamburger Button */}
             <button
@@ -68,26 +72,32 @@ const Navbar = ({ userType }) => {
           {/* Mobile Dropdown Menu */}
           {menuOpen && (
             <div className="flex flex-col items-center mt-4 space-y-4 md:hidden">
-              <Link className="font-bold" to="#">
-                Features
-              </Link>
+              <a className="font-bold" href="#about_us">
+                About Us
+              </a>
               <a href="#how_it_works" className="font-bold">
                 How it Works
               </a>
-              <Link className="font-bold" to="#">
+              <a className="font-bold" href="#why_us">
                 Why Us
-              </Link>
-              <Link className="font-bold" to="#">
+              </a>
+              <a className="font-bold" href="#testimonials">
                 Feedbacks
-              </Link>
+              </a>
 
               <div className="flex flex-col items-center">
-                <Link to="/login" className="text-blue-600 p-2 font-bold rounded">
+                <Link
+                  to="/login"
+                  className="text-[#003479] px-1 py-1 font-bold m-2"
+                >
                   Login
                 </Link>
-                <Link to="/register" className="bg-blue-900 font-bold p-2 rounded-3xl text-white">
+                <Link
+                  to="/register"
+                  className="text-[#003479] px-1 py-1 font-bold m-2"
+                >
                   Sign Up
-                </Link>
+              </Link>
               </div>
             </div>
           )}
@@ -106,7 +116,7 @@ const Navbar = ({ userType }) => {
 
             {/* Desktop Links */}
             <div className="hidden md:flex gap-5">
-              <Link className="font-bold">Features</Link>
+              <Link className="font-bold">About Us</Link>
               <span>|</span>
               <Link className="font-bold">How it Works</Link>
               <span>|</span>
@@ -116,16 +126,22 @@ const Navbar = ({ userType }) => {
             </div>
 
             {/* Desktop Buttons */}
-            <div className="hidden md:flex">
-              <Link to="/login" className="text-blue-600 pl-3 p-1 pr-3 font-bold rounded m-2">
-                Login
-              </Link>
-              <Link
-                to="/register"
-                className="bg-blue-900 font-bold p-1 rounded-3xl pl-3 pr-3 text-white m-2"
-              >
-                Sign Up
-              </Link>
+            <div className="hidden md:flex items-center">
+            <Link
+              to="/login"
+              className="text-[#003479] px-1 py-1 font-bold m-2"
+            >
+              Login
+            </Link>
+
+            <span className="text-[#003479] font-bold ">|</span>
+
+            <Link
+              to="/register"
+              className="text-[#003479] px-1 py-1 font-bold m-2"
+            >
+              Sign Up
+            </Link>
             </div>
 
             {/* Hamburger Icon (Visible below 768px) */}
@@ -140,16 +156,16 @@ const Navbar = ({ userType }) => {
           {/* Mobile Dropdown Menu (Visible below 768px) */}
           {menuOpen && (
             <div className="flex flex-col items-center mt-4 space-y-4 md:hidden">
-              <Link className="font-bold">Features</Link>
+              <Link className="font-bold">About Us</Link>
               <Link className="font-bold">How it Works</Link>
               <Link className="font-bold">Why Us</Link>
               <Link className="font-bold">Feedbacks</Link>
 
               <div className="flex flex-col items-center">
-                <Link to="/login" className="text-blue-600 p-2 font-bold rounded">
+                <Link to="/login" className="text-[#003479] p-2 font-bold rounded">
                   Login
                 </Link>
-                <Link to="/register" className="bg-blue-900 font-bold p-2 rounded-3xl text-white">
+                <Link to="/register" className="font-bold p-2 rounded-3xl text-[#003479]">
                   Sign Up
                 </Link>
               </div>
@@ -170,7 +186,7 @@ const Navbar = ({ userType }) => {
 
             {/* Desktop Links */}
             <div className="hidden md:flex gap-5">
-              <Link className="font-bold">Features</Link>
+              <Link className="font-bold">About Us</Link>
               <span>|</span>
               <Link className="font-bold">How it Works</Link>
               <span>|</span>
@@ -180,16 +196,22 @@ const Navbar = ({ userType }) => {
             </div>
 
             {/* Desktop Buttons */}
-            <div className="hidden md:flex">
-              <Link to="/login" className="text-blue-600 pl-3 p-1 pr-3 font-bold rounded m-2">
-                Login
-              </Link>
+            <div className="hidden md:flex items-center">
               <Link
-                to="/register"
-                className="bg-blue-900 font-bold p-1 rounded-3xl pl-3 pr-3 text-white m-2"
-              >
-                Sign Up
-              </Link>
+                  to="/login"
+                  className="text-[#003479] px-1 py-1 font-bold m-2"
+                >
+              Login
+            </Link>
+
+            <span className="text-[#003479] font-bold ">|</span>
+
+            <Link
+              to="/register"
+              className="text-[#003479] px-1 py-1 font-bold m-2"
+            >
+              Sign Up
+            </Link>
             </div>
 
             {/* Hamburger Icon (Visible below 768px) */}
@@ -204,7 +226,7 @@ const Navbar = ({ userType }) => {
           {/* Mobile Dropdown Menu (Visible below 768px) */}
           {menuOpen && (
             <div className="flex flex-col items-center mt-4 space-y-4 md:hidden">
-              <Link className="font-bold">Features</Link>
+              <Link className="font-bold">About Us</Link>
               <Link className="font-bold">How it Works</Link>
               <Link className="font-bold">Why Us</Link>
               <Link className="font-bold">Feedbacks</Link>
@@ -235,7 +257,7 @@ const Navbar = ({ userType }) => {
             {/* Desktop Nav Links */}
             <div className="hidden md:flex gap-5">
               <Link className="font-bold" to="#">
-                Features
+                About Us
               </Link>
               <span>|</span>
               <Link className="font-bold" to="#">
@@ -252,16 +274,14 @@ const Navbar = ({ userType }) => {
             </div>
 
             {/* Desktop Buttons */}
-            <div className="hidden md:flex">
-              <Link to="/login" className="text-blue-600 pl-3 p-1 pr-3 font-bold rounded m-2">
-                Login
-              </Link>
-              <Link
-                to="/register"
-                className="bg-blue-900 font-bold p-1 rounded-3xl pl-3 pr-3 text-white m-2"
-              >
-                Sign Up
-              </Link>
+            <div className="hidden md:flex items-center">
+            <Link to="/login" className="text-[#003479] px-1 py-1 font-bold m-2">
+              Login
+            </Link>
+            <span className="text-[#003479] font-bold ">|</span>
+            <Link to="/register" className="text-[#003479] px-1 py-1 font-bold m-2">
+            Sign Up
+            </Link>
             </div>
 
             {/* Mobile Hamburger */}
@@ -277,7 +297,7 @@ const Navbar = ({ userType }) => {
           {menuOpen && (
             <div className="flex flex-col items-center mt-4 space-y-4 md:hidden">
               <Link className="font-bold" to="#">
-                Features
+                About Us
               </Link>
               <Link className="font-bold" to="#">
                 How it Works
@@ -290,10 +310,10 @@ const Navbar = ({ userType }) => {
               </Link>
 
               <div className="flex flex-col items-center">
-                <Link to="/login" className="text-blue-600 p-2 font-bold rounded">
+                <Link to="/login" className="text-[#003479] p-2 font-bold rounded">
                   Login
                 </Link>
-                <Link to="/register" className="bg-blue-900 font-bold p-2 rounded-3xl text-white">
+                <Link to="/register" className=" font-bold p-2 rounded-3xl text-[#003479]">
                   Sign Up
                 </Link>
               </div>

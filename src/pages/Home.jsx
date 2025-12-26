@@ -2,13 +2,18 @@ import { Link } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import icons from '../assets/svg/Icons';
+import '../components/animation/animation.css';
+import useSlideOnScroll from '../../hooks/useSlideOnScroll';
 
 const Home = () => {
+
+  useSlideOnScroll(); 
+  
   return (
-    <div className="">
+    <div className="slide-in-left">
       <Navbar userType={'guest'} />
 
-      <section className="text-center">
+      <section id='home' className="text-center">
         <div
           className="justify-center items-center 
                   xl:mt-40 lg:mt-30 md:mt-20 sm:mt-30 mb-20 px-4 sm:px-8 md:px-10
@@ -37,7 +42,7 @@ const Home = () => {
       </section>
 
       {/* About Us */}
-      <section
+      <section id="about_us"
         className="
       bg-cyan-200 
       xl:pt-20 
@@ -70,7 +75,7 @@ const Home = () => {
       </section>
 
       {/* WHY CHOOSE TRICONNECT */}
-      <section id="how_it_works" className="mt-30">
+      <section id="why_us" className="mt-30 slide-left-on-scroll">
         <h1 className="text-3xl font-bold text-center">
           WHY CHOOSE <span className="text-[#003479]">TriConnect</span>{' '}
         </h1>
@@ -162,9 +167,9 @@ const Home = () => {
       </section>
 
       {/* STARTER / PREMIUM */}
-      <section>
+      <section id=''>
         <div
-          className="flex flex-col rounded-full justify-center items-center text-center
+          className="flex flex-col rounded-full justify-center items-center text-center slide-left-on-scroll
         xl:h-[70vh] 
         lg:h-[70vh] 
         md:h-[70vh] 
@@ -255,7 +260,7 @@ const Home = () => {
       </section>
 
       {/* How It Works */}
-      <section className="bg-cyan-100 py-16 px-8 md:px-20">
+      <section id='how_it_works' className="bg-cyan-100 py-16 px-8 md:px-20 slide-left-on-scroll">
         <h1 className="text-2xl md:text-3xl font-bold mb-10 text-gray-800">HOW IT WORKS</h1>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 text-center">
@@ -307,7 +312,7 @@ const Home = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="xl:mx-50 lg:mx-15 md:mx-10 sm:mx-10 mb-50">
+      <section id='testimonials' className="xl:mx-50 lg:mx-15 md:mx-10 sm:mx-10 mb-50 slide-left-on-scroll">
         {/* Header Section */}
         <div className="bg-white text-center flex flex-col justify-center items-center mt-60 mb-20">
           <h1 className="text-5xl max-[769px]:text-3xl font-bold mb-5 text-[#003479] ">

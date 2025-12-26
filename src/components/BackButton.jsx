@@ -5,6 +5,7 @@ const BackButton = ({ to = '/', className = '' }) => {
 
   return (
     <button
+      
       className={`${className}`}
       onClick={() => {
         navigate(to);

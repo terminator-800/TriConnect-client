@@ -57,7 +57,7 @@ const ChatHeader = ({ selectedUser }) => {
           referenceId: selectedUser.conversation_id,
         },
          {
-          withCredentials: true, // 🔥 IMPORTANT
+          withCredentials: true,
          });
 
       } catch (err) {

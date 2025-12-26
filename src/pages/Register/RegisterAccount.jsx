@@ -6,6 +6,8 @@ import BackButton from '../../components/BackButton';
 import axios from 'axios';
 import Navbar from '../Navbar';
 import VerifyAccount from '../../components/VerifyAccount';
+import icons from '../../assets/svg/Icons';
+import '../../components/animation/animation.css';
 
 const RegisterAccount = () => {
   const { mutate: resendVerification, isLoading: isResending } = useResendVerification();
@@ -15,6 +17,8 @@ const RegisterAccount = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isRegistering, setIsRegistering] = useState(false);
   const individual = 'individual';
@@ -31,61 +35,61 @@ const RegisterAccount = () => {
     setIsRegistering(true);
 
     try {
-      if (accountType === 'employer') {
-        if (type === business) {
-          try {
-            const data = {
-              email: email,
-              password: password,
-              role: ROLE.BUSINESS_EMPLOYER,
-            };
-            const businessRes = await axios.post(
-              `${import.meta.env.VITE_API_URL}/register/${ROLE.BUSINESS_EMPLOYER}`,
-              data
-            );
-            if (businessRes.status === 201) {
-              // In handleRegister
-              navigate('/register/employer/business/account/verify', { state: { email } });
-              // alert("Business employer account created successfully");
-            } else {
-              alert('Business employer account creation failed');
-            }
-          } catch (error) {
-            if (error.response && error.response.status === 409) {
-              setShowResend(true);
-              alert('Email already exists. Would you like to resend the verification email?');
-            } else {
-              alert('Account creation failed');
-            }
-          }
-        } else if (type === individual) {
-          try {
-            const data = {
-              email: email,
-              password: password,
-              role: ROLE.INDIVIDUAL_EMPLOYER,
-            };
-            const individualRes = await axios.post(
-              `${import.meta.env.VITE_API_URL}/register/${ROLE.INDIVIDUAL_EMPLOYER}`,
-              data
-            );
+      // if (accountType === 'employer') {
+      //   if (type === business) {
+      //     try {
+      //       const data = {
+      //         email: email,
+      //         password: password,
+      //         role: ROLE.BUSINESS_EMPLOYER,
+      //       };
+      //       const businessRes = await axios.post(
+      //         `${import.meta.env.VITE_API_URL}/register/${ROLE.BUSINESS_EMPLOYER}`,
+      //         data
+      //       );
+      //       if (businessRes.status === 201) {
+      //         // In handleRegister
+      //         navigate('/register/employer/business/account/verify', { state: { email } });
+      //         // alert("Business employer account created successfully");
+      //       } else {
+      //         alert('Business employer account creation failed');
+      //       }
+      //     } catch (error) {
+      //       if (error.response && error.response.status === 409) {
+      //         setShowResend(true);
+      //         alert('Email already exists. Would you like to resend the verification email?');
+      //       } else {
+      //         alert('Account creation failed');
+      //       }
+      //     }
+      //   } else if (type === individual) {
+      //     try {
+      //       const data = {
+      //         email: email,
+      //         password: password,
+      //         role: ROLE.INDIVIDUAL_EMPLOYER,
+      //       };
+      //       const individualRes = await axios.post(
+      //         `${import.meta.env.VITE_API_URL}/register/${ROLE.INDIVIDUAL_EMPLOYER}`,
+      //         data
+      //       );
 
-            if (individualRes.status === 201) {
-              // alert("Individual employer account created successfully");
-              navigate('/register/employer/business/account/verify', { state: { email } });
-            } else {
-              alert('Individual employer account creation failed');
-            }
-          } catch (error) {
-            if (error.response && error.response.status === 409) {
-              setShowResend(true);
-              alert('Email already exists. Would you like to resend the verification email?');
-            } else {
-              alert('Account creation failed');
-            }
-          }
-        }
-      } else {
+      //       if (individualRes.status === 201) {
+      //         // alert("Individual employer account created successfully");
+      //         navigate('/register/employer/business/account/verify', { state: { email } });
+      //       } else {
+      //         alert('Individual employer account creation failed');
+      //       }
+      //     } catch (error) {
+      //       if (error.response && error.response.status === 409) {
+      //         setShowResend(true);
+      //         alert('Email already exists. Would you like to resend the verification email?');
+      //       } else {
+      //         alert('Account creation failed');
+      //       }
+      //     }
+      //   }
+      // } else {
         try {
           const data = {
             email: email,
@@ -97,11 +101,6 @@ const RegisterAccount = () => {
             data
           );
           if (res.status === 201) {
-            // alert(
-            //   accountType === "jobseeker"
-            //     ? "Jobseeker account created successfully"
-            //     : "Manpower Provider account created successfully"
-            // );
             navigate(`/register/${accountType}/verify`, { state: { email } });
           } else {
             alert('Account creation failed');
@@ -114,44 +113,49 @@ const RegisterAccount = () => {
             alert('Account creation failed');
           }
         }
-      }
+      // }
     } catch (error) {
       if (error.response && error.response.status === 409) {
       } else {
         alert('Account creation failed');
       }
     } finally {
-      setIsRegistering(false); // stop loading
+      setIsRegistering(false);
     }
   };
 
   return (
     <>
       <Navbar userType={'register'} />
-      <div className="flex justify-center items-center h-screen bg-linear-to-b from-white to-cyan-400 flex-col">
-        {type === business || type === individual ? (
-          <h1 className="font-bold text-3xl text-left mb-5">
-            Create an account as (
-            {type === business ? 'Business Type Employer' : 'Individual Type Employer'})
-          </h1>
-        ) : (
-          <h1 className="font-bold text-2xl text-left mb-5">
-            Create an account as (
-            {accountType === 'jobseeker'
-              ? 'Job Seeker'
-              : accountType === 'manpower-provider'
-                ? 'Manpower Provider'
-                : ''}
-            )
-          </h1>
-        )}
+      <div className="slide-in-left flex justify-center items-center h-screen flex-col">
+        <div className="pt-20 pb-20 pl-15 pr-15 rounded-2xl max-w-4xl flex flex-col bg-[rgba(94,209,214,0.1)] shadow-xl">
 
-        <div className="border pt-10 pb-10 pl-15 pr-15 rounded-md flex flex-col bg-white max-[769px]:mx-15">
+          <img className='w-15 h-15 mx-auto mb-5' src={icons.account_creation} alt="" />
+
+          <div className='flex flex-col items-center'>
+            <h1 className="font-bold text-2xl text-left text-[#1E293B]">
+                Create Account as  
+                {accountType === 'jobseeker' ? ' Job Seeker'
+                  : 
+                accountType === 'manpower-provider' ? ' Manpower Provider'
+                  :
+                accountType === 'business-employer' ? ' Business Employer'
+                  :
+                accountType === 'individual-employer' ? ' Individual Employer'
+                  :
+                ''}
+                
+            </h1>
+            <span className='text-[#64748B] mb-10'>
+              Fill in your details to get started 
+            </span>
+          </div>
+        
           <form
             onSubmit={handleRegister}
-            className="flex  rounded-md bg-white flex-col xl:w-3xl lg:w-2xl md:w-md"
+            className="flex rounded-md flex-col"
           >
-            <label htmlFor="email" className="mt-2 font-bold ">
+            <label htmlFor="email" className="mt-2 font-bold text-[#334155]">
               Email Address
             </label>
             <input
@@ -162,44 +166,70 @@ const RegisterAccount = () => {
               id="name"
               type="email"
               placeholder="Enter your email address"
-              className="outline-none border border-gray-400 rounded p-1 pl-3"
+              className="outline-none border border-[#E2E8F0] py-2 pl-5 h-auto text-sm rounded-lg text-[#94A3B8] mb-5 bg-white"
             />
 
-            <label htmlFor="password" className="mt-2 font-bold">
+           {/* Password */}
+            <label htmlFor="password" className="mt-2 font-bold text-[#334155]">
               Enter password
             </label>
-            <input
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              required
-              type="password"
-              placeholder="Enter your password"
-              className="outline-none border border-gray-400 rounded p-1 pl-3"
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your password"
+                className="outline-none border border-[#E2E8F0] py-2 pl-5 pr-10 h-auto text-sm rounded-lg text-[#94A3B8] mb-5 bg-white w-full"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-2 top-1/3 -translate-y-1/2 flex items-center justify-center cursor-pointer"
+              >
+                <img
+                  src={showPassword ? icons.hide_password : icons.show_password}
+                  alt="toggle password visibility"
+                  className="w-5 h-5"
+                />
+              </button>
+            </div>
 
-            <label htmlFor="confirmpassword" className="mt-2 font-bold">
+            {/* Confirm Password */}
+            <label htmlFor="confirmpassword" className="mt-2 font-bold text-[#334155]">
               Confirm password
             </label>
-            <input
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              value={confirmPassword}
-              required
-              type="password"
-              placeholder="Enter your password again"
-              className="outline-none border border-gray-400 rounded p-1 pl-3"
-            />
+            <div className="relative">
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Enter your password again"
+                className="outline-none border border-[#E2E8F0] py-2 pl-5 pr-10 h-auto text-sm rounded-lg text-[#94A3B8] mb-5 bg-white w-full"
+              />
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                className="absolute right-2 top-1/3 -translate-y-1/2 flex items-center justify-center cursor-pointer"
+              >
+                <img
+                  src={showConfirmPassword ? icons.hide_password : icons.show_password}
+                  alt="toggle password visibility"
+                  className="w-5 h-5"
+                />
+              </button>
+            </div>
 
             <div className="flex justify-center mt-5 gap-10">
               <button
                 type="submit"
-                disabled={isRegistering} // ✅ disable while registering
-                className={`bg-blue-900 text-white pt-1 pb-1 pl-10 pr-10 rounded-3xl w-50 text-lg ${
+                disabled={isRegistering} 
+                className={`bg-[#2563EB] text-white pt-1 pb-1 pl-10 pr-10 w-50 text-sm ${
                   isRegistering
-                    ? 'cursor-not-allowed bg-gray-400' // disabled style
-                    : 'hover:bg-blue-800 cursor-pointer' // normal style
+                    ? 'cursor-not-allowed bg-gray-400' 
+                    : 'hover:bg-blue-800 cursor-pointer'
                 }`}
               >
-                {isRegistering ? 'Registering...' : 'Proceed'}
+                {isRegistering ? 'Registering...' : 'Create Account'}
               </button>
             </div>
           </form>
@@ -244,11 +274,15 @@ const RegisterAccount = () => {
           )}
 
           <div className="flex justify-center mt-5 gap-10">
-            <BackButton
-              to="/register"
-              className="bg-white text-blue-900 pt-1 pb-1 pl-10 pr-10 rounded-3xl w-50 text-2xl cursor-pointer border border-blue-900"
-            />
+            <button
+              className="flex gap-2 items-center cursor-pointer"
+              onClick={() => navigate(-1)} 
+            >
+              <img src={icons.back_arrow} alt="back" className="w-5 h-5" />
+              <span>Back</span>
+            </button>
           </div>
+
         </div>
       </div>
     </>

@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom';
+import useSlideOnScroll from '../../hooks/useSlideOnScroll';
 
 const Footer = () => {
+
+  useSlideOnScroll(); 
+
   return (
-    <footer className="bg-white text-black text-center py-6 border-t border-gray-300">
+    <footer className="bg-white text-black text-center py-6 border-t border-gray-300 slide-left-on-scroll">
       {/* Top links */}
       <div className="flex justify-center space-x-4 mb-2">
         <Link to="#" className="hover:underline font-semibold">

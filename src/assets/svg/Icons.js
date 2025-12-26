@@ -14,11 +14,7 @@ import job_post_verification from './job_post_verification.svg';
 import verified_job_post from './verified_job_post.svg';
 import reported_user from './reported_user.svg';
 import user_feedback from './user_feedback.svg';
-import select_jobseeker from './select_jobseeker.svg';
-import select_employer from './select_employer.svg';
-import select_manpower_provider from './select_manpower_provider.svg';
 import landing_page from './landing_page.svg';
-import login from './login.svg';
 import attach_file from './attach_file.svg';
 import logo_triconnect from './logo_triconnect.svg';
 import not_verified from './not_verified.svg';
@@ -36,7 +32,6 @@ import custom_tools_for_everyone from './custom_tools_for_everyone.svg';
 import secure_reliable from './secure_reliable.svg';
 import user_friendly_interface from './user_friendly_interface.svg';
 import check from './check.svg';
-import background_blur from './background_blur.svg';
 import bg_modal_blur from './bg_modal_blur.svg';
 import close_view_job_post from './close_view_job_post.svg';
 import three_dots_vertical from './three_dots_vertical.svg';
@@ -55,6 +50,18 @@ import resume_download from './resume_download.svg';
 import download_pdf_arrow from './download_pdf_arrow.svg';
 import hired_job_seeker from './hired_job_seeker.svg';
 import manage_teams from './manage_teams.svg';
+import jobseeker from './jobseeker.svg';
+import individual_employer from './individual_employer.svg';
+import business_employer from './business_employer.svg';
+import manpower_provider from './manpower_provider.svg';
+import account_creation from './account_creation.svg';
+import show_password from './show_password.svg';
+import hide_password from './hide_password.svg';
+import back_arrow from './back_arrow.svg';
+import login_3_people from './login_3_people.svg';
+import login_logo from './login_logo.svg';
+import circle from './circle.svg';
+import tool_login from './tool_login.svg';
 
 const icons = {
   find_agency,
@@ -73,11 +80,7 @@ const icons = {
   verified_job_post,
   reported_user,
   user_feedback,
-  select_jobseeker,
-  select_employer,
-  select_manpower_provider,
   landing_page,
-  login,
   attach_file,
   logo_triconnect,
   not_verified,
@@ -95,7 +98,6 @@ const icons = {
   secure_reliable,
   user_friendly_interface,
   check,
-  background_blur,
   bg_modal_blur,
   close_view_job_post,
   three_dots_vertical,
@@ -114,6 +116,18 @@ const icons = {
   download_pdf_arrow,
   hired_job_seeker,
   manage_teams,
+  jobseeker,
+  individual_employer,
+  business_employer,
+  manpower_provider,
+  account_creation,
+  show_password,
+  hide_password,
+  back_arrow,
+  login_3_people,
+  login_logo,
+  circle,
+  tool_login
 };
 
 export default icons;

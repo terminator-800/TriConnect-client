@@ -1,0 +1,62 @@
+/* FLOAT LEFT AND RIGHT */
+@keyframes float {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-20px);
+  }
+}
+
+.float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* SLIDE LEFT */
+@keyframes slideInLeft {
+  from {
+    transform: translateX(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-left {
+  animation: slideInLeft 0.6s ease-out forwards;
+}
+
+/* ORBIT SMALL */
+@keyframes floatOrbit {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(8px, -8px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+.float-orbit {
+  animation: floatOrbit 5s ease-in-out infinite;
+}
+
+/* SLIDE LEFT ON SCROLL */
+/* Initial state: hidden and shifted right */
+.slide-left-on-scroll {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: all 0.6s ease-out;
+}
+
+/* When visible: fully shown and in position */
+.slide-left-on-scroll.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+

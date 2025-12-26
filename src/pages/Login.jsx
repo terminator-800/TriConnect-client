@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useLogin } from '../../hooks/useLogin';
 import Navbar from './Navbar';
 import icons from '../assets/svg/Icons';
+import '../components/animation/animation.css'
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -21,24 +22,71 @@ const Login = () => {
     }
   };
 
+
+
+
   return (
     <>
       <Navbar userType={'login'} />
-      <div className="flex justify-center items-center h-[110vh] max-[769px]:h-[190vh] max-[769px]:gap-5 bg-linear-to-b from-white to-cyan-400">
+      <div className="slide-in-left flex justify-center items-center h-[110vh] max-[769px]:h-[190vh] max-[769px]:gap-5 bg-linear-to-b from-white to-[#00C2CB]">
         <div className="flex xl:flex-row max-[769px]:flex-col">
-          <div className="flex flex-col items-center xl:w-xl lg:w-lg md:w-md sm:w-sm h-[576px] lg:ml-20 bg-linear-to-b from-cyan-400 to-gray-100 p-15">
-            <div>
-              <h1 className="text-white text-2xl font-bold mb-2">Welcome to TriConnect Portal</h1>
-              <p className="text-blue-600 text-left mb-4">Login to access your account</p>
-            </div>
 
-            <img src={icons.login} alt="login_person" className="w-95 " />
+          <div className="relative flex flex-col items-center xl:w-xl lg:w-lg md:w-md sm:w-sm h-[576px] lg:ml-20 bg-[#00C2CB] p-15 overflow-hidden">
+          
+            {/* Three people image - can overflow */}
+            <img 
+              src={icons.login_3_people} 
+              alt="login_3_people" 
+              className="w-[500px] top-20 relative z-0 -mt-10 ml-10" 
+            />
+
+            {/* Logo - on top */}
+            <img 
+              src={icons.login_logo} 
+              alt="login_logo" 
+              className="w-20 absolute top-76 right-64 z-20"
+              
+            />
+
+            <img
+              src={icons.circle}
+              alt="circle"
+              className="w-50 absolute top-113 right-20 z-20"
+              style={{
+                animation: 'float 4s ease-in-out infinite',
+              }}
+            />
+
+             <img
+              src={icons.circle}
+              alt="circle"
+              className="float-orbit w-40 absolute top-[-30px] right-100 z-20"
+            />
+
+            <img
+              src={icons.circle}
+              alt="circle"
+              className="float w-60 absolute top-25 right-115"
+            />
+
+             <img
+              src={icons.circle}
+              alt="circle"
+              className="float-orbit w-80 absolute top-90 right-90"
+            />
+
+             <img
+              src={icons.tool_login}
+              alt="tool"
+              className="float w-150 absolute top-[-150px] right-[-300px]"
+            />
           </div>
 
-          <div>
+
+          <div className='bg-[#00C2CB]'>
             <form
               onSubmit={handleLogin}
-              className="flex flex-col p-15 bg-white xl:w-xl lg:w-lg sm:w-sm md:w-md h-[576px]"
+              className="flex flex-col p-15 bg-white xl:w-xl lg:w-lg sm:w-sm md:w-md h-[576px] rounded-l-3xl"
             >
               <h1 className="font-bold text-2xl text-blue-900">Login</h1>
               <p className="text-blue-900 mb-10 mt-2">Enter your account details</p>
