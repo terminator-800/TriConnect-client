@@ -10,11 +10,13 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const { login, isLoading } = useLogin();
+  const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      await login({ email, password });
+      await login({ email, password, rememberMe });
     } catch (error) {
       alert('Login failed: ' + (error.response?.data?.message || 'Unknown error'));
       setEmail('');
@@ -22,30 +24,25 @@ const Login = () => {
     }
   };
 
-
-
-
   return (
     <>
       <Navbar userType={'login'} />
-      <div className="slide-in-left flex justify-center items-center h-[110vh] max-[769px]:h-[190vh] max-[769px]:gap-5 bg-linear-to-b from-white to-[#00C2CB]">
-        <div className="flex xl:flex-row max-[769px]:flex-col">
+      <div className="slide-in-left flex justify-center items-center h-[110vh] max-[769px]:h-[190vh] max-[769px]:gap-5 bg-linear-to-b from-white to-[#00C2CB] overflow-x-hidden">
+        <div className="flex max-[769px]:flex-col">
 
-          <div className="relative flex flex-col items-center xl:w-xl lg:w-lg md:w-md sm:w-sm h-[576px] lg:ml-20 bg-[#00C2CB] p-15 overflow-hidden">
-          
+          <div className="relative flex flex-col items-center 
+            xl:max-w-xl 
+            lg:max-w-lg lg:ml-20 
+            md:max-w-md md:ml-0
+            max-[769px]:max-w-full max-[769px]:w-full
+            bg-[#00C2CB] p-15 overflow-hidden">          
             {/* Three people image - can overflow */}
             <img 
               src={icons.login_3_people} 
               alt="login_3_people" 
-              className="w-[500px] top-20 relative z-0 -mt-10 ml-10" 
-            />
-
-            {/* Logo - on top */}
-            <img 
-              src={icons.login_logo} 
-              alt="login_logo" 
-              className="w-20 absolute top-76 right-64 z-20"
-              
+              className="w-[500px] top-20 relative z-0 -mt-10 ml-10
+                max-[1024px]:w-full
+              " 
             />
 
             <img
@@ -83,63 +80,112 @@ const Login = () => {
           </div>
 
 
-          <div className='bg-[#00C2CB]'>
-            <form
-              onSubmit={handleLogin}
-              className="flex flex-col p-15 bg-white xl:w-xl lg:w-lg sm:w-sm md:w-md h-[576px] rounded-l-3xl"
-            >
-              <h1 className="font-bold text-2xl text-blue-900">Login</h1>
-              <p className="text-blue-900 mb-10 mt-2">Enter your account details</p>
-              <label htmlFor="email" className="sr-only">
-                Email
+          <div className="bg-[#00C2CB] 
+            max-[769px]:w-full 
+            max-[769px]:flex max-[769px]:justify-center">    
+           <form
+            onSubmit={handleLogin}
+            className="flex flex-col p-15 bg-white 
+              xl:w-xl xl:rounded-l-3xl
+              lg:w-lg lg:rounded-l-3xl
+              md:w-md md:rounded-l-3xl
+              max-[769px]:w-full max-[769px]:rounded-3xl max-[769px]:mx-4
+              h-[576px]"
+          >
+              <h1 className="font-bold text-3xl text-[#1E293B]">Welcome to <span className='text-[#003479]'>TriConnect!</span></h1>
+              <p className="text-[#64748B] mb-10 mt-2">Login your account details</p>
+
+              <label htmlFor="email" className="text-[#334155] font-bold">
+                Username
               </label>
+
               <input
                 type="email"
                 id="email"
                 name="email"
-                placeholder="Email"
+                placeholder="Enter your username"
                 required
-                className="border rounded outline-none p-2 mb-5 border-gray-400"
+                className="border rounded outline-none px-5 py-2 mb-5 border-[#E2E8F0] text-sm bg-[rgba(94,209,214,0.1)]"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
 
-              <label htmlFor="password" className="sr-only">
+              <label htmlFor="password" className="text-[#334155] font-bold">
                 Password
               </label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                placeholder="Password"
-                required
-                className="border rounded outline-none p-2 mb-5 border-gray-400"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <button
-                type="submit"
-                disabled={isLoading}
-                className="bg-blue-900 text-white mt-2 mb-2 rounded pt-2 pb-2 cursor-pointer"
-              >
-                {isLoading ? 'Signing in...' : 'Login'}
-              </button>
-              <button
-                type="button"
-                className="text-gray-600 self-start mt-1 hover:text-blue-600 cursor-pointer "
-                onClick={() => navigate('/forgot-password')}
-              >
-                Forgot password?
-              </button>
 
-              <div className="mt-25">
-                <p className="text-gray-600">
+              <div className="relative">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  id="password"
+                  name="password"
+                  placeholder="Enter your password"
+                  required
+                  className="border rounded outline-none px-5 py-2 pr-12 mb-5 border-[#E2E8F0] text-sm bg-[rgba(94,209,214,0.1)] w-full"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-4 top-1/3 -translate-y-1/2 cursor-pointer"
+                >
+                  <img
+                    src={showPassword ? icons.hide_password : icons.show_password}
+                    alt="toggle password"
+                    className="w-5 h-5"
+                  />
+                </button>
+              </div>
+              
+              {/* REMEMBER ME */}
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <input
+                    id="rememberMe"
+                    type="checkbox"
+                    checked={rememberMe}
+                    onChange={(e) => setRememberMe(e.target.checked)}
+                    className="cursor-pointer accent-blue-900 hover:accent-[#2563EB]"
+                  />
+                  <label
+                    htmlFor="rememberMe"
+                    className="text-sm text-[#64748B] hover:text-[#2563EB] cursor-pointer "
+                  >
+                    Remember me
+                  </label>
+                </div>
+              
+                {/* FORGOT PASSWORD */}
+                <button
+                  type="button"
+                  className="text-[#64748B] hover:text-[#2563EB] cursor-pointer text-sm"
+                  onClick={() => navigate('/forgot-password')}
+                >
+                  Forgot password?
+                </button>
+              </div>
+
+              
+             {/* LOGIN BUTTON */}
+              <div className="mt-10 flex items-center flex-col">
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="hover:bg-[#2563EB] bg-blue-900 text-white mt-2 pt-2 pb-2 cursor-pointer w-full max-w-[200px] mb-5"
+                >
+                  {isLoading ? 'Signing in...' : 'Login'}
+                </button>
+
+                <p className="text-gray-600 text-sm">
                   Don't have an account?
-                  <Link to={'/register'} className="text-blue-900 cursor-pointer ml-3">
+                  <Link to={'/register'} className="hover:text-[#2563EB] text-blue-900 cursor-pointer ml-3">
                     Sign up
                   </Link>
                 </p>
               </div>
+
             </form>
           </div>
         </div>

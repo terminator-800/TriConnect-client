@@ -3,13 +3,29 @@ import { Link } from 'react-router-dom';
 import { ROLE } from '../../utils/role';
 import NotificationBell from '../components/Notification/NotificationBell';
 import icons from '../assets/svg/Icons';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = ({ userType }) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
+  };
+
+  const handleScroll = (sectionId) => {
+    // If not on home page, go there first
+    if (window.location.pathname !== '/') {
+      navigate('/'); // navigate to home
+      setTimeout(() => {
+        const el = document.getElementById(sectionId);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 50); // small delay to wait for DOM
+    } else {
+      const el = document.getElementById(sectionId);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
@@ -114,16 +130,36 @@ const Navbar = ({ userType }) => {
               TriConnect
             </Link>
 
-            {/* Desktop Links */}
-            <div className="hidden md:flex gap-5">
-              <Link className="font-bold">About Us</Link>
-              <span>|</span>
-              <Link className="font-bold">How it Works</Link>
-              <span>|</span>
-              <Link className="font-bold">Why Us</Link>
-              <span>|</span>
-              <Link className="font-bold">Feedbacks</Link>
-            </div>
+            {/* Desktop Nav Links */}
+              <div className="hidden md:flex gap-5">
+                <button
+                  className="font-bold cursor-pointer"
+                  onClick={() => handleScroll('about_us')}
+                >
+                  About Us
+                </button>
+                <span>|</span>
+                <button
+                  className="font-bold cursor-pointer"
+                  onClick={() => handleScroll('how_it_works')}
+                >
+                  How it Works
+                </button>
+                <span>|</span>
+                <button
+                  className="font-bold cursor-pointer"
+                  onClick={() => handleScroll('why_us')}
+                >
+                  Why Us
+                </button>
+                <span>|</span>
+                <button
+                  className="font-bold cursor-pointer"
+                  onClick={() => handleScroll('testimonials')}
+                >
+                  Feedbacks
+                </button>
+              </div>
 
             {/* Desktop Buttons */}
             <div className="hidden md:flex items-center">
@@ -156,10 +192,42 @@ const Navbar = ({ userType }) => {
           {/* Mobile Dropdown Menu (Visible below 768px) */}
           {menuOpen && (
             <div className="flex flex-col items-center mt-4 space-y-4 md:hidden">
-              <Link className="font-bold">About Us</Link>
-              <Link className="font-bold">How it Works</Link>
-              <Link className="font-bold">Why Us</Link>
-              <Link className="font-bold">Feedbacks</Link>
+              <button
+                  className="font-bold"
+                  onClick={() => {
+                    handleScroll('about_us');
+                    setMenuOpen(false); // close menu after click
+                  }}
+                >
+                  About Us
+                </button>
+                <button
+                  className="font-bold"
+                  onClick={() => {
+                    handleScroll('how_it_works');
+                    setMenuOpen(false);
+                  }}
+                >
+                  How it Works
+                </button>
+                <button
+                  className="font-bold"
+                  onClick={() => {
+                    handleScroll('why_us');
+                    setMenuOpen(false);
+                  }}
+                >
+                  Why Us
+                </button>
+                <button
+                  className="font-bold"
+                  onClick={() => {
+                    handleScroll('testimonials');
+                    setMenuOpen(false);
+                  }}
+                >
+                  Feedbacks
+                </button>
 
               <div className="flex flex-col items-center">
                 <Link to="/login" className="text-[#003479] p-2 font-bold rounded">
@@ -184,16 +252,36 @@ const Navbar = ({ userType }) => {
               TriConnect
             </Link>
 
-            {/* Desktop Links */}
-            <div className="hidden md:flex gap-5">
-              <Link className="font-bold">About Us</Link>
-              <span>|</span>
-              <Link className="font-bold">How it Works</Link>
-              <span>|</span>
-              <Link className="font-bold">Why Us</Link>
-              <span>|</span>
-              <Link className="font-bold">Feedbacks</Link>
-            </div>
+               {/* Desktop Nav Links */}
+              <div className="hidden md:flex gap-5">
+                <button
+                  className="font-bold cursor-pointer"
+                  onClick={() => handleScroll('about_us')}
+                >
+                  About Us
+                </button>
+                <span>|</span>
+                <button
+                  className="font-bold cursor-pointer"
+                  onClick={() => handleScroll('how_it_works')}
+                >
+                  How it Works
+                </button>
+                <span>|</span>
+                <button
+                  className="font-bold cursor-pointer"
+                  onClick={() => handleScroll('why_us')}
+                >
+                  Why Us
+                </button>
+                <span>|</span>
+                <button
+                  className="font-bold cursor-pointer"
+                  onClick={() => handleScroll('testimonials')}
+                >
+                  Feedbacks
+                </button>
+              </div>
 
             {/* Desktop Buttons */}
             <div className="hidden md:flex items-center">
@@ -226,10 +314,42 @@ const Navbar = ({ userType }) => {
           {/* Mobile Dropdown Menu (Visible below 768px) */}
           {menuOpen && (
             <div className="flex flex-col items-center mt-4 space-y-4 md:hidden">
-              <Link className="font-bold">About Us</Link>
-              <Link className="font-bold">How it Works</Link>
-              <Link className="font-bold">Why Us</Link>
-              <Link className="font-bold">Feedbacks</Link>
+              <button
+                  className="font-bold"
+                  onClick={() => {
+                    handleScroll('about_us');
+                    setMenuOpen(false); // close menu after click
+                  }}
+                >
+                  About Us
+                </button>
+                <button
+                  className="font-bold"
+                  onClick={() => {
+                    handleScroll('how_it_works');
+                    setMenuOpen(false);
+                  }}
+                >
+                  How it Works
+                </button>
+                <button
+                  className="font-bold"
+                  onClick={() => {
+                    handleScroll('why_us');
+                    setMenuOpen(false);
+                  }}
+                >
+                  Why Us
+                </button>
+                <button
+                  className="font-bold"
+                  onClick={() => {
+                    handleScroll('testimonials');
+                    setMenuOpen(false);
+                  }}
+                >
+                  Feedbacks
+                </button>
 
               <div className="flex flex-col items-center">
                 <Link to="/login" className="text-blue-600 p-2 font-bold rounded">
@@ -254,24 +374,36 @@ const Navbar = ({ userType }) => {
               TriConnect
             </Link>
 
-            {/* Desktop Nav Links */}
-            <div className="hidden md:flex gap-5">
-              <Link className="font-bold" to="#">
-                About Us
-              </Link>
-              <span>|</span>
-              <Link className="font-bold" to="#">
-                How it Works
-              </Link>
-              <span>|</span>
-              <Link className="font-bold" to="#">
-                Why Us
-              </Link>
-              <span>|</span>
-              <Link className="font-bold" to="#">
-                Feedbacks
-              </Link>
-            </div>
+             {/* Desktop Nav Links */}
+              <div className="hidden md:flex gap-5">
+                <button
+                  className="font-bold cursor-pointer"
+                  onClick={() => handleScroll('about_us')}
+                >
+                  About Us
+                </button>
+                <span>|</span>
+                <button
+                  className="font-bold cursor-pointer"
+                  onClick={() => handleScroll('how_it_works')}
+                >
+                  How it Works
+                </button>
+                <span>|</span>
+                <button
+                  className="font-bold cursor-pointer"
+                  onClick={() => handleScroll('why_us')}
+                >
+                  Why Us
+                </button>
+                <span>|</span>
+                <button
+                  className="font-bold cursor-pointer"
+                  onClick={() => handleScroll('testimonials')}
+                >
+                  Feedbacks
+                </button>
+              </div>
 
             {/* Desktop Buttons */}
             <div className="hidden md:flex items-center">
@@ -296,18 +428,42 @@ const Navbar = ({ userType }) => {
           {/* Mobile Dropdown */}
           {menuOpen && (
             <div className="flex flex-col items-center mt-4 space-y-4 md:hidden">
-              <Link className="font-bold" to="#">
-                About Us
-              </Link>
-              <Link className="font-bold" to="#">
-                How it Works
-              </Link>
-              <Link className="font-bold" to="#">
-                Why Us
-              </Link>
-              <Link className="font-bold" to="#">
-                Feedbacks
-              </Link>
+               <button
+                  className="font-bold"
+                  onClick={() => {
+                    handleScroll('about_us');
+                    setMenuOpen(false); // close menu after click
+                  }}
+                >
+                  About Us
+                </button>
+                <button
+                  className="font-bold"
+                  onClick={() => {
+                    handleScroll('how_it_works');
+                    setMenuOpen(false);
+                  }}
+                >
+                  How it Works
+                </button>
+                <button
+                  className="font-bold"
+                  onClick={() => {
+                    handleScroll('why_us');
+                    setMenuOpen(false);
+                  }}
+                >
+                  Why Us
+                </button>
+                <button
+                  className="font-bold"
+                  onClick={() => {
+                    handleScroll('testimonials');
+                    setMenuOpen(false);
+                  }}
+                >
+                  Feedbacks
+                </button>
 
               <div className="flex flex-col items-center">
                 <Link to="/login" className="text-[#003479] p-2 font-bold rounded">
