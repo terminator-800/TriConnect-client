@@ -44,17 +44,17 @@ const Home = () => {
       {/* About Us */}
       <section id="about_us"
         className="
-      bg-cyan-200 
-      xl:pt-20 
-      xl:pb-20
-      xl:px-
-      lg:px-20
-      lg:py-15
-      md:px-15
-      md:py-10
-      max-[769px]:px-10
-      max-[769px]:py-10
-      "
+                bg-cyan-200 
+                xl:pt-20 
+                xl:pb-20
+                xl:px-
+                lg:px-20
+                lg:py-15
+                md:px-15
+                md:py-10
+                max-[769px]:px-10
+                max-[769px]:py-10
+                 "
       >
         <div className="border-l-10 border-[#003479] xl:pl-5 lg:pl-5 md:pl-5 max-[769px]:pl-5">
           <h3 className="text-3xl">About Us</h3>
@@ -75,29 +75,36 @@ const Home = () => {
       </section>
 
       {/* WHY CHOOSE TRICONNECT */}
-      <section id="why_us" className="mt-30 slide-left-on-scroll">
-        <h1 className="text-3xl font-bold text-center">
+      <section id="why_us" className="my-30 slide-left-on-scroll h-screen overflow-clip max-[1024px]:h-auto">
+        <h1 className="text-5xl font-bold text-center sm:text-4xl md:text-5xl leading-tight">
           WHY CHOOSE <span className="text-[#003479]">TriConnect</span>{' '}
         </h1>
-        <p className="text-lg text-gray-600 mt-5 text-center">
+        <p className="text-lg text-gray-600 mt-5 text-center sm:text-lg md:text-md lg:text-lg leading-tight px-5">
           Our platform offers a comprehensive suite of features designed to streamline <br />
           the hiring process and improve access to job opportunities for all.
         </p>
 
-        <div className="flex flex-wrap justify-center xl:gap-100 lg:gap-10 sm:gap-10 max-[769px]:gap-15 mt-20 mb-20 lg:px-15 md:px-10 sm: max-[796px]:px-5">
+      <div className="flex flex-col xl:flex-row lg:flex-row md-flex-row justify-center xl:justify-between mt-20 xl:mt-40 px-4 sm:px-10 lg:px-20 md:px-20 gap-12">
           {/* Column 1 */}
-          <div className="flex flex-col w-full xl:w-[20%] gap-8">
-            <div className="flex flex-col w-full gap-8">
+          <div className="flex flex-col w-full justify-evenly
+            sm:gap-10
+            md:gap-20
+            lg:gap-20 
+            xl:gap-40
+            xl:w-[40%]
+            lg:w-[50%]
+            ">
+            <div className="flex flex-col w-full gap-0">
               <div className="flex items-start gap-4">
                 <img
                   src={icons.all_in_one_platform}
                   alt="all in one platform"
-                  className="w-10 h-10 shrink-0"
+                  className="w-16 h-16 shrink-0"
                 />
 
                 <div>
-                  <h1 className="text-lg font-semibold">All-in-One Platform</h1>
-                  <p className="text-gray-700 mt-2">
+                  <h1 className="text-2xl font-semibold">All-in-One Platform</h1>
+                  <p className="text-[#666666] mt-2 text-lg max-w-lg">
                     TriConnect connects job seekers, employers, and manpower agencies in one
                     seamless system — making the hiring and job-finding process faster and more
                     convenient.
@@ -111,12 +118,12 @@ const Home = () => {
                 <img
                   src={icons.user_friendly_interface}
                   alt="user friendly interface"
-                  className="w-10 h-10 shrink-0"
+                  className="w-16 h-16 shrink-0"
                 />
 
                 <div>
-                  <h1 className="text-lg font-semibold">All-in-One Platform</h1>
-                  <p className="text-gray-700 mt-2">
+                  <h1 className="text-2xl font-semibold">User-Friendly Interface</h1>
+                  <p className="text-[#666666] mt-2 text-lg max-w-lg">
                     Designed with simplicity in mind, TriConnect makes it easy for anyone to post
                     jobs, apply, and connect — even for first-time users.
                   </p>
@@ -126,18 +133,25 @@ const Home = () => {
           </div>
 
           {/* Column 2 */}
-          <div className="flex flex-col w-full xl:w-[20%] gap-20">
+           <div className="flex flex-col w-full justify-evenly 
+            sm:gap-10
+            md:gap-20
+            lg:gap-20 
+            xl:gap-40
+            xl:w-[40%]
+            lg:w-[50%]
+            ">
             <div className="flex flex-col w-full gap-8">
               <div className="flex items-start gap-4">
                 <img
                   src={icons.custom_tools_for_everyone}
                   alt="custom tools for everyone"
-                  className="w-10 h-10 shrink-0"
+                  className="w-16 h-16 shrink-0"
                 />
 
                 <div>
-                  <h1 className="text-lg font-semibold">All-in-One Platform</h1>
-                  <p className="text-gray-700 mt-2">
+                  <h1 className="text-2xl font-semibold">Custom Tools for  Everyone</h1>
+                  <p className="text-[#666666] mt-2 text-lg max-w-lg">
                     All users undergo a verification process to ensure safety and trust within the
                     platform.
                   </p>
@@ -150,12 +164,12 @@ const Home = () => {
                 <img
                   src={icons.secure_reliable}
                   alt="secure and reliable"
-                  className="w-10 h-10 shrink-0"
+                  className="w-16 h-16 shrink-0"
                 />
 
                 <div>
-                  <h1 className="text-lg font-semibold">All-in-One Platform</h1>
-                  <p className="text-gray-700 mt-2">
+                  <h1 className="text-2xl font-semibold">Secure & Reliable</h1>
+                  <p className="text-[#666666] mt-2 text-lg max-w-lg">
                     All users undergo a verification process to ensure safety and trust within the
                     platform.
                   </p>
@@ -267,10 +281,10 @@ const Home = () => {
           {/* Step 1 */}
           <div className="flex flex-col items-center space-y-4">
             <div className="bg-white w-14 h-14 rounded-xl flex justify-center items-center shadow-md">
-              <h1 className="text-[#003479] font-bold text-lg">1</h1>
+              <h1 className="text-[#003479] font-bold text-2xl">1</h1>
             </div>
-            <h2 className="text-lg font-semibold text-gray-800">Register & Verify</h2>
-            <p className="text-[#666666] text-sm leading-relaxed max-w-[220px]">
+            <h2 className="text-2xl font-semibold text-gray-800">Register & Verify</h2>
+            <p className="text-[#666666] text-lg leading-relaxed max-w-[220px]">
               Create an account as a job seeker, employer, or agency and wait for the verification.
             </p>
           </div>
@@ -278,10 +292,10 @@ const Home = () => {
           {/* Step 2 */}
           <div className="flex flex-col items-center space-y-4">
             <div className="bg-white w-14 h-14 rounded-xl flex justify-center items-center shadow-md">
-              <h1 className="text-[#003479] font-bold text-lg">2</h1>
+              <h1 className="text-[#003479] font-bold text-2xl">2</h1>
             </div>
-            <h2 className="text-lg font-semibold text-gray-800">Create Profile</h2>
-            <p className="text-[#666666] text-sm leading-relaxed max-w-[220px]">
+            <h2 className="text-2xl font-semibold text-gray-800">Create Profile</h2>
+            <p className="text-[#666666] text-lg leading-relaxed max-w-[220px]">
               Build your profile with relevant information, skills, job needs, or agency services.
             </p>
           </div>
@@ -289,10 +303,10 @@ const Home = () => {
           {/* Step 3 */}
           <div className="flex flex-col items-center space-y-4">
             <div className="bg-white w-14 h-14 rounded-xl flex justify-center items-center shadow-md">
-              <h1 className="text-[#003479] font-bold text-lg">3</h1>
+              <h1 className="text-[#003479] font-bold text-2xl">3</h1>
             </div>
-            <h2 className="text-lg font-semibold text-gray-800">Connect</h2>
-            <p className="text-[#666666] text-sm leading-relaxed max-w-[220px]">
+            <h2 className="text-2xl font-semibold text-gray-800">Connect</h2>
+            <p className="text-[#666666] text-lg leading-relaxed max-w-[220px]">
               Browse jobs, post opportunities, or facilitate connections between employers and job
               seekers.
             </p>
@@ -301,10 +315,10 @@ const Home = () => {
           {/* Step 4 */}
           <div className="flex flex-col items-center space-y-4">
             <div className="bg-white w-14 h-14 rounded-xl flex justify-center items-center shadow-md">
-              <h1 className="text-[#003479] font-bold text-lg">4</h1>
+              <h1 className="text-[#003479] font-bold text-2xl">4</h1>
             </div>
-            <h2 className="text-lg font-semibold text-gray-800">Communicate</h2>
-            <p className="text-[#666666] text-sm leading-relaxed max-w-[220px]">
+            <h2 className="text-2xl font-semibold text-gray-800">Communicate</h2>
+            <p className="text-[#666666] text-lg leading-relaxed max-w-[220px]">
               Use our secure messaging system to discuss details and finalize arrangements.
             </p>
           </div>
@@ -312,10 +326,10 @@ const Home = () => {
       </section>
 
       {/* Testimonials */}
-      <section id='testimonials' className="xl:mx-50 lg:mx-15 md:mx-10 sm:mx-10 mb-50 slide-left-on-scroll">
+      <section id='testimonials' className="slide-left-on-scroll mb-50">
         {/* Header Section */}
         <div className="bg-white text-center flex flex-col justify-center items-center mt-60 mb-20">
-          <h1 className="text-5xl max-[769px]:text-3xl font-bold mb-5 text-[#003479] ">
+          <h1 className="text-5xl max-[769px]:text-3xl font-bold mb-5">
             What Our Users Say
           </h1>
           <p className="text-lg text-[#666666]">
@@ -324,52 +338,59 @@ const Home = () => {
         </div>
 
         {/* Cards Section */}
-        <div className="flex flex-row justify-center items-stretch gap-6 max-[769px]:flex-col max-[769px]:mx-20 sm:mx-10">
+        <div className="flex flex-row justify-center items-stretch gap-0 max-[769px]:flex-col max-[769px]:mx-20 sm:mx-10">
+
           {/* Card 1 */}
-          <div className="basis-1/3 m-5 drop-shadow-xl shadow-xl rounded-2xl flex flex-col items-center justify-between text-center p-6 h-[380px]">
-            <div className="bg-gray-300 w-16 h-16 rounded-full text-blue-900 flex justify-center items-center font-bold">
+          <div className="basis-1/3 w-full m-5 drop-shadow-xl shadow-xl rounded-2xl flex flex-col items-center gap-10 text-center h-[680px] pt-10"
+            style={{
+                boxShadow: '5px 5px 15px rgba(0,0,0,0.2)',
+              }}>
+            <div className="border border-[#666666] w-16 h-16 rounded-full text-blue-900 flex justify-center items-center">
               LM
             </div>
             <div className="flex flex-col items-center">
-              <p className="text-gray-600">Jobseeker</p>
+              <p className="text-[#003479] font-bold text-xl">Lanilyn Mongado</p>
+              <p className="text-gray-600 italic text-sm">Jobseeker</p>
             </div>
-            <p className="text-gray-600 italic mt-3 max-w-md text-left underline">
-              "As a freelancer looking for short-term construction jobs, TriConnect has been a
-              game-changer. I no longer have to rely on word-of-mouth to find work opportunities."
+            <p className="text-[#666666] text-lg mt-3 max-w-md text-left">
+              "TriConnect made my job search so much easier! I quickly found openings that matched my skills, and the platform was very simple to use. I landed an interview within a week!"
             </p>
-            <h1 className="font-bold mt-2 text-[#003479]">Lanlyn Mongado</h1>
           </div>
 
           {/* Card 2 */}
-          <div className="basis-1/3 m-5 drop-shadow-xl shadow-xl rounded-2xl flex flex-col items-center justify-between text-center p-6 h-[380px]">
-            <div className="bg-gray-300 w-16 h-16 rounded-full text-blue-900 flex justify-center items-center font-bold">
+          <div className="basis-1/3 w-full m-5 drop-shadow-xl shadow-xl rounded-2xl flex flex-col items-center gap-10 text-center h-[680px] pt-10"
+             style={{
+                boxShadow: '5px 5px 15px rgba(0,0,0,0.2)',
+              }}>
+            <div className="border border-[#666666] w-16 h-16 rounded-full text-blue-900 flex justify-center items-center">
               SF
             </div>
             <div className="flex flex-col items-center">
-              <p className="text-gray-600">Employer</p>
+              <p className="text-[#003479] font-bold text-xl">Samantha Ferrer</p>
+              <p className="text-gray-600 italic text-sm">Employer</p>
             </div>
-            <p className="text-gray-600 italic mt-3 max-w-md text-left underline">
-              "Finding qualified workers for our small business used to be a challenge. With
-              TriConnect, we can quickly post jobs and connect with potential candidates or
-              agencies."
+            <p className="text-[#666666] text-lg mt-3 max-w-md text-left">
+              "Our company filled multiple positions faster than ever through TriConnect. The verification process gave us confidence in every applicant. Highly recommend this platform to all employers!"
             </p>
-            <h1 className="font-bold mt-2 text-[#003479]">Samantha Ferrer</h1>
           </div>
 
           {/* Card 3 */}
-          <div className="basis-1/3 m-5 drop-shadow-xl shadow-xl rounded-2xl flex flex-col items-center justify-between text-center p-6 h-[380px]">
-            <div className="bg-gray-300 w-16 h-16 rounded-full text-blue-900 flex justify-center items-center font-bold">
-              DM
+          <div className="basis-1/3 w-full m-5 drop-shadow-xl rounded-2xl flex flex-col items-center gap-10 text-center pt-10
+              shadow-xl
+              h-[680px]"
+              style={{
+                boxShadow: '5px 5px 15px rgba(0,0,0,0.2)',
+              }}>
+            <div className="border border-[#666666] w-16 h-16 rounded-full text-blue-900 flex justify-center items-center">
+              PA
             </div>
             <div className="flex flex-col items-center">
-              <p className="text-gray-600">Manpower Provider</p>
+              <p className="text-[#003479] font-bold text-xl">Phenlay Azarcon</p>
+              <p className="text-gray-600 italic text-sm">Manpower Provider</p>
             </div>
-            <p className="text-gray-600 italic mt-3 max-w-md text-left underline">
-              "Our manpower agency has expanded our client base significantly since joining
-              TriConnect. The platform makes it easy to connect job seekers with employers
-              efficiently."
+            <p className="text-[#666666] text-lg mt-3 max-w-md text-left">
+              "TriConnect helps us connect with both clients and applicants in one seamless system. Managing our manpower pool has never been this organized and efficient.""
             </p>
-            <h1 className="font-bold mt-2 text-[#003479]">Dennese Keith Membrano</h1>
           </div>
         </div>
       </section>

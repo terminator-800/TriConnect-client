@@ -35,61 +35,6 @@ const RegisterAccount = () => {
     setIsRegistering(true);
 
     try {
-      // if (accountType === 'employer') {
-      //   if (type === business) {
-      //     try {
-      //       const data = {
-      //         email: email,
-      //         password: password,
-      //         role: ROLE.BUSINESS_EMPLOYER,
-      //       };
-      //       const businessRes = await axios.post(
-      //         `${import.meta.env.VITE_API_URL}/register/${ROLE.BUSINESS_EMPLOYER}`,
-      //         data
-      //       );
-      //       if (businessRes.status === 201) {
-      //         // In handleRegister
-      //         navigate('/register/employer/business/account/verify', { state: { email } });
-      //         // alert("Business employer account created successfully");
-      //       } else {
-      //         alert('Business employer account creation failed');
-      //       }
-      //     } catch (error) {
-      //       if (error.response && error.response.status === 409) {
-      //         setShowResend(true);
-      //         alert('Email already exists. Would you like to resend the verification email?');
-      //       } else {
-      //         alert('Account creation failed');
-      //       }
-      //     }
-      //   } else if (type === individual) {
-      //     try {
-      //       const data = {
-      //         email: email,
-      //         password: password,
-      //         role: ROLE.INDIVIDUAL_EMPLOYER,
-      //       };
-      //       const individualRes = await axios.post(
-      //         `${import.meta.env.VITE_API_URL}/register/${ROLE.INDIVIDUAL_EMPLOYER}`,
-      //         data
-      //       );
-
-      //       if (individualRes.status === 201) {
-      //         // alert("Individual employer account created successfully");
-      //         navigate('/register/employer/business/account/verify', { state: { email } });
-      //       } else {
-      //         alert('Individual employer account creation failed');
-      //       }
-      //     } catch (error) {
-      //       if (error.response && error.response.status === 409) {
-      //         setShowResend(true);
-      //         alert('Email already exists. Would you like to resend the verification email?');
-      //       } else {
-      //         alert('Account creation failed');
-      //       }
-      //     }
-      //   }
-      // } else {
         try {
           const data = {
             email: email,
@@ -113,7 +58,6 @@ const RegisterAccount = () => {
             alert('Account creation failed');
           }
         }
-      // }
     } catch (error) {
       if (error.response && error.response.status === 409) {
       } else {

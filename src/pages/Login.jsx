@@ -92,7 +92,7 @@ const Login = () => {
               max-[769px]:w-full max-[769px]:rounded-3xl max-[769px]:mx-4
               h-[576px]"
           >
-              <h1 className="font-bold text-3xl text-[#1E293B]">Welcome to <span className='text-[#003479]'>TriConnect!</span></h1>
+              <h1 className="font-bold text-3xl text-[#1E293B]">Welcome to <span className='text-blue-900'>TriConnect!</span></h1>
               <p className="text-[#64748B] mb-10 mt-2">Login your account details</p>
 
               <label htmlFor="email" className="text-[#334155] font-bold">
@@ -173,7 +173,7 @@ const Login = () => {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="hover:bg-[#2563EB] bg-blue-900 text-white mt-2 pt-2 pb-2 cursor-pointer w-full max-w-[200px] mb-5"
+                  className="hover:bg-[#2563EB] bg-blue-900 text-white mt-2 py-2 cursor-pointer w-full max-w-[250px] mb-5"
                 >
                   {isLoading ? 'Signing in...' : 'Login'}
                 </button>

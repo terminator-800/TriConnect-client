@@ -26,13 +26,43 @@ const Register = () => {
   return (
     <>
       <Navbar userType={'register'} />
-      <div className="slide-in-left flex justify-center items-center h-screen flex-col max-[769px]:h-[200vh]">
-        <div className='flex flex-col items-center'>
-          <h1 className="text-center text-5xl font-bold">Select User Type</h1>
-          <p className="text-[#64748B] text-2xl mb-5">Select one to get started</p>
+      <div className="slide-in-left flex justify-center items-center h-screen flex-col 
+      max-[375px]:h-[220vh]  
+      max-[638px]:h-[200vh]
+      max-[768px]:h-[120vh]
+      max-[1024px]:h-[120vh]
+      ">
+
+        <div className="flex flex-col items-center text-center mb-6 px-4">
+          <h1 className="font-bold text-3xl 
+                        sm:text-4xl 
+                        md:text-5xl
+                        
+          ">
+            Select User Type
+          </h1>
+          <p className="text-[#64748B] text-base sm:text-lg md:text-2xl mt-2">
+            Select one to get started
+          </p>
         </div>
 
-        <div className="flex p-5 gap-20 text-2xl max-[769px]:flex-col">
+    <div
+        className="
+          grid
+          grid-cols-1
+          gap-4
+          sm:grid-cols-2
+          sm:gap-6
+          lg:grid-cols-4
+          lg:gap-10
+          lg:
+          place-items-center
+          w-full
+          max-w-7xl
+          text-base sm:text-lg md:text-xl
+        "
+      >
+
           <img
             src={icons.jobseeker}
             alt="jobseeker"
@@ -66,7 +96,11 @@ const Register = () => {
           />
         </div>
 
-       <div className="flex justify-center items-center mt-15 gap-25">
+       <div className="flex justify-center items-center mt-15 gap-25
+                        max-[375px]:flex-col
+                        max-[375px]:gap-10  
+  
+       ">
         <button
           className="flex gap-2 items-center cursor-pointer"
           onClick={() => navigate(-1)} 
