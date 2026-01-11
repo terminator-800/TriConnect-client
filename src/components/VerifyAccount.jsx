@@ -9,7 +9,7 @@ function VerifyAccount() {
   return (
     <>
       <Navbar userType={'verify'} />
-      <div className="flex justify-center items-center h-screen bg-linear-to-b from-white to-cyan-400">
+      <div className="flex justify-center items-center h-screen bg-linear-to-b from-white to-[#00C2CB]">
         <div className="flex flex-col items-center shadow-lg">
           {/* Verification Box */}
           <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md text-center flex flex-col items-center">

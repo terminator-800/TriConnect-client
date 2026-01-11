@@ -93,7 +93,7 @@ const FindAgency = () => {
         />
       )}
 
-      <div className="relative min-h-screen bg-linear-to-b from-white to-cyan-400 pl-70 pr-10 pt-30 flex flex-col">
+      <div className="relative min-h-screen bg-linear-to-b from-white to-[#00C2CB] pl-70 pr-10 pt-30 flex flex-col">
         {profileData?.is_verified ? (
           <>
             <div className="bg-white shadow-md py-6 px-10 mb-8">

@@ -34,7 +34,7 @@ const DashboardLayout = () => {
     <>
       <Sidebar />
       {provider && provider.is_verified ? (
-        <div className="relative min-h-screen bg-linear-to-b from-white to-cyan-400 pl-70 pr-10 pt-30">
+        <div className="relative min-h-screen bg-linear-to-b from-white to-[#00C2CB] pl-70 pr-10 pt-30">
           {/* Header */}
           <div className="bg-white shadow-md py-6 px-10 mb-8 flex justify-between items-center">
             <div>
@@ -81,7 +81,7 @@ const DashboardLayout = () => {
           {showFindWorkers ? <BrowseJob /> : <MainContent />}
         </div>
       ) : (
-        <div className='className="relative min-h-screen bg-linear-to-b from-white to-cyan-400 pl-70 pr-10 pt-30'>
+        <div className='className="relative min-h-screen bg-linear-to-b from-white to-[#00C2CB] pl-70 pr-10 pt-30'>
           <div className="bg-white shadow-md p-6 w-full border border-gray-300 px-20">
             <VerificationStatus profileData={provider} openForm={openForm} />
           </div>

@@ -61,7 +61,7 @@ const Profile = () => {
     <>
       <Sidebar />
 
-      <div className="relative min-h-screen bg-linear-to-b from-white to-cyan-400 pl-70 pr-10 pt-30">
+      <div className="relative min-h-screen bg-linear-to-b from-white to-[#00C2CB] pl-70 pr-10 pt-30">
         <div className="bg-white shadow-md p-6 w-full border border-gray-300 px-20">
           <div>
             {profileData.is_verified ? (

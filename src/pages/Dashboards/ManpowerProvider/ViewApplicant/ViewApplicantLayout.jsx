@@ -52,7 +52,7 @@ const ViewApplicant = () => {
   return (
     <>
       <Sidebar />
-      <div className="min-h-screen flex flex-col justify-between bg-linear-to-b from-white to-cyan-400 pl-70 pr-10 pt-30">
+      <div className="min-h-screen flex flex-col justify-between bg-linear-to-b from-white to-[#00C2CB] pl-70 pr-10 pt-30">
         <div>
           {profileData?.is_verified ? (
             <>

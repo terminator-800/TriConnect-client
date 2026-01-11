@@ -1,3 +1,9 @@
+/*  */
+body {
+  overflow-x: hidden;
+}
+
+
 /* FLOAT LEFT AND RIGHT */
 @keyframes float {
   0%, 100% {

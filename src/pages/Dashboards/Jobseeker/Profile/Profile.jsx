@@ -56,7 +56,7 @@ const JobseekerProfile = () => {
 
       {/* Show Disabled Account when verified AND hired - Outside the white bg container */}
       {profileData.is_verified && profileData.employment_status === 'hired' ? (
-        <div className="relative min-h-screen bg-linear-to-b from-white to-cyan-400 pl-70 pr-10 pt-30">
+        <div className="relative min-h-screen bg-linear-to-b from-white to-[#00C2CB] pl-70 pr-10 pt-30">
           <DisabledAccount 
             contractData={{
               employer: profileData.employer_name,
@@ -67,7 +67,7 @@ const JobseekerProfile = () => {
           />
         </div>
       ) : (
-        <div className="relative min-h-screen bg-linear-to-b from-white to-cyan-400 pl-70 pr-10 pt-30">
+        <div className="relative min-h-screen bg-linear-to-b from-white to-[#00C2CB] pl-70 pr-10 pt-30">
           <div className="bg-white shadow-md p-6 w-full border border-gray-300 px-20">
             {profileData.is_verified ? (
               // Show normal verified profile
