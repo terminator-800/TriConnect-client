@@ -32,10 +32,10 @@ const ReportedUser = () => {
   return (
     <>
       <Sidebar />
-      <div className="min-h-screen flex flex-col justify-between bg-linear-to-b from-white to-cyan-400 pl-70 pr-10 pt-30">
+      <div className="min-h-screen flex flex-col justify-between bg-linear-to-b from-white to-[#00C2CB] pl-70 pr-10 pt-30">
         <div className="bg-white shadow-md py-6 px-10 mb-8">
           <div className="flex flex-col">
-            <h1 className="text-2xl font-bold text-blue-900">Reported Users</h1>
+            <h1 className="text-2xl font-bold text-[#2563EB]">Reported Users</h1>
             <p>Tagline</p>
           </div>
         </div>

@@ -58,7 +58,7 @@ const ViewApplicant = () => {
             <>
               <div className="bg-white shadow-md py-6 px-10 mb-8">
                 <div className="flex flex-col">
-                  <h1 className="text-2xl font-bold text-blue-900">View Applicants</h1>
+                  <h1 className="text-2xl font-bold text-[#2563EB]">View Applicants</h1>
                   <p>Manage applicants for your job postings</p>
                 </div>
               </div>

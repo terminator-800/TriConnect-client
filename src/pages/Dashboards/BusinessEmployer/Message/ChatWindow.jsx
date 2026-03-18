@@ -28,7 +28,7 @@ const ChatWindow = ({ selectedUser }) => {
     isLoading,
     isError,
   } = useMessageHistory(ROLE.BUSINESS_EMPLOYER, conversation_id);
-  console.log(messages, "MESSAGES")
+  
   // Initialize socket connection
   useSocket(currentUserId, ROLE.BUSINESS_EMPLOYER);
 
@@ -129,7 +129,7 @@ const ChatWindow = ({ selectedUser }) => {
 
                   <div className="flex flex-col items-start">
                     {/* APPLICATION CARD - Only if it has required application fields */}
-                    {msg.message_type === 'apply' && msg.full_name && msg.email_address ? (
+                    {msg.message_type === 'apply' && msg.resume && msg.cover_letter  ? (
                         ApplicationCard(msg, isSender)
                       ) : msg.message_type === 'request' && msg.job_title && !msg.company_name ? (
                         IndividualRequestCard(msg, isSender)
@@ -156,7 +156,6 @@ const ChatWindow = ({ selectedUser }) => {
                                     title="PDF Preview"
                                     className="w-full h-full pointer-events-none"
                                   />
-                                  {console.log(messages)}
                                 </div>
                               ) : (
                                 <img

@@ -4,12 +4,12 @@ const ChatTabs = ({ activeTab, setActiveTab }) => {
   };
 
   const tabClasses = (tab) =>
-    `w-1/2 text-center py-2 font-semibold border-b-2 transition-colors duration-150 ${
-      activeTab === tab ? 'border-blue-700 text-black' : 'border-transparent text-gray-500'
+    `md:w-1/2 text-center py-2 md:border-b-2 border-b transition-colors duration-150 ${
+      activeTab === tab ? 'border-blue-700 text-[#2563EB]' : 'border-transparent text-gray-500'
     }`;
 
   return (
-    <div className="flex border-b border-gray-300 bg-white w-[500px]">
+    <div className="flex bg-white md:w-[500px] lg:flex-row md:flex-row flex-col ">
       <button
         onClick={() => handleTabClick('employer')}
         className={`${tabClasses('employer')} cursor-pointer`}
@@ -20,7 +20,7 @@ const ChatTabs = ({ activeTab, setActiveTab }) => {
         onClick={() => handleTabClick('manpower-provider')}
         className={`${tabClasses('manpower-provider')} cursor-pointer`}
       >
-        Agencies
+        Manpower Provider
       </button>
     </div>
   );

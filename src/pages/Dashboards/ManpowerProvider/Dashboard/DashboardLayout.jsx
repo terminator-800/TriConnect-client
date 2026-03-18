@@ -4,8 +4,6 @@ import JobPostForm from '../../../../components/CreateJobPost/HiringJobPostForm'
 import MainContent from './MainContent';
 import { ROLE } from '../../../../../utils/role';
 import BrowseJob from './BrowseJob';
-import IndividualJobPostForm from '../../../../components/CreateJobPost/IndividualJobPostForm';
-import TeamJobPostForm from '../../../../components/CreateJobPost/TeamJobPostForm';
 import { useUserProfile } from '../../../../../hooks/useUserProfiles';
 import VerificationStatus from '../../../Dashboards/ManpowerProvider/VerificationForm/VerificationStatus';
 import Form from '../VerificationForm/Form';
@@ -38,8 +36,8 @@ const DashboardLayout = () => {
           {/* Header */}
           <div className="bg-white shadow-md py-6 px-10 mb-8 flex justify-between items-center">
             <div>
-              <h1 className="text-2xl font-bold text-[#003479]">
-                {showFindWorkers ? 'Find Workers' : 'Welcome, Man Power Provider!'}
+              <h1 className="text-2xl font-bold text-[#2563EB]">
+                {showFindWorkers ? 'Find Workers' : 'Welcome, Manpower Provider!'}
               </h1>
               <p>
                 {showFindWorkers
@@ -52,28 +50,20 @@ const DashboardLayout = () => {
             <div className="flex gap-3">
               <button
                 onClick={() => setShowFindWorkers(!showFindWorkers)}
-                className="text-blue-900 border border-blue-900 font-semibold px-10 py-1 rounded hover:bg-blue-700 hover:text-white transition cursor-pointer"
+                className="text-blue-900 border border-blue-900 font-semibold px-10 py-1 hover:bg-[#2563EB] hover:text-white transition cursor-pointer"
               >
                 {showFindWorkers ? '← Dashboard' : 'Find Jobs'}
               </button>
 
-              <select
-                className="text-[#6B7280] outline rounded-lg border-[#6B7280] px-5 py-2  transition cursor-pointer"
-                onChange={(e) => {
-                  const value = e.target.value;
-                  if (!value) return;
-                  setPostType(value);
+              <button
+                onClick={() => {
+                  setPostType('hiring');
                   setShowJobPostModal(true);
                 }}
+                className="text-white outline bg-[#6B7280] border-[#6B7280] px-10 py-2 transition cursor-pointer hover:bg-[#2563EB]"
               >
-                <option value="" hidden>
-                  {' '}
-                  + Post Job{' '}
-                </option>
-                <option value="hiring">Hiring Post</option>
-                <option value="individual">Individual Post</option>
-                <option value="team">Team Post</option>
-              </select>
+                + Hiring Post
+              </button>
             </div>
           </div>
 
@@ -103,24 +93,13 @@ const DashboardLayout = () => {
       )}
 
       {/* Job Post Modal */}
-      {showJobPostModal &&
-        (postType === 'individual' ? (
-          <IndividualJobPostForm
-            onClose={() => setShowJobPostModal(false)}
-            role={ROLE.MANPOWER_PROVIDER}
-          />
-        ) : postType === 'team' ? (
-          <TeamJobPostForm
-            onClose={() => setShowJobPostModal(false)}
-            role={ROLE.MANPOWER_PROVIDER}
-          />
-        ) : (
-          <JobPostForm
-            onClose={() => setShowJobPostModal(false)}
-            role={ROLE.MANPOWER_PROVIDER}
-            postType={postType}
-          />
-        ))}
+      {showJobPostModal && (
+        <JobPostForm
+          onClose={() => setShowJobPostModal(false)}
+          role={ROLE.MANPOWER_PROVIDER}
+          postType={postType}
+        />
+      )}
     </>
   );
 };

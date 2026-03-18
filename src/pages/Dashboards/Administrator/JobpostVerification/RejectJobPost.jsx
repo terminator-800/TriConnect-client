@@ -11,24 +11,10 @@ const RejectJobPost = ({ jobPost, onClose }) => {
   }, []);
 
   const rejectJobPostMutation = useRejectJobPost();
-  const TYPE_MAP = {
-    individual_job_post: 'individual',
-    team_job_post: 'team',
-    default: 'hiring',
-  };
 
   const handleReject = () => {
-    const TYPE_MAP = {
-      individual_job_post: 'individual',
-      team_job_post: 'team',
-      default: 'hiring',
-    };
-    const type = TYPE_MAP[jobPost.post_type] || 'hiring';
-
-    const id = jobPost.job_post_id;
-
     rejectJobPostMutation.mutate(
-      { type, id },
+      { type: 'hiring', id: jobPost.job_post_id },
       {
         onSuccess: () => onClose(),
         onError: () => alert('Something went wrong while rejecting the job post.'),
@@ -47,14 +33,9 @@ const RejectJobPost = ({ jobPost, onClose }) => {
         </p>
 
         <div className="border border-gray-300 p-5 text-gray-600 mb-4">
-          <p className="text-sm">
-            <strong>Job Title: </strong> {jobPost.job_title}
-          </p>
-
+          <p className="text-sm"><strong>Job Title: </strong> {jobPost.job_title}</p>
           <div className="text-sm flex gap-1">
-            <h3 className="font-medium">
-              <strong>Posted by:</strong>
-            </h3>
+            <h3 className="font-medium"><strong>Posted by:</strong></h3>
             <p>{jobPost.employer_name}</p>
           </div>
         </div>
@@ -63,30 +44,14 @@ const RejectJobPost = ({ jobPost, onClose }) => {
           <button
             onClick={handleReject}
             disabled={isLoading}
-            className={`
-              px-10 py-1 text-white
-              ${
-                isLoading
-                  ? 'bg-red-500 cursor-not-allowed opacity-70'
-                  : 'bg-red-700 hover:bg-red-600 cursor-pointer'
-              }
-            `}
+            className={`px-10 py-1 text-white ${isLoading ? 'bg-red-500 cursor-not-allowed opacity-70' : 'bg-red-700 hover:bg-red-600 cursor-pointer'}`}
           >
             {isLoading ? 'Rejecting...' : 'Reject'}
           </button>
-
-          {/* Cancel Button */}
           <button
             onClick={onClose}
             disabled={isLoading}
-            className={`
-              px-10 py-1 border border-gray-300
-              ${
-                isLoading
-                  ? 'bg-gray-200 cursor-not-allowed opacity-70'
-                  : 'hover:bg-gray-100 cursor-pointer'
-              }
-            `}
+            className={`px-10 py-1 border border-gray-300 ${isLoading ? 'bg-gray-200 cursor-not-allowed opacity-70' : 'hover:bg-gray-100 cursor-pointer'}`}
           >
             Cancel
           </button>

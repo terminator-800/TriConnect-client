@@ -1,11 +1,10 @@
-import icons from '../../assets/svg/Icons';
 import { format, parseISO } from 'date-fns';
 
 export const IndividualRequestCard = (msg, isSender) => {
   const {
-    job_title,
+    // job_title,
     employer_name,
-    sender_name,
+    // sender_name,
     phone_number,
     email_address,
     project_location,
@@ -22,9 +21,9 @@ let formattedStartDate = start_date;
 
   // Check if any required field is empty
   const hasEmptyFields =
-    !job_title ||
+    // !job_title ||
     !employer_name ||
-    !sender_name ||
+    // !sender_name ||
     !phone_number ||
     !email_address ||
     !project_location ||
@@ -45,10 +44,10 @@ let formattedStartDate = start_date;
       {/* Content */}
       <div className="px-6 py-5 space-y-4">
         {/* Applied for / Job Title */}
-        <div className='flex gap-2'>
+        {/* <div className='flex gap-2'>
           <p className="text-sm">Requesting for</p>
           <h3 className="text-sm font-semibold">{job_title}</h3>
-        </div>
+        </div> */}
 
         {/* Employer Name */}
         <div className='flex flex-col gap-1'>

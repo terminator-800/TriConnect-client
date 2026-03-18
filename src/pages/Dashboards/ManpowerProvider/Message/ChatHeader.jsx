@@ -21,7 +21,7 @@ const ChatHeader = ({ selectedUser }) => {
   const { data: reportedUsers = [] } = useReportedUsers(ROLE.MANPOWER_PROVIDER);
 
   const isUserReported = reportedUsers.includes(selectedUser?.sender_id);
-
+  
   if (!selectedUser) {
     return (
       <div className="flex items-center justify-center p-4 border-b border-gray-300 bg-white text-gray-400">
@@ -90,7 +90,7 @@ const ChatHeader = ({ selectedUser }) => {
       return;
     }
 
-    setShowHireModal(true);
+    setShowRejectModal(true);
   };
 
   return (
@@ -99,9 +99,9 @@ const ChatHeader = ({ selectedUser }) => {
         <>
           <div className="flex items-center gap-3">
             {/* Authorized  Profile */}
-            {selectedUser.authorized_profile ? (
+            {selectedUser.profile ? (
               <img
-                src={selectedUser.authorized_profile}
+                src={selectedUser.profile}
                 alt={fullName || 'User'}
                 className="w-10 h-10 rounded-full object-cover"
               />
@@ -113,7 +113,13 @@ const ChatHeader = ({ selectedUser }) => {
 
             {/* Details */}
             <div className="text-sm text-gray-700">
-              <div className="font-medium">Sent by: {fullName || 'N/A'}</div>
+              <div className="font-medium">Sent by: {fullName || 'N/A'}
+                 {selectedUser.job_title && (
+                    <>
+                      {' '}| <span className="font-bold">{selectedUser.job_title}</span>
+                    </>
+                  )}
+              </div>
 
               {selectedUser.sent_at && (
                 <div className="text-xs text-gray-500">
@@ -157,6 +163,7 @@ const ChatHeader = ({ selectedUser }) => {
       {showRejectModal && (
         <RejectApplicant
           selectedUser={selectedUser}
+          role={ROLE.MANPOWER_PROVIDER}
           onClose={() => setShowRejectModal(false)}
         />
       )}

@@ -72,7 +72,7 @@ const RegisterAccount = () => {
     <>
       <Navbar userType={'register'} />
       <div className="slide-in-left flex justify-center items-center h-screen flex-col">
-        <div className="pt-20 pb-20 pl-15 pr-15 rounded-2xl max-w-4xl flex flex-col bg-[rgba(94,209,214,0.1)] shadow-xl">
+        <div className="pt-20 pb-20 pl-15 pr-15 rounded-2xl max-w-4xl flex flex-col bg-[#5ed1d61a] shadow-xl">
 
           <img className='w-15 h-15 mx-auto mb-5' src={icons.account_creation} alt="" />
 

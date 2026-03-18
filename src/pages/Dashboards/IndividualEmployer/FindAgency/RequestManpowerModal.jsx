@@ -8,8 +8,6 @@ const RequestIndividualModal = ({ isOpen, onClose, worker, onSuccessClose }) => 
   const queryClient = useQueryClient();
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
-  console.log(worker);
-
   const [formData, setFormData] = useState({
     employerName: '',
     phoneNumber: '',
@@ -17,9 +15,9 @@ const RequestIndividualModal = ({ isOpen, onClose, worker, onSuccessClose }) => 
     projectLocation: '',
     startDate: '',
     projectDescription: '',
-    job_title: worker.worker_category || '',
-    individual_job_post_id: worker.individual_job_post_id ?? undefined,
-    team_job_post_id: worker.team_job_post_id ?? undefined,
+    // job_title: worker.worker_category || '',
+    // individual_job_post_id: worker.individual_job_post_id ?? undefined,
+    // team_job_post_id: worker.team_job_post_id ?? undefined,
   });
 
   const handleChange = (e) => {
@@ -46,20 +44,20 @@ const RequestIndividualModal = ({ isOpen, onClose, worker, onSuccessClose }) => 
   const mutation = useMutation({
     mutationFn: async () => {
       const payload = {
-        receiver_id: worker.user_id,
+        receiver_id: worker.agency_id,
         employer_name: formData.employerName,
         phone_number: formData.phoneNumber,
         email_address: formData.emailAddress,
         project_location: formData.projectLocation,
-        job_title: formData.job_title,
+        // job_title: formData.job_title,
         start_date: formData.startDate,
         project_description: formData.projectDescription,
       };
       
-      if (formData.individual_job_post_id) payload.individual_job_post_id = formData.individual_job_post_id;
+      // if (formData.individual_job_post_id) payload.individual_job_post_id = formData.individual_job_post_id;
       if (formData.team_job_post_id) payload.team_job_post_id = formData.team_job_post_id;
 
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/${ROLE.INDIVIDUAL_EMPLOYER}/requests`, payload, {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/${ROLE.INDIVIDUAL_EMPLOYER}/message-agency`, payload, {
         withCredentials: true,
       });
 
@@ -205,7 +203,7 @@ const RequestIndividualModal = ({ isOpen, onClose, worker, onSuccessClose }) => 
             </div>
 
             {/* Submit Button */}
-            <div className="flex justify-start pt-4">
+            <div className="flex justify-center pt-4 ">
                <button
                 onClick={handleSubmit}
                 disabled={!isFormValid()}

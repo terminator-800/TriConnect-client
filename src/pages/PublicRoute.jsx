@@ -45,7 +45,7 @@ const PublicRoute = ({ children }) => {
     [ROLE.ADMINISTRATOR]: `/${ROLE.ADMINISTRATOR}/verification`,
   };
 
-  if (authData.authenticated === null) return <div>Public Route Loading...</div>;
+  if (authData.authenticated === null) return <div></div>;
 
   if (authData.authenticated) {
     const redirectPath = roleToPath[authData.role] || '/';

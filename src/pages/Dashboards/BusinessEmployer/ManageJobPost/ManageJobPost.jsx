@@ -28,7 +28,7 @@ const ManageJobPost = () => {
     data: jobPostsGrouped = { pending: [], active: [], completed: [] },
     isLoading: isJobsLoading,
   } = useJobPostsByUser();
-
+  
   const openForm = () => {
     document.body.style.overflow = 'hidden';
     setShowForm(true);
@@ -79,7 +79,7 @@ const ManageJobPost = () => {
           <>
             <div className="bg-white shadow-md py-6 px-10 mb-8">
               <div className="flex flex-col">
-                <h1 className="text-2xl font-bold text-[#003479]">Manage Job Post</h1>
+                <h1 className="text-2xl font-bold text-[#2563EB]">Manage Job Post</h1>
                 <p>View and manage all your job postings</p>
               </div>
             </div>

@@ -57,7 +57,7 @@ const MessageAgency = ({ receiver, role, onClose }) => {
       setTimeout(() => {
         setSuccess(false);
         onClose();
-      }, 1500);
+      }, 1500000000);
     },
 
     onError: () => {
@@ -78,79 +78,124 @@ const MessageAgency = ({ receiver, role, onClose }) => {
   const isSubmitting = mutation.isPending;
 
   return (
-    <div className="bg-gray-300 w-full max-w-2xl py-5 px-10 rounded-xl border border-gray-500 shadow-lg">
-      <div className="flex justify-between items-center border-b pb-3 mb-5 border-gray-500">
-        <h2 className="text-xl font-bold truncate">
-          Message {receiver.agency_name || receiver.business_name || receiver.full_name || 'Agency'}
-        </h2>
+    <div className="max-w-6xl shadow-2xl max-h-[90vh] flex flex-col bg-[#D9D9D9] w-full  py-5 px-10 xl:ml-60 border border-gray-500">
+      <div className="flex justify-between items-center pb-3 mb-5">
+        <div>
+          <strong className="md:text-2xl text-sm font-bold truncate block">Upload Documents</strong>
+          <span className="text-[#6B7280] md:text-xl text-sm">Attach your resume</span>
+        </div>
+
         <button
           onClick={onClose}
-          className="text-gray-700 text-2xl rounded cursor-pointer"
+          aria-label="Close application form"
+          className="ml-auto text-white bg-red-600 hover:bg-red-700 rounded-full w-8 h-8 max-[769px]:w-7 max-[769px]:h-7 flex items-center justify-center font-bold text-lg max-[769px]:text-base cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed transition shrink-0"
           disabled={isSubmitting}
         >
-          &times;
+          ✕
         </button>
       </div>
 
-      <p className="text-gray-700 mb-1">Your Message:</p>
-      <textarea
-        rows="6"
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        placeholder="Introduce yourself and explain why you’re interested in this agency."
-        className="w-full p-3 border border-gray-500 rounded resize-none outline-none"
-        disabled={isSubmitting}
-      />
-
-      <div className="mb-4 flex flex-col">
-        <label className="text-gray-700 font-medium mb-2" htmlFor="resume">
-          Attach Resume/Documents <span className="text-sm text-gray-500">(Optional)</span>
-        </label>
-        <div className="mt-2">
-          <label
-            htmlFor="resume"
-            className="inline-flex items-center gap-2 border border-blue-500 px-3 py-1 cursor-pointer rounded-xl"
-          >
-            <img src={icons.pin} alt="Pin" className="w-5 h-5" />
-            <span>Attach File</span>
+      <div className="flex md:flex-row flex-col justify-between gap-5">
+        {/* RESUME */}
+        <div className="mb-4 flex flex-col w-full">
+          <label htmlFor="file" className="text-gray-900 mb-3 flex items-center gap-2">
+            <img src={icons.resume} alt="Resume icon" /> Resume / CV{' '}
+            <span className="text-red-600">*</span>
           </label>
-          <input
-            type="file"
-            id="resume"
-            name="file"
-            accept="image/*,.pdf,.doc,.docx"
-            className="hidden"
-            onChange={(e) => setFile(e.target.files[0])}
+
+          <div className="mt-2 flex flex-col">
+            <label
+              htmlFor="resume"
+              className="border-2 border-dashed border-[#6B7280] bg-blue-50 rounded-lg p-6 cursor-pointer flex flex-col items-center justify-center hover:bg-blue-100 transition"
+            >
+              <span className="text-3xl md:block hidden">
+                <img src={icons.drag_drop} alt="" />
+              </span>
+              <span className="text-sm font-semibold text-gray-700 md:block hidden">
+                Click to upload or drag and drop
+              </span>
+              <span className="text-xs text-gray-500">PDF (Max 10MB)</span>
+            </label>
+
+            <input
+              type="file"
+              id="resume"
+              name="file"
+              accept="image/*,.pdf,.doc,.docx"
+              className="hidden"
+              onChange={(e) => setFile(e.target.files[0])}
+              disabled={isSubmitting}
+            />
+
+            {file && (
+              <p className="text-sm text-gray-700 mt-2">
+                Selected: <strong>{file.name}</strong>
+              </p>
+            )}
+          </div>
+        </div>
+
+        {/* COVER LETTER */}
+        <div className="w-full">
+          <label htmlFor="cover_letter" className="text-gray-900 mb-3 flex items-center gap-2">
+            <img src={icons.cover_letter} alt="Cover letter icon" /> Cover Letter{' '}
+            <span>(Optional)</span>
+          </label>
+          <textarea
+            rows="6"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Tell us why you're interested in this position and what makes you a great fit... "
+            className="w-full rounded p-3 border border-[#6B7280] bg-blue-50 resize-none outline-none focus:border-blue-500 disabled:bg-gray-200"
             disabled={isSubmitting}
           />
-          {file && (
-            <p className="text-sm text-gray-700 mt-2">
-              Selected: <strong>{file.name}</strong>
-            </p>
-          )}
         </div>
       </div>
 
       <div
-        className="flex justify-end gap-3 mt-4
-          max-[769px]:flex-col max-[769px]:items-stretch
-                max-[426px]:flex-col max-[426px]:items-stretch
-      "
+        className="flex justify-center gap-3 mt-4
+          max-[769px]:flex-col 
+          max-[769px]:items-stretch
+          max-[426px]:flex-col 
+          max-[426px]:items-stretch
+          "
       >
         <button
           onClick={handleSubmit}
           disabled={isSubmitting || !message.trim()}
-          className={`px-4 py-2 rounded-xl text-white ${
+          className={`px-10 py-1 text-white ${
             isSubmitting
               ? 'bg-gray-500 cursor-not-allowed'
-              : 'bg-blue-900 hover:bg-blue-800 cursor-pointer'
+              : 'bg-[#2563EB] hover:bg-blue-900 cursor-pointer'
           }`}
         >
-          {isSubmitting ? 'Sending…' : 'Send Message'}
+          {isSubmitting ? 'Sending…' : 'Continue'}
         </button>
       </div>
 
-      {success && <p className="text-green-600 mt-3">Message sent successfully!</p>}
+      {success && (
+        <div className="fixed inset-0 bg-opacity-40 flex items-center justify-center p-4 z-50 xl:ml-60">
+          <div className="backdrop-blur-2xl shadow-lg max-w-5xl w-full relative">
+            <button
+              onClick={onClose}
+              aria-label="Close success modal"
+              className="absolute top-6 right-6 bg-red-600 hover:bg-red-700 text-white rounded-full w-10 h-10 flex items-center justify-center transition font-bold text-lg cursor-pointer"
+            >
+              ✕
+            </button>
+
+            <div className="py-24 px-8 text-center">
+              <h1 className="text-4xl font-bold text-gray-900 mb-6">Application Submitted!</h1>
+
+              <p className="text-lg text-gray-500">
+                Your message and documents have been successfully sent.
+                <br />
+                Please wait for the agency to respond.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

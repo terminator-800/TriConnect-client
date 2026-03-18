@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient  } from '@tanstack/react-query';
 import { ROLE } from '../utils/role';
 import axios from 'axios';
 
@@ -7,6 +7,11 @@ export const useUserProfile = (role) => {
     queryKey: ['user-profile', role],
     enabled: !!role,
     queryFn: async () => {
+      //  // FOR DEVELOPMENT ONLY: force loading
+      // if (import.meta.env.DEV) {
+      //   await new Promise((res) => setTimeout(res, 300)); // 3s delay
+      // }
+
       if (!role) throw new Error('Role is required to fetch profile.');
 
       const allowedRoles = Object.values(ROLE);
@@ -27,7 +32,7 @@ export const useUserProfile = (role) => {
     },
     staleTime: 5 * 60 * 1000,
     retry: false,
-    refetchOnWindowFocus: 'always',
+    refetchOnWindowFocus: true,
   });
 };
 

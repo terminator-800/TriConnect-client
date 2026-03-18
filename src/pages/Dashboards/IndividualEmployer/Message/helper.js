@@ -49,7 +49,7 @@ export const filterAndMapConversations = (conversations, activeTab) => {
       case ROLE.MANPOWER_PROVIDER:
         name = convo.agency_name || unknown;
         authorized_person = convo.agency_authorized_person || null;
-        authorized_profile = convo.authorized_profile;
+        authorized_profile = convo.profile;
         profile = convo.profile;
         break;
 

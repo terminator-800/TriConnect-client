@@ -12,6 +12,7 @@ const JobPostForm = ({ onClose, role }) => {
   const [job_description, setJobDescription] = useState('');
   const [agreeToReview, setAgreeToReview] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [number_of_worker, setNumberOfWorker] = useState('');
 
   const onSuccessCallback = () => {
     setJobTitle('');
@@ -21,6 +22,7 @@ const JobPostForm = ({ onClose, role }) => {
     setRequiredSkill('');
     setJobDescription('');
     setAgreeToReview(false);
+    setNumberOfWorker(''); 
   };
 
   const { mutate, isPending, isSuccess } = useCreateHiringJobPost(role, onSuccessCallback);
@@ -43,8 +45,8 @@ const JobPostForm = ({ onClose, role }) => {
 
   return (
     <>
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-75 backdrop-blur-sm">
-        <div className="relative w-full max-w-7xl shadow-lg py-6 overflow-y-auto  bg-white px-10 h-[90vh]">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-75 ml-60 mt-20">
+        <div className="relative w-full max-w-7xl shadow-lg py-6 overflow-y-auto backdrop-blur-2xl px-10 h-[90vh]">
           <button
             onClick={onClose}
             className="absolute top-4 right-4 w-6 h-6 flex items-center justify-center rounded-full bg-red-500 text-white font-bold cursor-pointer"
@@ -61,16 +63,24 @@ const JobPostForm = ({ onClose, role }) => {
 
           <div className="w-full">
             <form
+              // Update your form submit to conditionally include it:
               onSubmit={(e) => {
                 e.preventDefault();
-                mutate({
+                const jobData = {
                   job_title,
                   job_type,
                   salary_range,
                   location,
                   required_skill,
                   job_description,
-                });
+                };
+
+                // Only add number_of_worker if role is business-employer
+                if (role === 'business-employer') {
+                  jobData.number_of_worker = number_of_worker;
+                }
+                 
+                mutate(jobData);
               }}
             >
               <div className="mb-5">
@@ -88,23 +98,43 @@ const JobPostForm = ({ onClose, role }) => {
                 />
               </div>
 
-              <div className="mb-5 flex flex-col">
-                <label htmlFor="job_type" className="font-medium">
-                  Job Type
-                </label>
-                <select
-                  name="job_type"
-                  id="job_type"
-                  className="outline-none border border-gray-300 py-2 px-2"
-                  value={job_type}
-                  onChange={(e) => setJobType(e.target.value)}
-                  required
-                >
-                  <option value="">Select Job Type</option>
-                  <option value="Full-time">Full-Time</option>
-                  <option value="Part-time">Part-Time</option>
-                  <option value="Contract">Contract</option>
-                </select>
+              <div className='flex gap-5'>
+                <div className="mb-5 flex flex-col flex-1">
+                  <label htmlFor="job_type" className="font-medium">
+                    Job Type
+                  </label>
+                  <select
+                    name="job_type"
+                    id="job_type"
+                    className="outline-none border border-gray-300 py-2 px-2"
+                    value={job_type}
+                    onChange={(e) => setJobType(e.target.value)}
+                    required
+                  >
+                    <option value="">Select Job Type</option>
+                    <option value="Full-time">Full-Time</option>
+                    <option value="Part-time">Part-Time</option>
+                    <option value="Contract">Contract</option>
+                  </select>
+                </div>
+
+                {role === 'business-employer' && (
+                  <div className="mb-5 flex flex-col flex-1">
+                    <label htmlFor="number_of_worker" className="font-medium">
+                      Number of Workers
+                    </label>
+                    <input
+                      type="number"
+                      id="number_of_worker"
+                      placeholder="e.g., 5"
+                      className="border border-gray-300 outline-none px-2 py-2"
+                      value={number_of_worker}
+                      onChange={(e) => setNumberOfWorker(e.target.value)}
+                      min="1"
+                      required
+                    />
+                  </div>
+                )}
               </div>
 
               <div className="mb-5 flex flex-col">

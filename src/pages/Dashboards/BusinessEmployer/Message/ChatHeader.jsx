@@ -20,8 +20,6 @@ const ChatHeader = ({ selectedUser } ) => {
    const { data: applicants, isLoading, error } = useApplicants({
       role: ROLE.BUSINESS_EMPLOYER,
     });
-
-    console.log(applicants, "APPLICANTS IN CHAT HEADER");
     
   const isUserReported = reportedUsers.includes(selectedUser?.sender_id);
 
@@ -69,9 +67,13 @@ const ChatHeader = ({ selectedUser } ) => {
 
             <div className="text-sm text-gray-700">
               <span className="font-medium">Sent by: {authorizedPerson}</span>
+              {selectedUser.job_title && (
+                    <>
+                      {' '}| <span className="font-bold">{selectedUser.job_title}</span>
+                    </>
+                  )}
               <div className="text-xs text-gray-500">
                 {selectedUser.sent_at && `Last message: ${selectedUser.sent_at}`}
-                
               </div>
             </div>
           </div>

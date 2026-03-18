@@ -6,6 +6,9 @@ export default {
       fontFamily: {
         sans: ['Inter', 'sans-serif'], // set Inter as default sans
       },
+      backgroundImage: {
+        'radial-cyan': 'radial-gradient(circle at center, white, #00C2CB)',
+      },
     },
     screens: {
       xs: '480px', // 👈 extra small devices

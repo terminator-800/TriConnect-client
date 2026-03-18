@@ -8,6 +8,7 @@ import { ROLE } from '../../../../../utils/role';
 import DisabledAccount from '../../../../components/DisabledAccount';
 import VerificationStatus from '../Verification Form/VerificationStatus';
 import Form from '../Verification Form/Form';
+import { MagnifyingGlass } from '../../../../assets/icon2/icon2';
 
 const BrowseJob = () => {
   const unknown = 'Unknown';
@@ -36,22 +37,24 @@ const BrowseJob = () => {
 
   if (profileData.is_verified && profileData.employment_status === 'hired') {
     return (
-      <DisabledAccount
-        contractData={{
-          employer: profileData.employer_name,
-          job_title: profileData.job_title,
-          start_date: profileData.contract_start_date,
-          end_date: profileData.contract_end_date,
-        }}
-      />
+      <div className='px-5'>
+        <DisabledAccount
+          contractData={{
+            employer: profileData.employer_name,
+            job_title: profileData.job_title,
+            start_date: profileData.contract_start_date,
+            end_date: profileData.contract_end_date,
+          }}
+        />
+      </div>
     );
   }
 
   // Show verification status if not verified
   if (!profileData.is_verified) {
     return (
-      <div className="relative min-h-screen bg-linear-to-b from-white to-cyan-400 pl-70 pr-10 pt-30">
-        <div className="bg-white shadow-md p-6 w-full border border-gray-300 px-20">
+      <div className="relative min-h-screen bg-linear-to-b from-white to-[#00C2CB] pl-4 md:pl-70 pr-4 md:pr-10 pt-10 md:pt-30">
+        <div className="bg-white shadow-md p-6 w-full border border-gray-300 px-4 md:px-20">
           <VerificationStatus profileData={profileData} openForm={openForm} />
         </div>
 
@@ -70,25 +73,22 @@ const BrowseJob = () => {
 
   return (
     <>
-      <div className="bg-white shadow-md py-6 px-10 mb-8 flex flex-col md:flex-row gap-4">
+      <div className="bg-white shadow-md py-6 px-4 md:px-10 mb-8 flex 2xl:flex-row lg:flex-col md:flex-col sm:flex-col max-[635px]:flex-col gap-4 ">
         {/* Title & description */}
         <div className="flex flex-col flex-1 justify-center">
-          <h1 className="text-2xl font-bold text-blue-900">Browse Job</h1>
+          <h1 className="text-2xl font-bold text-[#2563EB]">Browse Job</h1>
           <p>Browse job openings and apply to positions that fit you</p>
         </div>
 
         {/* Search Bar */}
-        <div className="flex-1 text-white pl-5 pr-5 shadow-md flex items-center gap-2 bg-[#BDC3C7]">
-          <img src={icons.search_job_icon} alt="search jobs" />
-          <input type="text" placeholder="Search job titles" className="outline-none flex-1 " />
-          <button className="text-white bg-[#2563EB] rounded-xl px-10 py-1 cursor-pointer">
-            Find jobs
-          </button>
-        </div>
+      <div className="flex-1 flex items-center gap-2 flex-wrap sm:flex-nowrap bg-[#C8E9FF] shadow-md pl-3 pr-3 py-2 sm:px-5 sm:py-2 md:px-5 md:py-3 lg:px-5 2xl:pr-3">
+        <MagnifyingGlass className="w-5 h-5 md:w-6 md:h-6 text-[#2563EB] shrink-0" />
+        <input type="text" placeholder="Search job titles" className="flex-1 min-w-0 outline-none bg-transparent text-[#2563EB] text-sm md:text-base" />
+        <button className="bg-[#2563EB] text-white text-sm md:text-base px-4 sm:px-6 md:px-10 py-1 whitespace-nowrap cursor-pointer w-full sm:w-auto">Find jobs</button>
       </div>
 
-      {/* Search Bar */}
-
+      </div>
+      {/* MAIN CONTENT */}
       <div className="flex flex-col h-screen">
         <div className="overflow-y-auto space-y-10 w-full">
           {loadingJobPosts ? (
@@ -103,7 +103,7 @@ const BrowseJob = () => {
               <div
                 key={post.job_post_id}
                 onClick={() => setSelectedJobPost(post)}
-                className={`border border-gray-300 py-5 px-5 shadow-md cursor-pointer overflow-hidden w-full min-h-[20vh] flex flex-col justify-between
+                className={`border border-gray-300 py-5 px-4 md:px-5 shadow-md cursor-pointer overflow-hidden w-full min-h-[20vh] flex flex-col justify-between
                 ${
                   selectedJobPost?.job_post_id === post.job_post_id
                     ? 'bg-gray-200'
@@ -115,26 +115,26 @@ const BrowseJob = () => {
                 <style>{`div::-webkit-scrollbar { display: none }`}</style>
 
                 <div className="flex flex-col gap-1">
-                  <h3 className="text-xl font-bold truncate">{post.job_title}</h3>
-                  <p className="text-gray-500 truncate">
+                  <h3 className="text-lg md:text-xl font-bold truncate">{post.job_title}</h3>
+                  <p className="text-gray-500 truncate text-sm md:text-base">
                     {post.business_name || post.full_name || post.agency_name || unknown}
                   </p>
-                  <span className="bg-blue-200 text-blue-700 rounded-full px-10 py-1 mt-2 text-sm w-max">
+                  <span className="bg-blue-200 text-blue-700 rounded-full px-6 md:px-10 py-1 mt-2 text-xs md:text-sm w-max">
                     {post.job_type}
                   </span>
                 </div>
 
                 {/* Bottom Section */}
-                <div className="flex items-center gap-6 mt-5 text-gray-500 text-sm">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-6 mt-5 text-gray-500 text-xs md:text-sm">
                   {/* Location */}
-                  <div className="flex items-center gap-1 truncate">
-                    <img src={icons.location} alt="Location" className="w-4 h-4" />
+                  <div className="flex items-center gap-1 truncate max-w-full">
+                    <img src={icons.location} alt="Location" className="w-4 h-4 shrink-0" />
                     <span className="truncate">{post.location}</span>
                   </div>
 
                   {/* Posted Date */}
-                  <div className="flex items-center gap-1 truncate">
-                    <img src={icons.posted_clock} alt="Posted" className="w-4 h-4" />
+                  <div className="flex items-center gap-1 truncate max-w-full">
+                    <img src={icons.posted_clock} alt="Posted" className="w-4 h-4 shrink-0" />
                     <span className="truncate">Posted: {post.approved_at}</span>
                   </div>
                 </div>
@@ -144,8 +144,8 @@ const BrowseJob = () => {
         </div>
 
         {selectedJobPost && (
-          <div
-            className="fixed inset-0 flex justify-center items-center z-50 ml-55"
+        <div
+            className="fixed inset-0 flex justify-center items-center z-50 2xl:ml-55 px-4 sm:px-6 md:px-8 lg:px-12"
             onClick={() => setSelectedJobPost(null)}
           >
             <div
@@ -155,17 +155,16 @@ const BrowseJob = () => {
               {/* Close Button */}
               <button
                 onClick={() => setSelectedJobPost(null)}
-                className="absolute top-4 right-4 bg-red-600 text-white rounded-full w-7 h-7 hover:bg-red-700 cursor-pointer"
+                className="absolute top-4 right-4 bg-red-600 text-white rounded-full w-7 h-7 hover:bg-red-700 cursor-pointer z-10"
               >
                 ✕
               </button>
 
               {/* Content */}
-              <div className="p-8">
-                {/* Header - Job Title and Status */}
+              <div className="p-4 md:p-8">
                 <div className="mb-6">
-                  <div className="flex items-center gap-3 mb-2">
-                    <h1 className="text-3xl font-bold text-gray-900">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-2">
+                    <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
                       {selectedJobPost.job_title}
                     </h1>
                     <span className="bg-white text-[#1E40AF] px-3 py-1 rounded-full text-sm font-semibold">
@@ -173,17 +172,17 @@ const BrowseJob = () => {
                     </span>
                   </div>
 
-                  <div className="flex gap-3">
-                    <p className="text-gray-600 text-sm">
+                  <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 text-sm md:text-base">
+                    <p className="text-gray-600">
                       {selectedJobPost.business_name ||
                         selectedJobPost.full_name ||
                         selectedJobPost.agency_name ||
                         unknown}
                     </p>
-                    <span>|</span>
-                    <div className="flex items-center gap-2 text-gray-500 text-sm mt-1">
+                    <span className="hidden sm:inline">|</span>
+                    <div className="flex items-center gap-2 text-gray-500 text-sm">
                       <span>
-                        <img src={icons.posted_clock} alt="" />
+                        <img src={icons.posted_clock} alt="" className="w-4 h-4" />
                       </span>
                       <span>Posted {selectedJobPost.approved_at}</span>
                     </div>
@@ -191,14 +190,14 @@ const BrowseJob = () => {
                 </div>
 
                 {/* Two Column Layout */}
-                <div className="grid grid-cols-2 gap-8 mb-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 mb-8">
                   {/* Left Column */}
                   <div className="space-y-6">
                     {/* Job Type */}
                     <div>
                       <div className="flex items-center gap-2 mb-1">
                         <span>
-                          <img src={icons.job_type} alt="" />
+                          <img src={icons.job_type} alt="" className="w-4 h-4" />
                         </span>
                         <label className="text-gray-600 text-sm">Job Type</label>
                       </div>
@@ -209,18 +208,18 @@ const BrowseJob = () => {
                     <div>
                       <div className="flex items-center gap-2 mb-1">
                         <span>
-                          <img src={icons.location_blue} alt="" />
+                          <img src={icons.location_blue} alt="" className="w-4 h-4" />
                         </span>
                         <label className="text-gray-600 text-sm">Location</label>
                       </div>
-                      <p className="text-gray-900 font-semibold ml-6">{selectedJobPost.location}</p>
+                      <p className="text-gray-900 font-semibold ml-6 break-words">{selectedJobPost.location}</p>
                     </div>
 
                     {/* Salary Range */}
                     <div>
                       <div className="flex items-center gap-2 mb-1">
                         <span>
-                          <img src={icons.salary_range} alt="" />
+                          <img src={icons.salary_range} alt="" className="w-4 h-4" />
                         </span>
                         <label className="text-gray-600 text-sm">Salary Range</label>
                       </div>
@@ -234,7 +233,7 @@ const BrowseJob = () => {
                   <div>
                     <div className="flex items-center gap-2 mb-3">
                       <span>
-                        <img src={icons.required_skills} alt="" />
+                        <img src={icons.required_skills} alt="" className="w-4 h-4" />
                       </span>
                       <label className="text-gray-600 text-sm">Required Skills</label>
                     </div>
@@ -244,7 +243,7 @@ const BrowseJob = () => {
                           .split('\n')
                           .filter((skill) => skill.trim())
                           .map((skill, idx) => (
-                            <li key={idx} className="cursor-pointer text-sm text-gray-900">
+                            <li key={idx} className="cursor-pointer text-sm text-gray-900 break-words">
                               {skill.trim()}
                             </li>
                           ))}
@@ -265,20 +264,23 @@ const BrowseJob = () => {
                   />
                 </div>
 
-                {/* Action Buttons */}
-                <div className="">
+                <div className="flex flex-col sm:flex-row gap-4">
+
+                  {/* APPLY NOW */}
                   <button
                     onClick={() => setIsModalOpen(true)}
-                    className="flex-1 bg-blue-600 text-white cursor-pointer font-semibold px-10 py-1 hover:bg-blue-700 transition mr-10"
+                    className=" bg-blue-600 text-white cursor-pointer font-semibold px-6 md:px-10 py-2 md:py-1 hover:bg-blue-700 transition text-sm md:text-base"
                   >
                     Apply Now
                   </button>
-                  {/* <button
-                    onClick={() => {}}
-                    className="flex-1 bg-transparent text-gray-800 cursor-pointer font-semibold px-10 py-1 border hover:bg-gray-50 transition"
+                  
+                  {/* SAVE JOB */}
+                  <button
+                    onClick={() => setIsModalOpen(true)}
+                    className=" bg-[#6B7280] text-white cursor-pointer font-semibold px-6 md:px-10 py-2 md:py-1 hover:bg-blue-700 transition text-sm md:text-base"
                   >
                     Save Job
-                  </button> */}
+                  </button>
                 </div>
               </div>
             </div>
@@ -295,7 +297,7 @@ const BrowseJob = () => {
       </div>
 
       {isModalOpen && selectedJobPost && (
-        <div className="fixed inset-0 bg-opacity-40 flex justify-center items-center z-50">
+        <div className="fixed inset-0 bg-opacity-40 flex justify-center items-center z-50 px-4 md:px-0">
           <Apply
             employer={selectedJobPost}
             onClose={() => {

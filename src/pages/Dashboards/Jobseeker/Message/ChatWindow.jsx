@@ -91,12 +91,6 @@ const ChatWindow = ({ selectedUser }) => {
     
     rounded-lg
     scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100 
-    max-[769px]:max-w-[60vw]
-    max-[660px]:max-w-[55vw]
-    max-[426px]:max-w-[50vw]
-    max-[426px]:pr-0
-    max-[769px]:p-0
-    max-[769px]:m-0
 
     "
     >
@@ -108,13 +102,7 @@ const ChatWindow = ({ selectedUser }) => {
 
       <div className="flex-1 bg-white flex flex-col">
         <div
-          className="flex-1 overflow-y-auto px-2 py-4 flex flex-col justify-end min-h-[50vh]
-          
-          max-[769px]:px-2
-          max-[769px]:py-0
-           max-[426px]:px-2
-           max-[376px]:px-2
-        "
+          className="flex-1 overflow-y-auto px-2 py-4 flex flex-col justify-end min-h-[50vh]"
         >
           <ul
             className="flex flex-col space-y-4
@@ -153,10 +141,9 @@ const ChatWindow = ({ selectedUser }) => {
                       )}
                     </div>
                   )}
-
                   <div className="flex flex-col items-start">
                     {/* APPLICATION CARD - Only if it has required application fields */}
-                    {msg.message_type === 'apply' && msg.full_name && msg.email_address ? (
+                    {msg.message_type === 'apply' && msg.cover_letter && msg.resume ? (
                         ApplicationCard(msg, isSender)
                       ) : msg.message_type === 'request' && msg.job_title && !msg.company_name ? (
                         IndividualRequestCard(msg, isSender)
@@ -181,7 +168,6 @@ const ChatWindow = ({ selectedUser }) => {
                                     title="PDF Preview"
                                     className="w-full h-full pointer-events-none"
                                   />
-                                  {console.log(messages)}
                                 </div>
                               ) : (
                                 <img

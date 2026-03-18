@@ -12,10 +12,13 @@ const BrowseJob = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const {
-    data: filteredJobPosts = [],
+    data: jobPosts = [],
     isLoading: loadingJobPosts,
     isError: errorJobPosts,
   } = useUnappliedJobPosts();
+
+  // Filter out individual-employer job posts
+  const filteredJobPosts = jobPosts.filter((post) => post.role !== 'individual-employer');
 
   const startIndex = (currentPage - 1) * postsPerPage;
   const paginatedPosts = filteredJobPosts.slice(startIndex, startIndex + postsPerPage);

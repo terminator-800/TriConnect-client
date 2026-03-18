@@ -33,14 +33,14 @@ const handleDeclineClick = () => {
                 className="px-4 py-2 hover:bg-gray-100 cursor-pointer border-b border-[#D8D9DB] text-[#55C463]"
                 onClick={handleAcceptClick}
               >
-                Accept Applicant
+                Hire Applicant
               </li>
 
               <li
                 className="px-4 py-2 hover:bg-gray-100 text-red-600 cursor-pointer"
                 onClick={handleDeclineClick}
               >
-                Decline Applicant
+                Reject Applicant
               </li>
             </ul>
           </div>

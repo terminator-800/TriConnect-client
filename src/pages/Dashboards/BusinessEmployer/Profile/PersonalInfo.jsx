@@ -66,7 +66,7 @@ const PersonalInfo = ({
         ) : (
           <button
             onClick={() => setEditMode(true)}
-            className="bg-blue-900 text-white px-10 py-1 cursor-pointer"
+            className="bg-[#2563EB] text-white px-10 py-5 rounded cursor-pointer"
           >
             Update Personal Information
           </button>

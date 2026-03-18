@@ -2,23 +2,23 @@ import icons from '../../assets/svg/Icons';
 
 export const ApplicationCard = (msg, isSender) => {
   const {
-    full_name,
-    phone_number,
-    email_address,
-    current_address,
+    // full_name,
+    // phone_number,
+    // email_address,
+    // current_address,
     cover_letter,
-    job_title,
+    // job_title,
     resume,
   } = msg;
 
   // Check if any required field is empty
   const hasEmptyFields =
-    !full_name ||
-    !phone_number ||
-    !email_address ||
-    !current_address ||
+    // !full_name ||
+    // !phone_number ||
+    // !email_address ||
+    // !current_address ||
     !cover_letter ||
-    !job_title ||
+    // !job_title ||
     !resume;
 
   if (hasEmptyFields) {
@@ -31,46 +31,19 @@ export const ApplicationCard = (msg, isSender) => {
   }
 
   return (
-    <div className="w-full max-w-lg bg-white border border-gray-300 rounded-2xl overflow-hidden shadow-sm">
+    <div className="md:w-full w-50 bg-white border border-gray-300 rounded-2xl overflow-hidden shadow-sm">
       {/* Content */}
       <div className="px-6 py-5 space-y-4">
-        {/* Applied for */}
-        <div>
-          <p className="text-gray-900 text-base font-semibold">
-            Applied for <span className="font-bold">{job_title || 'Position'}</span>
-          </p>
-        </div>
-
-        {/* Contact Info - Vertical Stack */}
-        <div className="space-y-2">
-          {/* Email */}
-          <div className="flex items-center gap-3">
-            <span className="text-gray-400 text-sm">✉</span>
-            <p className="text-gray-700 text-sm">{email_address}</p>
-          </div>
-
-          {/* Phone */}
-          <div className="flex items-center gap-3">
-            <span className="text-gray-400 text-sm">📱</span>
-            <p className="text-gray-700 text-sm">{phone_number}</p>
-          </div>
-
-          {/* Address */}
-          <div className="flex items-start gap-3">
-            <span className="text-gray-400 text-sm mt-0.5">📍</span>
-            <p className="text-gray-700 text-sm">{current_address}</p>
-          </div>
-        </div>
-
+      
         {/* Divider */}
-        <div className="border-t border-gray-200"></div>
+        {/* <div className="border-t border-gray-200"></div> */}
 
         {/* Attached Documents */}
         {resume && (
           <div>
             <p className="text-gray-900 text-sm font-bold mb-3">Attached Documents</p>
             <div className="flex items-center gap-3 bg-gray-50 p-3 rounded-lg border border-gray-200">
-              <div className="flex-shrink-0">
+              <div className="shrink-0">
                 <div className="w-10 h-10 bg-red-100 rounded flex items-center justify-center">
                   <span>
                     <img src={icons.resume_download} alt="resume download" />
@@ -87,11 +60,10 @@ export const ApplicationCard = (msg, isSender) => {
                 href={resume}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-shrink-0 text-gray-400 hover:text-gray-600"
+                className="shrink-0 text-gray-400 hover:text-gray-600"
               >
                 <img src={icons.download_pdf_arrow} alt="" />
               </a>
-              {console.log(msg)}
             </div>
           </div>
         )}

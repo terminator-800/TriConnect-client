@@ -3,9 +3,9 @@ import { format, parseISO } from 'date-fns';
 
 export const BusinessRequestCard = (msg, isSender) => {
   const {
-    job_title,
+    // job_title,
     employer_name,
-    company_name,
+    // company_name,
     sender_name,
     phone_number,
     email_address,
@@ -23,9 +23,9 @@ let formattedStartDate = start_date;
 
   // Check if any required field is empty
   const hasEmptyFields =
-    !job_title ||
+    // !job_title ||
     !employer_name ||
-    !company_name ||
+    // !company_name ||
     !sender_name ||
     !phone_number ||
     !email_address ||
@@ -48,8 +48,8 @@ let formattedStartDate = start_date;
       <div className="px-6 py-5 space-y-4">
         {/* Applied for / Job Title */}
         <div className='flex gap-2'>
-          <p className="text-sm">Requesting for</p>
-          <h3 className="text-sm font-semibold">{job_title}</h3>
+          {/* <p className="text-sm">Requesting for</p>
+          <h3 className="text-sm font-semibold">{job_title}</h3> */}
         </div>
 
         {/* Employer Name */}
@@ -60,8 +60,8 @@ let formattedStartDate = start_date;
 
         {/* Company / Business Name */}
         <div>
-          <label className="block text-sm font-medium text-gray-700">Company / Business Name</label>
-          <p className="border border-[#D1D1D1] px-2 py-1 rounded">{company_name}</p>
+          {/* <label className="block text-sm font-medium text-gray-700">Company / Business Name</label>
+          <p className="border border-[#D1D1D1] px-2 py-1 rounded">{company_name}</p> */}
         </div>
 
         {/* Phone & Email */}

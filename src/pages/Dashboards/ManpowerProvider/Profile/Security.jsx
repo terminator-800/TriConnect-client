@@ -19,7 +19,7 @@ const Security = () => {
         placeholder="confirm password"
         className="border border-gray-300 outline-none px-2 py-1 w-full mb-5"
       />
-      <button className="bg-blue-900 text-white px-10 py-1 cursor-pointer">Update Password</button>
+      <button className="bg-[#2563EB] py-5 text-white px-10 rounded cursor-pointer">Update Password</button>
     </div>
   );
 };

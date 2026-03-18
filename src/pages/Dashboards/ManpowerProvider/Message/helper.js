@@ -49,11 +49,13 @@ export const filterAndMapConversations = (conversations, activeTab) => {
         authorized_profile = convo.authorized_profile || null;
         profile = convo.profile || null;
         break;
+
       case ROLE.INDIVIDUAL_EMPLOYER:
         name = convo.full_name || unknown;
         profile = convo.profile || null;
         authorized_profile = convo.profile || null;
         break;
+        
       case ROLE.JOBSEEKER:
         name = convo.full_name || unknown;
         profile = convo.profile || null;

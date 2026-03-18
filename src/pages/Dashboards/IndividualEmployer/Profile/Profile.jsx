@@ -65,8 +65,8 @@ const IndividualEmployerProfile = () => {
               <>
                 <div className="flex items-center pt-20 justify-between w-full">
                   <div>
-                    <h1 className="font-bold text-4xl">{profileData.full_name}</h1>
-                    <div className="bg-white p-3 rounded-md shadow-md flex justify-between items-center w-full border border-gray-300 mt-5">
+                    <h1 className="font-bold text-4xl text-[#2563EB]">{profileData.full_name}</h1>
+                    <div className="bg-[#FFF9E6] p-3 rounded-md shadow-md flex justify-between items-center w-full border border-[#D4A017] mt-5">
                       <div className="flex gap-4 items-center">
                         <div>
                           <div className="flex">
@@ -89,13 +89,13 @@ const IndividualEmployerProfile = () => {
                 <div className="bg-white w-full flex justify-between mt-20 gap-5">
                   <button
                     onClick={() => setActiveTab(personal)}
-                    className={`px-10 py-1 w-full cursor-pointer transition-all duration-200 ${activeTab === personal ? 'bg-blue-900 text-white' : 'bg-white border border-blue-900 text-blue-900'}`}
+                    className={`px-10 py-5 w-full cursor-pointer transition-all duration-200 ${activeTab === personal ? 'bg-[#2563EB] text-white' : 'bg-white border border-blue-900 text-blue-900'}`}
                   >
                     Personal Information
                   </button>
                   <button
                     onClick={() => setActiveTab(security)}
-                    className={`px-10 py-1 w-full cursor-pointer transition-all duration-200 ${activeTab === security ? 'bg-blue-900 text-white' : 'bg-white border border-blue-900 text-blue-900'}`}
+                    className={`px-10 py-1 w-full cursor-pointer transition-all duration-200 ${activeTab === security ? 'bg-[#2563EB] text-white' : 'bg-white border border-blue-900 text-blue-900'}`}
                   >
                     Security
                   </button>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import RequestManpowerModal from './RequestManpowerModal';
+// import RequestManpowerModal from './RequestManpowerModal';
 import icons from '../../../../assets/svg/Icons';
 
 const WorkerDetailModal = ({ worker, isOpen, onClose, onShowSuccess }) => {

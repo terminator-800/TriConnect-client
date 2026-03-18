@@ -2,22 +2,54 @@ import { useUserProfile } from '../../../hooks/useUserProfiles';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export default function HireApplicant({ selectedUser, onClose, role }) {
   if (!selectedUser) return null;
 
+  const queryClient = useQueryClient();
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  
   const { data: profileData } = useUserProfile(role);
     
-  const employerName = profileData?.business_name || profileData?.full_name || profileData.agency_name || 'Employer';
+  const employerName = profileData?.business_name || profileData?.full_name || profileData?.agency_name || 'Employer';
   const applicantName = selectedUser?.authorized_person || selectedUser?.name || 'Applicant';
 
+  // Mutation for hiring applicant
+  const hireApplicantMutation = useMutation({
+    mutationFn: async (payload) => {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/${role}/hire-applicant`,
+        payload,
+        { 
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        }
+      );
+      return response.data;
+    },
+    onSuccess: () => {
+      // Invalidate relevant queries after successful hire
+      queryClient.invalidateQueries({ queryKey: ['conversations'] });
+      queryClient.invalidateQueries({ queryKey: ['applicants'] });
+      queryClient.invalidateQueries({ queryKey: ['hiredApplicants'] }); // dko sure og asa ni dapit na query key
+      queryClient.invalidateQueries({ queryKey: ['messages', role, selectedUser.conversation_id] });
+      
+      setShowConfirmation(true);
+    },
+    onError: (err) => {
+      setError(
+        err.response?.data?.message || 'Failed to hire applicant. Please try again.'
+      );
+    }
+  });
+
   const handleConfirmHire = async () => {
-    
     if (!startDate || !endDate) {
       setError('Please fill in both start and end dates');
       return;
@@ -29,7 +61,6 @@ export default function HireApplicant({ selectedUser, onClose, role }) {
       return;
     }
     
-    setIsLoading(true);
     setError('');
 
     // Prepare the payload
@@ -43,29 +74,8 @@ export default function HireApplicant({ selectedUser, onClose, role }) {
       employer_name: employerName,
       hire_message: `By accepting this offer, your account will be temporarily disabled from ${startDate} until ${endDate}. This means you will not be able to apply for other jobs or access job-seeking features during your employment. Your account will be automatically reactivated once your employment/contract period ends. Do you accept this job offer?`
     };
-    {console.log(payload, "HIRE APPLICANT PAYLOAD");}
     
-    try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/${role}/hire-applicant`,
-        payload,
-        { 
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        }
-      );
-
-      setShowConfirmation(true);
-      
-    } catch (err) {
-      setError(
-        err.response?.data?.message || 'Failed to hire applicant. Please try again.'
-      );
-    } finally {
-      setIsLoading(false);
-    }
+    hireApplicantMutation.mutate(payload);
   };
 
   const handleClose = () => {
@@ -80,7 +90,7 @@ export default function HireApplicant({ selectedUser, onClose, role }) {
         <div className="backdrop-blur-2xl shadow-lg p-8 max-w-3xl w-full relative">
           <button
             onClick={onClose}
-            disabled={isLoading}
+            disabled={hireApplicantMutation.isPending}
             className="absolute top-4 right-4 bg-red-600 hover:bg-red-700 text-white rounded-full w-8 h-8 flex items-center justify-center transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             ✕
@@ -96,8 +106,6 @@ export default function HireApplicant({ selectedUser, onClose, role }) {
               ✕ {error}
             </div>
           )}
-
-      
           
           <div className="grid grid-cols-2 gap-6 mb-6">
             <div>
@@ -111,7 +119,7 @@ export default function HireApplicant({ selectedUser, onClose, role }) {
                   setStartDate(e.target.value);
                   setError('');
                 }}
-                disabled={isLoading}
+                disabled={hireApplicantMutation.isPending}
                 min={new Date().toISOString().split('T')[0]}
                 className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-200 disabled:cursor-not-allowed"
               />
@@ -128,7 +136,7 @@ export default function HireApplicant({ selectedUser, onClose, role }) {
                   setEndDate(e.target.value);
                   setError('');
                 }}
-                disabled={isLoading}
+                disabled={hireApplicantMutation.isPending}
                 min={startDate || new Date().toISOString().split('T')[0]}
                 className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-200 disabled:cursor-not-allowed"
               />
@@ -138,19 +146,19 @@ export default function HireApplicant({ selectedUser, onClose, role }) {
           <div className="flex justify-center">
             <button
               onClick={handleConfirmHire}
-              disabled={isLoading}
+              disabled={hireApplicantMutation.isPending}
               className={`font-medium px-10 py-1 transition-colors ${
-                isLoading
+                hireApplicantMutation.isPending
                   ? 'bg-blue-400 cursor-not-allowed'
                   : 'bg-blue-600 hover:bg-blue-700 cursor-pointer'
               } text-white`}
             >
-              {isLoading ? 'Processing...' : 'Confirm & Hire'}
+              {hireApplicantMutation.isPending ? 'Processing...' : 'Confirm & Hire'}
             </button>
           </div>
         </div>
       ) : (
-        <div className="backdrop-blur-2xl shadow-lg p-12 max-w-3xl w-full relative">
+        <div className="backdrop-blur-2xl shadow-lg p-12 max-w-4xl w-full relative">
           <button
             onClick={handleClose}
             className="absolute top-6 right-6 bg-red-600 hover:bg-red-700 text-white rounded-full w-8 h-8 flex items-center justify-center transition-colors cursor-pointer"
@@ -163,16 +171,13 @@ export default function HireApplicant({ selectedUser, onClose, role }) {
           </h2>
           
           <p className="text-[#6B7280] text-center text-lg leading-relaxed">
-            {applicantName} has been selected for the <span className="font-semibold text-gray-800">{selectedUser?.job_title}</span> position.
+            {applicantName} has been selected for the <span className="font-semibold text-[#6B7280]">{selectedUser?.job_title}</span> position.
           </p>
           
           <p className="text-[#6B7280] text-center text-lg leading-relaxed mt-2">
-            The applicant's response is <span className="font-semibold text-gray-800">awaited</span> to confirm acceptance. Once confirmed, they will be moved to your <span className="font-semibold text-gray-800">Hired Applicants list</span>.
+            The applicant's response is <span className="font-semibold text-[#6B7280]">awaited</span> to confirm acceptance. Once confirmed, they will be moved to your <span className="font-semibold text-[#6B7280]">Hired Applicants list</span>.
           </p>
 
-          <div className="mt-6 text-center text-sm text-gray-600">
-            <p>Contract Period: <span className="font-semibold">{startDate}</span> to <span className="font-semibold">{endDate}</span></p>
-          </div>
         </div>
       )}
     </div>

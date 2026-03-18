@@ -13,12 +13,12 @@ const Dashboard = () => {
     <>
       <Sidebar />
       <div
-        className="min-h-screen flex flex-col justify-between bg-linear-to-b from-white to-cyan-400
+        className="min-h-screen flex flex-col justify-between bg-linear-to-b from-white to-[#00C2CB]
                 pl-70 pr-10 pt-30
                 "
       >
         <div>
-          <h1 className="text-2xl font-bold text-blue-900">Admin Dashboard</h1>
+          <h1 className="text-2xl font-bold text-[#2563EB]">Admin Dashboard</h1>
           <p className="mt-2 text-gray-700">
             Gain insights into job post trends, user engagement, and overall platform growth.
           </p>

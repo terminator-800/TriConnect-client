@@ -19,11 +19,11 @@ export const ExpressInterestCard = (msg, isSender) => {
   return (
     <div className="w-full max-w-lg bg-white border border-gray-300 rounded-2xl shadow-sm overflow-hidden">
       {/* Content */}
-      <div className="px-6 py-5 space-y-4">
+      <div className="px-2 py-5 space-y-4">
         {/* Express Message */}
         <div>
-          <div className="px-4 py-3 rounded bg-gray-50">
-            <p className="text-gray-900 break-words whitespace-pre-wrap">
+          <div className="py-6 rounded bg-gray-50">
+            <p className="text-gray-900 wrap-break-word whitespace-pre-wrap">
               {express_message}
             </p>
           </div>

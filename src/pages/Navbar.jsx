@@ -4,11 +4,16 @@ import { ROLE } from '../../utils/role';
 import NotificationBell from '../components/Notification/NotificationBell';
 import icons from '../assets/svg/Icons';
 import { useNavigate } from 'react-router-dom';
+import { FeedbackIcon, NotificationBellIcon, UserIcon } from '../assets/icon2/icon2';
+import Feedback from '../components/Feedback';
 
 const Navbar = ({ userType }) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const [feedbackVisible, setFeedbackVisible] = useState(false);
+  const openFeedback = () => setFeedbackVisible(true);
+  const closeFeedback = () => setFeedbackVisible(false);
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
@@ -482,28 +487,50 @@ const Navbar = ({ userType }) => {
       {userType === ROLE.JOBSEEKER && (
         <div className="flex justify-between items-center py-5 px-10 border border-gray-300">
           <Link
-            to={`/${ROLE.JOBSEEKER}`}
+            to={`/${ROLE.JOBSEEKER}/jobs`}
             className="font-bold text-blue-900 flex items-center gap-3"
           >
-            <img src={icons.logo_triconnect} alt="" className="h-10" />
-            TriConnect
+            <img src={icons.logo_triconnect} alt="triconnect" className="h-10" />
+            <span className="hidden sm:inline">TriConnect</span>
           </Link>
 
           <div className="flex justify-end items-center xl:gap-15 lg:gap-10 md:gap-8 sm:gap-5">
-            <div className="relative flex">
-              <div className="flex items-center font-bold cursor-pointer">
-                <NotificationBell role={ROLE.JOBSEEKER} />
-                <span className="hidden md:inline ml-1">Notifications</span>
+
+            <div className="relative flex group">
+              <div 
+                  onClick={openFeedback} 
+                  className="flex items-center font-bold cursor-pointer">
+                <FeedbackIcon
+                  size={25}
+                  className="transition-colors duration-300 group-hover:text-[#2563EB]"
+                />
+                <span className="hidden md:inline ml-1 group-hover:text-[#2563EB] transition-colors duration-300">
+                  Feedback
+                </span>
               </div>
             </div>
 
-            <div className="relative flex">
+
+            <div className="relative flex group">
+              <div className="flex items-center font-bold cursor-pointer">
+                <NotificationBell
+                  role={ROLE.JOBSEEKER}
+                  className="transition-colors duration-300 group-hover:text-[#2563EB]"
+                  />
+                <span className="hidden md:inline ml-1 group-hover:text-[#2563EB] transition-colors duration-300">Notifications</span>
+              </div>
+            </div>
+
+            <div className="relative flex group">
               <button
                 onClick={toggleDropdown}
                 className="font-bold focus:outline-none cursor-pointer flex flex-row items-center"
               >
-                <img src={icons.profile} alt="" className="mr-3" />
-                <span className="hidden md:inline">Profile</span>
+                <UserIcon 
+                  size={30}
+                  className="transition-colors duration-300 group-hover:text-[#2563EB]"
+                />
+                <span className="hidden md:inline group-hover:text-[#2563EB] transition-colors duration-300">Profile</span>
               </button>
 
               {dropdownVisible && (
@@ -530,26 +557,50 @@ const Navbar = ({ userType }) => {
       {/* Business Employer */}
       {userType === ROLE.BUSINESS_EMPLOYER && (
         <div className="flex justify-between items-center py-5 px-10 border border-gray-300">
-          <Link to={'/'} className="font-bold text-blue-900 flex items-center gap-3">
-            <img src={icons.logo_triconnect} alt="" className="h-10" />
-            TriConnect
+          <Link
+            to={`/${ROLE.BUSINESS_EMPLOYER}/dashboard`}
+            className="font-bold text-blue-900 flex items-center gap-3"
+          >
+            <img src={icons.logo_triconnect} alt="triconnect" className="h-10" />
+            <span className="hidden sm:inline">TriConnect</span>
           </Link>
 
           <div className="flex justify-end items-center xl:gap-15 lg:gap-10 md:gap-8 sm:gap-5">
-            <div className="relative flex">
-              <div className="flex items-center font-bold cursor-pointer">
-                <NotificationBell role={ROLE.BUSINESS_EMPLOYER} />
-                <span className="hidden md:inline ml-1">Notifications</span>
+
+            <div className="relative flex group">
+              <div 
+                  onClick={openFeedback} 
+                  className="flex items-center font-bold cursor-pointer">
+                <FeedbackIcon
+                  size={25}
+                  className="transition-colors duration-300 group-hover:text-[#2563EB]"
+                />
+                <span className="hidden md:inline ml-1 group-hover:text-[#2563EB] transition-colors duration-300">
+                  Feedback
+                </span>
               </div>
             </div>
 
-            <div className="relative flex">
+
+            <div className="relative flex group">
+              <div className="flex items-center font-bold cursor-pointer">
+                <NotificationBell
+                  role={ROLE.BUSINESS_EMPLOYER}
+                  className="transition-colors duration-300 group-hover:text-[#2563EB]" />
+                <span className="hidden md:inline ml-1 group-hover:text-[#2563EB] transition-colors duration-300">Notifications</span>
+              </div>
+            </div>
+
+            <div className="relative flex group">
               <button
                 onClick={toggleDropdown}
                 className="font-bold focus:outline-none cursor-pointer flex flex-row items-center"
               >
-                <img src={icons.profile} alt="" className="mr-3" />
-                <span className="hidden md:inline">Profile</span>
+                <UserIcon 
+                  size={30}
+                  className="transition-colors duration-300 group-hover:text-[#2563EB]"
+                />
+                <span className="hidden md:inline group-hover:text-[#2563EB] transition-colors duration-300">Profile</span>
               </button>
 
               {dropdownVisible && (
@@ -576,26 +627,50 @@ const Navbar = ({ userType }) => {
       {/* Individual Employer */}
       {userType === ROLE.INDIVIDUAL_EMPLOYER && (
         <div className="flex justify-between items-center py-5 px-10 border border-gray-300">
-          <Link to={'/'} className="font-bold text-blue-900 flex items-center gap-3">
-            <img src={icons.logo_triconnect} alt="" className="h-10" />
-            TriConnect
+          <Link
+            to={`/${ROLE.INDIVIDUAL_EMPLOYER}/dashboard`}
+            className="font-bold text-blue-900 flex items-center gap-3"
+          >
+            <img src={icons.logo_triconnect} alt="triconnect" className="h-10" />
+            <span className="hidden sm:inline">TriConnect</span>
           </Link>
 
           <div className="flex justify-end items-center xl:gap-15 lg:gap-10 md:gap-8 sm:gap-5">
-            <div className="relative flex">
-              <div className="flex items-center font-bold cursor-pointer">
-                <NotificationBell role={ROLE.INDIVIDUAL_EMPLOYER} />
-                <span className="hidden md:inline ml-1">Notifications</span>
+
+            <div className="relative flex group">
+              <div 
+                  onClick={openFeedback} 
+                  className="flex items-center font-bold cursor-pointer">
+                <FeedbackIcon
+                  size={25}
+                  className="transition-colors duration-300 group-hover:text-[#2563EB]"
+                />
+                <span className="hidden md:inline ml-1 group-hover:text-[#2563EB] transition-colors duration-300">
+                  Feedback
+                </span>
               </div>
             </div>
 
-            <div className="relative flex">
+
+            <div className="relative flex group">
+              <div className="flex items-center font-bold cursor-pointer">
+                <NotificationBell 
+                  role={ROLE.INDIVIDUAL_EMPLOYER}
+                  className="transition-colors duration-300 group-hover:text-[#2563EB]" />
+                <span className="hidden md:inline ml-1 group-hover:text-[#2563EB] transition-colors duration-300">Notifications</span>
+              </div>
+            </div>
+
+            <div className="relative flex group">
               <button
                 onClick={toggleDropdown}
                 className="font-bold focus:outline-none cursor-pointer flex flex-row items-center"
               >
-                <img src={icons.profile} alt="" className="mr-3" />
-                <span className="hidden md:inline">Profile</span>
+                <UserIcon 
+                  size={30}
+                  className="transition-colors duration-300 group-hover:text-[#2563EB]"
+                />
+                <span className="hidden md:inline group-hover:text-[#2563EB] transition-colors duration-300">Profile</span>
               </button>
 
               {dropdownVisible && (
@@ -628,20 +703,41 @@ const Navbar = ({ userType }) => {
           </Link>
 
           <div className="flex justify-end items-center xl:gap-15 lg:gap-10 md:gap-8 sm:gap-5">
-            <div className="relative flex">
-              <div className="flex items-center font-bold cursor-pointer">
-                <NotificationBell role={ROLE.MANPOWER_PROVIDER} />
-                <span className="hidden md:inline ml-1">Notifications</span>
+
+            <div className="relative flex group">
+              <div 
+                  onClick={openFeedback} 
+                  className="flex items-center font-bold cursor-pointer">
+                <FeedbackIcon
+                  size={25}
+                  className="transition-colors duration-300 group-hover:text-[#2563EB]"
+                />
+                <span className="hidden md:inline ml-1 group-hover:text-[#2563EB] transition-colors duration-300">
+                  Feedback
+                </span>
               </div>
             </div>
 
-            <div className="relative flex">
+
+            <div className="relative flex group">
+              <div className="flex items-center font-bold cursor-pointer">
+                <NotificationBell 
+                  role={ROLE.MANPOWER_PROVIDER}
+                  className="transition-colors duration-300 group-hover:text-[#2563EB]" />
+                <span className="hidden md:inline ml-1 group-hover:text-[#2563EB] transition-colors duration-300">Notifications</span>
+              </div>
+            </div>
+
+            <div className="relative flex group">
               <button
                 onClick={toggleDropdown}
                 className="font-bold focus:outline-none cursor-pointer flex flex-row items-center"
               >
-                <img src={icons.profile} alt="" className="mr-3" />
-                <span className="hidden md:inline">Profile</span>
+                <UserIcon 
+                  size={30}
+                  className="transition-colors duration-300 group-hover:text-[#2563EB]"
+                />
+                <span className="hidden md:inline group-hover:text-[#2563EB] transition-colors duration-300">Profile</span>
               </button>
 
               {dropdownVisible && (
@@ -673,14 +769,19 @@ const Navbar = ({ userType }) => {
             TriConnect
           </Link>
 
-          <div className="relative flex">
-            <div className="flex items-center font-bold ">
-              <NotificationBell role={ROLE.ADMINISTRATOR} />
-              <span className="hidden sm:inline">Notifications</span>
+          <div className="relative flex group">
+              <div className="flex items-center font-bold cursor-pointer">
+                <NotificationBell 
+                  role={ROLE.ADMINISTRATOR}
+                  className="transition-colors duration-300 group-hover:text-[#2563EB]" />
+                <span className="hidden md:inline ml-1 group-hover:text-[#2563EB] transition-colors duration-300">Notifications</span>
+              </div>
             </div>
-          </div>
         </nav>
       )}
+
+      {feedbackVisible && <Feedback onClose={closeFeedback} role={userType} />}
+
     </div>
   );
 };

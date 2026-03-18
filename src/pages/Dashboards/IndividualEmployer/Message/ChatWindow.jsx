@@ -95,7 +95,7 @@ const ChatWindow = ({ selectedUser }) => {
       )}
 
       <div className="flex-1 bg-white flex flex-col">
-        <div className="flex-1 overflow-y-auto px-6 py-4 flex flex-col justify-end min-h-[50vh]">
+        <div className="flex-1 overflow-y-auto px-0 py-4 flex flex-col justify-end min-h-[50vh]">
           <ul className="flex flex-col space-y-4">
             {messages.map((msg, index) => {
               const isSender = Number(msg.sender_id) === Number(currentUserId);
@@ -118,7 +118,7 @@ const ChatWindow = ({ selectedUser }) => {
                 >
                   {/* AUTHORIZED PERSONNEL */}
                   {!isSender && (
-                    <div className="flex-shrink-0 w-8 h-8 rounded-full mr-2 text-xs font-semibold overflow-hidden flex items-center justify-center bg-gray-400 text-white">
+                    <div className="shrink-0 w-8 h-8 rounded-full mr-2 text-xs font-semibold overflow-hidden flex items-center justify-center bg-gray-400 text-white">
                       {senderAvatar ? (
                         <img
                           src={senderAvatar}
@@ -133,13 +133,16 @@ const ChatWindow = ({ selectedUser }) => {
 
                   <div className="flex flex-col items-start">
                     {/* APPLICATION CARD - Only if it has required application fields */}
-                     {msg.message_type === 'apply' && msg.full_name && msg.email_address ? (
+                     {msg.message_type === 'apply' && msg.resume && msg.cover_letter ? (
                           ApplicationCard(msg, isSender)
-                        ) : msg.message_type === 'request' && msg.job_title && !msg.company_name ? (
+                        ) : msg.message_type === 'request' && msg.employer_name ? (
                           IndividualRequestCard(msg, isSender)
-                        ) : msg.message_type === 'request' && msg.job_title && msg.email_address ? (
-                          BusinessRequestCard(msg, isSender)
-                        ): msg.message_type === 'hire' && msg.job_title && msg.start_date && msg.end_date && msg.hire_message ? (
+                        ) 
+                        // : msg.message_type === 'request' && msg.employer_name && msg.project_location && msg.project_description ? (
+                        //   BusinessRequestCard(msg, isSender)
+                        // )
+                        : 
+                        msg.message_type === 'hire' && msg.start_date && msg.end_date && msg.hire_message ? (
                             <HireApplicantCard msg={msg} isSender={isSender} />
                         ) : msg.message_type === 'express' && msg.express_message ? (
                             ExpressInterestCard(msg, isSender)

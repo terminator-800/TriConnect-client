@@ -9,6 +9,7 @@ import HireOfferNotif from './HireOfferNotif';
 import { useNavigate } from 'react-router-dom';
 import ApplicantNotif from './ApplicantNotif';
 import Report from './Report';
+import { NotificationBellIcon } from '../../assets/icon2/icon2';
 
 export default function NotificationsBell({ role }) {
   const PAGES = {
@@ -52,6 +53,7 @@ export default function NotificationsBell({ role }) {
 
   const handleClick = (notif) => {
     markAsSeen(notif.notification_id, {
+      
       onSuccess: () => {
         handlePageNavigate(notif.title);
       },
@@ -72,7 +74,9 @@ export default function NotificationsBell({ role }) {
     return (
       <div className="h-5 mr-1 w-5">
         <span>
-          <img src={icons.notification_bell} alt="" />
+          <NotificationBellIcon
+           className="transition-colors duration-300 group-hover:text-[#2563EB]"
+          />
         </span>
       </div>
     );
@@ -85,7 +89,9 @@ export default function NotificationsBell({ role }) {
         onClick={toggleDropdown}
         className="relative p-2 rounded-full hover:bg-gray-200 transition hover:cursor-pointer"
       >
-        <img src={icons.notification_bell} alt="Notifications" className="h-6 w-6" />
+        <NotificationBellIcon
+          className="transition-colors duration-300 group-hover:text-[#2563EB]"
+        />
         {notifications.length > 0 && (
           <span className="absolute -top-1 -right-1 inline-flex items-center justify-center min-w-5 h-5 px-1 text-xs font-bold text-white bg-red-500 rounded-full">
             {notifications.length}

@@ -68,16 +68,16 @@ const Profile = () => {
               <>
                 <div className="flex items-center pt-20 justify-between w-full">
                   <div>
-                    <h1 className="font-bold text-4xl">{profileData.business_name}</h1>
+                    <h1 className="font-bold text-4xl text-[#2563EB]">{profileData.business_name}</h1>
 
-                    <div className="bg-white p-3 shadow-md flex justify-between items-center w-full border border-gray-300 mt-5">
+                    <div className="bg-[#FFF9E6] rounded p-3 shadow-md flex justify-between items-center w-full border border-[#D4A017] mt-5">
                       <div className="flex gap-4 items-center">
                         <div>
                           <div className="flex">
-                            <h1 className="font-bold text-2xl text-yellow-900">Account Verified</h1>
+                            <h1 className="font-bold text-2xl text-[#8B6914]">Account Verified</h1>
                             <img src={icons.verified} alt="" />
                           </div>
-                          <p className="text-yellow-900 max-w-4xl">
+                          <p className="text-[#8B6914] max-w-4xl">
                             Your account has been successfully verified and all submitted
                             requirements have been approved.
                           </p>
@@ -94,16 +94,16 @@ const Profile = () => {
                 <div className="bg-white w-full flex justify-between mt-20 gap-5">
                   <button
                     onClick={() => setActiveTab(personal)}
-                    className={`px-10 py-1 w-full cursor-pointer transition-all duration-200
-                      ${activeTab === personal ? 'bg-blue-900 text-white' : 'bg-white border border-blue-900 text-blue-900'}`}
+                    className={`px-10 py-5 w-full cursor-pointer transition-all duration-200
+                      ${activeTab === personal ? 'bg-[#2563EB] text-white' : 'bg-white border border-blue-900 text-blue-900'}`}
                   >
                     Personal Information
                   </button>
 
                   <button
                     onClick={() => setActiveTab(security)}
-                    className={`px-10 py-1 w-full cursor-pointer transition-all duration-200
-                      ${activeTab === security ? 'bg-blue-900 text-white' : 'bg-white border border-blue-900 text-blue-900'}`}
+                    className={`px-10 py-5 w-full cursor-pointer transition-all duration-200
+                      ${activeTab === security ? 'bg-[#2563EB] text-white' : 'bg-white border border-blue-900 text-blue-900'}`}
                   >
                     Security
                   </button>

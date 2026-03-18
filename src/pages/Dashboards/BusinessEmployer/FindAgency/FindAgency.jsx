@@ -98,7 +98,7 @@ const FindAgency = () => {
           <>
             <div className="bg-white shadow-md py-6 px-10 mb-8">
               <div className="flex flex-col">
-                <h1 className="text-2xl font-bold text-[#003479]">Search for Manpower Provider</h1>
+                <h1 className="text-2xl font-bold text-[#2563EB]">Search for Manpower Provider</h1>
                 <p>Find agencies to help with your recruitment needs</p>
               </div>
             </div>

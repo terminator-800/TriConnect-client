@@ -60,11 +60,17 @@ const ChatHeader = ({ selectedUser } ) => {
               </div>
             )}
 
-            <div className="text-sm text-gray-700">
-              <span className="font-medium">Sent by: {authorizedPerson}</span>
+             <div className="text-sm text-gray-700">
+                <span className="font-medium">
+                  Sent by: <span className="font-bold">{authorizedPerson}</span>
+                  {selectedUser.job_title && (
+                    <>
+                      {' '}| <span className="font-bold">{selectedUser.job_title}</span>
+                    </>
+                  )}
+                </span>
               <div className="text-xs text-gray-500">
                 {selectedUser.sent_at && `Last message: ${selectedUser.sent_at}`}
-                
               </div>
             </div>
           </div>
@@ -102,6 +108,7 @@ const ChatHeader = ({ selectedUser } ) => {
        {showRejectModal && (
         <RejectApplicant
           selectedUser={selectedUser}
+          role={ROLE.INDIVIDUAL_EMPLOYER}
           onClose={() => setShowRejectModal(false)}
         />
       )}

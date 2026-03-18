@@ -12,7 +12,7 @@ const ConversationList = ({ users, selectedUser, onSelect }) => {
           <li
             key={user.conversation_id}
             className={`p-4 border-b border-gray-300 cursor-pointer flex justify-between items-start gap-3
-                             ${isSelected ? 'bg-blue-100' : ''}`}
+                             ${isSelected ? 'bg-[rgba(94,209,214,0.15)]' : ''}`}
             onClick={() => onSelect(user)}
           >
             <div className="flex gap-2 flex-1">
@@ -30,7 +30,7 @@ const ConversationList = ({ users, selectedUser, onSelect }) => {
               )}
 
               <div>
-                <div className="font-medium">{user.name || 'Unknown Name'}</div>
+                <div className="font-medium truncate max-w-85">{user.name || 'Unknown Name'}</div>
 
                 {(user.authorized_person || user.agency_authorized_person) && (
                   <div className="text-sm text-gray-500">

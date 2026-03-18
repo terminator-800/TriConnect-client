@@ -1,7 +1,10 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient  } from '@tanstack/react-query';
 import axios from 'axios';
 
 export const useCreateHiringJobPost = (role, onSuccessCallback) => {
+
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: async (data) => {
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/${role}/job-post`, data, {
@@ -13,8 +16,14 @@ export const useCreateHiringJobPost = (role, onSuccessCallback) => {
       return response;
     },
 
-    onSuccess: (res) => {
+      onSuccess: (res) => {
       if (res.status === 201) {
+
+        // 🔥 Invalidate all jobPostsByUser queries
+        queryClient.invalidateQueries({
+          queryKey: ['jobPostsByUser'],
+        });
+
         if (onSuccessCallback) onSuccessCallback();
       }
     },

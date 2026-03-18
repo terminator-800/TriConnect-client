@@ -16,7 +16,7 @@ const FindJob = () => {
     refetch,
   } = useUserProfile(ROLE.JOBSEEKER);
 
-  if (loadingProfile) return <div>Loading profile...</div>;
+  if (loadingProfile) return <div>Skeleton loading</div>;
   if (isError) return <div>Failed to load profile.</div>;
 
   const openForm = () => {
@@ -28,13 +28,24 @@ const FindJob = () => {
     <>
       {/*  */}
       <Sidebar />
-      <div className="relative min-h-screen bg-linear-to-b from-white to-[#00C2CB] pl-70 pr-10 pt-30">
-        {profileData.is_verified ? (
+      <div className="relative min-h-screen bg-linear-to-b from-white to-[#00C2CB] pl-4 pr-4 pt-30 
+          sm:pl-auto
+          md:px-auto
+          lg:pl-70
+          sm:pr-6 
+          md:pr-8 
+          lg:px-auto 
+          sm:pt-20 
+          md:pt-30 
+          sm:mt-0
+          "
+          >    
+    {profileData.is_verified ? (
           <BrowseJob />
         ) : (
-          <div className="bg-white shadow-md p-6 w-full max-w-full border border-gray-300 px-20">
+         <div className="bg-white shadow-md p-6 w-full max-w-full border border-gray-300 px-4 sm:px-10 md:px-20">
             <VerificationStatus profileData={profileData} openForm={openForm} />
-          </div>
+         </div>
         )}
 
         {showForm && (

@@ -48,7 +48,7 @@ const PrivateRoute = () => {
     [ROLE.ADMINISTRATOR]: `/${ROLE.ADMINISTRATOR}`,
   };
 
-  if (authData.authenticated === null) return <div>Private Route Loading...</div>;
+  if (authData.authenticated === null) return <div></div>;
   if (!authData.authenticated) return <Navigate to="/login" replace />;
 
   const expectedBasePath = roleToPath[authData.role];

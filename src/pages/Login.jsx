@@ -27,8 +27,8 @@ const Login = () => {
   return (
     <>
       <Navbar userType={'login'} />
-      <div className="slide-in-left flex justify-center items-center h-[110vh] max-[769px]:h-[190vh] max-[769px]:gap-5 bg-linear-to-b from-white to-[#00C2CB] overflow-x-hidden">
-        <div className="flex max-[769px]:flex-col">
+      <div className="flex justify-center items-center h-[110vh] max-[769px]:h-[190vh] max-[769px]:gap-5 bg-linear-to-b from-white to-[#00C2CB] overflow-x-hidden">
+        <div className="flex max-[769px]:flex-col slide-in-left">
 
           <div className="relative flex flex-col items-center 
             xl:max-w-xl 

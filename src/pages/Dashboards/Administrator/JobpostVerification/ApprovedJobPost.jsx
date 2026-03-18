@@ -14,17 +14,8 @@ const ApprovedJobPost = ({ jobPost, onClose }) => {
   const isLoading = approveMutation.isPending;
 
   const handleApprove = () => {
-    const TYPE_MAP = {
-      individual_job_post: 'individual',
-      team_job_post: 'team',
-      default: 'hiring',
-    };
-    const type = TYPE_MAP[jobPost.post_type] || 'hiring';
-
-    const id = jobPost.job_post_id;
-
     approveMutation.mutate(
-      { type, id },
+      { type: 'hiring', id: jobPost.job_post_id },
       {
         onSuccess: () => onClose(),
         onError: () => alert('Something went wrong while approving the job post.'),
@@ -41,47 +32,25 @@ const ApprovedJobPost = ({ jobPost, onClose }) => {
         </p>
 
         <div className="border border-gray-300 p-5 text-gray-600 mb-4">
-          <p className="text-sm">
-            <strong>Job Title: </strong> {jobPost.job_title}
-          </p>
-
+          <p className="text-sm"><strong>Job Title: </strong> {jobPost.job_title}</p>
           <div className="text-sm flex gap-1">
-            <h3 className="font-medium">
-              <strong>Posted by:</strong>
-            </h3>
+            <h3 className="font-medium"><strong>Posted by:</strong></h3>
             <p>{jobPost.employer_name}</p>
           </div>
         </div>
 
         <div className="flex justify-center gap-4">
-          {/* Approve Button */}
           <button
             onClick={handleApprove}
             disabled={isLoading}
-            className={`
-              px-10 py-1 text-white
-              ${
-                isLoading
-                  ? 'bg-green-500 cursor-not-allowed opacity-70'
-                  : 'bg-green-700 hover:bg-green-600 cursor-pointer'
-              }
-            `}
+            className={`px-10 py-1 text-white ${isLoading ? 'bg-green-500 cursor-not-allowed opacity-70' : 'bg-green-700 hover:bg-green-600 cursor-pointer'}`}
           >
             {isLoading ? 'Approving...' : 'Yes, Approve'}
           </button>
-
-          {/* Cancel Button */}
           <button
             onClick={onClose}
             disabled={isLoading}
-            className={`
-              px-10 py-1 border border-gray-300
-              ${
-                isLoading
-                  ? 'bg-gray-200 cursor-not-allowed opacity-70'
-                  : 'bg-gray-300 hover:bg-gray-400 cursor-pointer'
-              }
-            `}
+            className={`px-10 py-1 border border-gray-300 ${isLoading ? 'bg-gray-200 cursor-not-allowed opacity-70' : 'bg-gray-300 hover:bg-gray-400 cursor-pointer'}`}
           >
             Cancel
           </button>

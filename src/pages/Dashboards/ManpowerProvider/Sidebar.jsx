@@ -5,6 +5,7 @@ import { ROLE } from '../../../../utils/role';
 import icons from '../../../assets/svg/Icons';
 import Navbar from '../../Navbar';
 import Feedback from '../../../components/Feedback';
+import { BrowseJobIcon, ManageJobPostIcon, ViewApplicantIcon, MessageIcon, SignOutIcon } from '../../../assets/icon2/icon2';
 
 const Sidebar = () => {
   const [feedbackModalVisible, setFeedbackModalVisible] = useState(false);
@@ -34,54 +35,37 @@ const Sidebar = () => {
       </div>
 
       {/* Sidebar */}
-      <div className="fixed h-full bg-gray-400 text-white p-0 w-60 flex flex-col z-40">
+      <div className="fixed h-full bg-white text-white p-0 w-60 flex flex-col z-40">
         <ul className="list-none p-0 space-y-4 flex-1 flex flex-col mb-6 mt-30">
+
+          {/* DASHBOARD */}
           <li
-            className={`${location.pathname.includes(`/${ROLE.MANPOWER_PROVIDER}/dashboard`) ? 'bg-gray-500' : ''} flex`}
-          >
-            <img src={icons.dashboard} alt="" className="ml-5 w-[27px]" />
-            <button
+              className={`flex items-center p-2 cursor-pointer transition-colors duration-200
+              ${location.pathname.includes(`/${ROLE.MANPOWER_PROVIDER}/dashboard`) ? 'bg-[#5ED1D625] text-[#2563EB]' : 'text-black'} hover:text-[#2563EB] pl-5`}
               onClick={() => navigate(`/${ROLE.MANPOWER_PROVIDER}/dashboard`)}
-              className="text-black hover:text-gray-300 ml-3 bg-transparent border-none cursor-pointer p-2 font-medium"
             >
-              Dashboard
-            </button>
+              <BrowseJobIcon size={25} />
+              <span className="ml-3 font-medium">Dashboard</span>
           </li>
 
-          {/* <li
-            className={`${location.pathname.includes(`/${ROLE.MANPOWER_PROVIDER}/jobs`) ? 'bg-gray-500' : ''} flex`}
-          >
-            <img src={icons.find_job} alt="" className="ml-5 w-[27px]" />
-            <button
-              onClick={() => navigate(`/${ROLE.MANPOWER_PROVIDER}/jobs`)}
-              className="text-black hover:text-gray-300 ml-3 bg-transparent border-none cursor-pointer p-2 font-medium"
-            >
-              Find Jobs
-            </button>
-          </li> */}
-
+          {/* MANAGE JOB POST */}
           <li
-            className={`${location.pathname.includes(`/${ROLE.MANPOWER_PROVIDER}/manage`) ? 'bg-gray-500' : ''} flex`}
-          >
-            <img src={icons.manage_job_post} alt="" className="ml-5 w-[27px]" />
-            <button
+            className={`flex items-center p-2 cursor-pointer transition-colors duration-200
+              ${location.pathname.includes(`/${ROLE.MANPOWER_PROVIDER}/manage`) ? 'bg-[#5ED1D625] text-[#2563EB]' : 'text-black'} hover:text-[#2563EB] pl-5`}
               onClick={() => navigate(`/${ROLE.MANPOWER_PROVIDER}/manage`)}
-              className="text-black hover:text-gray-300 ml-3 bg-transparent border-none cursor-pointer p-2 font-medium"
-            >
-              Manage Job Post
-            </button>
+          >
+              <ManageJobPostIcon size={23} />
+              <span className="ml-3 font-medium">Manage Job Post</span>
           </li>
 
+          {/* VIEW APPLICANT */}
           <li
-            className={`${location.pathname.includes(`/${ROLE.MANPOWER_PROVIDER}/view`) ? 'bg-gray-500' : ''} flex`}
-          >
-            <img src={icons.view_applicant} alt="" className="ml-5 w-[27px]" />
-            <button
+              className={`flex items-center p-2 cursor-pointer transition-colors duration-200
+              ${location.pathname.includes(`/${ROLE.MANPOWER_PROVIDER}/view`) ? 'bg-[#5ED1D625] text-[#2563EB]' : 'text-black'} hover:text-[#2563EB] pl-5`}
               onClick={() => navigate(`/${ROLE.MANPOWER_PROVIDER}/view`)}
-              className="text-black hover:text-gray-300 ml-3 bg-transparent border-none cursor-pointer p-2 font-medium"
-            >
-              View Applicant
-            </button>
+          >
+            <ViewApplicantIcon size={25}/>
+            <span className="ml-3 font-medium">View Applicants</span>
           </li>
 
             <li
@@ -108,36 +92,40 @@ const Sidebar = () => {
             </button>
           </li>
 
-         
-
-          <li
-            className={`${location.pathname.includes(`/${ROLE.MANPOWER_PROVIDER}/message`) ? 'bg-gray-500' : ''} flex`}
-          >
-            <img src={icons.message} alt="" className="ml-5 w-[27px]" />
-            <button
-              onClick={() => navigate(`/${ROLE.MANPOWER_PROVIDER}/message`)}
-              className="text-black hover:text-gray-300 ml-3 bg-transparent border-none cursor-pointer p-2 font-medium"
+           {/* MESSAGES */}
+            <li
+                className={`flex items-center p-2 cursor-pointer transition-colors duration-200
+                ${location.pathname.includes(`/${ROLE.MANPOWER_PROVIDER}/message`) ? 'bg-[#5ED1D625] text-[#2563EB]' : 'text-black'} hover:text-[#2563EB] pl-5`}
+                onClick={() => navigate(`/${ROLE.MANPOWER_PROVIDER}/message`)}
             >
-              Messages
-            </button>
-          </li>
+              <MessageIcon size={25} />
+              <span className='ml-3 font-medium'>Messages</span>
+            </li>
 
-          <li className="mt-auto flex justify-center">
+          {/* <li className="mt-auto flex justify-center">
             <button
               onClick={handleFeedbackOpen}
               className="text-black hover:text-gray-300 bg-transparent border-none cursor-pointer p-2 font-medium"
             >
               Add Feedback
             </button>
-          </li>
+          </li> */}
 
-          <li className="mt-0 flex justify-center">
-            <button
+          {/* SIGN OUT */}
+          <li className="mt-auto flex justify-center mb-4">
+          <button
               onClick={handleLogout}
-              className="text-black hover:text-gray-300 bg-transparent border-none cursor-pointer p-2 font-medium"
+              className="flex items-center gap-2 text-black hover:text-[#2563EB] transition-colors duration-200 bg-transparent border-none cursor-pointer p-2 font-medium"
             >
-              {isLoggingOut ? 'Signing out...' : 'Sign out'}
-            </button>
+              {isLoggingOut ? (
+                "Signing out..."
+              ) : (
+                <>
+                  <SignOutIcon size={25}/>
+                  <span>Sign Out</span>
+                </>
+              )}
+          </button>
           </li>
         </ul>
       </div>

@@ -89,7 +89,7 @@ const ManageJobPost = () => {
             <div className="bg-white shadow-md py-6 px-10 mb-8">
               <div className="flex items-center justify-between">
                 <div className="flex flex-col">
-                  <h1 className="text-2xl font-bold text-blue-900">Manage Job Post</h1>
+                  <h1 className="text-2xl font-bold text-[#2563EB]">Manage Job Post</h1>
                   <p>View and manage all your job postings</p>
                 </div>
                 <div className="flex gap-2">
@@ -103,7 +103,7 @@ const ManageJobPost = () => {
                   >
                     Hiring Post
                   </button>
-                  <button
+                  {/* <button
                     onClick={() => setActivePostType('individual')}
                     className={`px-6 py-2 rounded font-medium transition-colors ${
                       activePostType === 'individual'
@@ -122,7 +122,7 @@ const ManageJobPost = () => {
                     }`}
                   >
                     Team Post
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </div>

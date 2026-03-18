@@ -27,7 +27,7 @@ const ActionMenu = ({ isOpen, onToggle, onDeleteClick, onViewJobDetails }) => {
       </button>
 
       {isOpen && (
-        <div className="absolute w-48 bg-white border border-gray-300 shadow-lg z-10">
+        <div className="absolute w-48 bg-white border border-gray-300 shadow-lg z-10 right-0">
           <ul className="text-sm text-gray-700">
             <li onClick={onViewJobDetails} className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
               View Job Details

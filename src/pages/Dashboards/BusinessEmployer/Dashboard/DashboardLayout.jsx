@@ -36,36 +36,23 @@ const DashboardLayout = () => {
             {/* Header */}
             <div className="bg-white shadow-md py-6 px-10 mb-8 flex justify-between items-center">
               <div>
-                <h1 className="text-2xl font-bold text-[#003479]">
-                  {showFindWorkers ? 'Find Workers' : 'Welcome, Employer!'}
-                </h1>
-                <p>
-                  {showFindWorkers
-                    ? 'Browse available workers from manpower agencies'
-                    : 'Your hiring platform statistics at a glance'}
-                </p>
+                <h1 className="text-2xl font-bold text-[#2563EB]">Welcome Employer</h1>
+                <span>Your hiring platform statistics at a glance</span>
               </div>
 
               {/* RIGHT SIDE BUTTONS */}
               <div className="flex gap-3">
                 <button
-                  onClick={() => setShowFindWorkers(!showFindWorkers)}
-                  className="text-blue-900 border border-blue-900 font-semibold px-10 py-1 rounded hover:bg-blue-700 hover:text-white transition cursor-pointer"
-                >
-                  {showFindWorkers ? '← Dashboard' : 'Find Workers'}
-                </button>
-
-                <button
                   onClick={() => setShowJobPostModal(true)}
-                  className="bg-[#2563EB] text-white px-5 py-2 rounded hover:bg-blue-700 transition cursor-pointer"
+                  className="bg-[#2563EB] text-white px-10 py-1 hover:bg-blue-700 transition cursor-pointer"
                 >
                   + Post Job
                 </button>
               </div>
             </div>
-
+ 
             {/* Conditional Content */}
-            {showFindWorkers ? <FindWorkers /> : <MainContent />}
+            <MainContent />
           </div>
         ) : (
           <div className='className="relative min-h-screen bg-linear-to-b from-white to-[#00C2CB] pl-70 pr-10 pt-30'>

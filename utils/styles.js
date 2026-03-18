@@ -1,0 +1,1 @@
+export const RADIAL_BG = "bg-[radial-gradient(circle_at_center,white,#00C2CB)]";

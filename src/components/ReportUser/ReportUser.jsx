@@ -98,8 +98,8 @@ const ReportUser = ({ reportedUser, conversationId, onClose, role }) => {
 
   return (
     <>
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-40">
-        <div className="backdrop-blur-2xl px-15 py-5 w-full max-w-7xl relative shadow-2xl max-h-screen overflow-y-auto ml-60 border border-white mt-25">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-40 xl:mb-0 mb-20">
+        <div className="backdrop-blur-2xl xl:px-15 px-5 py-5 w-full max-w-7xl relative shadow-2xl max-h-screen overflow-y-auto xl:ml-60 mx-10 border border-white mt-25">
           {/* Close Button */}
           <button
             onClick={onClose}
@@ -116,7 +116,7 @@ const ReportUser = ({ reportedUser, conversationId, onClose, role }) => {
           </button>
 
           <div className="mb-6">
-            <h2 className="text-3xl font-bold text-gray-800 mb-2">Report Applicant</h2>
+            <h2 className="md:text-3xl font-bold text-gray-800 mb-2">Report Applicant</h2>
             <p className="text-gray-600 text-sm">
               {authorizedPerson} - {jobTitle}
             </p>
@@ -134,7 +134,7 @@ const ReportUser = ({ reportedUser, conversationId, onClose, role }) => {
               <label className="block text-lg font-bold text-gray-800 mb-4">
                 Select Reason for Report <span className="text-red-500">*</span>
               </label>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid xl:grid-cols-2 gap-4">
                 {reportOptions.map((option) => (
                   <label
                     key={option.value}
@@ -163,7 +163,7 @@ const ReportUser = ({ reportedUser, conversationId, onClose, role }) => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid xl:grid-cols-2 gap-6">
               {/* Additional Details */}
               <div>
                 <label className="block text-lg font-bold text-gray-800 mb-2">
@@ -206,7 +206,7 @@ const ReportUser = ({ reportedUser, conversationId, onClose, role }) => {
                         d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                       />
                     </svg>
-                    <p className="text-sm text-gray-600 mb-1">
+                    <p className="text-sm text-gray-600 mb-1 hidden min-[425px]:block">
                       Upload screenshots or documents to support your report
                     </p>
                     <p className="text-xs text-gray-400">PNG, JPG, PDF up to 5MB</p>
@@ -273,13 +273,13 @@ const ReportUser = ({ reportedUser, conversationId, onClose, role }) => {
             </div>
 
             {/* Buttons */}
-            <div className="flex justify-center gap-4 pt-4">
+            <div className="flex justify-center gap-4 pt-4 md:flex-row flex-col">
               <button
                 onClick={handleSubmit}
                 disabled={isPending}
                 className={`px-10 py-1 transition font-semibold cursor-pointer ${
                   isPending ? 'bg-blue-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'
-                } text-white`}
+                } text-white max-[425px]:text-sm`}
               >
                 {isPending ? 'Submitting...' : 'Submit Report'}
               </button>

@@ -49,7 +49,7 @@ const PersonalInfo = ({
           <div className="flex gap-3">
             <button
               onClick={() => setEditMode(false)}
-              className="bg-blue-900 text-white px-6 py-1 cursor-pointer"
+              className="bg-[#2563EB] text-white px-10 py-5 rounded-md cursor-pointer"
             >
               Save
             </button>
@@ -58,7 +58,7 @@ const PersonalInfo = ({
                 setFormData(profileData);
                 setEditMode(false);
               }}
-              className="bg-gray-400 text-white px-6 py-1 cursor-pointer"
+              className="bg-gray-400 text-white px-10 py-5 rounded-md cursor-pointer"
             >
               Cancel
             </button>
@@ -66,7 +66,7 @@ const PersonalInfo = ({
         ) : (
           <button
             onClick={() => setEditMode(true)}
-            className="bg-blue-900 text-white px-10 py-1 cursor-pointer"
+            className="bg-[#2563EB] text-white px-10 rounded py-5 cursor-pointer"
           >
             Update Personal Information
           </button>

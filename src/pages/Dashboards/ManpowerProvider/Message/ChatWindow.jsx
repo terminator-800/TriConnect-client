@@ -29,7 +29,6 @@ const ChatWindow = ({ selectedUser }) => {
     isLoading,
     isError,
   } = useMessageHistory(ROLE.MANPOWER_PROVIDER, conversation_id);
-  console.log(messages);
   
   // Initialize socket connection
   useSocket(currentUserId, ROLE.MANPOWER_PROVIDER);
@@ -110,7 +109,7 @@ const ChatWindow = ({ selectedUser }) => {
               const isLastSenderMessage =
                 isSender &&
                 index ===
-                  messages.findLastIndex((m) => Number(m.sender_id) === Number(currentUserId));
+                messages.findLastIndex((m) => Number(m.sender_id) === Number(currentUserId));
 
               return (
                 <li
@@ -119,7 +118,7 @@ const ChatWindow = ({ selectedUser }) => {
                 >
                   {/* AUTHORIZED PERSONNEL */}
                   {!isSender && (
-                    <div className="flex-shrink-0 w-8 h-8 rounded-full mr-2 text-xs font-semibold overflow-hidden flex items-center justify-center bg-gray-400 text-white">
+                    <div className="shrink-0 w-8 h-8 rounded-full mr-2 text-xs font-semibold overflow-hidden flex items-center justify-center bg-gray-400 text-white">
                       {senderAvatar ? (
                         <img
                           src={senderAvatar}
@@ -134,9 +133,9 @@ const ChatWindow = ({ selectedUser }) => {
 
                   <div className="flex flex-col items-start">
                     {/* APPLICATION CARD - Only if it has required application fields */}
-                   {msg.message_type === 'apply' && msg.full_name && msg.email_address ? (
+                   {msg.message_type === 'apply' && msg.cover_letter && msg.resume ? (
                         ApplicationCard(msg, isSender)
-                      ) : msg.message_type === 'request' && msg.job_title && !msg.company_name ? (
+                      ) : msg.message_type === 'request' && msg.employer_name && msg.project_location && msg.project_description ? (
                         IndividualRequestCard(msg, isSender)
                       ) : msg.message_type === 'request' && msg.job_title && msg.email_address ? (
                         BusinessRequestCard(msg, isSender)
@@ -161,7 +160,6 @@ const ChatWindow = ({ selectedUser }) => {
                                     title="PDF Preview"
                                     className="w-full h-full pointer-events-none"
                                   />
-                                  {console.log(messages)}
                                 </div>
                               ) : (
                                 <img

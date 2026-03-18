@@ -18,7 +18,8 @@ const JobTable = ({ title, jobs, onStatusChange, onDelete, onViewJobDetails }) =
           <div className="w-1/5">Type</div>
           <div className="w-1/5">Date Posted</div>
           <div className="w-1/6">Applicants</div>
-          <div className="w-1/5">Status</div>
+          <div className="w-1/7">Number of Workers</div>
+          <div className="w-1/8">Status</div>
         </div>
 
         {jobs.length > 0 ? (
@@ -31,7 +32,8 @@ const JobTable = ({ title, jobs, onStatusChange, onDelete, onViewJobDetails }) =
               <div className="w-1/5">{job.job_type}</div>
               <div className="w-1/5">{job.created_at}</div>
               <div className="w-1/6">{job.applicant_count || '-'}</div>
-              <div className="w-1/5 flex items-center gap-2">
+              <div className="w-1/7">{job.number_of_workers || '0'}</div>
+              <div className="w-1/8 flex items-center gap-2">
                 {job.jobpost_status === 'pending' ? (
                   <div className="flex items-center gap-2 border border-gray-500 rounded-full px-4 w-fit">
                     <div className="w-3 h-3 rounded-full bg-gray-500"></div>

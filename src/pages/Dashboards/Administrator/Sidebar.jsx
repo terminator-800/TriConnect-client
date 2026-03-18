@@ -4,6 +4,16 @@ import { useState } from 'react';
 import { ROLE } from '../../../../utils/role';
 import Navbar from '../../Navbar';
 import icons from '../../../assets/svg/Icons';
+import {
+  BrowseJobIcon,
+  UserVerificationIcon,
+  VerifiedUserIcon,
+  JobPostVerificationIcon,
+  VerifiedJobPostIcon,
+  ReportedUsersIcon,
+  UsersFeedbackIcon,
+  SignOutIcon,
+} from '../../../assets/icon2/icon2';
 
 const AdminSidebar = () => {
   const navigate = useNavigate();
@@ -32,7 +42,7 @@ const AdminSidebar = () => {
 
       {/* Sidebar */}
       <div
-        className={`fixed h-full bg-gray-400 text-white p-0 w-60 flex flex-col z-40 transform transition-transform duration-300
+        className={`fixed h-full bg-white text-white p-0 w-60 flex flex-col z-40 transform transition-transform duration-300
                 ${isOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}
       >
         <ul className="list-none p-0 space-y-4 flex-1 flex flex-col mb-6 mt-28">
@@ -42,98 +52,85 @@ const AdminSidebar = () => {
             <h1 className="text-blue-900 font-bold italic">Administrator</h1>
           </div>
 
+          {/* DASHBOARD */}
           <li
-            className={`${location.pathname === `/${ROLE.ADMINISTRATOR}/dashboard` ? 'bg-gray-500' : ''} flex`}
+            className={`flex items-center p-2 cursor-pointer transition-colors duration-200
+              ${location.pathname.includes(`/${ROLE.ADMINISTRATOR}/dashboard`) ? 'bg-[#5ED1D625] text-[#2563EB]' : 'text-black'} hover:text-[#2563EB] pl-5`}
+            onClick={() => navigate(`/${ROLE.ADMINISTRATOR}/dashboard`)}
           >
-            <img src={icons.user_verification} alt="" className="ml-5 w-[27px]" />
-            <button
-              onClick={() => navigate(`/${ROLE.ADMINISTRATOR}/dashboard`)}
-              className="text-black hover:text-gray-300 ml-3 bg-transparent border-none cursor-pointer p-2 font-medium"
-            >
-              Dashboard
-            </button>
+            <BrowseJobIcon size={25} />
+            <span className="ml-3 font-medium">Dashboard</span>
           </li>
 
           <li
-            className={`${location.pathname === `/${ROLE.ADMINISTRATOR}/verification` ? 'bg-gray-500' : ''} flex`}
+            className={`flex items-center p-2 cursor-pointer transition-colors duration-200
+              ${location.pathname.includes(`/${ROLE.ADMINISTRATOR}/verification`) ? 'bg-[#5ED1D625] text-[#2563EB]' : 'text-black'} hover:text-[#2563EB] pl-5`}
+            onClick={() => navigate(`/${ROLE.ADMINISTRATOR}/verification`)}
           >
-            <img src={icons.user_verification} alt="" className="ml-5 w-[27px]" />
-            <button
-              onClick={() => navigate(`/${ROLE.ADMINISTRATOR}/verification`)}
-              className="text-black hover:text-gray-300 ml-3 bg-transparent border-none cursor-pointer p-2 font-medium"
-            >
-              User Verification
-            </button>
+            <UserVerificationIcon size={25} />
+            <span className="ml-3 font-medium">User Verification</span>
           </li>
 
           <li
-            className={`${location.pathname === `/${ROLE.ADMINISTRATOR}/verified` ? 'bg-gray-500' : ''} flex`}
+            className={`flex items-center p-2 cursor-pointer transition-colors duration-200
+              ${location.pathname === `/${ROLE.ADMINISTRATOR}/verified` ? 'bg-[#5ED1D625] text-[#2563EB]' : 'text-black'} hover:text-[#2563EB] pl-5`}
+            onClick={() => navigate(`/${ROLE.ADMINISTRATOR}/verified`)}
           >
-            <img src={icons.verified_user} alt="" className="ml-5 w-[27px]" />
-            <button
-              onClick={() => navigate(`/${ROLE.ADMINISTRATOR}/verified`)}
-              className="text-black hover:text-gray-300 ml-3 bg-transparent border-none cursor-pointer p-2 font-medium"
-            >
-              Verified User
-            </button>
+            <VerifiedUserIcon size={25} />
+            <span className="ml-3 font-medium">Verified Users</span>
           </li>
 
           <li
-            className={`${location.pathname === `/${ROLE.ADMINISTRATOR}/job-post-verification` ? 'bg-gray-500' : ''} flex`}
+            className={`flex items-center p-2 cursor-pointer transition-colors duration-200
+              ${location.pathname === `/${ROLE.ADMINISTRATOR}/job-post-verification` ? 'bg-[#5ED1D625] text-[#2563EB]' : 'text-black'} hover:text-[#2563EB] pl-5`}
+            onClick={() => navigate(`/${ROLE.ADMINISTRATOR}/job-post-verification`)}
           >
-            <img src={icons.job_post_verification} alt="" className="ml-5 w-[27px]" />
-            <button
-              onClick={() => navigate(`/${ROLE.ADMINISTRATOR}/job-post-verification`)}
-              className="text-black hover:text-gray-300 ml-3 bg-transparent border-none cursor-pointer p-2 font-medium"
-            >
-              Job Post Verification
-            </button>
+            <JobPostVerificationIcon size={25} />
+            <span className="ml-3 font-medium">Job Post Verification</span>
           </li>
 
           <li
-            className={`${location.pathname === `/${ROLE.ADMINISTRATOR}/verified-job-post` ? 'bg-gray-500' : ''} flex`}
+            className={`flex items-center p-2 cursor-pointer transition-colors duration-200
+              ${location.pathname.includes(`/${ROLE.ADMINISTRATOR}/verified-job-post`) ? 'bg-[#5ED1D625] text-[#2563EB]' : 'text-black'} hover:text-[#2563EB] pl-5`}
+            onClick={() => navigate(`/${ROLE.ADMINISTRATOR}/verified-job-post`)}
           >
-            <img src={icons.verified_job_post} alt="" className="ml-5 w-[27px]" />
-            <button
-              onClick={() => navigate(`/${ROLE.ADMINISTRATOR}/verified-job-post`)}
-              className="text-black hover:text-gray-300 ml-3 bg-transparent border-none cursor-pointer p-2 font-medium"
-            >
-              Verified Job Post
-            </button>
+            <VerifiedJobPostIcon size={25} />
+            <span className="ml-3 font-medium">Verified Job Post</span>
           </li>
 
           <li
-            className={`${location.pathname === `/${ROLE.ADMINISTRATOR}/reported` ? 'bg-gray-500' : ''} flex`}
+            className={`flex items-center p-2 cursor-pointer transition-colors duration-200
+              ${location.pathname.includes(`/${ROLE.ADMINISTRATOR}/reported`) ? 'bg-[#5ED1D625] text-[#2563EB]' : 'text-black'} hover:text-[#2563EB] pl-5`}
+            onClick={() => navigate(`/${ROLE.ADMINISTRATOR}/reported`)}
           >
-            <img src={icons.reported_user} alt="" className="ml-5 w-[27px]" />
-            <button
-              onClick={() => navigate(`/${ROLE.ADMINISTRATOR}/reported`)}
-              className="text-black hover:text-gray-300 ml-3 bg-transparent border-none cursor-pointer p-2 font-medium"
-            >
-              Reported User
-            </button>
+            <ReportedUsersIcon size={27} />
+            <span className="ml-3 font-medium">Reported Users</span>
           </li>
 
           <li
-            className={`${location.pathname === `/${ROLE.ADMINISTRATOR}/feedback` ? 'bg-gray-500' : ''} flex`}
+            className={`flex items-center p-2 cursor-pointer transition-colors duration-200
+              ${location.pathname.includes(`/${ROLE.ADMINISTRATOR}/feedback`) ? 'bg-[#5ED1D625] text-[#2563EB]' : 'text-black'} hover:text-[#2563EB] pl-5`}
+            onClick={() => navigate(`/${ROLE.ADMINISTRATOR}/feedback`)}
           >
-            <img src={icons.user_feedback} alt="" className="ml-5 w-[27px]" />
-            <button
-              onClick={() => navigate(`/${ROLE.ADMINISTRATOR}/feedback`)}
-              className="text-black hover:text-gray-300 ml-3 bg-transparent border-none cursor-pointer p-2 font-medium"
-            >
-              User Feedback
-            </button>
+            <UsersFeedbackIcon size={27} />
+            <span className="ml-3 font-medium">Users Feedback</span>
           </li>
 
-          <div className="mt-auto mb-4 flex justify-center">
+          <li className="mt-auto flex justify-center mb-4">
             <button
               onClick={handleLogout}
-              className="text-black hover:text-gray-300 bg-transparent border-none cursor-pointer p-2 text-xl font-medium"
+              className="flex items-center gap-2 text-black hover:text-[#2563EB] transition-colors duration-200 bg-transparent border-none cursor-pointer p-2 font-medium"
             >
-              {isLoggingOut ? 'Signing out...' : 'Sign out'}
+              {isLoggingOut ? (
+                'Signing out...'
+              ) : (
+                <>
+                  <SignOutIcon size={25} />
+                  <span>Sign Out</span>
+                </>
+              )}
             </button>
-          </div>
+          </li>
         </ul>
       </div>
     </>

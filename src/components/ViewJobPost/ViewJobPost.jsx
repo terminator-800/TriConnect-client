@@ -5,9 +5,12 @@ import UpdateSuccess from './UpdateSuccess';
 const ViewJobPost = ({ data, onClose, role }) => {
   const job = data.active[0] || {};
   const editJobPost = useEditJobPost(role);
-
+  
   const [isEditing, setIsEditing] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+
+  // Check if user role should have number_of_workers field
+  const shouldShowNumberOfWorkers = role === 'business-employer' || role === 'manpower-provider';
 
   const [formData, setFormData] = useState({
     job_title: job.job_title || '',
@@ -16,17 +19,18 @@ const ViewJobPost = ({ data, onClose, role }) => {
     location: job.location || '',
     required_skill: job.required_skill || '',
     job_description: job.job_description || '',
+    ...(shouldShowNumberOfWorkers && { number_of_workers: job.number_of_workers || '' }),
   });
 
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
-
+  
   const handleEditSave = () => {
     if (isEditing) {
       editJobPost.mutate(
         {
-          job_post_id: job.job_post_id,
+          job_post_id: job.post_id,
           ...formData,
         },
         {
@@ -44,7 +48,8 @@ const ViewJobPost = ({ data, onClose, role }) => {
       setIsEditing(true);
     }
   };
-
+  // console.log(editJobPost, "EDIT JOB POST");
+  
   const handleCloseSuccess = () => {
     setShowSuccess(false);
     onClose();
@@ -123,6 +128,22 @@ const ViewJobPost = ({ data, onClose, role }) => {
                 />
               </div>
             </div>
+
+            {/* Conditionally render Number of Workers field */}
+            {shouldShowNumberOfWorkers && (
+              <div>
+                <label className="block font-semibold mb-1">Number of Workers</label>
+                <input
+                  type="number"
+                  name="number_of_workers"
+                  value={formData.number_of_workers}
+                  onChange={handleChange}
+                  readOnly={!isEditing}
+                  className="w-full border-2 border-gray-300 px-3 py-2 bg-gray-100 outline-none"
+                  min="1"
+                />
+              </div>
+            )}
 
             <div>
               <label className="block font-semibold mb-1">Required Skill</label>

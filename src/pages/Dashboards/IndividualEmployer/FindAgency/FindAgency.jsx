@@ -7,6 +7,9 @@ import MessageAgency from '../../../../components/MessageAgency';
 import Pagination from '../../../../components/Pagination';
 import Sidebar from '../Sidebar';
 import Form from '../../../../pages/Dashboards/IndividualEmployer/Verification Form/Form';
+import { LocationIcon } from '../../../../assets/icon2/icon2';
+import RequestIndividualModal from './RequestManpowerModal';
+import RequestSuccessModal from '../../../../components/FindWorkers/RequestSuccessModal';
 
 const FindAgency = () => {
   // Individual Employer Profile
@@ -24,7 +27,7 @@ const FindAgency = () => {
     isLoading: isAgenciesLoading,
     error: agencyError,
   } = useUncontactedAgencies(ROLE.INDIVIDUAL_EMPLOYER);
-
+  
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const agenciesPerPage = 4;
@@ -35,6 +38,8 @@ const FindAgency = () => {
   const [showApply, setShowApply] = useState(false);
   const [selectedAgency, setSelectedAgency] = useState(null);
   const [showForm, setShowForm] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [successWorkerDetails, setSuccessWorkerDetails] = useState(null);
 
   const openApply = (agency) => {
     setSelectedAgency(agency);
@@ -66,19 +71,46 @@ const FindAgency = () => {
     );
   }
 
+  // Check if not verified - show verification status
+  if (!profileData.is_verified) {
+    return (
+      <>
+        <Sidebar />
+        <div className="relative min-h-screen bg-linear-to-b from-white to-[#00C2CB] pl-4 pr-4 pt-30 sm:pl-auto md:px-auto lg:pl-70 sm:pr-6 md:pr-8 lg:px-auto sm:pt-20 md:pt-30 sm:mt-0">
+          <div className="bg-white shadow-md py-6 w-full max-w-full border border-gray-300 sm:px-10 md:px-20">
+            <VerificationStatus profileData={profileData} openForm={openForm} />
+          </div>
+
+          {showForm && (
+            <Form
+              onClose={() => setShowForm(false)}
+              onSubmitSuccess={() => {
+                setShowForm(false);
+                refetch();
+              }}
+            />
+          )}
+        </div>
+      </>
+    );
+  }
+
+  // If verified, show normal Find Agency page
   return (
     <>
       <Sidebar />
 
       {showApply && selectedAgency && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <MessageAgency
-            sender={profileData}
-            receiver={selectedAgency}
-            role={ROLE.INDIVIDUAL_EMPLOYER}
-            onClose={() => setShowApply(false)}
-          />
-        </div>
+        <RequestIndividualModal
+          isOpen={showApply}
+          onClose={() => setShowApply(false)}
+          worker={selectedAgency}
+          onSuccessClose={(workerDetails) => {
+            setShowApply(false);
+            setSuccessWorkerDetails(workerDetails);
+            setShowSuccessModal(true);
+          }}
+        />
       )}
 
       {showForm && (
@@ -96,68 +128,68 @@ const FindAgency = () => {
         />
       )}
 
-      <div className="relative min-h-screen bg-linear-to-b from-white to-[#00C2CB] pl-70 pr-10 pt-30">
-        {profileData?.is_verified ? (
+      <div className="relative min-h-screen bg-linear-to-b from-white to-[#00C2CB] px-5 pt-30 ml-60 max-[1279px]:ml-60 max-[1024px]:ml-0">
+        <div className="bg-white shadow-md py-6 px-10 mb-10">
+          <div className="flex flex-col">
+            <h1 className="text-2xl font-bold text-[#2563EB]">Search for Manpower Provider</h1>
+            <p>Find agencies to help with your recruitment needs</p>
+          </div>
+        </div>
+
+        {isAgenciesLoading ? (
+          <p className="mt-10 text-lg">Loading agencies...</p>
+        ) : agencies.length === 0 ? (
+          <p className="mt-10 text-lg italic text-gray-500 text-center">No manpower providers found.</p>
+        ) : (
           <>
-            <div className="bg-white shadow-md py-6 px-10 mb-8">
-              <div className="flex flex-col">
-                <h1 className="text-2xl font-bold text-blue-900">Search for Manpower Provider</h1>
-                <p>Find agencies to help with your recruitment needs</p>
+            <div className="flex flex-col min-h-[65vh] ">
+              <div className='flex flex-col gap-5 drop-shadow-2xl'>
+                {currentAgencies.map((agency) => (
+                  <div
+                    key={agency.agency_id}
+                    onClick={() => openApply(agency)}
+                    className="flex flex-col bg-white p-6 shadow-md cursor-pointer hover:bg-gray-50 transition"
+                  >
+
+                    <div className="flex items-start max-[425px]:items-center gap-4 md:flex-row flex-col">
+                      {/* PROFILE */}
+                      <div className="w-14 h-14 rounded-sm overflow-hidden shrink-0">
+                        {agency.profile ? (
+                          <img
+                            src={agency.profile}
+                            alt={agency.agency_name || 'Agency'}
+                            className="w-full h-full object-cover "
+                          />
+                        ) : (
+                          <div className="w-14 h-14 bg-gray-300 flex items-center justify-center text-lg font-bold text-gray-800">
+                            {(agency.agency_name || '').substring(0, 2).toUpperCase()}
+                          </div>
+                        )}
+                      </div>
+
+                      <div className='text-left'>
+                        <h2 className="text-xl font-semibold">{agency.agency_name}</h2>
+                        <span className='text-[#828282]'>{agency.agency_services}</span>
+                      </div>
+
+                    </div>
+                     
+                    <div className="flex justify-between mt-6 xl:flex-row md:flex-row sm:flex-row flex-col gap-5">
+                      <div className='text-[#828282] flex gap-2'>
+                        <LocationIcon/>
+                        <span>{agency.agency_address}</span>
+                      </div>
+
+                      <button className="bg-[#2563EB] text-white xl:px-10 md:px-10  sm:px-10 px-2 py-1 cursor-pointer">
+                        View Profile
+                      </button>
+
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-
-            <div className="flex flex-col h-[60vh]">
-              {isAgenciesLoading ? (
-                <p className="mt-10 text-lg">Loading agencies...</p>
-              ) : agencies.length === 0 ? (
-                <p className="mt-10 text-lg italic text-gray-500">No manpower providers found.</p>
-              ) : (
-                <>
-                  <div className="grid grid-cols-2 gap-6 mt-15">
-                    {currentAgencies.map((agency) => (
-                      <div
-                        key={agency.agency_id}
-                        className="flex flex-col bg-white border border-gray-300 p-6 shadow-md"
-                      >
-                        <div className="flex items-center gap-4">
-                          {/* PROFILE */}
-                          <div className="w-14 h-14 rounded-full overflow-hidden shrink-0">
-                            {agency.profile ? (
-                              <img
-                                src={agency.profile}
-                                alt={agency.agency_name || 'Agency'}
-                                className="w-full h-full object-cover rounded-full"
-                              />
-                            ) : (
-                              <div className="w-14 h-14 rounded-full bg-gray-300 flex items-center justify-center text-lg font-bold text-gray-800">
-                                {(agency.agency_name || '').substring(0, 2).toUpperCase()}
-                              </div>
-                            )}
-                          </div>
-
-                          <h2 className="text-xl font-semibold">{agency.agency_name}</h2>
-                        </div>
-
-                        <div className="flex justify-between mt-6">
-                          <button
-                            onClick={() => openApply(agency)}
-                            className="bg-blue-900 text-white px-10 py-1 cursor-pointer"
-                          >
-                            Message
-                          </button>
-                          <button className="border border-gray-400 px-10 py-1 cursor-pointer">
-                            View Profile
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>
-
-            {/* mt-auto pushes it to bottom of the flex container */}
-            <div className="mt-auto pt-10 pb-10">
+            <div className="pb-10 flex justify-center">
               <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}
@@ -165,11 +197,13 @@ const FindAgency = () => {
               />
             </div>
           </>
-        ) : (
-          <div className="bg-white shadow-md p-6 w-full max-w-full border border-gray-300 px-20">
-            <VerificationStatus profileData={profileData} openForm={openForm} />
-          </div>
         )}
+
+        <RequestSuccessModal
+          isOpen={showSuccessModal}
+          onClose={() => setShowSuccessModal(false)}
+          workerDetails={successWorkerDetails}
+        />
       </div>
     </>
   );
