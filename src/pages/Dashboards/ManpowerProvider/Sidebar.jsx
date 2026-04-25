@@ -5,7 +5,14 @@ import { ROLE } from '../../../../utils/role';
 import icons from '../../../assets/svg/Icons';
 import Navbar from '../../Navbar';
 import Feedback from '../../../components/Feedback';
-import { BrowseJobIcon, ManageJobPostIcon, ViewApplicantIcon, MessageIcon, SignOutIcon } from '../../../assets/icon2/icon2';
+import {
+  BrowseJobIcon,
+  ManageJobPostIcon,
+  ViewApplicantIcon,
+  MessageIcon,
+  ManageTeamsIcon,
+  SignOutIcon,
+} from '../../../assets/icon2/icon2';
 
 const Sidebar = () => {
   const [feedbackModalVisible, setFeedbackModalVisible] = useState(false);
@@ -81,15 +88,12 @@ const Sidebar = () => {
           </li>
 
           <li
-            className={`${location.pathname.includes(`/${ROLE.MANPOWER_PROVIDER}/create`) ? 'bg-gray-500' : ''} flex`}
+            className={`flex items-center p-2 cursor-pointer transition-colors duration-200
+              ${location.pathname.includes(`/${ROLE.MANPOWER_PROVIDER}/teams`) ? 'bg-[#5ED1D625] text-[#2563EB]' : 'text-black'} hover:text-[#2563EB] pl-5`}
+            onClick={() => navigate(`/${ROLE.MANPOWER_PROVIDER}/teams`)}
           >
-            <img src={icons.manage_teams} alt="" className="ml-5 w-[27px]" />
-            <button
-              // onClick={() => navigate(`/${ROLE.MANPOWER_PROVIDER}/create`)}
-              className="text-black hover:text-gray-300 ml-3 bg-transparent border-none cursor-pointer p-2 font-medium"
-            >
-              Manage Teams
-            </button>
+            <ManageTeamsIcon size={27} className="shrink-0" />
+            <span className="ml-3 font-medium">Manage Teams</span>
           </li>
 
            {/* MESSAGES */}

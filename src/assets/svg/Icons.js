@@ -49,7 +49,6 @@ import personal_information from './personal_information.svg';
 import resume_download from './resume_download.svg';
 import download_pdf_arrow from './download_pdf_arrow.svg';
 import hired_job_seeker from './hired_job_seeker.svg';
-import manage_teams from './manage_teams.svg';
 import jobseeker from './jobseeker.svg';
 import individual_employer from './individual_employer.svg';
 import business_employer from './business_employer.svg';
@@ -115,7 +114,6 @@ const icons = {
   resume_download,
   download_pdf_arrow,
   hired_job_seeker,
-  manage_teams,
   jobseeker,
   individual_employer,
   business_employer,

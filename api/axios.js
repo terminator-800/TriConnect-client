@@ -2,14 +2,13 @@ import axios from 'axios';
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
-  withCredentials: true, // default: try cookies first
+  /** Sends cookies (e.g. JWT in httpOnly cookie) on cross-origin requests when the API allows credentials. */
+  withCredentials: true,
 });
 
-// Request interceptor
 api.interceptors.request.use(
   (config) => {
-    // Check if a fallback token exists
-    const token = localStorage.getItem('token');
+    const token = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }

@@ -13,6 +13,7 @@ import {
   ReportedUsersIcon,
   UsersFeedbackIcon,
   SignOutIcon,
+  ManpowerProviderIcon,
 } from '../../../assets/icon2/icon2';
 
 const AdminSidebar = () => {
@@ -64,11 +65,20 @@ const AdminSidebar = () => {
 
           <li
             className={`flex items-center p-2 cursor-pointer transition-colors duration-200
-              ${location.pathname.includes(`/${ROLE.ADMINISTRATOR}/verification`) ? 'bg-[#5ED1D625] text-[#2563EB]' : 'text-black'} hover:text-[#2563EB] pl-5`}
+              ${location.pathname.includes(`/${ROLE.ADMINISTRATOR}/verification`) && !location.pathname.includes('deployment') ? 'bg-[#5ED1D625] text-[#2563EB]' : 'text-black'} hover:text-[#2563EB] pl-5`}
             onClick={() => navigate(`/${ROLE.ADMINISTRATOR}/verification`)}
           >
             <UserVerificationIcon size={25} />
             <span className="ml-3 font-medium">User Verification</span>
+          </li>
+
+          <li
+            className={`flex items-center p-2 cursor-pointer transition-colors duration-200
+              ${location.pathname.includes(`/${ROLE.ADMINISTRATOR}/deployment-verification`) ? 'bg-[#5ED1D625] text-[#2563EB]' : 'text-black'} hover:text-[#2563EB] pl-5`}
+            onClick={() => navigate(`/${ROLE.ADMINISTRATOR}/deployment-verification`)}
+          >
+            <ManpowerProviderIcon size={25} className="shrink-0" />
+            <span className="ml-3 font-medium text-sm whitespace-nowrap">Deployment Verification</span>
           </li>
 
           <li

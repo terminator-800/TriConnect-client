@@ -14,7 +14,7 @@ const Pagination = ({ currentPage, totalPages, setCurrentPage }) => {
         onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
         disabled={currentPage === 1}
         className={`px-3 py-1 rounded ${
-          currentPage === 1 ? 'text-gray-500 cursor-not-allowed' : 'text-blue-700 cursor-pointer'
+          currentPage === 1 ? 'text-gray-500 cursor-not-allowed' : 'text-[#2563EB] hover:text-[#1d4ed8] cursor-pointer'
         }`}
       >
         ◀
@@ -24,10 +24,10 @@ const Pagination = ({ currentPage, totalPages, setCurrentPage }) => {
         <button
           key={page}
           onClick={() => setCurrentPage(page)}
-          className={`px-3 py-1 rounded ${
+          className={`px-3 py-1 rounded transition-colors ${
             page === currentPage
-              ? 'bg-blue-700 text-white cursor-pointer'
-              : 'bg-gray-200 text-gray-700 cursor-pointer'
+              ? 'bg-[#2563EB] text-white cursor-pointer hover:bg-[#1d4ed8]'
+              : 'bg-gray-200 text-gray-700 cursor-pointer hover:bg-[#2563EB]/15 hover:text-[#2563EB]'
           }`}
         >
           {page}
@@ -40,7 +40,7 @@ const Pagination = ({ currentPage, totalPages, setCurrentPage }) => {
         className={`px-3 py-1 rounded ${
           currentPage === totalPages
             ? 'text-gray-500 cursor-not-allowed'
-            : 'text-blue-700 cursor-pointer'
+            : 'text-[#2563EB] hover:text-[#1d4ed8] cursor-pointer'
         }`}
       >
         ▶

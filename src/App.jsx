@@ -48,6 +48,7 @@ import ManpowerDashboardLayout from '../src/pages/Dashboards/ManpowerProvider/Da
 import ManpowerProviderMessage from './pages/Dashboards/ManpowerProvider/Message/ChatLayout';
 import ManpowerProviderManageJobPost from './pages/Dashboards/ManpowerProvider/ManageJobPost/ManageJobPost';
 import ManpowerProviderViewApplicant from './pages/Dashboards/ManpowerProvider/ViewApplicant/ViewApplicantLayout';
+import ManageTeams from './pages/Dashboards/ManpowerProvider/ManageTeams/ManageTeams';
 
 // Administrator
 import UserVerification from './pages/Dashboards/Administrator/UserVerification/UserVerification';
@@ -58,6 +59,7 @@ import ReportedUsers from './pages/Dashboards/Administrator/ReportedUsers/Report
 import UserFeedback from './pages/Dashboards/Administrator/UserFeedback/UserFeedback';
 import ManpowerProviderJobPostDetails from './pages/Dashboards/ManpowerProvider/JobPostDetails';
 import AdministratorDashboard from './pages/Dashboards/Administrator/Dashboard/AdministratorDashboard';
+import DeploymentVerification from './pages/Dashboards/Administrator/DeploymentVerification/DeploymentVerification';
 
 // Remove SocketProvider's auth check and just use context
 const SocketProvider = ({ children }) => {
@@ -159,12 +161,14 @@ function App() {
             <Route path="manage" element={<ManpowerProviderManageJobPost />} />
             <Route path="message" element={<ManpowerProviderMessage />} />
             <Route path="view" element={<ManpowerProviderViewApplicant />} />
+            <Route path="teams" element={<ManageTeams />} />
           </Route>
 
           {/* Administrator */}
           <Route path="/administrator/*" element={<PrivateRoute />}>
             <Route path="dashboard" element={<AdministratorDashboard />} />
             <Route path="verification" index element={<UserVerification />} />
+            <Route path="deployment-verification" element={<DeploymentVerification />} />
             <Route path="verified" element={<VerifiedUser />} />
             <Route path="job-post-verification" element={<JobPostVerification />} />
             <Route path="verified-job-post" element={<VerifiedJobPost />} />
