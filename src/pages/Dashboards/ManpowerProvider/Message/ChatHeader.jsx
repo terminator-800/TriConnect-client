@@ -2,6 +2,9 @@ import { useReportedUsers } from '../../../../../hooks/REPORT';
 import { getInitials } from './helper';
 import { useState } from 'react';
 import { ROLE } from '../../../../../utils/role';
+import { useMessageHistory } from '../../../../../hooks/CHAT';
+import { useUserProfile } from '../../../../../hooks/useUserProfiles';
+import { useQueryClient } from '@tanstack/react-query';
 import ReportUser from '../../../../components/ReportUser/ReportUser';
 import ActionMenu from './ActionMenu';
 import icons from '../../../../assets/svg/Icons';
@@ -10,13 +13,18 @@ import RejectApplicant from '../../../../components/HireApplicant/RejectApplican
 import axios from 'axios';
 
 const ChatHeader = ({ selectedUser }) => {
+  const queryClient = useQueryClient();
   const [showReportModal, setShowReportModal] = useState(false);
   const [showActionMenu, setShowActionMenu] = useState(false);
   const [showHireModal, setShowHireModal] = useState(false); 
   const [showRejectModal, setShowRejectModal] = useState(false);
-
-  const [showAcceptEmployerModal, setShowAcceptEmployerModal] = useState(false);
-  const [showRejectEmployerModal, setShowRejectEmployerModal] = useState(false);
+  const [showAcceptStatusModal, setShowAcceptStatusModal] = useState(false);
+  const [acceptStatusMessage, setAcceptStatusMessage] = useState('');
+  const { data: providerProfile } = useUserProfile(ROLE.MANPOWER_PROVIDER);
+  const { data: messages = [] } = useMessageHistory(
+    ROLE.MANPOWER_PROVIDER,
+    selectedUser?.conversation_id
+  );
 
   const { data: reportedUsers = [] } = useReportedUsers(ROLE.MANPOWER_PROVIDER);
 
@@ -39,6 +47,15 @@ const ChatHeader = ({ selectedUser }) => {
   'Unknown';
 
   const initials = getInitials(fullName);
+  const latestEmployerRequest = [...messages]
+    .reverse()
+    .find(
+      (msg) =>
+        msg.message_type === 'request' &&
+        Number(msg.sender_id) === Number(selectedUser?.sender_id) &&
+        Number(msg.receiver_id) === Number(providerProfile?.user_id)
+    );
+  const isAlreadyAccepted = latestEmployerRequest?.request_status === 'accepted';
 
   const handleReportClick = () => {
     setShowActionMenu(false);
@@ -50,6 +67,11 @@ const ChatHeader = ({ selectedUser }) => {
     
     // Accept Employer logic
     if (selectedUser?.role === ROLE.BUSINESS_EMPLOYER || selectedUser?.role === ROLE.INDIVIDUAL_EMPLOYER) {
+      if (isAlreadyAccepted) {
+        setAcceptStatusMessage('You already accepted this employer request.');
+        setShowAcceptStatusModal(true);
+        return;
+      }
       try {
         await axios.post(`${import.meta.env.VITE_API_URL}/manpower-provider/accept-employer`, {
           employerId: selectedUser.sender_id,        
@@ -59,6 +81,14 @@ const ChatHeader = ({ selectedUser }) => {
          {
           withCredentials: true,
          });
+        queryClient.invalidateQueries({
+          queryKey: ['messages', ROLE.MANPOWER_PROVIDER, selectedUser.conversation_id],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ['conversations', ROLE.MANPOWER_PROVIDER],
+        });
+        setAcceptStatusMessage('You accepted the employer request successfully.');
+        setShowAcceptStatusModal(true);
 
       } catch (err) {
         console.error("Accept employer failed:", err);
@@ -166,6 +196,23 @@ const ChatHeader = ({ selectedUser }) => {
           role={ROLE.MANPOWER_PROVIDER}
           onClose={() => setShowRejectModal(false)}
         />
+      )}
+
+      {showAcceptStatusModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/25 p-4">
+          <div className="w-full max-w-xl bg-white border border-gray-300 shadow-xl relative">
+            <button
+              onClick={() => setShowAcceptStatusModal(false)}
+              className="absolute top-3 right-3 w-8 h-8 rounded-full bg-red-500 text-white hover:bg-red-600 cursor-pointer"
+            >
+              ✕
+            </button>
+            <div className="p-10 text-center">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">Employer Request</h2>
+              <p className="text-gray-600">{acceptStatusMessage}</p>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

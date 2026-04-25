@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import axios from 'axios';
 import { useMarkMessagesAsSeen } from './helper';
 import { useMessageHistory } from '../../../../../hooks/CHAT';
 import { useUserProfile } from '../../../../../hooks/useUserProfiles';
@@ -14,10 +15,22 @@ import { BusinessRequestCard } from '../../../../components/cards/BusinessReques
 import { IndividualRequestCard } from '../../../../components/cards/IndividualRequestCard';
 import { HireApplicantCard } from '../../../../components/cards/HireApplicantCard';
 import { ExpressInterestCard } from '../../../../components/cards/ExpressInterestCard';
+import {
+  FinalAgreementCard,
+  FinalAgreementResponseCard,
+} from '../../../../components/cards/FinalAgreementCard';
+import AgreementStatusModal from '../../../../components/FinalAgreement/AgreementStatusModal';
 
 const ChatWindow = ({ selectedUser }) => {
   const endRef = useRef(null);
   const [previewImage, setPreviewImage] = useState(null);
+  const [decisionLoadingId, setDecisionLoadingId] = useState(null);
+  const [agreementStatusModal, setAgreementStatusModal] = useState({
+    open: false,
+    title: '',
+    message: '',
+    titleClass: 'text-[#22C55E]',
+  });
   const queryClient = useQueryClient();
 
   const { data: profileData } = useUserProfile(ROLE.MANPOWER_PROVIDER);
@@ -86,6 +99,80 @@ const ChatWindow = ({ selectedUser }) => {
     }
   }, [messages.length]);
 
+  const parseExpressPayload = (raw) => {
+    if (!raw) return null;
+    try {
+      return JSON.parse(raw);
+    } catch {
+      return null;
+    }
+  };
+
+  const getAgreementDecision = (agreementMessageId) => {
+    const responseMessage = messages.find((m) => {
+      if (m.message_type !== 'express' || !m.express_message) return false;
+      const payload = parseExpressPayload(m.express_message);
+      return (
+        payload?.kind === 'final_agreement_response' &&
+        Number(payload?.agreement_message_id) === Number(agreementMessageId)
+      );
+    });
+
+    if (!responseMessage) return null;
+    return parseExpressPayload(responseMessage.express_message)?.decision || null;
+  };
+
+  const submitAgreementDecision = async (messageId, decision) => {
+    const employerId = selectedUser?.sender_id || selectedUser?.user_id;
+    if (!conversation_id || !employerId) {
+      alert('Missing conversation or employer information.');
+      return;
+    }
+    setDecisionLoadingId(messageId);
+    try {
+      await axios.post(
+        `${import.meta.env.VITE_API_URL}/manpower-provider/final-agreement/respond`,
+        {
+          conversation_id,
+          receiver_id: employerId,
+          agreement_message_id: messageId,
+          decision,
+        },
+        { withCredentials: true }
+      );
+
+      queryClient.invalidateQueries({
+        queryKey: ['messages', ROLE.MANPOWER_PROVIDER, conversation_id],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['conversations', ROLE.MANPOWER_PROVIDER],
+      });
+
+      if (decision === 'accepted') {
+        setAgreementStatusModal({
+          open: true,
+          title: 'Agreement Confirmed',
+          message:
+            'You confirmed the final agreement. Go to Manage Teams to select and deploy your workers — payment will be collected there before deployment is activated.',
+          titleClass: 'text-[#22C55E]',
+        });
+      } else {
+        setAgreementStatusModal({
+          open: true,
+          title: 'Agreement Declined',
+          message:
+            'You declined the final agreement. The employer can review and send a new agreement if needed.',
+          titleClass: 'text-[#EF4444]',
+        });
+      }
+    } catch (error) {
+      console.error('Failed to respond final agreement:', error);
+      alert(error?.response?.data?.error || 'Failed to update final agreement.');
+    } finally {
+      setDecisionLoadingId(null);
+    }
+  };
+
   return (
     <div className="flex-1 overflow-y-auto p-6 bg-white">
       {isLoading && <div className="text-gray-400 text-center">Loading messages...</div>}
@@ -110,6 +197,9 @@ const ChatWindow = ({ selectedUser }) => {
                 isSender &&
                 index ===
                 messages.findLastIndex((m) => Number(m.sender_id) === Number(currentUserId));
+
+              const expressPayload =
+                msg.message_type === 'express' ? parseExpressPayload(msg.express_message) : null;
 
               return (
                 <li
@@ -141,6 +231,19 @@ const ChatWindow = ({ selectedUser }) => {
                         BusinessRequestCard(msg, isSender)
                       ) : msg.message_type === 'hire' && msg.job_title && msg.start_date && msg.end_date && msg.hire_message ? (
                         <HireApplicantCard msg={msg} isSender={isSender} />
+                      ) : msg.message_type === 'express' &&
+                        expressPayload?.kind === 'final_agreement' ? (
+                        <FinalAgreementCard
+                          agreement={expressPayload}
+                          decisionStatus={getAgreementDecision(msg.message_id)}
+                          showActions={!isSender}
+                          isSubmitting={decisionLoadingId === msg.message_id}
+                          onDecline={() => submitAgreementDecision(msg.message_id, 'declined')}
+                          onConfirm={() => submitAgreementDecision(msg.message_id, 'accepted')}
+                        />
+                      ) : msg.message_type === 'express' &&
+                        expressPayload?.kind === 'final_agreement_response' ? (
+                        <FinalAgreementResponseCard decision={expressPayload?.decision} />
                       )  : msg.message_type === 'express' && msg.express_message ? (
                             ExpressInterestCard(msg, isSender)
                       ) : 
@@ -259,6 +362,19 @@ const ChatWindow = ({ selectedUser }) => {
           </div>
         </div>
       )}
+
+      <AgreementStatusModal
+        isOpen={agreementStatusModal.open}
+        title={agreementStatusModal.title}
+        message={agreementStatusModal.message}
+        titleClass={agreementStatusModal.titleClass}
+        onClose={() =>
+          setAgreementStatusModal((prev) => ({
+            ...prev,
+            open: false,
+          }))
+        }
+      />
     </div>
   );
 };

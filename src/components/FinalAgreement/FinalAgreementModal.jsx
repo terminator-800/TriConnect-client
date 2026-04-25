@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
+import { useQueryClient } from '@tanstack/react-query';
 
 const initialForm = {
   position_role: '',
@@ -15,8 +17,20 @@ const initialForm = {
   payment_schedule: '',
 };
 
-export default function FinalAgreementModal({ onClose }) {
+function toNumber(raw) {
+  const digits = String(raw ?? '')
+    .replace(/[^\d.]/g, '')
+    .trim();
+  if (!digits) return 0;
+  const n = Number(digits);
+  return Number.isFinite(n) ? n : 0;
+}
+
+export default function FinalAgreementModal({ onClose, role, selectedUser }) {
   const [form, setForm] = useState(initialForm);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [agreeChecked, setAgreeChecked] = useState(false);
+  const queryClient = useQueryClient();
 
   const updateField = (key) => (e) => {
     setForm((prev) => ({ ...prev, [key]: e.target.value }));
@@ -24,7 +38,50 @@ export default function FinalAgreementModal({ onClose }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!selectedUser?.conversation_id || !selectedUser?.sender_id) return;
+    if (!agreeChecked) return;
+
+    const workers = toNumber(form.no_of_workers);
+    const monthlyRate = toNumber(form.monthly_rate);
+    const contractDuration = form.contract_duration;
+    const durationMonths = toNumber(contractDuration);
+    const totalContractValue = workers * monthlyRate * Math.max(1, durationMonths || 1);
+
+    const agreement = {
+      ...form,
+      monthly_rate: monthlyRate,
+      no_of_workers: workers,
+      total_contract_value: totalContractValue,
+      agreed_to_terms: true,
+    };
+
+    setIsSubmitting(true);
+    axios
+      .post(
+        `${import.meta.env.VITE_API_URL}/${role}/final-agreement`,
+        {
+          conversation_id: selectedUser.conversation_id,
+          receiver_id: selectedUser.sender_id,
+          agreement,
+        },
+        { withCredentials: true }
+      )
+      .then(() => {
+        queryClient.invalidateQueries({ queryKey: ['messages', role, selectedUser.conversation_id] });
+        queryClient.invalidateQueries({ queryKey: ['conversations', role] });
+        onClose();
+      })
+      .catch((error) => {
+        const apiError = error?.response?.data?.error;
+        if (apiError) alert(apiError);
+      })
+      .finally(() => setIsSubmitting(false));
   };
+
+  const workers = toNumber(form.no_of_workers);
+  const monthlyRate = toNumber(form.monthly_rate);
+  const durationMonths = toNumber(form.contract_duration);
+  const totalContractValue = workers * monthlyRate * Math.max(1, durationMonths || 1);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/25 p-4">
@@ -167,6 +224,37 @@ export default function FinalAgreementModal({ onClose }) {
             </div>
           </div>
 
+          <div className="mt-6 rounded bg-[#D9D9D9] p-6 text-sm">
+            <div className="flex items-center justify-between py-1">
+              <span>Monthly Rate</span>
+              <span className="font-semibold">₱{monthlyRate.toLocaleString('en-PH')}</span>
+            </div>
+            <div className="flex items-center justify-between py-1">
+              <span>Workers</span>
+              <span className="font-semibold">{workers}</span>
+            </div>
+            <div className="mt-2 border-t border-white/70 pt-3 flex items-center justify-between">
+              <span>Total Contract Value</span>
+              <span className="font-semibold text-[#2563EB]">
+                ₱{totalContractValue.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              </span>
+            </div>
+          </div>
+
+          <label className="mt-4 flex items-start gap-3 text-sm text-gray-700">
+            <input
+              type="checkbox"
+              checked={agreeChecked}
+              onChange={(e) => setAgreeChecked(e.target.checked)}
+              className="mt-1 cursor-pointer"
+            />
+            <span>
+              By confirming, you agree to the terms above and authorize TriConnect to collect a
+              <span className="text-[#2563EB]"> 10% platform fee </span>
+              for each worker deployed.
+            </span>
+          </label>
+
           <div className="mt-8 flex flex-col justify-center gap-4 md:flex-row">
             <button
               type="button"
@@ -177,9 +265,10 @@ export default function FinalAgreementModal({ onClose }) {
             </button>
             <button
               type="submit"
-              className="min-w-56 bg-[#2563EB] px-8 py-2.5 text-sm text-white cursor-pointer hover:bg-[#1D4ED8] transition-colors"
+              disabled={isSubmitting || !agreeChecked}
+              className="min-w-56 bg-[#2563EB] px-8 py-2.5 text-sm text-white cursor-pointer hover:bg-[#1D4ED8] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              Submit Agreement
+              {isSubmitting ? 'Submitting...' : 'Confirm Agreement'}
             </button>
           </div>
         </form>
@@ -190,4 +279,6 @@ export default function FinalAgreementModal({ onClose }) {
 
 FinalAgreementModal.propTypes = {
   onClose: PropTypes.func.isRequired,
+  role: PropTypes.string.isRequired,
+  selectedUser: PropTypes.object,
 };

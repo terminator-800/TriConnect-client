@@ -14,6 +14,10 @@ import { BusinessRequestCard } from '../../../../components/cards/BusinessReques
 import { IndividualRequestCard } from '../../../../components/cards/IndividualRequestCard';
 import { HireApplicantCard } from '../../../../components/cards/HireApplicantCard';
 import { ExpressInterestCard } from '../../../../components/cards/ExpressInterestCard';
+import {
+  FinalAgreementCard,
+  FinalAgreementResponseCard,
+} from '../../../../components/cards/FinalAgreementCard';
 const ChatWindow = ({ selectedUser }) => {
   const endRef = useRef(null);
   const [previewImage, setPreviewImage] = useState(null);
@@ -107,6 +111,15 @@ const ChatWindow = ({ selectedUser }) => {
                 index ===
                   messages.findLastIndex((m) => Number(m.sender_id) === Number(currentUserId));
 
+              let expressPayload = null;
+              if (msg.message_type === 'express' && msg.express_message) {
+                try {
+                  expressPayload = JSON.parse(msg.express_message);
+                } catch {
+                  expressPayload = null;
+                }
+              }
+
               return (
                 <li
                   key={msg.message_id || `msg-${index}`}
@@ -135,6 +148,11 @@ const ChatWindow = ({ selectedUser }) => {
                         BusinessRequestCard(msg, isSender)
                       ) : msg.message_type === 'hire' && msg.job_title && msg.start_date && msg.end_date && msg.hire_message ? (
                         <HireApplicantCard msg={msg} isSender={isSender} />
+                      ) : msg.message_type === 'express' && expressPayload?.kind === 'final_agreement' ? (
+                        <FinalAgreementCard agreement={expressPayload} />
+                      ) : msg.message_type === 'express' &&
+                        expressPayload?.kind === 'final_agreement_response' ? (
+                        <FinalAgreementResponseCard decision={expressPayload?.decision} />
                       )  : msg.message_type === 'express' && msg.express_message ? (
                           ExpressInterestCard(msg, isSender)
                       ) : 

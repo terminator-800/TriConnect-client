@@ -2,6 +2,8 @@ import { useReportedUsers } from '../../../../../hooks/REPORT';
 import { getInitials } from './helper';
 import { useState } from 'react';
 import { ROLE } from '../../../../../utils/role';
+import { useMessageHistory } from '../../../../../hooks/CHAT';
+import { useUserProfile } from '../../../../../hooks/useUserProfiles';
 import ReportUser from '../../../../components/ReportUser/ReportUser';
 import ActionMenu from './ActionMenu';
 import HireApplicant from '../../../../components/HireApplicant/HireApplicant'; 
@@ -16,6 +18,11 @@ const ChatHeader = ({ selectedUser } ) => {
   const [showHireModal, setShowHireModal] = useState(false); 
   const [showRejectModal, setShowRejectModal] = useState(false);
   const [showFinalAgreementModal, setShowFinalAgreementModal] = useState(false);
+  const { data: employerProfile } = useUserProfile(ROLE.BUSINESS_EMPLOYER);
+  const { data: messages = [] } = useMessageHistory(
+    ROLE.BUSINESS_EMPLOYER,
+    selectedUser?.conversation_id
+  );
   
   const { data: reportedUsers = [] } = useReportedUsers(ROLE.BUSINESS_EMPLOYER);
 
@@ -34,6 +41,16 @@ const ChatHeader = ({ selectedUser } ) => {
   }
 
   const authorizedPerson = selectedUser?.authorized_person || null;
+  const latestOwnRequest = [...messages]
+    .reverse()
+    .find(
+      (msg) =>
+        msg.message_type === 'request' &&
+        Number(msg.sender_id) === Number(employerProfile?.user_id) &&
+        Number(msg.receiver_id) === Number(selectedUser?.sender_id)
+    );
+  const canShowFinalAgreement =
+    selectedUser?.role === ROLE.MANPOWER_PROVIDER && latestOwnRequest?.request_status === 'accepted';
 
   const handleReportClick = () => {
     setShowActionMenu(false);
@@ -81,13 +98,15 @@ const ChatHeader = ({ selectedUser } ) => {
           </div>
 
           <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={() => setShowFinalAgreementModal(true)}
-              className="px-3 py-1.5 border border-[#2563EB] bg-white text-[#2563EB] text-sm font-medium cursor-pointer hover:bg-[#2563EB]/10 transition-colors"
-            >
-              Set Final Agreement
-            </button>
+            {canShowFinalAgreement && (
+              <button
+                type="button"
+                onClick={() => setShowFinalAgreementModal(true)}
+                className="px-3 py-1.5 border border-[#2563EB] bg-white text-[#2563EB] text-sm font-medium cursor-pointer hover:bg-[#2563EB]/10 transition-colors"
+              >
+                Set Final Agreement
+              </button>
+            )}
             <ActionMenu
               isOpen={showActionMenu}
               onToggle={setShowActionMenu}
@@ -112,7 +131,11 @@ const ChatHeader = ({ selectedUser } ) => {
       )}
 
       {showFinalAgreementModal && (
-        <FinalAgreementModal onClose={() => setShowFinalAgreementModal(false)} />
+        <FinalAgreementModal
+          onClose={() => setShowFinalAgreementModal(false)}
+          role={ROLE.BUSINESS_EMPLOYER}
+          selectedUser={selectedUser}
+        />
       )}
 
       {showHireModal && (

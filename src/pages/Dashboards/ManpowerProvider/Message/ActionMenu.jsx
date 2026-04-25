@@ -1,7 +1,16 @@
 import PropTypes from 'prop-types';
 import { ROLE } from '../../../../../utils/role';
 
-const ActionMenu = ({ isOpen, onToggle, onReportClick, onAcceptClick, onDeclineClick, icons, userRole }) => {
+const ActionMenu = ({
+  isOpen,
+  onToggle,
+  onReportClick,
+  onAcceptClick,
+  onDeclineClick,
+  icons,
+  userRole,
+  showAcceptOption = true,
+}) => {
 
   const isEmployer = userRole === ROLE.BUSINESS_EMPLOYER || userRole === ROLE.INDIVIDUAL_EMPLOYER;
   const reportLabel = isEmployer ? "Report Employer" : "Report Applicant";
@@ -35,12 +44,14 @@ const ActionMenu = ({ isOpen, onToggle, onReportClick, onAcceptClick, onDeclineC
                 {reportLabel}
               </li>
 
-              <li
-                className="px-4 py-2 hover:bg-gray-100 cursor-pointer border-b border-[#D8D9DB] text-[#55C463]"
-                onClick={handleAcceptClick}
-              >
-                {acceptLabel}
-              </li>
+              {showAcceptOption && (
+                <li
+                  className="px-4 py-2 hover:bg-gray-100 cursor-pointer border-b border-[#D8D9DB] text-[#55C463]"
+                  onClick={handleAcceptClick}
+                >
+                  {acceptLabel}
+                </li>
+              )}
 
               <li
                 className="px-4 py-2 hover:bg-gray-100 text-red-600 cursor-pointer"
@@ -64,6 +75,7 @@ ActionMenu.propTypes = {
   onAcceptClick: PropTypes.func,
   onDeclineClick: PropTypes.func,
   icons: PropTypes.object.isRequired,
+  showAcceptOption: PropTypes.bool,
 };
 
 export default ActionMenu;
