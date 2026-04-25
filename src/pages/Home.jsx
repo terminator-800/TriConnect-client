@@ -75,7 +75,7 @@ const Home = () => {
       </section>
 
       {/* WHY CHOOSE TRICONNECT */}
-      <section id="why_us" className="my-30 slide-left-on-scroll h-screen overflow-clip max-[1024px]:h-auto">
+      <section id="why_us" className="my-30 slide-left-on-scroll h-auto overflow-clip">
         <h1 className="text-5xl font-bold text-center sm:text-4xl md:text-5xl leading-tight">
           WHY CHOOSE <span className="text-[#003479]">TriConnect</span>{' '}
         </h1>
@@ -175,99 +175,6 @@ const Home = () => {
                   </p>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* STARTER / PREMIUM */}
-      <section id=''>
-        <div
-          className="flex flex-col rounded-full justify-center items-center text-center slide-left-on-scroll
-        xl:h-[70vh] 
-        lg:h-[70vh] 
-        md:h-[70vh] 
-        sm:h-[70vh]
-        max-[769px]:h-screen
-        max-[769px]:bg-[radial-gradient(circle_at_50%_50%,var(--color-cyan-200)_0%,transparent_80%)]
-        2xl:bg-[radial-gradient(circle_at_50%_20%,var(--color-cyan-200)_0%,transparent_50%)]
-        xl:bg-[radial-gradient(circle_at_50%_40%,var(--color-cyan-200)_0%,transparent_60%)]
-        lg:bg-[radial-gradient(circle_at_50%_40%,var(--color-cyan-200)_0%,transparent_60%)]
-        md:bg-[radial-gradient(circle_at_50%_40%,var(--color-cyan-200)_0%,transparent_60%)]
-        sm:bg-[radial-gradient(circle_at_50%_40%,var(--color-cyan-200)_0%,transparent_60%)]"
-        >
-          <h1 className="font-bold text-xl">Title</h1>
-
-          <div
-            className="flex 
-          xl:gap-50 
-          lg:gap-40 
-          md:gap-30 
-          sm:gap-20 
-          mt-20
-          max-[641px]:flex-col
-          max-[769px]:gap-5
-          "
-          >
-            {/* CARD 1 */}
-            <div className="w-70 bg-white rounded-lg text-left px-10 py-5 shadow-[4px_4px_10px_rgba(0,0,0,0.15)]">
-              <h1 className="font-semibold my-2">Starter</h1>
-              <h1 className="text-[#5ED1D6] text-2xl">₱0 /month</h1>
-              <h1 className="my-2 text-[#666666]">Features Included</h1>
-              <div className="flex">
-                <img src={icons.check} alt="" />
-                <span className="text-[#666666]">text</span>
-              </div>
-              <div className="flex">
-                <img src={icons.check} alt="" />
-                <span className="text-[#666666]">text</span>
-              </div>
-              <div className="flex">
-                <img src={icons.check} alt="" />
-                <span className="text-[#666666]">text</span>
-              </div>
-              <div className="flex">
-                <img src={icons.check} alt="" />
-                <span className="text-[#666666]">text</span>
-              </div>
-              <div className="flex">
-                <img src={icons.check} alt="" />
-                <span className="text-[#666666]">text</span>
-              </div>
-
-              <button className="mx-auto block rounded-xl bg-[#EFF2F9] text-[#666666] px-15 py-1 mt-5 cursor-pointer shadow-[4px_4px_10px_rgba(0,0,0,0.15)]">
-                Join Now
-              </button>
-            </div>
-
-            {/* CARD 2 */}
-            <div className="w-70 bg-white rounded-lg text-left px-10 py-5 shadow-[4px_4px_10px_rgba(0,0,0,0.15)]">
-              <h1 className="font-semibold my-2">Premium</h1>
-              <h1 className=" my-2 text-[#5ED1D6] text-2xl">₱0 /month</h1>
-              <h1 className="my-2 text-[#666666]">Features Included</h1>
-              <div className="flex">
-                <img src={icons.check} alt="" />
-                <span className="text-[#666666]">text</span>
-              </div>
-              <div className="flex">
-                <img src={icons.check} alt="" />
-                <span className="text-[#666666]">text</span>
-              </div>
-              <div className="flex">
-                <img src={icons.check} alt="" />
-                <span className="text-[#666666]">text</span>
-              </div>
-              <div className="flex">
-                <img src={icons.check} alt="" />
-                <span className="text-[#666666]">text</span>
-              </div>
-              <div className="flex">
-                <img src={icons.check} alt="" />
-                <span className="text-[#666666]">text</span>
-              </div>
-              <button className="mx-auto block rounded-xl bg-[#EFF2F9] text-[#666666] px-6 py-2 mt-5 cursor-pointer shadow-[4px_4px_10px_rgba(0,0,0,0.15)] whitespace-nowrap text-center">
-                Upgrade Premium
-              </button>
             </div>
           </div>
         </div>
