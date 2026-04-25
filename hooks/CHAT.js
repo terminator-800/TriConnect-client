@@ -17,6 +17,7 @@ export const useConversations = (role) => {
     },
 
     staleTime: 1000 * 60,
+    refetchOnMount: 'always',
     refetchOnWindowFocus: 'always',
   });
 };

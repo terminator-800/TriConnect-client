@@ -7,12 +7,14 @@ import ActionMenu from './ActionMenu';
 import HireApplicant from '../../../../components/HireApplicant/HireApplicant'; 
 import RejectApplicant from '../../../../components/HireApplicant/RejectApplicant';
 import icons from '../../../../assets/svg/Icons';
+import FinalAgreementModal from '../../../../components/FinalAgreement/FinalAgreementModal';
 
 const ChatHeader = ({ selectedUser } ) => {
   const [showReportModal, setShowReportModal] = useState(false);
   const [showActionMenu, setShowActionMenu] = useState(false);
   const [showHireModal, setShowHireModal] = useState(false); 
   const [showRejectModal, setShowRejectModal] = useState(false);
+  const [showFinalAgreementModal, setShowFinalAgreementModal] = useState(false);
   
   const { data: reportedUsers = [] } = useReportedUsers(ROLE.INDIVIDUAL_EMPLOYER);
 
@@ -75,14 +77,23 @@ const ChatHeader = ({ selectedUser } ) => {
             </div>
           </div>
 
-          <ActionMenu
-            isOpen={showActionMenu}
-            onToggle={setShowActionMenu}
-            onReportClick={handleReportClick}
-            onAcceptClick={handleAcceptClick}
-            onDeclineClick={handleDeclineClick}
-            icons={icons}
-          />
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => setShowFinalAgreementModal(true)}
+              className="px-3 py-1.5 border border-[#2563EB] bg-white text-[#2563EB] text-sm font-medium cursor-pointer hover:bg-[#2563EB]/10 transition-colors"
+            >
+              Set Final Agreement
+            </button>
+            <ActionMenu
+              isOpen={showActionMenu}
+              onToggle={setShowActionMenu}
+              onReportClick={handleReportClick}
+              onAcceptClick={handleAcceptClick}
+              onDeclineClick={handleDeclineClick}
+              icons={icons}
+            />
+          </div>
         </>
       ) : (
         <div className="text-gray-400 text-center">Select a user to start chatting</div>
@@ -95,6 +106,10 @@ const ChatHeader = ({ selectedUser } ) => {
           onClose={() => setShowReportModal(false)}
           role={ROLE.INDIVIDUAL_EMPLOYER}
         />
+      )}
+
+      {showFinalAgreementModal && (
+        <FinalAgreementModal onClose={() => setShowFinalAgreementModal(false)} />
       )}
 
       {showHireModal && (

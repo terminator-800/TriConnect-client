@@ -3,10 +3,12 @@ import { useUserProfile } from '../../../../../hooks/useUserProfiles';
 import { useState } from 'react';
 import { ROLE } from '../../../../../utils/role';
 import VerificationStatus from '../../../../pages/Dashboards/BusinessEmployer/VerificationForm/VerificationStatus';
-import MessageAgency from '../../../../components/MessageAgency';
 import Pagination from '../../../../components/Pagination';
 import Sidebar from '../Sidebar';
 import Form from '../../../../pages/Dashboards/BusinessEmployer/VerificationForm/Form';
+import { LocationIcon } from '../../../../assets/icon2/icon2';
+import RequestManpowerModal from '../../../../components/FindWorkers/RequestManpowerModal';
+import RequestSuccessModal from '../../../../components/FindWorkers/RequestSuccessModal';
 
 const FindAgency = () => {
   const {
@@ -33,6 +35,8 @@ const FindAgency = () => {
   const [showApply, setShowApply] = useState(false);
   const [selectedAgency, setSelectedAgency] = useState(null);
   const [showForm, setShowForm] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [successWorkerDetails, setSuccessWorkerDetails] = useState(null);
 
   const openApply = (agency) => {
     setSelectedAgency(agency);
@@ -69,13 +73,17 @@ const FindAgency = () => {
       <Sidebar />
 
       {showApply && selectedAgency && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <MessageAgency
-            receiver={selectedAgency}
-            role={ROLE.BUSINESS_EMPLOYER}
-            onClose={() => setShowApply(false)}
-          />
-        </div>
+        <RequestManpowerModal
+          isOpen={showApply}
+          onClose={() => setShowApply(false)}
+          worker={selectedAgency}
+          role={ROLE.BUSINESS_EMPLOYER}
+          onSuccessClose={(workerDetails) => {
+            setShowApply(false);
+            setSuccessWorkerDetails(workerDetails);
+            setShowSuccessModal(true);
+          }}
+        />
       )}
 
       {showForm && (
@@ -93,79 +101,85 @@ const FindAgency = () => {
         />
       )}
 
-      <div className="relative min-h-screen bg-linear-to-b from-white to-[#00C2CB] pl-70 pr-10 pt-30 flex flex-col">
+      <div className="relative min-h-screen bg-linear-to-b from-white to-[#00C2CB] px-5 pt-30 ml-60 max-[1279px]:ml-60 max-[1024px]:ml-0">
         {profileData?.is_verified ? (
           <>
-            <div className="bg-white shadow-md py-6 px-10 mb-8">
+            <div className="bg-white shadow-md py-6 px-10 mb-10">
               <div className="flex flex-col">
                 <h1 className="text-2xl font-bold text-[#2563EB]">Search for Manpower Provider</h1>
                 <p>Find agencies to help with your recruitment needs</p>
               </div>
             </div>
 
-            <div className="grow">
-              {isAgenciesLoading ? (
-                <p className="mt-10 text-lg">Loading agencies...</p>
-              ) : agencies.length === 0 ? (
-                <p className="mt-10 text-lg italic text-gray-500">No manpower providers found.</p>
-              ) : (
-                <>
-                  <div className="grid grid-cols-2 gap-6 mt-15">
+            {isAgenciesLoading ? (
+              <p className="mt-10 text-lg">Loading agencies...</p>
+            ) : agencies.length === 0 ? (
+              <p className="mt-10 text-lg italic text-gray-500 text-center">No manpower providers found.</p>
+            ) : (
+              <>
+                <div className="flex flex-col min-h-[65vh]">
+                  <div className="flex flex-col gap-5 drop-shadow-2xl">
                     {currentAgencies.map((agency) => (
                       <div
                         key={agency.agency_id}
-                        className="flex flex-col bg-white border border-gray-300 p-6 shadow-md"
+                        onClick={() => openApply(agency)}
+                        className="flex flex-col bg-white p-6 shadow-md cursor-pointer hover:bg-gray-50 transition"
                       >
-                        <div className="flex items-center gap-4">
-                          {/* PROFILE */}
-                          <div className="w-14 h-14 rounded-full overflow-hidden shrink-0">
+                        <div className="flex items-start max-[425px]:items-center gap-4 md:flex-row flex-col">
+                          <div className="w-14 h-14 rounded-sm overflow-hidden shrink-0">
                             {agency.profile ? (
                               <img
                                 src={agency.profile}
                                 alt={agency.agency_name || 'Agency'}
-                                className="w-full h-full object-cover rounded-full"
+                                className="w-full h-full object-cover"
                               />
                             ) : (
-                              <div className="w-14 h-14 rounded-full bg-gray-300 flex items-center justify-center text-lg font-bold text-gray-800">
+                              <div className="w-14 h-14 bg-gray-300 flex items-center justify-center text-lg font-bold text-gray-800">
                                 {(agency.agency_name || '').substring(0, 2).toUpperCase()}
                               </div>
                             )}
                           </div>
 
-                          <h2 className="text-xl font-semibold">{agency.agency_name}</h2>
+                          <div className="text-left">
+                            <h2 className="text-xl font-semibold">{agency.agency_name}</h2>
+                            <span className="text-[#828282]">{agency.agency_services}</span>
+                          </div>
                         </div>
 
-                        <div className="flex justify-between mt-6">
-                          <button
-                            onClick={() => openApply(agency)}
-                            className="bg-blue-900 text-white px-10 py-1 cursor-pointer"
-                          >
-                            Message
-                          </button>
-                          <button className="border border-gray-400 px-10 py-1 cursor-pointer">
+                        <div className="flex justify-between mt-6 xl:flex-row md:flex-row sm:flex-row flex-col gap-5">
+                          <div className="text-[#828282] flex gap-2">
+                            <LocationIcon />
+                            <span>{agency.agency_address}</span>
+                          </div>
+
+                          <button className="bg-[#2563EB] text-white xl:px-10 md:px-10 sm:px-10 px-2 py-1 cursor-pointer">
                             View Profile
                           </button>
                         </div>
                       </div>
                     ))}
                   </div>
-                </>
-              )}
-            </div>
+                </div>
+                <div className="pb-10 flex justify-center">
+                  <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    setCurrentPage={setCurrentPage}
+                  />
+                </div>
+              </>
+            )}
 
-            {/* Pagination ALWAYS stays at bottom */}
-            <div className="mt-10 mb-10">
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                setCurrentPage={setCurrentPage}
-              />
-            </div>
+            <RequestSuccessModal
+              isOpen={showSuccessModal}
+              onClose={() => setShowSuccessModal(false)}
+              workerDetails={successWorkerDetails}
+            />
           </>
         ) : (
           <div className="bg-white shadow-md p-6 w-full max-w-full border border-gray-300 px-20">
             <VerificationStatus profileData={profileData} openForm={openForm} />
-          </div>
+            </div>
         )}
       </div>
     </>

@@ -6,7 +6,6 @@ export const BusinessRequestCard = (msg, isSender) => {
     // job_title,
     employer_name,
     // company_name,
-    sender_name,
     phone_number,
     email_address,
     project_location,
@@ -26,7 +25,6 @@ let formattedStartDate = start_date;
     // !job_title ||
     !employer_name ||
     // !company_name ||
-    !sender_name ||
     !phone_number ||
     !email_address ||
     !project_location ||

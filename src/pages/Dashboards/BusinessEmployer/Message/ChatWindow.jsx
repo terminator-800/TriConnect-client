@@ -131,9 +131,7 @@ const ChatWindow = ({ selectedUser }) => {
                     {/* APPLICATION CARD - Only if it has required application fields */}
                     {msg.message_type === 'apply' && msg.resume && msg.cover_letter  ? (
                         ApplicationCard(msg, isSender)
-                      ) : msg.message_type === 'request' && msg.job_title && !msg.company_name ? (
-                        IndividualRequestCard(msg, isSender)
-                      ) : msg.message_type === 'request' && msg.job_title && msg.email_address ? (
+                      ) : msg.message_type === 'request' && msg.employer_name ? (
                         BusinessRequestCard(msg, isSender)
                       ) : msg.message_type === 'hire' && msg.job_title && msg.start_date && msg.end_date && msg.hire_message ? (
                         <HireApplicantCard msg={msg} isSender={isSender} />

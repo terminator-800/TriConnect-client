@@ -3,12 +3,11 @@ import { useUserProfile } from '../../../../../hooks/useUserProfiles';
 import { useState } from 'react';
 import { ROLE } from '../../../../../utils/role';
 import VerificationStatus from '../../../../pages/Dashboards/IndividualEmployer/Verification Form/VerificationStatus';
-import MessageAgency from '../../../../components/MessageAgency';
 import Pagination from '../../../../components/Pagination';
 import Sidebar from '../Sidebar';
 import Form from '../../../../pages/Dashboards/IndividualEmployer/Verification Form/Form';
 import { LocationIcon } from '../../../../assets/icon2/icon2';
-import RequestIndividualModal from './RequestManpowerModal';
+import RequestManpowerModal from '../../../../components/FindWorkers/RequestManpowerModal';
 import RequestSuccessModal from '../../../../components/FindWorkers/RequestSuccessModal';
 
 const FindAgency = () => {
@@ -101,10 +100,11 @@ const FindAgency = () => {
       <Sidebar />
 
       {showApply && selectedAgency && (
-        <RequestIndividualModal
+        <RequestManpowerModal
           isOpen={showApply}
           onClose={() => setShowApply(false)}
           worker={selectedAgency}
+          role={ROLE.INDIVIDUAL_EMPLOYER}
           onSuccessClose={(workerDetails) => {
             setShowApply(false);
             setSuccessWorkerDetails(workerDetails);
