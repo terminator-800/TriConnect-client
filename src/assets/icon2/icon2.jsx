@@ -1,3 +1,8 @@
+import jobseekerAdminDashboard from '../svg/jobseeker_admin_dashboard.svg';
+import employerAdminDashboard from '../svg/employer_admin_dashboard.svg';
+import agenciesAdminDashboard from '../svg/agencies_admin_dashboard.svg';
+import hiringSuccessRateAdminDashboard from '../svg/hiring_success_rate_admin_dashboard.svg';
+
 export const UserIcon = ({ size = 24, className = "" }) => (
   <svg
     viewBox="0 0 24 24"
@@ -10,6 +15,50 @@ export const UserIcon = ({ size = 24, className = "" }) => (
     <circle cx="12" cy="7" r="4" />
     <path d="M12 13c-4.5 0-8 2.5-8 5.5V21h16v-2.5c0-3-3.5-5.5-8-5.5z" />
   </svg>
+);
+
+// used by admin dashboard summary card
+export const JobseekerAdminDashboardIcon = ({ size = 24, className = '' }) => (
+  <img
+    src={jobseekerAdminDashboard}
+    alt="Job seeker dashboard icon"
+    width={size}
+    height={size}
+    className={className}
+  />
+);
+
+// used by admin dashboard summary card
+export const EmployerAdminDashboardIcon = ({ size = 24, className = '' }) => (
+  <img
+    src={employerAdminDashboard}
+    alt="Employer dashboard icon"
+    width={size}
+    height={size}
+    className={className}
+  />
+);
+
+// used by admin dashboard summary card
+export const AgenciesAdminDashboardIcon = ({ size = 24, className = '' }) => (
+  <img
+    src={agenciesAdminDashboard}
+    alt="Agencies dashboard icon"
+    width={size}
+    height={size}
+    className={className}
+  />
+);
+
+// used by admin dashboard summary card
+export const HiringSuccessRateAdminDashboardIcon = ({ size = 24, className = '' }) => (
+  <img
+    src={hiringSuccessRateAdminDashboard}
+    alt="Hiring success rate dashboard icon"
+    width={size}
+    height={size}
+    className={className}
+  />
 );
 
 export const BriefcaseIcon = ({ size = 24, color = "currentColor", className = "" }) => (

@@ -1,0 +1,250 @@
+const escapeHtml = (value) =>
+  String(value ?? '')
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+
+export const generateAdminDashboardReportHtml = ({
+  reportDate,
+  period,
+  summary,
+  hireRate,
+  hires,
+  employers,
+}) => {
+  const fmtTrend = (value) => {
+    const n = Number(value || 0);
+    if (n > 0) return `+${n}% vs previous`;
+    if (n < 0) return `${n}% vs previous`;
+    return '0% vs previous';
+  };
+
+  const hiresRows = (hires || [])
+    .map(
+      (hire) => `
+        <tr>
+          <td>${escapeHtml(hire?.name || '—')}</td>
+          <td>${escapeHtml(hire?.company || '—')}</td>
+          <td>${escapeHtml(hire?.position || '—')}</td>
+          <td>${escapeHtml(hire?.date || '—')}</td>
+        </tr>
+      `
+    )
+    .join('');
+
+  const enrolledRows = (employers || [])
+    .map(
+      (company) => `
+        <tr>
+          <td>${escapeHtml(company?.name || '—')}</td>
+          <td>${escapeHtml(company?.type || '—')}</td>
+          <td>${escapeHtml(company?.active_jobs ?? '—')}</td>
+        </tr>
+      `
+    )
+    .join('');
+
+  return `
+    <!doctype html>
+    <html>
+      <head>
+        <meta charset="utf-8" />
+        <title>TriConnect Admin Dashboard Report</title>
+        <style>
+          * { box-sizing: border-box; }
+          body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #1f2937;
+            background: #ffffff;
+          }
+          .top-line {
+            height: 24px;
+            background: #2563eb;
+          }
+          .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 32px 28px;
+          }
+          .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid #d1d5db;
+            padding-bottom: 14px;
+          }
+          .brand-title {
+            margin: 0;
+            font-size: 46px;
+            line-height: 1.1;
+            color: #0f2b56;
+            font-weight: 700;
+          }
+          .brand-subtitle {
+            margin-top: 6px;
+            color: #4b5563;
+            font-size: 24px;
+          }
+          .meta {
+            text-align: right;
+            color: #4b5563;
+            font-size: 14px;
+            line-height: 1.6;
+          }
+          .section {
+            margin-top: 36px;
+          }
+          .section-title {
+            margin: 0 0 14px;
+            font-size: 24px;
+            font-weight: 700;
+            border-left: 5px solid #2563eb;
+            padding-left: 10px;
+            color: #1f2937;
+          }
+          .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+          }
+          .stat-card {
+            border: 1px solid #e5e7eb;
+            background: #f9fafb;
+            border-radius: 4px;
+            padding: 16px 18px;
+            min-height: 116px;
+          }
+          .stat-label {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 6px;
+          }
+          .stat-value {
+            font-size: 52px;
+            font-weight: 700;
+            color: #111827;
+            line-height: 1;
+          }
+          .stat-note {
+            margin-top: 10px;
+            color: #059669;
+            font-size: 14px;
+          }
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+          }
+          th, td {
+            text-align: left;
+            padding: 11px 12px;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 13px;
+          }
+          th {
+            background: #f3f4f6;
+            color: #374151;
+            font-weight: 700;
+          }
+          .footer {
+            margin-top: 44px;
+            text-align: center;
+            color: #9ca3af;
+            font-size: 12px;
+            line-height: 1.6;
+          }
+          @media print {
+            .container { max-width: 100%; padding: 26px 22px 18px; }
+            .brand-title { font-size: 40px; }
+            .brand-subtitle { font-size: 20px; }
+            .stat-value { font-size: 44px; }
+          }
+        </style>
+      </head>
+      <body>
+        <div class="top-line"></div>
+        <div class="container">
+          <div class="header">
+            <div>
+              <h1 class="brand-title">TriConnect</h1>
+              <div class="brand-subtitle">Admin Dashboard Report</div>
+            </div>
+            <div class="meta">
+              <div><strong>Report Date:</strong> ${escapeHtml(reportDate)}</div>
+              <div><strong>Period:</strong> ${escapeHtml(period)}</div>
+              <div><strong>Generated by:</strong> Administrator</div>
+            </div>
+          </div>
+
+          <section class="section">
+            <h2 class="section-title">Summary Statistics</h2>
+            <div class="summary-grid">
+              <div class="stat-card">
+                <div class="stat-label">Job Seekers</div>
+                <div class="stat-value">${escapeHtml(summary?.jobseekers || 0)}</div>
+                <div class="stat-note">${escapeHtml(fmtTrend(summary?.jobseekersChangePct))}</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Employers</div>
+                <div class="stat-value">${escapeHtml(summary?.employers || 0)}</div>
+                <div class="stat-note">${escapeHtml(fmtTrend(summary?.employersChangePct))}</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Agencies</div>
+                <div class="stat-value">${escapeHtml(summary?.agencies || 0)}</div>
+                <div class="stat-note">${escapeHtml(fmtTrend(summary?.agenciesChangePct))}</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Hiring Success Rate</div>
+                <div class="stat-value">${escapeHtml(`${hireRate}%`)}</div>
+                <div class="stat-note">${escapeHtml(fmtTrend(summary?.hireSuccessRateChangePct))}</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="section">
+            <h2 class="section-title">Recent Successful Hires</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Company</th>
+                  <th>Position</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${hiresRows || '<tr><td colspan="4">No successful hires yet.</td></tr>'}
+              </tbody>
+            </table>
+          </section>
+
+          <section class="section">
+            <h2 class="section-title">Enrolled Agencies/Businesses</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Company Name</th>
+                  <th>Type</th>
+                  <th>Active Jobs</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${enrolledRows || '<tr><td colspan="3">No enrolled employers yet.</td></tr>'}
+              </tbody>
+            </table>
+          </section>
+
+          <div class="footer">
+            <div>© ${new Date().getFullYear()} TriConnect. All rights reserved</div>
+            <div>This report is confidential and intended for authorized personnel only</div>
+          </div>
+        </div>
+      </body>
+    </html>
+  `;
+};
