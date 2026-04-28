@@ -9,6 +9,8 @@ import Pagination from '../../../../components/Pagination';
 import Sidebar from '../Sidebar';
 import icons from '../../../../assets/svg/Icons';
 import Form from '../VerificationForm/Form';
+import ViewProfile from '../../../../components/ViewProfile';
+import ContactApplicantLayout from '../../../../components/ContactApplicant/ContactApplicantLayout';
 
 const ViewApplicant = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,6 +24,10 @@ const ViewApplicant = () => {
   const [showForm, setShowForm] = useState(false);
   const [showRejectModal, setShowRejectModal] = useState(false);
   const [selectedApplication, setSelectedApplication] = useState(null);
+  const [showProfileModal, setShowProfileModal] = useState(false);
+  const [selectedApplicant, setSelectedApplicant] = useState(null);
+  const [showContactModal, setShowContactModal] = useState(false);
+  const [selectedContactApplicant, setSelectedContactApplicant] = useState(null);
 
   const {
     data: profileData,
@@ -124,6 +130,11 @@ const ViewApplicant = () => {
                                     setShowRejectModal(true);
                                     setOpenMenuId(null);
                                   }}
+                                  onViewProfileClick={() => {
+                                    setSelectedApplicant(applicant);
+                                    setShowProfileModal(true);
+                                    setOpenMenuId(null);
+                                  }}
                                 />
                               )}
                             </td>
@@ -174,6 +185,32 @@ const ViewApplicant = () => {
           onClose={() => {
             setShowRejectModal(false);
             setSelectedApplication(null);
+          }}
+        />
+      )}
+
+      {showProfileModal && selectedApplicant && (
+        <ViewProfile
+          applicant={selectedApplicant}
+          onMessageClick={() => {
+            setShowProfileModal(false);
+            setSelectedContactApplicant(selectedApplicant);
+            setShowContactModal(true);
+          }}
+          onClose={() => {
+            setShowProfileModal(false);
+            setSelectedApplicant(null);
+          }}
+        />
+      )}
+
+      {showContactModal && selectedContactApplicant && (
+        <ContactApplicantLayout
+          applicant={selectedContactApplicant}
+          role={ROLE.MANPOWER_PROVIDER}
+          onClose={() => {
+            setShowContactModal(false);
+            setSelectedContactApplicant(null);
           }}
         />
       )}
