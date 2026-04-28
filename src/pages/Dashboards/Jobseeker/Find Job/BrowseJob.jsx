@@ -1,4 +1,9 @@
-import { useUnappliedJobPosts } from '../../../../../hooks/useJobposts';
+import {
+  useSaveJobPost,
+  useSavedJobPosts,
+  useUnappliedJobPosts,
+  useUnsaveJobPost,
+} from '../../../../../hooks/useJobposts';
 import { useState } from 'react';
 import Pagination from '../../../../components/Pagination';
 import icons from '../../../../assets/svg/Icons';
@@ -30,10 +35,30 @@ const BrowseJob = () => {
     isLoading: loadingJobPosts,
     isError: errorJobPosts,
   } = useUnappliedJobPosts();
+  const { data: savedJobPosts = [] } = useSavedJobPosts();
+  const saveJobMutation = useSaveJobPost();
+  const unsaveJobMutation = useUnsaveJobPost();
+
+  const savedJobPostIds = new Set(savedJobPosts.map((post) => post.job_post_id));
 
   const startIndex = (currentPage - 1) * postsPerPage;
   const paginatedPosts = filteredJobPosts.slice(startIndex, startIndex + postsPerPage);
   const openForm = () => setShowForm(true);
+  const isSelectedJobSaved = selectedJobPost
+    ? savedJobPostIds.has(selectedJobPost.job_post_id)
+    : false;
+
+  const handleToggleSavedJob = async () => {
+    if (!selectedJobPost?.job_post_id) return;
+    const jobPostId = selectedJobPost.job_post_id;
+
+    if (isSelectedJobSaved) {
+      await unsaveJobMutation.mutateAsync(jobPostId);
+      return;
+    }
+
+    await saveJobMutation.mutateAsync(jobPostId);
+  };
 
   if (profileData.is_verified && profileData.employment_status === 'hired') {
     return (
@@ -276,10 +301,15 @@ const BrowseJob = () => {
                   
                   {/* SAVE JOB */}
                   <button
-                    onClick={() => setIsModalOpen(true)}
-                    className=" bg-[#6B7280] text-white cursor-pointer font-semibold px-6 md:px-10 py-2 md:py-1 hover:bg-blue-700 transition text-sm md:text-base"
+                    onClick={handleToggleSavedJob}
+                    disabled={saveJobMutation.isPending || unsaveJobMutation.isPending}
+                    className=" bg-[#6B7280] text-white cursor-pointer font-semibold px-6 md:px-10 py-2 md:py-1 hover:bg-blue-700 transition text-sm md:text-base disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    Save Job
+                    {saveJobMutation.isPending || unsaveJobMutation.isPending
+                      ? 'Saving...'
+                      : isSelectedJobSaved
+                      ? 'Unsave Job'
+                      : 'Save Job'}
                   </button>
                 </div>
               </div>

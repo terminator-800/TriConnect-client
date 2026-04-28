@@ -34,6 +34,57 @@ export const useUnappliedJobPosts = () =>
     refetchOnWindowFocus: false,
   });
 
+export const useSavedJobPosts = () =>
+  useQuery({
+    queryKey: ['savedJobPosts'],
+    queryFn: async () => {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/savedJobPosts`, {
+        withCredentials: true,
+      });
+      return response.data;
+    },
+    staleTime: 1000 * 60,
+    retry: 1,
+    refetchOnWindowFocus: false,
+  });
+
+export const useSaveJobPost = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (jobPostId) => {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/savedJobPosts`,
+        { job_post_id: jobPostId },
+        { withCredentials: true }
+      );
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['savedJobPosts'] });
+      queryClient.invalidateQueries({ queryKey: ['unappliedJobPosts'] });
+    },
+  });
+};
+
+export const useUnsaveJobPost = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (jobPostId) => {
+      const response = await axios.delete(
+        `${import.meta.env.VITE_API_URL}/savedJobPosts/${jobPostId}`,
+        { withCredentials: true }
+      );
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['savedJobPosts'] });
+      queryClient.invalidateQueries({ queryKey: ['unappliedJobPosts'] });
+    },
+  });
+};
+
 export const useJobPostsByUser = (category) =>
   useQuery({
     queryKey: ['jobPostsByUser', category],

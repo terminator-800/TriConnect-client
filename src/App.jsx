@@ -40,6 +40,7 @@ import FindWorkers from './pages/Dashboards/BusinessEmployer/Dashboard/FindWorke
 import JobseekerFindJob from './pages/Dashboards/Jobseeker/Find Job/FindJob';
 import JobseekerFindAgency from './pages/Dashboards/Jobseeker/FindAgency/FindAgency';
 import JobseekerMessage from './pages/Dashboards/Jobseeker/Message/ChatLayout';
+import JobseekerSavedJob from './pages/Dashboards/Jobseeker/Saved Job/SavedJob';
 
 // Manpower Provider
 // import ManpowerProviderFindJob from './pages/Dashboards/ManpowerProvider/FindJob/FindJob';
@@ -124,6 +125,7 @@ function App() {
             <Route path="profile/*" index element={<JobseekerProfile />} />
             <Route path="jobs" element={<JobseekerFindJob />} />
             <Route path="agencies" element={<JobseekerFindAgency />} />
+            <Route path="saved-jobs" element={<JobseekerSavedJob />} />
             <Route path="message" element={<JobseekerMessage />} />
           </Route>
 

@@ -5,7 +5,13 @@ import { ROLE } from '../../../../utils/role';
 import icons from '../../../assets/svg/Icons';
 import Navbar from '../../Navbar';
 import Feedback from '../../../components/Feedback';
-import { SignOutIcon, BrowseJobIcon, FindAgencies, MessageIcon } from '../../../assets/icon2/icon2';
+import {
+  SignOutIcon,
+  BrowseJobIcon,
+  FindAgencies,
+  MessageIcon,
+  ManageJobPostIcon,
+} from '../../../assets/icon2/icon2';
 
 const Sidebar = () => {
   const [feedbackModalVisible, setFeedbackModalVisible] = useState(false);
@@ -71,6 +77,17 @@ const Sidebar = () => {
           >
             <FindAgencies size={25}/>
             <span className="ml-3 font-medium">Find Agencies</span>
+          </li>
+
+          {/* SAVED JOBS */}
+          <li
+            className={`flex items-center p-2 cursor-pointer transition-colors duration-200
+            ${location.pathname.includes(`/${ROLE.JOBSEEKER}/saved-jobs`) ? 'bg-[#5ED1D625] text-[#2563EB]' : 'text-black'} flex
+            hover:text-[#2563EB] pl-5`}
+            onClick={() => navigate(`/${ROLE.JOBSEEKER}/saved-jobs`)}
+          >
+            <ManageJobPostIcon size={25} />
+            <span className="ml-3 font-medium">Saved Job</span>
           </li>
 
           {/* MESSAGES */}
