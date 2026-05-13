@@ -24,11 +24,15 @@ import IndividualDashboardLayout from '../src/pages/Dashboards/IndividualEmploye
 import IndividualEmployerFindAgency from './pages/Dashboards/IndividualEmployer/FindAgency/FindAgency';
 import IndividualEmployerMessage from './pages/Dashboards/IndividualEmployer/Message/ChatLayout';
 import IndividualEmployerViewApplicant from './pages/Dashboards/IndividualEmployer/ViewApplicant/ViewApplicantLayout';
+import IndividualEmployerHiredApplicant from './pages/Dashboards/IndividualEmployer/ApplicantsByStatus/HiredApplicant';
+import IndividualEmployerRejectedApplicant from './pages/Dashboards/IndividualEmployer/ApplicantsByStatus/RejectedApplicant';
 // import IndividualEmployerJobPostDetails from './pages/Dashboards/IndividualEmployer/JobPostDetails'
 
 // Business Employer
 import BusinessEmployerFindAgency from './pages/Dashboards/BusinessEmployer/FindAgency/FindAgency';
 import ViewApplicant from './pages/Dashboards/BusinessEmployer/ViewApplicant/ViewApplicantLayout';
+import BusinessEmployerHiredApplicant from './pages/Dashboards/BusinessEmployer/ApplicantsByStatus/HiredApplicant';
+import BusinessEmployerRejectedApplicant from './pages/Dashboards/BusinessEmployer/ApplicantsByStatus/RejectedApplicant';
 // import BusinessEmployerCreateJobPost from './pages/Dashboards/BusinessEmployer/JobPost/CreateJobPost';
 import BusinessEmployerManageJobPost from './pages/Dashboards/BusinessEmployer/ManageJobPost/ManageJobPost';
 // import JobPostDetails from './pages/Dashboards/BusinessEmployer/JobPostDetails';
@@ -137,6 +141,8 @@ function App() {
             <Route path="manage" element={<BusinessEmployerManageJobPost />} />
             <Route path="find-workers" element={<FindWorkers />} />
             <Route path="view" element={<ViewApplicant />} />
+            <Route path="hired" element={<BusinessEmployerHiredApplicant />} />
+            <Route path="rejected" element={<BusinessEmployerRejectedApplicant />} />
             <Route path="find" element={<BusinessEmployerFindAgency />} />
             <Route path="message" element={<BusinessEmployerMessage />} />
           </Route>
@@ -149,6 +155,8 @@ function App() {
             <Route path="manage" element={<IndividualEmployerManageJobPost />} />
             {/* <Route path="create" element={<IndividualEmployerCreateJobPost />} /> */}
             <Route path="view" element={<IndividualEmployerViewApplicant />} />
+            <Route path="hired" element={<IndividualEmployerHiredApplicant />} />
+            <Route path="rejected" element={<IndividualEmployerRejectedApplicant />} />
             <Route path="find" element={<IndividualEmployerFindAgency />} />
             <Route path="message" element={<IndividualEmployerMessage />} />
           </Route>

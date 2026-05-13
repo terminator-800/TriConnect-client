@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useLogout } from '../../../../hooks/useLogout';
 import { ROLE } from '../../../../utils/role';
-import icons from '../../../assets/svg/Icons';
 import Navbar from '../../Navbar';
 import Feedback from '../../../components/Feedback';
 import {
@@ -73,18 +72,6 @@ const Sidebar = () => {
           >
             <ViewApplicantIcon size={25}/>
             <span className="ml-3 font-medium">View Applicants</span>
-          </li>
-
-            <li
-            className={`${location.pathname.includes(`/${ROLE.MANPOWER_PROVIDER}/create`) ? 'bg-gray-500' : ''} flex`}
-          >
-            <img src={icons.find_agency} alt="" className="ml-5 w-[27px]" />
-            <button
-              // onClick={() => navigate(`/${ROLE.MANPOWER_PROVIDER}/create`)}
-              className="text-black hover:text-gray-300 ml-3 bg-transparent border-none cursor-pointer p-2 font-medium"
-            >
-              View Requests
-            </button>
           </li>
 
           <li

@@ -65,6 +65,24 @@ const Sidebar = () => {
 
           <li
             className={`flex items-center p-2 cursor-pointer transition-colors duration-200
+            ${location.pathname.includes(`/${ROLE.INDIVIDUAL_EMPLOYER}/hired`) ? 'bg-[#5ED1D625] text-[#2563EB]' : 'text-black'} hover:text-[#2563EB] pl-5`}
+            onClick={() => navigate(`/${ROLE.INDIVIDUAL_EMPLOYER}/hired`)}
+          >
+            <ViewApplicantIcon size={25} />
+            <span className="ml-3 font-medium">Hired Applicant</span>
+          </li>
+
+          <li
+            className={`flex items-center p-2 cursor-pointer transition-colors duration-200
+            ${location.pathname.includes(`/${ROLE.INDIVIDUAL_EMPLOYER}/rejected`) ? 'bg-[#5ED1D625] text-[#2563EB]' : 'text-black'} hover:text-[#2563EB] pl-5`}
+            onClick={() => navigate(`/${ROLE.INDIVIDUAL_EMPLOYER}/rejected`)}
+          >
+            <ViewApplicantIcon size={25} />
+            <span className="ml-3 font-medium">Rejected Applicant</span>
+          </li>
+
+          <li
+            className={`flex items-center p-2 cursor-pointer transition-colors duration-200
           ${location.pathname.includes(`/${ROLE.INDIVIDUAL_EMPLOYER}/find`) ? 'bg-[#5ED1D625] text-[#2563EB]' : 'text-black'} hover:text-[#2563EB] pl-5`}
             onClick={() => navigate(`/${ROLE.INDIVIDUAL_EMPLOYER}/find`)}
           >

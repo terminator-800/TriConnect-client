@@ -2,9 +2,9 @@ import { useQuery } from '@tanstack/react-query';
 import { ROLE } from '../utils/role';
 import axios from 'axios';
 
-export const useApplicants = ({ page = 1, pageSize = 10, role } = {}) =>
+export const useApplicants = ({ page = 1, pageSize = 10, role, status } = {}) =>
   useQuery({
-    queryKey: ['applicants', page, pageSize, role],
+    queryKey: ['applicants', page, pageSize, role, status || 'default'],
     queryFn: async () => {
       const endpoint =
         role === ROLE.INDIVIDUAL_EMPLOYER
@@ -14,7 +14,7 @@ export const useApplicants = ({ page = 1, pageSize = 10, role } = {}) =>
             : '/business-employer/applicants';
 
       const response = await axios.get(`${import.meta.env.VITE_API_URL}${endpoint}`, {
-        params: { page, pageSize },
+        params: { page, pageSize, ...(status ? { status } : {}) },
         withCredentials: true,
       });
       return response.data;
